@@ -18,7 +18,7 @@ const corsOptions = {
 const corsMiddleware = cors(corsOptions);
 
 app.use(cors({
-  origin: 'http://127.0.0.1:5500',
+  origin: 'https://darkgray-lobster-530765.hostingersite.com',
   methods: ['GET', 'POST'],
   credentials: true
 }));

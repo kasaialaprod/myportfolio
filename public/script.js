@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       console.log('Envoi de la requête...');
       
-      const response = await fetch('http://localhost:3001/api/contact', {
+      const response = await fetch('https://darkgray-lobster-530765.hostingersite.com/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
