@@ -2,9 +2,17 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import contactRoutes from './routes/contact.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+
+// Servir les fichiers statiques
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 console.log('EMAIL_USER:', process.env.EMAIL_USER);
 console.log('EMAIL_PASSWORD existe:', !!process.env.EMAIL_PASSWORD);
@@ -29,8 +37,9 @@ app.use(cors({
 
 
 app.get('/', (req, res) => {
-  res.send('API Node.js en ligne. Utilise POST /api/contact');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
 
 
 app.use(express.json());
