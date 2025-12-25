@@ -18,15 +18,25 @@ const corsOptions = {
 const corsMiddleware = cors(corsOptions);
 
 app.use(cors({
-  origin: 'https://darkgray-lobster-530765.hostingersite.com',
+  origin: [
+    'https://darkgray-lobster-530765.hostingersite.com',
+    'http://localhost:3000',
+    'http://127.0.0.1:5500'
+  ],
   methods: ['GET', 'POST'],
   credentials: true
 }));
 
+
+app.get('/', (req, res) => {
+  res.send('API Node.js en ligne. Utilise POST /api/contact');
+});
+
+
 app.use(express.json());
 app.use('/api', contactRoutes);
 
-const PORT = 3001;
+const PORT = process.env.PORT || 80;
 
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);

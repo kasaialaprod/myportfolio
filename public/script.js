@@ -28,11 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       console.log('Envoi de la requête...');
       
-      const response = await fetch('https://darkgray-lobster-530765.hostingersite.com/api/contact', {
+      const API_URL = 'https://darkgray-lobster-530765.hostingersite.com/api/contact';
+
+      await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({ name: formData.name, email: formData.email, message: formData.message })
       });
+
 
       console.log('Status:', response.status);
 
