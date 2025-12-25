@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opérations & Données</title>
+</head>
+<body>
+    <header>
+    <h1>Opérations & Données</h1>
+    <div >
+      Nouvelle aventure : déverrouille le pouvoir des opérations magiques, découvre les secrets des chaînes, des types et des énigmes logiques !
+    </div>
+  </header>
+
+  <div class="dialog">
+    <img src="../asset/image/link1.gif" alt="Link pixel" class="link-pic">
+    Dans cette épreuve, tu manieras toute la magie du code : comparer des reliques, additionner des rubis, déverrouiller des coffres avec les énigmes logiques… Et apprendre à demander son nom au voyageur qui visite la page&nbsp;!
+  </div>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/2147/2147787.png">Quête 1 : Les opérations de comparaison</div>
+    <ul>
+      <li>Utilise <code>==</code> pour comparer mais <code>===</code> pour être sûr que la relique est 100 % identique (type compris) !</li><br>
+      <li><code>!=</code> et <code>!==</code> pour vérifier la différence (de valeur ou de type)</li><br>
+      <li><code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code> pour les batailles de puissance</li>
+    </ul>
+    <div class="code">
+      let rubisHero = 40;<br>
+      let rubisPNJ = "40";<br><br>
+      console.log(rubisHero == rubisPNJ); // true<br>
+      console.log(rubisHero === rubisPNJ); // false <br>
+      console.log(rubisHero < 2); // false
+      console.log(rubisHero != 30); // true
+    </div>
+  </section>
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/1086/1086626.png">Quête 2 : Les opérations mathématiques & logiques</div>
+    <ul>
+      <li>Addition (<code>+</code>), soustraction (<code>-</code>), multiplication (<code>*</code>), division (<code>/</code>), reste (<code>%</code>)</li><br>
+      <li>Logique : <code>&&</code> (ET), <code>||</code> (OU), <code>!</code> (NON)</li>
+    </ul>
+    <div class="code">
+      let coeurs = 7;<br>
+      let stamina = 4;<br><br><br>
+      console.log(coeurs + stamina); // 11 <br><br>
+      console.log(coeurs > 5 && stamina > 3); // true && true = true <br><br>
+      console.log(coeurs < 5 || stamina > 3); // false || true = true
+    </div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/6082/6082646.png">Quête 3 : Manipulation des chaînes de caractères</div>
+    <ul>
+      <li>Concaténation : assemble des mots avec <code>+</code></li>
+      <li>Longueur : <code>.length</code></li>
+      <li>Transformation : <code>.toUpperCase()</code>, <code>.toLowerCase()</code></li>
+    </ul>
+    <div class="code">
+      let hero = "Link";<br><br>
+      console.log("Nom du héros : " + hero);<br>
+      console.log(hero.length); // 4 <br>
+      console.log(hero.toUpperCase()); // "LINK"
+    </div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/8672/8672447.png">Quête 4 : Assignations et entrées utilisateur</div>
+    <ul>
+      <li>Assignation : utiliser <code>=</code> pour donner une valeur</li>
+      <li>Entrées utilisateur simples : <code>prompt()</code></li>
+      <li>Entrées complexes : via des formulaires HTML + JS</li>
+    </ul>
+    <div class="code">
+      event.preventDefault(); // Annule le reload de la page<br><br>
+      let nom = document.getElementById('nom').value;<br><br>
+      let messageDeBienvenue = document.getElementById('entréeUtilisateur');<br><br>
+      messageDeBienvenue.textContent = "Bienvenu " + nom;
+    </div>
+    <form onsubmit="welcomeHero(event)">
+      <label for="heroName">Entre ton nom :</label>
+      <input id="heroName" name="heroName" type="text" required>
+      <button class="zelda-btn" type="submit">Valider</button>
+    </form>
+    <div id="user-response"></div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/746/746928.png">Quête 5 : Les types de données</div>
+    <ul>
+      <li><code>Number</code> : nombre (entier ou décimal)</li>
+      <li><code>String</code> : chaîne de caractères</li>
+      <li><code>Boolean</code> : vrai ou faux</li>
+      <li><code>Array</code> : liste d'objets</li>
+      <li><code>Object</code> : caractéristiques d’un objet (ex : héros avec force, vie…)</li>
+    </ul>
+    <div class="code">
+      let vie = 18; // Number<br><br>
+      let nom = "Zelda"; // String<br><br>
+      let estHylien = true; // Boolean<br><br>
+      let inventaire = ["épée", "potion", "rubis"]; // Array<br><br>
+      let heros = { nom: "Link", coeurs: 9, sagesse: 14 }; // Object
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,158 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2d1b4e 100%);
+      color: #e8eaf6;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 50% 50%, white, transparent),
+        radial-gradient(1px 1px at 80% 10%, white, transparent),
+        radial-gradient(2px 2px at 90% 60%, white, transparent),
+        radial-gradient(1px 1px at 33% 80%, white, transparent);
+      background-size: 200% 200%;
+      background-position: 0% 0%;
+      animation: stars 120s linear infinite;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes stars {
+      from { background-position: 0% 0%; }
+      to { background-position: 100% 100%; }
+    }
+    header {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 60px 20px 40px 20px;
+      background: rgba(10, 14, 39, 0.6);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    header h1 {
+      font-size: 48px;
+      font-weight: 600;
+      background: linear-gradient(90deg, #5fc9f8, #b084ff, #ff6bcb);
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
+    }
+    header p {
+      font-size: 18px;
+      color: #a8b2d1;
+      font-weight: 300;
+    }
+    main {
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px 60px 20px;
+    }
+    .island {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .island:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 70px rgba(95, 201, 248, 0.2);
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #5fc9f8;
+      margin-bottom: 20px;
+    }
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #b084ff;
+      margin-top: 25px;
+      margin-bottom: 12px;
+    }
+    p, li {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #c5cae9;
+      margin-bottom: 12px;
+    }
+    ul {
+      margin-left: 25px;
+      margin-bottom: 20px;
+    }
+    code {
+      background: rgba(95, 201, 248, 0.1);
+      color: #5fc9f8;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-family: 'SF Mono', 'Monaco', monospace;
+      font-size: 14px;
+    }
+    .code-block {
+      background: rgba(10, 14, 39, 0.8);
+      border: 1px solid rgba(95, 201, 248, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: 'SF Mono', 'Monaco', monospace;
+      font-size: 14px;
+      color: #5fc9f8;
+      overflow-x: auto;
+      position: relative;
+      line-height: 1.6;
+    }
+    .code-block::before {
+      content: 'Swift';
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: linear-gradient(90deg, #5fc9f8, #b084ff);
+      color: #0a0e27;
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .output {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(176, 132, 255, 0.3);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 10px;
+      font-family: 'SF Mono', 'Monaco', monospace;
+      font-size: 13px;
+      color: #b084ff;
+    }
+    .output::before {
+      content: '▶ Output';
+      display: block;
+      color: #ff6bcb;
+      font-size: 11px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    strong {
+      color: #fff;
+    }

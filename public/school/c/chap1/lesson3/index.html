@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctions et pointeurs</title>
+</head>
+<body>
+    <header>
+        Fonctions et pointeurs
+    </header>
+
+  <main>
+    <h2>1. Fonction : définition & appel</h2>
+    <ul>
+      <li>Une fonction permet de <b>réutiliser</b> et organiser ton code</li>
+      <li>Elle possède un <b>type de retour</b>, un nom, des paramètres éventuels</li>
+    </ul>
+    <div class="code">
+        // "int" = type de retour <br><br>
+        int somme(int a, int b) { <br>
+        return a + b;<br>
+        }<br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;int x = somme(4, 7);<br>
+        &nbsp;&nbsp;printf("Résultat : %d\n", x);<br>
+        &nbsp;&nbsp;return 0;<br>
+        }<br>
+    </div>
+    <div class="console">
+      Résultat : 11
+    </div>
+    <h2>2. Paramètres et retour de fonction</h2>
+    <ul>
+      <li>Les paramètres transmettent des valeurs à la fonction</li>
+      <li>Le mot-clé <b>return</b> renvoie la valeur finale au programme</li>
+      <li>Le type avant le nom de la fonction = le type retourné (<code>void</code> si rien)</li>
+    </ul>
+    <div class="code">
+        // Fonction sans retour, avec paramètres : <br><br>
+        void bonjour(char nom[]) {<br>
+        &nbsp;&nbsp;printf("Bienvenue %s\n", nom);<br>
+        }<br>
+    </div>
+    <div class="code">
+        // Fonction avec retour et paramètre : <br><br>
+        float carre(float x) {<br>
+        &nbsp;&nbsp;return x * x; // retourne x au carré<br>
+        }<br>
+    </div>
+    <h2>3. Les pointeurs : adresser la mémoire</h2>
+    <ul>
+      <li>Un <b>pointeur</b> stocke l’<b>adresse</b> d’une variable en mémoire.</li>
+      <li>Déclaration : <code>int *ptr;</code> (<b>ptr</b> pointe vers un int)</li>
+      <li>Utilisation :
+        <ul>
+          <li><code>&amp;x</code> = adresse de x</li>
+          <li><code>*ptr</code> = valeur “pointée”, obtenue via l'adresse</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="code">
+        int x = 10;<br>
+        int *p;<br>
+        p = &amp;x; // p pointe vers x<br>
+        printf("%d\n", *p); // affiche la valeur pointée (10)<br>
+    </div>
+    <br>
+    <p>Pour illustrer le principe de poiteur avec un exemple un peut plus avancé :</p>
+    <code>Sans pointeur :</code>
+    <div class="code">
+        void ajouteUn(int n) {<br>
+        &nbsp;&nbsp;n = n + 1; // ne change que la copie <br>
+        }<br><br>
+        int main() {<br>
+        &nbsp;&nbsp;int score = 5;<br>
+        &nbsp;&nbsp;ajouteUn(score);<br>
+        &nbsp;&nbsp;printf("%d\n", score); // 5, pas 6<br>
+        }<br>
+    </div>
+    <p>La fonction ne modifie pas la variable score car elle travaille sur une copie de score dans un nouveau int appelé n. Cela signifie que seul n est modifié, pas score.</p><br>
+    <code>Avec pointeur :</code>
+    <br>
+    <div class="code">
+        void ajouteUn(int *n) {<br>
+        &nbsp;&nbsp;*n = *n + 1; // modifie la vraie variable<br>
+        }<br><br>
+
+        int main() {<br>
+        &nbsp;&nbsp;int x = 5;<br>
+        &nbsp;&nbsp;ajouteUn(&x);<br>
+        &nbsp;&nbsp;printf("%d\n", x);<br>
+        &nbsp;&nbsp;return 0;<br>
+        }
+    </div>
+    <p>En utilisant un pointeur, la fonction peut accéder et modifier la variable originale en mémoire. En passant l'adresse de score à la fonction, elle peut modifier directement la valeur stockée à cette adresse.</p>
+
+    <h2>4. Utilité des pointeurs : modification & passage par référence</h2>
+    <ul>
+      <li>Grâce aux pointeurs, tu peux <b>modifier une variable dans une fonction</b></li>
+      <li>On envoie l'<b>adresse</b> à la fonction, et elle peut modifier “en place”</li>
+    </ul>
+    <div class="code">
+        void ajouteUn(int *n) {<br>
+        &nbsp;&nbsp;*n = *n + 1;  // modifie la vraie variable<br>
+        }<br><br>
+
+        int main() {<br>
+        &nbsp;&nbsp;int score = 5;<br>
+        &nbsp;&nbsp;ajouteUn(&amp;score);<br>
+        &nbsp;&nbsp;printf("%d\n", score); // affiche 6<br>
+        }<br>
+    </div>
+    <div class="console">
+      6
+    </div>
+  </main>
+</body>
+</html>

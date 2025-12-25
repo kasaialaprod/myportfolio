@@ -1,0 +1,75 @@
+body {
+      background: #181a20;
+      color: #b6dbfa;
+      font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+      margin: 0;
+      padding: 0 0 40px 0;
+    }
+    header {
+      background: #232631;
+      color: #7be0b5;
+      padding: 32px 12px 17px 12px;
+      text-align: center;
+      font-size: 32px;
+      font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+      letter-spacing: 2px;
+      border-bottom: 2px solid #7be0b5;
+      text-shadow: 0 2px 40px #11778880;
+    }
+    main {
+      max-width: 800px;
+      margin: 38px auto 0 auto;
+      background: #202126;
+      border-radius: 11px;
+      box-shadow: 0 2px 22px #000c  ;
+      border: 2px solid #232631;
+      padding: 18px 34px 29px 34px;
+    }
+    h2 {
+      color: #7be0b5;
+      margin-top: 17px;
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+    h3 {
+      color: #437fd2;
+      font-size: 18px;
+      margin-top: 15px;
+    }
+    ul {
+      color: #cdd8e2;
+      font-size: 15px;
+      margin-left: 22px;
+    }
+    .code {
+      background: #11141b;
+      color: #39f5c0;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      border-left: 5px solid #437fd2;
+      margin: 14px 0 26px 0;
+      padding: 16px 20px 16px 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 12px #11141b66;
+      word-break: break-all;
+      line-height: 1.4em;
+    }
+    .console {
+      background: #191b1f;
+      color: #98fc55;
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      border-left: 5px solid #7be0b5;
+      margin: 6px 0 14px 0;
+      padding: 12px 18px 12px 18px;
+      border-radius: 3px;
+      letter-spacing: 1px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    @media (max-width: 700px) {
+      main { padding: 12px 4vw;}
+      header { font-size: 23px; padding: 19px 2vw; }
+      .code, .console {font-size: 13px; padding: 10px 6px;}
+    }

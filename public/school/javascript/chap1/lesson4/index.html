@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipule le DOM & Maîtrise les Événements</title>
+</head>
+<body>
+    <header>
+    <h1>Manipule le DOM & Maîtrise les Événements</h1>
+    <div>
+    Magie Sheikah : change, crée, détruis et réagis à chaque souffle du jeu web !
+    </div>
+  </header>
+
+  <div class="dialog">
+    <img src="../asset/image/link1.gif" alt="Link pixel" class="link-pic">
+    « Le DOM est la carte d’Hyrule : chaque action JavaScript réinvente le paysage, chaque évènement crée une aventure unique. Deviens maître des mystères du web vivant ! »
+  </div>
+
+  <section>
+    <div class="quest">Approfondir : Modifier le style en direct</div>
+    <ul>
+      <li>Le DOM permet de changer le <b>style</b> des objets HTML comme un costume dans le jeu !</li>
+      <li>Utilise <code>.style</code> pour adapter la couleur, la taille, la bordure, etc.</li>
+    </ul>
+    <div class="code">
+        document.getElementById("heros").style.backgroundColor = "#60e6da";<br><br>
+        document.getElementById("heros").style.border = "3px solid #253751";<br><br>
+        document.getElementById("heros").style.color = "#253751";
+    </div>
+    <div id="heros">
+      Je suis Link dans ma tunique jaune d'Or !
+      <button class="mini-btn" onclick="changeOutfit()">Changer ma tenue</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="quest">Créer & Supprimer des éléments</div>
+    <ul>
+      <li>Créer une épée magique avec <code>document.createElement()</code></li>
+      <li>Ajouter un élément au DOM via <code>appendChild()</code> ou <code>append()</code></li>
+      <li>Supprimer un méchant ou un objet avec <code>remove()</code></li>
+    </ul>
+    <div class="code">
+        let coffre = document.createElement("div");<br><br><br>
+        coffre.textContent = "💎 Coffre secret !";<br><br>
+        coffre.style.background = "#e4ecd0";<br><br>
+        document.body.appendChild(coffre);<br><br>
+        coffre.remove(); // Pour le supprimer
+    </div>
+    <button class="mini-btn" onclick="epee()">Ajouter une épée</button>
+    <div id="zone-jeu"></div>
+  </section>
+
+  <section>
+    <div class="quest">Les Événements : la magie de l’interactif</div>
+    <ul>
+      <li>Un <strong>événement</strong> est une action (clic, touche, mouvement…) qui déclenche du code</li><br>
+      <li><code>addEventListener()</code> permet d’écouter <b>tout type</b> d’évènement et d’y répondre comme un vrai Hylien</li>
+    </ul>
+    <div class="code">
+        document.getElementById("bouton")
+        .addEventListener("click", function() {
+        alert("Pouvoir activé !");
+        });
+    </div>
+    <button id="bouton" class="mini-btn">Clique-moi pour l’aventure</button>
+  </section>
+
+  <section>
+    <h2>Grand Tableau des Événements et Déclencheurs</h2>
+    <table>
+      <tr>
+        <th>Événement</th>
+        <th>Déclencheur&nbsp;/&nbsp;Quand&nbsp;?</th>
+        <th>Code pour l’écouter</th>
+      </tr>
+      <tr>
+        <td><b>click</b></td>
+        <td>Quand on clique sur un élément</td>
+        <td>
+          <code>obj.addEventListener("click", ...)</code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>dblclick</b></td>
+        <td>Double-clic sur un élément</td>
+        <td><code>obj.addEventListener("dblclick", ...)</code></td>
+      </tr>
+      <tr>
+        <td><b>mouseover / mouseout</b></td>
+        <td>La souris entre / sort d’un objet</td>
+        <td><code>obj.addEventListener("mouseover", ...)</code></td>
+      </tr>
+      <tr>
+        <td><b>keydown / keyup</b></td>
+        <td>Appui / relâchement d’une touche du clavier</td>
+        <td><code>obj.addEventListener("keydown", ...)</code></td>
+      </tr>
+      <tr>
+        <td><b>input / change</b></td>
+        <td>Modification d’un champ de formulaire</td>
+        <td><code>obj.addEventListener("input", ...)</code></td>
+      </tr>
+      <tr>
+        <td><b>submit</b></td>
+        <td>Envoi d’un formulaire</td>
+        <td><code>form.addEventListener("submit", ...)</code></td>
+      </tr>
+      <tr>
+        <td><b>load</b></td>
+        <td>Chargement complet de la page</td>
+        <td><code>window.addEventListener("load", ...)</code></td>
+      </tr>
+      <tr>
+        <td><b>scroll</b></td>
+        <td>Défilement de la page ou d’une zone</td>
+        <td><code>window.addEventListener("scroll", ...)</code></td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h2>Comment ça marche ?</h2>
+    <ul>
+      <li>1. On cible un objet (<code>let btn = document.getElementById("monBtn")</code>)</li>
+      <li>2. On écoute un événement : <code>btn.addEventListener("click", maFonction)</code></li>
+      <li>3. Quand l’action se produit, la fonction se lance (c’est la magie JS)</li>
+    </ul>
+    <div class="resultbox">
+      Démonstration :<br>
+      <button id="demo" class="mini-btn">Mon sort événement</button>
+      <span id="zone-event"></span>
+    </div>
+    <script>
+      document.getElementById("demo").addEventListener("click", function(){
+        document.getElementById("zone-event").textContent = "🎉 Magie activée !";
+        setTimeout(()=>{document.getElementById("zone-event").textContent="";}, 1800)
+      });
+    </script>
+  </section>
+
+  <section>
+    <h2>Plus loin : Événement avancé (utiliser les touche du clavier)</h2>
+    <div class="code">
+    document.addEventListener("keydown", function(event) {
+    &nbsp;&nbsp;let key = document.getElementById('key-event')
+    &nbsp;&nbsp;key.style.borderRadius='50%'
+    &nbsp;&nbsp;key.style.background='#0000ff'<br>
+    });
+    </div>
+    <div class="resultbox">
+      Appuie sur une touche du clavier et admire la magie (ouvre la console pour voir)!<br>
+        <div id="key-event"></div>
+    </div>
+</body>
+</html>

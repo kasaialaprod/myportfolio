@@ -1,0 +1,89 @@
+body{
+      margin:0;
+      background:#05060b;
+      color:#e5f4ff;
+      font-family:'Fira Code',monospace;
+      overflow-x:hidden;
+    }
+    .glitch{
+      position:fixed;
+      top:0;left:0;right:0;
+      background:linear-gradient(90deg,#05060b,#1a0f2e,#4ce0c6);
+      padding:25px;
+      border-bottom:3px solid #4ce0c6;
+      box-shadow:0 0 30px #4ce0c6aa;
+      z-index:10;
+    }
+    .glitch h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:3px;
+      color:#fff;
+      text-shadow:0 0 10px #4ce0c6, 0 0 20px #ff5fd1;
+      animation:flicker 3s infinite alternate;
+    }
+    @keyframes flicker{
+      0%,100%{opacity:1;}
+      50%{opacity:0.85;}
+    }
+    .glitch p{
+      margin:5px 0 0 0;
+      font-size:12px;
+      color:#a0b8ff;
+    }
+    main{
+      max-width:1000px;
+      margin:120px auto 40px auto;
+      padding:20px;
+    }
+    .terminal-window{
+      background:#0a0d15;
+      border:2px solid #1f2639;
+      border-radius:8px;
+      box-shadow:0 0 40px #000c;
+      padding:20px;
+      position:relative;
+    }
+    .prompt{
+      color:#4ce0c6;
+      font-weight:600;
+    }
+    .cmd-list{
+      list-style:none;
+      padding:0;
+      margin:15px 0 0 0;
+    }
+    .cmd-list li{
+      margin:10px 0;
+      padding:10px 12px;
+      background:#05070d;
+      border-left:3px solid #ff5fd1;
+      border-radius:4px;
+      transition:all 0.3s;
+    }
+    .cmd-list li:hover{
+      background:#0f1320;
+      border-left-color:#4ce0c6;
+      box-shadow:0 0 15px #4ce0c655;
+      transform:translateX(5px);
+    }
+    .cmd-list a{
+      text-decoration:none;
+      color:#8fffa6;
+      font-size:14px;
+      display:block;
+    }
+    .cmd-list a:hover{
+      color:#c9ff8a;
+    }
+    .comment{
+      color:#6a7ba8;
+      font-size:12px;
+      margin-left:10px;
+    }
+    .footer{
+      text-align:center;
+      margin-top:30px;
+      font-size:12px;
+      color:#4a5b7a;
+    }

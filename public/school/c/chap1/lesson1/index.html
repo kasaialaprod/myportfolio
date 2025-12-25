@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction</title>
+</head>
+<body>
+    <header>
+    &gt; Découverte du langage C
+    <div style="color:#437fd2;font-size:16px;font-family:inherit;padding-top:9px;">
+       Le langage des OS, des machines, des réseaux…
+    </div>
+  </header>
+  <main>
+    <h2>1. Structure d’un programme C (le squelette)</h2>
+    <ul>
+      <li><b>Tout programme démarre à <code>main()</code></b></li>
+      <li>Utilise <code>#include</code> pour importer des bibliothèques</li>
+      <li><b>Chaque ligne d’instruction se termine par “;”</b></li>
+    </ul>
+    <div class="code">
+        #include &lt;stdio.h&gt;  // Pour l’affichage<br>
+        <br>
+        int main() {<br>
+        &nbsp;&nbsp;printf("Bienvenue dans C&nbsp;!\n");<br>
+        &nbsp;&nbsp;return 0;<br>
+        }
+    </div>
+    <div class="console">
+      $ gcc prog.c -o prog <br>
+      $ ./prog <br>
+      Bienvenue dans C&nbsp;!
+    </div>
+    <h2>2. Déclaration de variables</h2>
+    <ul>
+      <li>Chaque variable doit être déclarée et typée : <code>int</code>, <code>float</code>, <code>char</code>…</li>
+      <li>Les variables peuvent être initialisées directement ou plus tard</li>
+    </ul>
+    <div class="code">
+        int age = 21;<br>
+        float taille = 1.76;<br>
+        char lettre = 'A';<br>
+        char pseudo[16] = "cyber_link";
+    </div>
+    <h2>3. Types de données principaux</h2>
+    <ul>
+      <li><b>int</b>&nbsp;: entier</li>
+      <li><b>float</b>, <b>double</b>&nbsp;: nombre à virgule (float peut stocker jusqu'à 7 chiffres significatifs, double environ 15)</li>
+      <li><b>char</b>&nbsp;: caractère unique</li>
+      <li><b>char [ ]</b>&nbsp;: chaîne de caractères (tableau de <code>char</code>)</li>
+    </ul>
+    <h2>4. Formatage de la sortie (<code>printf</code>)</h2>
+    <ul>
+      <li><code>printf</code> affiche texte, variables, calculs…</li>
+      <li>Utilise <b>des spécificateurs</b> pour chaque type&nbsp;:</li>
+      <li>
+        <code>%d</code> (entier), <code>%f</code> (décimal), <code>%c</code> (char), <code>%s</code> (string, tableau de char)
+      </li>
+      <li>
+        <code>\n</code> pour nouvelle ligne
+      </li>
+      <li>
+        <strong>Nota Bene </strong><code>%f</code> affiche 6 décimales par défaut. Pour en limiter le nombre, utiliser <code>%.1f</code> (1 décimale), <code>%.2f</code> (2 décimales)…
+      </li>
+    </ul>
+    <div class="code">
+        int points = 42;<br>
+        float vie = 75.5;<br>
+        printf("Points : %d, Vie : %.1f\n", points, vie);<br>
+        char pseudo[10] = "Link";<br>
+        printf("Pseudo : %s\n", pseudo);
+    </div>
+    <div class="console">
+      Points : 42, Vie : 75.5 <br>
+      Pseudo : Link
+    </div>
+    <h2>5. Mathématiques de base</h2>
+    <ul>
+      <li><b>Opérateurs</b>&nbsp;: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></li>
+      <li><b>Attention :</b> division entière : <code>int a = 7 / 2;</code> renvoie <code>3</code> (pas 3.5)</li>
+      <li>Pour accès aux fonctions <b>mathématiques avancées</b> (<code>sqrt</code>, <code>pow</code>…), inclure <code>math.h</code></li>
+    </ul>
+    <div class="code">
+        #include &lt;math.h&gt;<br>
+        double racine = sqrt(81);<br>
+        double puissance = pow(2, 8);<br>
+        printf("√81 = %.0f, 2^8 = %.0f\n", racine, puissance);
+    </div>
+    <div class="console">
+      √81 = 9, 2^8 = 256
+    </div>
+  </main>
+</body>
+</html>

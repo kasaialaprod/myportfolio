@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déploiement en production</title>
+</head>
+<body>
+    <header>
+  <h1>&gt; NODE.JS 101 – Leçon 8</h1>
+  <span>// Déploiement en production (Render + variables d'environnement)</span>
+</header>
+<main>
+
+  <h2>1. Pourquoi déployer ?</h2>
+  <ul>
+    <li>Ton API tourne en local (<code>localhost:3000</code>) : seul toi peux y accéder.</li>
+    <li>Pour qu'elle soit accessible sur Internet, il faut la <strong>déployer</strong> sur un serveur distant.</li>
+    <li>On va utiliser <strong>Render</strong> : gratuit, simple, pas besoin de carte bancaire.</li>
+  </ul>
+
+  <h2>2. Préparer le code pour la production</h2>
+  
+  <h3>2.1 Variables d'environnement avec dotenv</h3>
+  <p>Ne jamais mettre de secrets (JWT_SECRET, mots de passe DB...) directement dans le code.</p>
+  
+  <p>1. Installe <code>dotenv</code> :</p>
+  <div class="terminal">$ npm install dotenv</div>
+
+  <p>2. Crée un fichier <code>.env</code> à la racine du projet :</p>
+  <div class="terminal">
+    PORT=3000
+    JWT_SECRET=dedsec_secret_key_production_2025
+    NODE_ENV=production
+  </div>
+
+  <p>3. Ajoute <code>.env</code> dans ton <code>.gitignore</code> pour ne PAS le pousser sur GitHub :</p>
+  <div class="terminal"># .gitignore
+    node_modules/ <br>
+    .env <br>
+    dedsec.db <br>
+  </div>
+
+  <p>4. Modifie ton <code>server.js</code> pour charger les variables d'environnement :</p>
+  <div class="terminal">
+    // server.js <br>
+    require("dotenv").config(); <br>
+    const express = require("express"); <br>
+    const cors = require("cors"); <br>
+    const authRoutes = require("./routes/auth"); <br>
+    const hackRoutes = require("./routes/hacks"); <br><br>
+
+    const app = express(); <br>
+    const PORT = process.env.PORT || 3000; <br><br>
+
+    app.use(cors()); <br>
+    app.use(express.json()); <br>
+
+    app.use("/auth", authRoutes); <br>
+    app.use("/hacks", hackRoutes); <br><br>
+
+    app.get("/", (req, res) => { <br>
+    &nbsp;&nbsp;res.json({ message: "[DEDSEC] API online", env: process.env.NODE_ENV }); <br>
+    }); <br><br>
+    app.listen(PORT, () => { <br>
+    &nbsp;&nbsp;console.log(`[DEDSEC] Server running on port ${PORT}`); <br>
+    });
+  </div>
+
+  <p>5. Utilise <code>process.env.JWT_SECRET</code> dans tes contrôleurs :</p>
+  <div class="terminal">
+    // controllers/authController.js et middleware/authMiddleware.js <br>
+    const JWT_SECRET = process.env.JWT_SECRET || "fallback_secret";
+  </div>
+
+  <h3>2.2 Script de démarrage dans package.json</h3>
+  <p>Assure-toi que ton <code>package.json</code> contient :</p>
+  <div class="terminal">
+    "scripts": { <br>
+    &nbsp;&nbsp;"start": "node server.js" <br>
+    }, <br>
+    "engines": { <br>
+    &nbsp;&nbsp;"node": "18.x" <br>
+    }
+  </div>
+
+  <h2>3. Initialiser Git et pousser sur GitHub</h2>
+  <p>Render a besoin que ton code soit sur GitHub (ou GitLab).</p>
+
+  <div class="terminal">
+    $ git init <br>
+    $ git add . <br>
+    $ git commit -m "Initial commit - DedSec API"
+  </div>
+
+  <p>Crée un repo sur GitHub, puis :</p>
+  <div class="terminal">
+    $ git remote add origin https://github.com/TON-USERNAME/dedsec-api.git <br>
+    $ git branch -M main <br>
+    $ git push -u origin main</div>
+
+  <h2>4. Déployer sur Render</h2>
+
+  <h3>4.1 Créer un compte Render</h3>
+  <ul>
+    <li>Va sur <a href="https://render.com" target="_blank" style="color:#4ce0c6;">render.com</a></li>
+    <li>Inscris-toi avec ton compte GitHub (gratuit, pas de CB)</li>
+  </ul>
+
+  <h3>4.2 Créer un nouveau Web Service</h3>
+  <ol>
+    <li>Clique sur <strong>"New +"</strong> → <strong>"Web Service"</strong></li>
+    <li>Connecte ton repo GitHub <code>dedsec-api</code></li>
+    <li>Configure :
+      <ul>
+        <li><strong>Name</strong> : dedsec-api (ou ce que tu veux)</li>
+        <li><strong>Region</strong> : choisis le plus proche (ex: Frankfurt)</li>
+        <li><strong>Branch</strong> : main</li>
+        <li><strong>Runtime</strong> : Node</li>
+        <li><strong>Build Command</strong> : <code>npm install</code></li>
+        <li><strong>Start Command</strong> : <code>npm start</code></li>
+        <li><strong>Instance Type</strong> : Free</li>
+      </ul>
+    </li>
+  </ol>
+
+  <h3>4.3 Ajouter les variables d'environnement</h3>
+  <p>Dans la section <strong>"Environment"</strong> du dashboard Render, ajoute :</p>
+  <div class="terminal">
+    JWT_SECRET=dedsec_secret_key_production_2025 <br>
+    NODE_ENV=production
+  </div>
+
+  <p>Clique sur <strong>"Create Web Service"</strong>.</p>
+
+  <h3>4.4 Attendre le déploiement</h3>
+  <p>Render va :</p>
+  <ul>
+    <li>Cloner ton repo</li>
+    <li>Installer les dépendances (<code>npm install</code>)</li>
+    <li>Lancer ton serveur (<code>npm start</code>)</li>
+  </ul>
+  <p>Après 2-3 minutes, tu auras une URL du type :</p>
+  <div class="terminal">https://dedsec-api.onrender.com</div>
+
+  <h2>5. Tester ton API en ligne</h2>
+  
+  <h3>5.1 Test basique</h3>
+  <div class="terminal">
+    $ curl https://dedsec-api.onrender.com/ <br> <br>
+
+    Réponse : {"message":"[DEDSEC] API online","env":"production"}
+  </div>
+
+  <h3>5.2 Register un user</h3>
+  <div class="terminal">
+    $ curl -X POST https://dedsec-api.onrender.com/auth/register \ <br>
+    -H "Content-Type: application/json" \<br>
+    -d '{"email":"test@dedsec.com","password":"test123"}'<br><br>
+  </div>
+
+  <h3>5.3 Login</h3>
+  <div class="terminal">
+    $ curl -X POST https://dedsec-api.onrender.com/auth/login \<br>
+    -H "Content-Type: application/json" \<br>
+    -d '{"email":"test@dedsec.com","password":"test123"}'<br><br>
+
+    Réponse : {"message":"login successful","token":"eyJhbGc..."}
+  </div>
+
+  <h3>5.4 Créer un hack (avec token)</h3>
+  <div class="terminal">
+    $ curl -X POST https://dedsec-api.onrender.com/hacks \<br>
+    -H "Content-Type: application/json" \<br>
+    -H "Authorization: Bearer TON_TOKEN" \<br>
+    -d '{"target":"CTOS","level":"high"}'
+  </div>
+
+  <h2>6. Mettre à jour ton déploiement</h2>
+  <p>Pour déployer une nouvelle version :</p>
+  <div class="terminal">
+    $ git add .<br>
+    $ git commit -m "Update feature X"<br>
+    $ git push origin main <br>
+  </div>
+  <p>Render détectera automatiquement le push et redéploiera ton API.</p>
+
+  <h2>7. Connecter ton front à l'API en ligne</h2>
+  <p>Dans ton front HTML (leçon 7), change l'URL de l'API :</p>
+  <div class="terminal">
+    // Avant (local)
+    const API = "http://localhost:3000";
+
+    // Après (production)
+    const API = "https://dedsec-api.onrender.com";
+  </div>
+
+  <p>Ton front pourra maintenant communiquer avec ton API déployée !</p>
+
+  <h2>8. Limitations du plan gratuit Render</h2>
+  <ul>
+    <li>Le service <strong>s'endort après 15 min d'inactivité</strong> (redémarre au prochain appel, 30-60s de latence)</li>
+    <li>750h gratuites par mois (largement suffisant pour apprendre)</li>
+    <li>Pas de domaine personnalisé en gratuit (mais tu peux utiliser ton propre domaine si tu upgrades)</li>
+  </ul>
+
+  <h2>9. Bonus : Base de données persistante</h2>
+  <p>⚠️ Avec SQLite sur Render, ta base sera effacée à chaque redéploiement (système de fichiers éphémère).</p>
+  <p>Pour une vraie prod, utilise :</p>
+  <ul>
+    <li><strong>PostgreSQL</strong> (Render propose un plan gratuit 90 jours, puis payant)</li>
+    <li><strong>MongoDB Atlas</strong> (gratuit jusqu'à 512 MB)</li>
+    <li><strong>Supabase</strong> (PostgreSQL gratuit avec bonne limite)</li>
+  </ul>
+
+  <hr>
+
+  <h2>Résumé Leçon 8</h2>
+  <p style="font-size:13px;color:#7f8fb8;">
+    <strong>Ce que tu as appris :</strong><br>
+    - Préparer ton code pour la production avec de>dotenv</code> et variables d'environnement.<br>
+    - Pousser ton code sur GitHub.<br>
+    - Déployer ton API Node.js sur <strong>Render</strong> (gratuit).<br>
+    - Tester ton API en ligne avec curl ou ton front.<br>
+    - Mettre à jour ton déploiement avec de>git push</code>.<br><br>
+
+    <strong>Tu es maintenant capable de :</strong><br>
+    - Mettre en ligne une API backend complète et fonctionnelle.<br>
+    - Gérer des secrets de manière sécurisée.<br>
+    - Connecter un front à une API déployée.<br><br>
+
+    <strong>Prochaines améliorations possibles :</strong><br>
+    - Migrer vers PostgreSQL pour une base persistante.<br>
+    - Ajouter un système de logs (Winston, Morgan).<br>
+    - Implémenter des tests automatisés (Jest, Supertest).<br>
+    - Configurer un nom de domaine personnalisé.<br>
+    - Utiliser Docker pour conteneuriser ton app.
+  </p>
+
+  <p style="font-size:13px;color:#4ce0c6;text-align:center;margin-top:20px;">
+    🎉 Félicitations !
+    </p>
+</body>
+</html>

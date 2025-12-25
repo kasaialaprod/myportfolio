@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript — Tableaux, Minuteries & Animations</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <header>
+    <h1>Tableaux, Minuteries & Animations</h1>
+    <div>
+      « Découvre comment manipuler le temps, maîtriser l'inventaire et animer les éléments du royaume ! »
+    </div>
+  </header>
+
+  <div class="dialog">
+    <img src="../asset/image/link1.gif" alt="Link pixel" class="link-pic">
+    Le Sage te dévoile la magie des <strong>tableaux</strong> (inventaire), des <strong>minuteries</strong> (contrôle du temps) et des <strong>animations</strong> pour rendre ta page vivante !
+  </div>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/274/274590.png">Les Minuteries : contrôler le temps</div>
+    <ul>
+      <li><b>setTimeout</b> : réalise une action plus tard (après X millisecondes)</li>
+      <li><b>setInterval</b> : répète une action à intervalle régulier</li>
+      <li>Utilise <code>clearTimeout</code>/<code>clearInterval</code> pour arrêter la magie</li>
+    </ul>
+    <div class="code">
+        // Affiche un message après 2 secondes<br><br>
+        function message() {<br>
+        &nbsp;&nbsp;console.log("Un coffre apparait !");<br>
+        }<br><br>
+        setTimeout(message, 2000);<br><br><br>
+        // Affiche le nombre de rubis toutes les 1s<br><br>
+        function nombreDeRubis() {<br>
+        &nbsp;&nbsp;rubis++;<br>
+        &nbsp;&nbsp;console.log("Rubis: "+rubis);<br>
+        &nbsp;&nbsp;if(rubis >= 5) clearInterval(timer);<br>
+        }<br><br>
+        let rubis = 0;<br>
+        let timer = setInterval(nombreDeRubis, 1000);
+    </div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/5249/5249419.png">Inventaire : le pouvoir des tableaux</div>
+    <ul>
+      <li>Un tableau stocke plusieurs valeurs dans l’ordre (noms, scores, objets...)</li>
+      <li>L’<b>index</b> commence à 0 (premier objet), puis 1, 2...</li>
+    </ul>
+    <div class="code">
+        let inventaire = ["épée", "bouclier", "potion"];<br>
+        console.log(inventaire[0]); // "épée"<br>
+        console.log(inventaire.length); // 3
+    </div>
+    <table>
+      <tr>
+        <th>Méthode</th><th>Action</th><th>Exemple</th>
+      </tr>
+      <tr>
+        <td><b>push()</b></td>
+        <td>ajoute à la fin</td>
+        <td><code>inventaire.push("rubis")</code></td>
+      </tr>
+      <tr>
+        <td><b>pop()</b></td>
+        <td>retire le dernier</td>
+        <td><code>inventaire.pop()</code></td>
+      </tr>
+      <tr>
+        <td><b>shift()</b></td>
+        <td>retire le premier</td>
+        <td><code>inventaire.shift()</code></td>
+      </tr>
+      <tr>
+        <td><b>unshift()</b></td>
+        <td>ajoute au début</td>
+        <td><code>inventaire.unshift("arc")</code></td>
+      </tr>
+      <tr>
+        <td><b>slice()</b></td>
+        <td>renvoie une sélection</td>
+        <td><code>inventaire.slice(1,3)</code> // ["bouclier","potion"]</td>
+      </tr>
+      <tr>
+        <td><b>splice()</b></td>
+        <td>enlève/insère où tu veux</td>
+        <td><code>inventaire.splice(1, 1, "flèche")</code></td>
+      </tr>
+      <tr>
+        <td><b>indexOf()</b></td>
+        <td>donne l’index d’un objet</td>
+        <td><code>inventaire.indexOf("potion")</code> // 2</td>
+      </tr>
+      <tr>
+        <td><b>forEach()</b></td>
+        <td>pour chaque objet</td>
+        <td><code>inventaire.forEach(function(obj){})</code></td>
+      </tr>
+      <tr>
+        <td><b>map()</b></td>
+        <td>transforme chaque valeur</td>
+        <td><code>inventaire.map(obj => obj + " magique")</code></td>
+      </tr>
+      <tr>
+        <td><b>filter()</b></td>
+        <td>garde ceux qui vérifient une condition</td>
+        <td><code>inventaire.filter(obj => obj.length < 6)</code></td>
+      </tr>
+      <tr>
+        <td><b>join()</b></td>
+        <td>tout fusionner en une phrase</td>
+        <td><code>inventaire.join(" - ")</code></td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/3702/3702596.png">Parcours et indexation</div>
+    <ul>
+      <li>On parcourt un tableau avec <code>for</code>, <code>forEach</code> ou même <code>map</code></li>
+      <li>L’index permet de viser précisément un objet</li>
+    </ul>
+    <div class="code">
+        let inventaire = ["sabre", "grappin", "rubis", "potion"];<br><br>
+        for(let i=0; i < inventaire.length; i++){<br>
+        &nbsp;&nbsp;console.log("Objet n°" +i+ " : " +inventaire[i]);<br>
+        }<br><br>
+        // Alternative élégante<br>
+        inventaire.forEach(function(objet, index){ <br>
+        &nbsp;&nbsp;console.log(index+" : "+objet);<br>
+        });
+    </div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/152/152866.png">Exercice : Ajoute ou retire de l’inventaire !</div>
+    <div class="resultbox">
+      Inventaire&nbsp;: <span id="inv-list">épée</span>
+      <button class="mini-btn" id="pushBtn">Push ‘potion’</button>
+      <button class="mini-btn" id="popBtn">Pop</button>
+      <button class="mini-btn" id="resetBtn">Réinitialiser</button>      
+    </div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/5334/5334274.png">Animations & évènements : bouger comme Link !</div>
+    <ul>
+      <li>Anime un objet avec le style <code>left</code>, <code>top</code>, <code>backgroundColor</code>…</li>
+      <li>Déclenche tout avec un évènement (<code>click</code>, <code>keydown</code>…)</li>
+    </ul>
+    <div class="resultbox">
+      <div id="carre" class="anim-box">💠</div>
+      <button class="mini-btn" id="moveBox">Faire bouger le carré</button>
+      <button class="mini-btn" id="autoAnimBtn">Animation automatique</button>
+    </div>
+  </section>
+  <section>
+    <h2>Résumé rapide (à retenir)</h2>
+    <ul>
+      <li><b>Un tableau</b> = une liste <code>[]</code>, des index (0, 1, 2…), de nombreuses méthodes pour ajouter/filtrer/parcourir</li>
+      <li><b>Minuteries</b> = <code>setTimeout</code> (attendre une fois), <code>setInterval</code> (répéter)</li>
+      <li><b>Animations</b> : joue sur les styles, déclenche-les avec des événements</li>
+    </ul>
+  </section>
+</body>
+</html>

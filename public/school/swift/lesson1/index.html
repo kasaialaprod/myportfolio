@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift — Leçon 1 : Setup & Premiers pas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Swift Playground</h1>
+  <p>Leçon 1 : Setup & Premiers pas avec VS Code</p>
+</header>
+
+<main>
+
+  <div class="island">
+    <h2>1. Installer Swift sur macOS</h2>
+    <p>Swift est déjà installé si tu as Xcode, mais on peut l'installer via Homebrew pour l'utiliser en ligne de commande.</p>
+    
+    <h3>Vérifier si Swift est installé</h3>
+    <div class="terminal">$ swift --version<br>
+swift-driver version: 1.87.3 Apple Swift version 5.9.2</div>
+    
+    <p>Si tu vois une version, c'est bon. Sinon, installe via Homebrew :</p>
+    <div class="terminal">$ brew install swift</div>
+  </div>
+
+  <div class="island">
+    <h2>2. Configurer VS Code pour Swift</h2>
+    
+    <h3>2.1 Installer l'extension Swift</h3>
+    <p>Dans VS Code, va dans l'onglet Extensions et installe :</p>
+    <ul>
+      <li><span class="tag">Extension</span> <strong>Swift</strong> (par Swift Server Work Group)</li>
+    </ul>
+    
+    <h3>2.2 Créer un dossier de projet</h3>
+    <div class="terminal">$ mkdir swift-apprentissage<br>
+$ cd swift-apprentissage<br>
+$ code .</div>
+    
+    <p>VS Code s'ouvre dans ton dossier.</p>
+  </div>
+
+  <div class="island">
+    <h2>3. Premier fichier Swift</h2>
+    
+    <h3>3.1 Créer main.swift</h3>
+    <p>Dans VS Code, crée un fichier de>main.swift</code> à la racine de ton projet.</p>
+    
+    <h3>3.2 Hello World</h3>
+    <div class="code-block">print("Hello, Swift depuis VS Code!")</div>
+    
+    <h3>3.3 Exécuter le code</h3>
+    <p>Ouvre le terminal intégré de VS Code (de>Ctrl + `</code> ou de>Cmd + `</code>) et tape :</p>
+    <div class="terminal">$ swift main.swift<br>
+Hello, Swift depuis VS Code!</div>
+    
+    <p>✨ <strong>Félicitations, ton premier programme Swift fonctionne !</strong></p>
+  </div>
+
+  <div class="island">
+    <h2>4. Compiler vs Interpréter</h2>
+    
+    <h3>4.1 Mode "interprété" (rapide pour tester)</h3>
+    <div class="terminal">$ swift main.swift</div>
+    <p>Execute directement le fichier sans créer d'exécutable.</p>
+    
+    <h3>4.2 Mode "compilé" (créer un exécutable)</h3>
+    <div class="terminal">$ swiftc main.swift -o monprogramme<br>
+$ ./monprogramme<br>
+Hello, Swift depuis VS Code!</div>
+    
+    <p>de>swiftc</code> compile ton code en un fichier binaire exécutable (de>monprogramme</code>).</p>
+  </div>
+
+  <div class="island">
+    <h2>5. Structure d'un fichier Swift de base</h2>
+    
+    <div class="code-block">// Ceci est un commentaire<br><br>
+// Import d'un module (optionnel pour du Swift basique)<br>
+import Foundation<br><br>
+// Point d'entrée : le code est exécuté ligne par ligne<br>
+print("Bienvenue dans Swift")<br><br>
+let nom = "Marcus"<br>
+print("Hello, \(nom)!")</div>
+    
+    <ul>
+      <li>de>//</code> pour les commentaires</li>
+      <li>de>import Foundation</code> donne accès à des utilitaires (dates, strings avancés, etc.)</li>
+      <li>de>print()</code> affiche dans la console</li>
+      <li>de>let</code> déclare une constante</li>
+      <li>de>\(nom)</code> = interpolation de variable dans une string</li>
+    </ul>
+  </div>
+
+  <div class="island">
+    <h2>6. Swift REPL (mode interactif)</h2>
+    
+    <p>Tu peux aussi lancer Swift en mode interactif (comme Python) :</p>
+    <div class="terminal">$ swift<br>
+Welcome to Apple Swift version 5.9.2<br>
+1> let x = 42<br>
+2> print(x)<br>
+42<br>
+3> :quit</div>
+    
+    <p>Pratique pour tester des lignes de code rapidement.</p>
+  </div>
+
+  <div class="island">
+    <h2>Résumé Leçon 1</h2>
+    <p><strong>Ce que tu as appris :</strong></p>
+    <ul>
+      <li>Vérifier l'installation de Swift (de>swift --version</code>)</li>
+      <li>Configurer VS Code avec l'extension Swift</li>
+      <li>Créer et exécuter un fichier de>.swift</code></li>
+      <li>Différence entre interpréter (de>swift</code>) et compiler (de>swiftc</code>)</li>
+      <li>Structure de base d'un fichier Swift</li>
+      <li>Utiliser le REPL Swift pour tester du code</li>
+    </ul>
+    
+    <p style="margin-top:20px; color:#5fc9f8;"><strong>Prochaine leçon :</strong> Variables, types, optionals et fonctions en Swift</p>
+  </div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification avec JWT</title>
+</head>
+<body>
+    <header>
+  <h1>&gt; NODE.JS 101 – Leçon 7</h1>
+  <span>// Authentification avec JWT (JSON Web Token)</span>
+</header>
+<main>
+
+  <h2>1. C'est quoi un JWT ?</h2>
+  <ul>
+    <li><strong>JWT</strong> = JSON Web Token : un format de token compact et sécurisé pour transmettre des informations entre le client et le serveur.</li>
+    <li>Le serveur génère un token signé lors du login.</li>
+    <li>Le client envoie ce token dans les requêtes suivantes pour prouver son identité.</li>
+    <li>Le serveur vérifie la signature pour valider le token.</li>
+  </ul>
+
+  <div class="terminal"><span class="tag">FLOW</span>
+    1. User → POST /login (email + password)
+    2. Server → vérifie, génère JWT, renvoie le token
+    3. User → stocke le token (localStorage, cookie...)
+    4. User → GET /protected (avec header Authorization: Bearer TOKEN)
+    5. Server → vérifie le token, donne accès ou refuse
+  </div>
+
+  <h2>2. Préparer le projet</h2>
+  <p>1. Crée un nouveau projet :</p>
+  <div class="terminal">
+    $ mkdir dedsec-jwt-auth <br>
+    $ cd dedsec-jwt-auth <br>
+    $ npm init -y <br>
+    $ npm install express better-sqlite3 cors bcrypt jsonwebtoken
+  </div>
+
+  <ul>
+    <li><code>bcrypt</code> : pour hasher les mots de passe (ne jamais stocker en clair !)</li>
+    <li><code>jsonwebtoken</code> : pour générer et vérifier les JWT</li>
+  </ul>
+
+  <h2>3. Structure du projet</h2>
+  <div class="terminal">
+    dedsec-jwt-auth/ <br>
+    ├─ package.json <br>
+    ├─ server.js <br>
+    ├─ db/ <br>
+    │  └─ database.js <br>
+    ├─ routes/ <br>
+    │  ├─ auth.js         // /register, /login <br>
+    │  └─ hacks.js        // routes protégées <br>
+    ├─ controllers/ <br>
+    │  ├─ authController.js // logique register/login <br>
+    │  └─ hackController.js // logique hacks <br>
+    └─ middleware/ <br>
+       └─ authMiddleware.js  // vérifier le JWT <br>
+  </div> 
+  <h2>4. Base de données (db/database.js)</h2>
+  <div class="terminal">
+    // db/database.js <br>
+    import Database from "better-sqlite3"; <br>
+    const db = new Database("dedsec.db"); <br><br>
+
+    // Créer les tables si elles n'existent pas <br>
+    // Table users <br>
+    db.exec(` <br>
+    &nbsp;&nbsp;CREATE TABLE IF NOT EXISTS users ( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;id INTEGER PRIMARY KEY AUTOINCREMENT, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;email TEXT UNIQUE NOT NULL, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;password TEXT NOT NULL <br>
+    &nbsp;&nbsp;)<br>
+    `);<br><br>
+
+    // Table hacks <br>
+    db.exec(` <br>
+    &nbsp;&nbsp;CREATE TABLE IF NOT EXISTS hacks ( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;id INTEGER PRIMARY KEY AUTOINCREMENT, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;target TEXT NOT NULL, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;level TEXT NOT NULL, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;userId INTEGER NOT NULL, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY(userId) REFERENCES users(id) <br>
+    &nbsp;&nbsp;)
+    `);<br><br>
+
+    export default db;
+  </div>
+
+  <h2>5. Contrôleur d'authentification (controllers/authController.js)</h2>
+  <div class="terminal">
+    // controllers/authController.js <br>
+    import db from "../db/database.js"; <br>
+    import bcrypt from "bcrypt"; <br>
+    import jwt from "jsonwebtoken"; <br>
+
+    const JWT_SECRET = "dedsec_secret_key_2025"; // À mettre dans .env en prod <br><br>
+
+    export const register = async (req, res) => { <br>
+    &nbsp;&nbsp;const { email, password } = req.body; <br>
+    &nbsp;&nbsp;if (!email || !password) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ error: "email and password required" }); <br>
+    &nbsp;&nbsp;} <br><br>
+
+    try { <br>  
+    &nbsp;&nbsp;// Hasher le mot de passe <br>
+    &nbsp;&nbsp;const hashedPassword = await bcrypt.hash(password, 10); <br><br>
+
+    &nbsp;&nbsp;// Insérer le nouvel utilisateur dans la BDD <br>
+    &nbsp;&nbsp;const stmt = db.prepare("INSERT INTO users (email, password) VALUES (?, ?)"); <br>
+    &nbsp;&nbsp;const info = stmt.run(email, hashedPassword); <br><br>
+
+    &nbsp;&nbsp;res.status(201).json({ message: "user registered", userId: info.lastInsertRowid }); <br>
+    &nbsp;&nbsp;} catch (err) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (err.message.includes("UNIQUE")) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ error: "email already exists" }); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(500).json({ error: err.message }); <br>
+    &nbsp;&nbsp;} <br>
+    }; <br><br>
+
+    // Login <br>
+    export const login = async (req, res) => { <br>
+    &nbsp;&nbsp;const { email, password } = req.body; <br>
+    &nbsp;&nbsp;if (!email || !password) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ error: "email and password required" }); <br>
+    &nbsp;&nbsp;} <br><br>
+
+    &nbsp;&nbsp;try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const user = db.prepare("SELECT * FROM users WHERE email = ?").get(email); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (!user) {
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(404).json({ error: "user not found" });<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;} <br><br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;// Vérifier le mot de passe<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const validPassword = await bcrypt.compare(password, user.password);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (!validPassword) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(401).json(<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ error: "invalid password" }<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;// Générer le JWT<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const token = jwt.sign(<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ userId: user.id, email: user.email },<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JWT_SECRET,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ expiresIn: "1h" }
+    &nbsp;&nbsp;&nbsp;&nbsp;);<br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message: "login successful",<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;token,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user: {id: user.id, email: user.email}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(500).json({ error: err.message });<br>
+    &nbsp;&nbsp;}<br>
+    };
+</div>
+
+  <h2>6. Middleware d'authentification (middleware/authMiddleware.js)</h2>
+  <div class="terminal">
+    // middleware/authMiddleware.js <br>
+    import jwt from "jsonwebtoken"; <br>
+    const JWT_SECRET = "dedsec_secret_key_2025"; <br><br>
+
+    const authMiddleware = (req, res, next) => { <br>
+    &nbsp;&nbsp;const authHeader = req.headers.authorization; <br><br>
+
+    &nbsp;&nbsp;if (!authHeader) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(401).json({ error: "no token provided" }); <br>
+    &nbsp;&nbsp;} <br><br>
+
+    &nbsp;&nbsp;const token = authHeader.split(" ")[1]; // "Bearer TOKEN"<br><br>
+    &nbsp;&nbsp;if (!token) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(401).json({ error: "invalid token format" }); <br>
+    &nbsp;&nbsp;} <br><br>
+
+    &nbsp;&nbsp;try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const decoded = jwt.verify(token, JWT_SECRET);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;req.user = decoded; // ajoute les infos user à la requête <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;next(); <br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(401).json({ error: "invalid or expired token" }); <br>
+    &nbsp;&nbsp;} <br>
+    }; <br><br>
+    export default authMiddleware;
+  </div>
+
+  <h2>7. Routes d'authentification (routes/auth.js)</h2>
+  <div class="terminal">
+    // routes/auth.js <br>
+    import express from "express"; <br>
+    import { register, login } from "../controllers/authController.js";<br><br>
+
+    const router = express.Router();<br>
+
+    router.post("/register", register);<br>
+    router.post("/login", login);<br><br>
+
+    export default router;
+  </div>
+
+  <h2>8. Contrôleur hacks protégé (controllers/hackController.js)</h2>
+  <div class="terminal">
+    // controllers/hackController.js<br>
+    import db from "../db/database.js";<br><br>
+
+    // READ ALL - Récupérer tous les hacks de l'utilisateur connecté
+    export const getAllHacks = (req, res) => {<br>
+    &nbsp;&nbsp;const userId = req.user.userId; // fourni par le middleware auth<br><br>
+
+    &nbsp;&nbsp;try {<br> 
+    &nbsp;&nbsp;const rows = db.prepare('SELECT * FROM hacks WHERE userId = ?').all(userId);<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.json(rows);<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(500).json({ error: err.message });<br>
+    &nbsp;&nbsp;}<br>
+    };<br><br>
+
+    // CREATE - Créer un hack pour l'utilisateur connecté <br>
+    export const createHack = (req, res) => {<br>
+    &nbsp;&nbsp;const { target, level } = req.body;<br>
+    &nbsp;&nbsp;const userId = req.user.userId;<br><br>
+
+    &nbsp;&nbsp;if (!target || !level) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ error: "target and level required" });<br>
+    &nbsp;&nbsp;}<br>
+
+    &nbsp;&nbsp;try {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare("INSERT INTO hacks (target, level, userId) VALUES (?, ?, ?)");<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const info = stmt.run(target, level, userId);<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(201).json({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: info.lastInsertRowid,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;userId });<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(500).json({ error: err.message });<br>
+    &nbsp;&nbsp;}<br>
+    };<br><br>
+
+    // DELETE - Supprimer un hack de l'utilisateur connecté <br>
+    export const deleteHack = (req, res) => {<br>
+    &nbsp;&nbsp;const id = req.params.id;<br>
+    &nbsp;&nbsp;const userId = req.user.userId;<br><br>
+
+    &nbsp;&nbsp;try {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare("DELETE FROM hacks WHERE id = ? AND userId = ?");<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const info = stmt.run(id, userId);<br><br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;if (info.changes === 0){<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(404).json({ error: "hack not found or unauthorized" });<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json({ deletedId: parseInt(id) });<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(500).json({ error: err.message });<br>
+    &nbsp;&nbsp;}<br>
+    };<br>
+  </div>
+
+  <h2>9. Routes protégées (routes/hacks.js)</h2>
+  <div class="terminal">
+    // routes/hacks.js<br>
+    import express from "express";<br>
+    import { getAllHacks, createHack, deleteHack } from "../controllers/hackController.js";<br>
+    import authMiddleware from "../middleware/authMiddleware.js";<br><br>
+
+    const router = express.Router();<br><br>
+
+    // Toutes les routes ci-dessous nécessitent un token valide<br>
+    router.use(authMiddleware);<br><br>
+
+    router.get("/", hackController.getAllHacks);<br>
+    router.post("/", hackController.createHack);<br>
+    router.delete("/:id", hackController.deleteHack);<br><br>
+
+    export default router;<br>
+  </div>
+
+  <h2>10. Fichier principal (server.js)</h2>
+  <div class="terminal">
+    // server.js<br>
+    import express from "express";<br>
+    import cors from "cors";<br>
+    import authRoutes from "./routes/auth.js";<br>
+    import hackRoutes from "./routes/hacks.js";<br><br>
+
+    const app = express();<br>
+    const PORT = 3000;<br>
+
+    app.use(cors());<br>
+    app.use(express.json());<br>
+
+    // Routes publiques<br>
+    app.use("/auth", authRoutes);<br>
+
+    // Routes protégées<br>
+    app.use("/hacks", hackRoutes);<br><br>
+
+    app.get("/", (req, res) => {<br>
+    &nbsp;&nbsp;res.send("[DEDSEC] JWT Auth API online");<br>
+    });<br><br>
+
+    app.listen(PORT, () => {<br>
+    &nbsp;&nbsp;console.log(`[DEDSEC] Auth API listening on http://localhost:${PORT}`);<br>
+    });<br>
+</div>
+
+  <p>Ajoute dans <code>package.json</code> :</p>
+  <div class="terminal">
+    "scripts": {<br>
+    "start": "node server.js"<br>
+    }
+</div>
+
+  <h2>11. Tester l'API avec curl ou Postman</h2>
+  <h3>11.1 Register</h3>
+  <div class="terminal">
+    $ curl -X POST http://localhost:3000/auth/register \<br>
+    -H "Content-Type: application/json" \<br>
+    -d '{"email":"marcus@dedsec.com","password":"wrench123"}'<br><br>
+
+    Réponse : {"message":"user registered","userId":1}<br>
+</div>
+
+  <h3>11.2 Login</h3>
+  <div class="terminal">
+    $ curl -X POST http://localhost:3000/auth/login \-H "Content-Type: application/json" \-d '{"email":"marcus@dedsec.com","password":"wrench123"}'<br> <br>
+
+    Réponse : {"message":"login successful","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."}
+</div>
+
+  <h3>11.3 Créer un hack (avec token)</h3>
+  <div class="terminal">
+    $ curl -X POST http://localhost:3000/hacks \-H "Content-Type: application/json" \-H "Authorization: Bearer TON_TOKEN_ICI" \-d '{"target":"CTOS","level":"high"}'
+</div>
+  <h3>11.4 Lire les hacks (avec token)</h3>
+  <div class="terminal">
+    $ curl http://localhost:3000/hacks \-H "Authorization: Bearer TON_TOKEN_ICI"<br><br>
+
+    Réponse : [{"id":1,"target":"CTOS","level":"high","userId":1}]
+</div>
+
+  <h2>12. Front HTML avec login/register (bonus)</h2>
+  <p>Crée un fichier de>front-auth.html</code> :</p>
+  <div class="terminal">
+    &lt;!DOCTYPE html&gt;<br>
+    &lt;html lang="fr"&gt;<br>
+    &lt;head&gt;<br>
+    &lt;meta charset="UTF-8"&gt;<br>
+    &lt;title&gt;DedSec Auth&lt;/title&gt;<br>
+    &lt;style&gt;<br>
+    body{background:#05060b;color:#e5f4ff;font-family:monospace;padding:20px;}<br>
+    h1{color:#4ce0c6;}<br>
+    input,button{background:#101424;color:#fff;border:1px solid #4ce0c6;padding:8px;margin:5px;border-radius:4px;}<br>
+    button:hover{background:#1a2a3a;cursor:pointer;}<br>
+    #hacks{margin-top:20px;}<br>
+    .hack-item{background:#0d1018;border-left:3px solid #ff5fd1;padding:10px;margin:8px 0;border-radius:4px;}<br>
+    &lt;/style&gt;<br>
+    &lt;/head&gt;<br>
+    &lt;body&gt;<br>
+    &nbsp;&nbsp;&lt;h1&gt;[DEDSEC] Auth Manager&lt;/h1&gt;<br>
+
+    &nbsp;&nbsp;&lt;div id="auth-section"&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Register&lt;/h2&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="email" id="reg-email" placeholder="Email"&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="password" id="reg-password" placeholder="Password"&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;button onclick="register()"&gt;Register&lt;/button&gt;<br><br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Login&lt;/h2&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="email" id="login-email" placeholder="Email"&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="password" id="login-password" placeholder="Password"&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;button onclick="login()"&gt;Login&lt;/button&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;div id="hack-section" style="display:none;"&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Your Hacks&lt;/h2&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" id="target" placeholder="Target"&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" id="level" placeholder="Level"&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button onclick="createHack()"&gt;Create Hack&lt;/button&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button onclick="logout()"&gt;Logout&lt;/button&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div id="hacks"&gt;&lt;/div&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;script&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const API = "http://localhost:3000";<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let token = localStorage.getItem("token");<br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (token) showHackSection();<br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;async function register() {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const email = document.getElementById("reg-email").value;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const password = document.getElementById("reg-password").value;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const res = await fetch(`${API}/auth/register`, {
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method: "POST",
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers: { "Content-Type": "application/json" },
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body: JSON.stringify({ email, password })
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const data = await res.json();
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(data.message || data.error);
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;async function login() {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const email = document.getElementById("login-email").value;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const password = document.getElementById("login-password").value;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const res = await fetch(`${API}/auth/login`, { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method: "POST",<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers: { "Content-Type": "application/json" },<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body: JSON.stringify({ email, password })
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const data = await res.json();<br>
+    &nbsp;&nbsp;if (data.token) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;token = data.token;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;localStorage.setItem("token", token);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;showHackSection();<br>
+    &nbsp;&nbsp;} else {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;alert(data.error);<br>
+    &nbsp;&nbsp;}<br>
+    }<br>
+
+    function showHackSection() {<br>
+    &nbsp;&nbsp;document.getElementById("auth-section").style.display = "none";<br>
+    &nbsp;&nbsp;document.getElementById("hack-section").style.display = "block";<br>
+    &nbsp;&nbsp;loadHacks();<br>
+    }<br>
+
+    async function loadHacks() {<br>
+    &nbsp;&nbsp;const res = await fetch(`${API}/hacks`, {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;headers: { "Authorization": `Bearer ${token}` }<br>
+    &nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;const hacks = await res.json();<br>
+    &nbsp;&nbsp;const container = document.getElementById("hacks");<br>
+    &nbsp;&nbsp;container.innerHTML = "";<br>
+    &nbsp;&nbsp;hacks.forEach(hack =&gt; {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const div = document.createElement("div");<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;div.className = "hack-item";<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;div.innerHTML = `&lt;strong&gt;#${hack.id}&lt;/strong&gt; - ${hack.target} (${hack.level}) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button onclick="deleteHack(${hack.id})"&gt;Delete&lt;/button&gt;`;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;container.appendChild(div);<br>
+    &nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;}<br>
+
+    async function createHack() {<br>
+    &nbsp;&nbsp;const target = document.getElementById("target").value;<br>
+    &nbsp;&nbsp;const level = document.getElementById("level").value;<br>
+    &nbsp;&nbsp;await fetch(`${API}/hacks`, {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;method: "POST",<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;headers: { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;"Content-Type": "application/json",<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;"Authorization": `Bearer ${token}`<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+    &nbsp;&nbsp;body: JSON.stringify({ target, level })<br>
+    &nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;document.getElementById("target").value = "";<br>
+    &nbsp;&nbsp;document.getElementById("level").value = "";<br>
+    &nbsp;&nbsp;loadHacks();<br>
+    }<br>
+
+    async function deleteHack(id) {<br>
+    &nbsp;&nbsp;await fetch(`${API}/hacks/${id}`, {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;method: "DELETE",<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;headers: { "Authorization": `Bearer ${token}` }<br>
+    &nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;loadHacks();<br>
+    }<br>
+
+    function logout() {<br>
+    &nbsp;&nbsp;localStorage.removeItem("token");<br>
+    &nbsp;&nbsp;token = null;<br>
+    &nbsp;&nbsp;document.getElementById("auth-section").style.display = "block";<br>
+    &nbsp;&nbsp;document.getElementById("hack-section").style.display = "none";<br>
+    }<br>
+  &lt;/script&gt;<br>
+  &lt;/body&gt;<br>
+  &lt;/html&gt;
+  </div><br>
+
+  <hr>
+
+  <h2>Résumé Leçon 7</h2>
+  <p style="font-size:13px;color:#7f8fb8;">
+    <strong>Ce que tu as appris :</strong><br>
+    - Créer un système d'<strong>authentification complet</strong> avec JWT.<br>
+    - Hasher les mots de passe avec <code>bcrypt</code>.<br>
+    - Générer et vérifier des tokens JWT avec <code>jsonwebtoken</code>.<br>
+    - Protéger des routes avec un <strong>middleware d'authentification</strong>.<br>
+    - Créer un front qui gère register/login/logout + stockage du token dans <code>localStorage</code>.<br><br>
+
+    <strong>Tu es maintenant capable de :</strong><br>
+    - Construire une API sécurisée avec authentification utilisateur.<br>
+    - Lier utilisateurs et ressources (chaque hack appartient à un user).<br>
+    - Gérer des sessions côté client avec des tokens JWT.<br><br>
+
+    <strong>Prochaines pistes :</strong><br>
+    - Variables d'environnement (<code>.env</code> + <code>dotenv</code>) pour sécuriser tes secrets.<br>
+    - Refresh tokens pour prolonger les sessions.<br>
+    - Validation avancée des entrées (avec <code>joi</code> ou <code>express-validator</code>).<br>
+    - Déploiement de ton API sur un serveur distant.
+  </p>
+
+</main>
+</body>
+</html>

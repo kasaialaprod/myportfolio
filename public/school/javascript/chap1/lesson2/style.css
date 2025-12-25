@@ -1,0 +1,151 @@
+:root {
+      --zelda-darkblue: #22355b;
+      --zelda-midblue: #31617d;
+      --zelda-turquoise: #37bcb0;
+      --zelda-sand: #f6efd8;
+      --zelda-gold: #debc66;
+      --zelda-green: #4fa166;
+      --zelda-bg: linear-gradient(120deg, #22355b 30%, #f6efd8 100%);
+      --zelda-border: #c7b99e;
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #22C1C3;
+      background: linear-gradient(180deg, rgba(34, 193, 195, 1) 0%, rgba(73, 235, 210, 1) 53%, rgba(232, 188, 93, 1) 100%);
+      min-height: 100vh;
+      color: #283544;
+    }
+    header {
+      background: #2d4696ed;
+      color: #debc66;
+      font-family: cursive;
+      letter-spacing: 2px;
+      text-align: center;
+      padding: 10px 20px;
+      border-bottom: 5px solid #0e3c4a;
+    }
+
+    header h1 {
+      font-size: 40px;
+    }
+    .dialog {
+      background: #fffde0;
+      border: 2px solid #b4a76a;
+      border-radius: 14px 40px 14px 14px;
+      padding: 1rem;
+      margin: 2rem auto;
+      width: 60%;
+      color: #2e3126;
+      font-size: 1.05rem;
+      position: relative;
+      box-shadow: 0 0 12px #89c1d0aa;
+}
+.dialog:before {
+      content: "";
+      position: absolute;
+      left: -22px; top: 14px;
+      width: 0; height: 0;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-right: 22px solid #fffde0;
+}
+    .link-pic {
+      width: 150px; 
+      height: 150px;
+      position: absolute;
+      left: -125px; top: -14px;
+      transform: scaleX(-1);
+      border-radius: 10px;
+}
+    section {
+      margin: 2.2rem auto;
+      max-width: 820px;
+      background: #e9ecdb;
+      border-radius: 20px;
+      box-shadow: 0 3px 24px #22355b22;
+      padding: 2rem 2.3rem 1.3rem 2.3rem;
+      border: 2px solid var(--zelda-border);
+    }
+    h2, h3 {
+      font-family: 'UnifrakturCook', cursive;
+      color: var(--zelda-midblue);
+      margin-top: 0.6em; margin-bottom: 0.5em;
+      font-size: 1.67em; letter-spacing: 1px;
+      text-shadow: .5px 1.5px 0 var(--zelda-gold);
+    }
+    .quest {
+      display: flex; align-items: center;
+      font-size: 1.1em; font-weight: bold;
+      color: var(--zelda-green);
+    }
+    .quest img { width: 26px; margin-right: 8px;}
+    .code {
+      background: #22355b;
+      color: #ffeec1;
+      font-family: "Fira Mono", monospace;
+      border-left: 6px solid var(--zelda-turquoise);
+      border-radius: 5px;
+      margin: 1.05rem 0 1.2rem 0; padding: 1.2rem 1rem 1.1rem 1.5rem;
+      font-size: 1.09rem;
+      overflow-x: auto;
+      box-shadow: 0 2px 8px #31617d26;
+      position: relative;
+    }
+    .code::before {
+      content: 'Exemple de sort';
+      display: block;
+      color: var(--zelda-gold);
+      font-size: .97em;
+      font-family: 'UnifrakturCook';
+      letter-spacing: .3px;
+      position: absolute;
+      left: 1em; top: -1.6em;
+    }
+    .zelda-btn {
+      background: linear-gradient(90deg, var(--zelda-green) 48%, var(--zelda-gold) 120%);
+      color: #fff;
+      border: 0; border-radius: 11px;
+      padding: 0.62rem 1.7rem;
+      margin: 0.9em 0 .7em 0;
+      font-size: 1.09em;
+      font-family: 'UnifrakturCook';
+      letter-spacing: 1.2px;
+      box-shadow: 1px 2px 14px #3bc37944;
+      cursor: pointer;
+      transition: background .21s, transform .12s;
+    }
+    .zelda-btn:hover {
+      background: linear-gradient(90deg,#debc66 42%, #4fa166 60%);
+      color: var(--zelda-darkblue);
+      transform: scale(1.07);
+    }
+    #user-response {
+      background: #deffd7;
+      border: 2px dashed #4fa166;
+      padding: .7rem 1rem;
+      margin: 1rem 0;
+      border-radius: 10px;
+      color: #31617d;
+      min-height: 1.2em;
+      box-shadow: 0 2px 10px #f4ecd823;
+      font-weight: bold;
+    }
+    ul {
+      list-style: '🧩 ';
+      margin-left: 2.1rem;
+      font-size: 1.08em;
+    }
+
+    #heroName {
+      margin: 10px; 
+      font-size: 1.09em; 
+      padding: 0.4em 0.9em;
+      border-radius: 8px;
+      border: 1px solid #4fa166
+    }
+
+    @media (max-width: 720px) {
+      section, .pnj-bulle { max-width: 97vw; padding: 1rem; }
+      .pnj-pic { display: none;}
+    }

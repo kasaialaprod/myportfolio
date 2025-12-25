@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrôle du Flux & Boucles</title>
+</head>
+<body>
+  <header>
+    <h1>Contrôle du Flux & Boucles</h1>
+    <div>
+      « Guide ton aventure JavaScript : prends le bon chemin, déjoue les pièges, et fais tourner la boucle du destin ! »
+    </div>
+  </header>
+
+  <div class="dialog">
+    <img src="../asset/image/link1.gif" alt="Link pixel" class="link-pic">
+    L’art du contrôle des flux, t’offre la sagesse des choix dans le code : avancer, esquiver, répéter… que la logique soit ton épée !
+  </div>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/7307/7307440.png">Quête 1 : Contrôle des flux</div>
+    <ul>
+      <li>Ton code avance étape par étape, mais tu peux <b>changer la route</b> avec des conditions et des boucles.</li><br>
+      <li>Utilise <code>if</code>, <code>else</code>, <code>switch</code> pour faire des choix.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/171/171042.png">Instructions conditionnelles</div>
+    <ul>
+      <li><code>if</code> : teste une épreuve (une condition)</li><br>
+      <li><code>else</code> : suit la voie du destin si le test est raté</li><br>
+      <li><code>else if</code> : propose des chemins alternatifs</li>
+    </ul>
+    <div class="code">
+        let rubis = 30;<br><br>
+        if (rubis > 50) {<br>
+        &nbsp;&nbsp;console.log("Assez pour acheter le bouclier d'or !");<br><br>
+        } else if (rubis > 20) {<br>
+        &nbsp;&nbsp;console.log("Tu peux prendre une potion.");<br><br>
+        } else {<br>
+        &nbsp;&nbsp;console.log("Va gagner plus de rubis !");<br>
+        }
+    </div>
+    <div class="tip">
+      Conseil : Les accolades <code>{ ... }</code> sont obligatoires pour ajouter plusieurs instructions à la condition !
+    </div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/1073/1073220.png">Conditions avancées</div>
+    <ul>
+      <li>Combine des tests avec <code>&&</code> (ET), <code>||</code> (OU)</li>
+      <li>Utilise <code>switch</code> pour gérer plusieurs voies prédéfinies</li>
+    </ul>
+    <div class="code">
+        let météo = "orage";<br><br>
+        switch (météo) {<br><br>
+        &nbsp;&nbsp;case "soleil":<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log("Sors ton épée, libre !");<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>
+        &nbsp;&nbsp;case "pluie":<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log("Attention, sol glissant.");<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>
+        &nbsp;&nbsp;case "orage":<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log("Range tout métal, prudent héros.");<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;break;<br><br>
+        &nbsp;&nbsp;default:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log("Décision au feeling !");<br>
+        }
+    </div>
+    <div class="tip">
+      Nota bene : <code>switch</code> est idéal quand tu attends plusieurs choix possibles connus (comme la météo, un rang, un type d’arme…)<br><br>
+                <code>break</code> est essentiel pour éviter que le code continue dans les autres cas.<br><br>
+                <code>default</code> gère le cas où aucune condition n’est remplie.
+    </div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/1175/1175737.png">Approfondir les conditions</div>
+    <ul>
+      <li>Teste plusieurs conditions imbriquées</li>
+      <li>Utilise <code>!</code> pour l’inverse</li>
+      <li>Attention aux parenthèses pour clarifier la logique !</li>
+    </ul>
+    <div class="code">
+        let héros = "Link";<br>
+        let vie = 11;<br><br>
+        if (héros === "Link" && vie > 10) {<br>
+        &nbsp;&nbsp;console.log("L’aventure continue !");<br>
+        }<br><br>
+        if (!(vie < 5)) {<br>
+        &nbsp;&nbsp;console.log("Encore assez de cœur !");<br>
+        }
+    </div>
+    <div class="tip">
+      Astuce : Avec <code>!</code>, tu inverses la condition (« pas… »). <br><br>
+      Avec plusieurs <code>if</code> imbriqués, tu gères les situations les plus complexes de la quête.
+    </div>
+  </section>
+
+  <section>
+    <div class="quest"><img src="https://cdn-icons-png.flaticon.com/512/3523/3523977.png">Les boucles (la vraie aventure)</div>
+    <ul>
+      <li><code>for</code> : pour répéter une action (parcourir un inventaire…)</li>
+      <li><code>while</code> : tant qu’une condition est vraie, la boucle tourne</li>
+      <li><code>do...while</code> : boucle exécutée au moins une fois (piège, mini-jeu !)</li>
+    </ul>
+    <div class="code">
+        let inventaire = ["épée", "potion", "rubis"];<br><br>
+        for(let i = 0; i < inventaire.length; i++){<br>
+        &nbsp;&nbsp;console.log("Objet trouvé : " + inventaire[i]);<br>
+        }<br><br><br>
+        let cœurs = 3;<br><br>
+        while(cœurs > 0){<br>
+        &nbsp;&nbsp;console.log("♥ : " + cœurs);<br>
+        &nbsp;&nbsp;cœurs--;<br>
+        }
+    </div>
+    <div class="tip">
+      Conseil : Attention aux « boucles infinies » : vérifie que ta condition change bien à chaque tour !
+    </div>
+  </section>
+</body>
+</html>

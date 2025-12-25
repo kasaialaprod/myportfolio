@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express : serveur HTTP & API basique</title>
+</head>
+<body>
+    <header>
+  <h1>&gt; NODE.JS 101 – Leçon 4</h1>
+  <span>// Express : serveur HTTP & API basique</span>
+</header>
+<main>
+
+  <h2>1. C’est quoi Express ?</h2>
+  <ul>
+    <li><b>Express</b> est un framework minimaliste pour construire des serveurs HTTP et des APIs avec Node.js.</li>
+    <li>Il simplifie énormément la gestion des routes, des paramètres et des réponses.</li>
+    <li>Tu écris moins de code “bas niveau” qu’avec le module <code>http</code> direct.</li>
+  </ul>
+
+  <div class="terminal">
+    <span class="tag">SANS EXPRESS</span><br>
+    http.createServer((req, res) =&gt; { ... })<br><br>
+    <span class="tag">AVEC EXPRESS</span><br>
+    app.get("/route", (req, res) =&gt; { ... })
+  </div>
+
+  <h2>2. Préparer un projet Express</h2>
+  <p>1. Crée un dossier, par ex : <code>dedsec-express-api</code></p>
+  <div class="terminal">
+    $ mkdir dedsec-express-api<br>
+    $ cd dedsec-express-api<br>
+    $ npm init -y
+  </div>
+
+  <p>2. Installe Express dans ce projet :</p>
+  <div class="terminal">
+    $ npm install express
+  </div>
+
+  <p>3. Crée un fichier <code>server.js</code> à la racine du projet.</p>
+
+  <h2>3. Premier serveur Express</h2>
+  <p>Mets ce code dans <code>server.js</code> :</p>
+
+  <div class="terminal">
+    // server.js<br>
+    import express from "express";<br>
+    const app = express();<br><br>
+    const PORT = 3000;<br><br>
+    // Middleware pour analyser une chaîne de texte JSON et la transformer en objet JavaScript (parser)<br>
+    app.use(express.json());<br><br>
+    // Route GET /<br>
+    app.get("/", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;res.send("[DEDSEC] Express server online");<br>
+    });<br><br>
+    // Démarrage du serveur<br>
+    app.listen(PORT, () =&gt; {<br>
+    &nbsp;&nbsp;console.log(`[DEDSEC] Express listening on http://localhost:${PORT}`);<br>
+    });
+  </div>
+
+  <p>4. Ajoute un script <code>start</code> dans <code>package.json</code> :</p>
+  <div class="terminal">
+    "scripts": {<br>
+      "start": "node server.js"<br>
+    }
+  </div>
+
+  <p>5. Lance le serveur :</p>
+  <div class="terminal">
+    $ npm start<br>
+    [DEDSEC] Express listening on http://localhost:3000
+  </div>
+
+  <p>Va sur <code>http://localhost:3000</code> : tu dois voir le message texte renvoyé par Express.</p>
+
+  <h2>4. Routes GET : JSON & paramètres</h2>
+  <h3>4.1 Route JSON simple</h3>
+  <p>Ajoute cette route avant <code>app.listen(...)</code> :</p>
+
+  <div class="terminal">
+    // GET /status<br>
+    app.get("/status", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;res.json({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;status: "online",<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;version: "1.0.0",<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;crew: "DedSec"<br>
+    &nbsp;&nbsp;});<br>
+  });
+  </div>
+
+  <p>
+    <code>res.json(...)</code> envoie automatiquement une réponse JSON avec le bon header <code>Content-Type</code>.
+  </p>
+
+  <h3>4.2 Paramètres de route (/:name)</h3>
+  <p>Ajoute une route avec un paramètre dynamique :</p>
+  <div class="terminal">
+    // GET /hack/:target<br>
+    app.get("/hack/:target", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const target = req.params.target;  // récupère la valeur dans l'URL<br>
+    &nbsp;&nbsp;res.json({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;message: `Hack request received for target: ${target}`,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;status: "pending"<br>
+    &nbsp;&nbsp;});<br>
+    });
+  </div>
+
+  <p>Exemples :</p>
+  <div class="terminal">
+    http://localhost:3000/hack/blume<br>
+    → {"message":"Hack request received for target: blume",<br>"status":"pending"}<br><br>
+    http://localhost:3000/hack/marcus<br>
+    → {"message":"Hack request received for target: marcus",<br>"status":"pending"}
+  </div>
+
+  <h2>5. Route POST : recevoir des données (JSON)</h2>
+  <p>On va créer une route POST qui reçoit un corps JSON (ex: pseudo + cible) et répond avec un message.</p>
+
+  <div class="terminal">
+    // POST /hack<br>
+    app.post("/hack", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const { pseudo, target } = req.body;  // nécessite app.use(express.json()) plus haut<br><br>
+    &nbsp;&nbsp;if (!pseudo || !target) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ error: "pseudo and target are required" });<br>
+    &nbsp;&nbsp;}<br><br>
+    &nbsp;&nbsp;res.json({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;message: `[DEDSEC] ${pseudo} targeting ${target}`,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;status: "queued"<br>
+    &nbsp;&nbsp;});<br>
+    });
+  </div>
+
+  <p>Pour tester cette route POST facilement, tu peux utiliser :</p>
+  <ul>
+    <li>un outil comme <b>Postman</b> ou <b>Insomnia</b> ;</li>
+    <li>ou la commande <code>curl</code> :</li>
+  </ul>
+
+  <div class="terminal">
+    $ curl -X POST http://localhost:3000/hack -H "Content-Type: application/json" -d '{"pseudo":"Marcus","target":"CTOS"}'
+  </div>
+
+  <p>Réponse JSON attendue :</p>
+  <div class="terminal">
+    {"success":true,"message":"Hack initié","data":{"pseudo":"Marcus","target":"CTOS"}}<br>
+  </div>
+
+  <h2>6. Organisation minimale du projet</h2>
+  <p>Pour garder les choses propres, tu peux déjà adopter cette petite structure :</p>
+  <div class="terminal">
+    dedsec-express-api/<br>
+    ├─ package.json<br>
+    ├─ server.js        // point d'entrée<br>
+    └─ routes/          // (optionnel, plus tard) fichiers de routes séparées
+  </div>
+
+  <p>Plus tard, tu pourras :</p>
+  <ul>
+    <li>déplacer certaines routes dans <code>routes/hack.js</code> ;</li>
+    <li>les importer dans <code>server.js</code> avec <code>import</code> ;</li>
+    <li>ajouter des <b>middlewares</b> (logs, sécurité, etc.).</li>
+  </ul>
+
+  <hr>
+
+  <p style="font-size:13px;color:#7f8fb8;">
+    Leçon 4 – Résumé :<br>
+    - Tu as installé et utilisé <b>Express</b> pour créer un serveur HTTP plus facilement.<br>
+    - Tu sais créer des routes <b>GET</b> (texte, JSON, paramètres d’URL).<br>
+    - Tu sais créer une route <b>POST</b> qui lit un corps JSON (<code>req.body</code>).<br>
+    - Tu commences à organiser ton projet backend comme une mini API.
+  </p>
+
+</main>
+</body>
+</html>

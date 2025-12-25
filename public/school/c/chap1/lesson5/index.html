@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichiers & Préprocesseur</title>
+</head>
+<body>
+    <header>
+    Fichiers & Préprocesseur
+  </header>
+  <main>
+    <h2>1. Fichiers texte : ouvrir, écrire, lire</h2>
+    <ul>
+      <li>Un fichier est manipulé via un pointeur de type <code>FILE*</code>.</li>
+      <li><code>fopen</code> ouvre un fichier, <code>fclose</code> le ferme.</li>
+      <li><code>fprintf</code> et <code>fscanf</code> sont les versions “fichier” de <code>printf</code>/<code>scanf</code>.</li>
+    </ul>
+    <h3>1.1 Écrire dans un fichier texte</h3>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;FILE *f = fopen("data.txt", "w");  // ouvrir en écriture <br><br>
+
+        &nbsp;&nbsp;if (f == NULL) { // échec de l'ouverture ? <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Erreur d'ouverture\n"); <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return 1; <br>
+        &nbsp;&nbsp;} <br><br>
+    
+        &nbsp;&nbsp;fprintf(f, "Bonjour\n"); <br>
+        &nbsp;&nbsp;fprintf(f, "Valeur = %d\n", 42); <br><br>
+
+        &nbsp;&nbsp;fclose(f); // toujours fermer <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+    <ul>
+      <li><code>"w"</code> = écriture (écrase le fichier s'il existe déjà).</li>
+      <li><code>fprintf(f, ...)</code> écrit du texte formaté dans <code>data.txt</code>.</li>
+    </ul>
+
+    <h3>1.2 Lire dans un fichier texte</h3>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;FILE *f = fopen("data.txt", "r"); // ouvrir en lecture <br><br>
+
+        &nbsp;&nbsp;if (f == NULL) { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Erreur d'ouverture\n"); <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return 1; <br>
+        &nbsp;&nbsp;} <br><br>
+
+        &nbsp;&nbsp;char mot[50]; <br>
+        &nbsp;&nbsp;int val; <br>
+
+        &nbsp;&nbsp;fscanf(f, "%s", mot); // lit un mot <br>
+        &nbsp;&nbsp;fscanf(f, " Valeur = %d", &val); // lit un entier <br>
+        &nbsp;&nbsp;printf("mot = %s, val = %d\n", mot, val); <br><br>
+        &nbsp;&nbsp;fclose(f); // toujours fermer <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+    <ul>
+      <li><code>"r"</code> = lecture (fichier doit exister).</li>
+      <li><code>fscanf(f, ...)</code> lit dans le fichier au lieu du clavier.</li>
+    </ul>
+
+    <h2>2. Fichiers binaires : fwrite, fread</h2>
+    <ul>
+      <li>On écrit/lit directement les octets de variables ou de structures.</li>
+      <li>Modes binaires : <code>"rb"</code>, <code>"wb"</code>, <code>"ab"</code>.</li>
+    </ul>
+
+    <h3>2.1 Écrire un tableau d'entiers en binaire</h3>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br>
+
+        int main() { <br>
+        &nbsp;&nbsp;FILE *f = fopen("data.bin", "wb"); // wb = write binary <br>
+        &nbsp;&nbsp;if (f == NULL) {
+        &nbsp;&nbsp;&nbsp;&nbsp;return 1; <br>
+        }<br>
+
+        &nbsp;&nbsp;int tab[3] = {10, 20, 30}; <br>
+        &nbsp;&nbsp;fwrite(tab, sizeof(int), 3, f); // écrit 3 int <br><br>
+
+        &nbsp;&nbsp;fclose(f); <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+
+    <h3>2.2 Lire un tableau d'entiers en binaire</h3>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;FILE *f = fopen("data.bin", "rb"); // rb = read binary <br>
+        &nbsp;&nbsp;if (f == NULL) {
+        &nbsp;&nbsp;&nbsp;&nbsp;return 1; <br>
+        }<br><br>
+
+        &nbsp;&nbsp;int tab[3]; <br>
+        &nbsp;&nbsp;size_t lus = fread(tab, sizeof(int), 3, f); <br><br>
+
+        &nbsp;&nbsp;if (lus != 3) { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Erreur de lecture\n"); <br>
+        &nbsp;&nbsp;} else { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("%d %d %d\n", tab[0], tab[1], tab[2]); <br>
+        &nbsp;&nbsp;} <br><br>
+
+        fclose(f); <br>
+        return 0; <br>
+        }
+    </div>
+
+    <h2>3. Gestion d'erreurs avec les fichiers</h2>
+    <ul>
+      <li>Toujours tester <code>f == NULL</code> après <code>fopen</code>.</li>
+      <li>On peut utiliser <code>perror</code> pour afficher un message d'erreur système.</li>
+    </ul>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br>
+        #include &lt;errno.h&gt; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;FILE *f = fopen("inconnu.txt", "r"); <br>
+        &nbsp;&nbsp;if (f == NULL) { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;perror("Erreur d'ouverture");  // affiche la cause système <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return 1; <br>
+        &nbsp;&nbsp;} <br><br>
+
+        &nbsp;&nbsp;fclose(f); <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+
+    <h2>4. Préprocesseur : #include, #define</h2>
+    <ul>
+      <li>Le préprocesseur travaille <b>avant</b> la compilation.</li>
+      <li><code>#include</code> insère un fichier d'en-tête.</li>
+      <li><code>#define</code> crée une macro (constante symbolique, ou petit bout de code).</li>
+    </ul>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br>
+        #define PI 3.14159 <br>
+        #define TAILLE_MAX 100 <br><br> 
+
+        int main() { <br>
+        &nbsp;&nbsp;printf("PI = %f\n", PI); <br>
+        &nbsp;&nbsp;int tab[TAILLE_MAX]; <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+    <ul>
+      <li><code>PI</code> et <code>TAILLE_MAX</code> seront remplacées par leur valeur avant compilation.</li>
+    </ul>
+
+    <h2>5. Compilation conditionnelle</h2>
+    <ul>
+      <li>Permet d'activer/désactiver des parties du code selon une macro.</li>
+      <li>Très utilisé pour le mode <code>DEBUG</code> vs <code>RELEASE</code>.</li>
+    </ul>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br><br>
+
+        // #define DEBUG   // décommente pour activer le mode debug <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;#ifdef DEBUG <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Mode debug activé\n"); <br>
+        &nbsp;&nbsp;#endif <br><br>
+
+        &nbsp;&nbsp;#ifndef DEBUG <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Mode release\n"); <br>
+        &nbsp;&nbsp;#endif <br><br>
+
+        &nbsp;&nbsp;#if 1 <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Ce code est toujours compilé\n"); <br>
+        &nbsp;&nbsp;#endif <br><br>
+
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+    <ul>
+      <li><code>#ifdef NOM</code> : compile le bloc si <code>NOM</code> est définie.</li>
+      <li><code>#ifndef NOM</code> : compile le bloc si <code>NOM</code> n'est pas définie.</li>
+      <li><code>#if</code>, <code>#elif</code>, <code>#else</code>, <code>#endif</code> : conditions plus générales.</li>
+    </ul>
+
+    <h2>6. Macros avec paramètres & opérateurs # et ##</h2>
+    <h3>6.1 Macro avec paramètres</h3>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br>
+        #define CARRE(x) ((x) * (x)) <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;int a = 5; <br>
+        &nbsp;&nbsp;printf("%d\n", CARRE(a));     // 25 <br>
+        &nbsp;&nbsp;printf("%d\n", CARRE(a + 1)); // 36 <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+    <ul>
+      <li>Le préprocesseur remplace <code>CARRE(a)</code> par <code>((a) * (a))</code>.</li>
+      <li>Attention aux parenthèses pour éviter les surprises.</li>
+    </ul>
+
+    <h3>6.2 Opérateur # (stringify)</h3>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br>
+        #define AFFICHER_VAR(nom, val) printf(#nom " = %d\n", val) <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;int x = 10; <br>
+        &nbsp;&nbsp;AFFICHER_VAR(x, x);  // devient printf("x = %d\n", x); <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+
+    <h3>6.3 Opérateur ## (concaténation)</h3>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br>
+        #define CONCAT(a, b) a##b <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;int ab = 42; <br>
+        &nbsp;&nbsp;printf("%d\n", CONCAT(a, b)); // devient ab <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+
+    <h2>7. Chaînes / tableaux dynamiques & fichiers</h2>
+    <ul>
+      <li>On peut combiner mémoire dynamique (<code>malloc</code>) et fichiers.</li>
+    </ul>
+    <div class="code">
+        #include &lt;stdio.h&gt; <br>
+        #include &lt;stdlib.h&gt; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;FILE *f = fopen("texte.txt", "r"); <br>
+        &nbsp;&nbsp;if (f == NULL) return 1; <br><br>
+
+        &nbsp;&nbsp;char *ligne = malloc(100 * sizeof(char)); <br>
+        &nbsp;&nbsp;if (ligne == NULL) return 1; <br><br>
+
+        &nbsp;&nbsp;if (fgets(ligne, 100, f) != NULL) { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Lu : %s\n", ligne); <br>
+        &nbsp;&nbsp;} <br><br>
+
+        &nbsp;&nbsp;free(ligne); <br>
+        &nbsp;&nbsp;fclose(f); <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+
+    <h2>À retenir (synthèse)</h2>
+    <ul>
+      <li><b>Fichiers texte</b> : <code>fopen</code>, <code>fprintf</code>, <code>fscanf</code>, <code>fgets</code>, <code>fclose</code>.</li>
+      <li><b>Fichiers binaires</b> : <code>fopen</code> en <code>"rb"/"wb"</code>, <code>fread</code>, <code>fwrite</code>.</li>
+      <li><b>Erreurs</b> : tester <code>f == NULL</code>, éventuellement <code>perror()</code>.</li>
+      <li><b>Préprocesseur</b> : <code>#include</code>, <code>#define</code>, macros, compilation conditionnelle.</li>
+    </ul>
+  </main>
+</body>
+</html>

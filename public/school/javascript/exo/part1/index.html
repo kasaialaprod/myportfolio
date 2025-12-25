@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendu avec Pendu</title>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Jeu du pendu (avec pendu...)</div>   
+    </div>
+
+    <div id="pendu-container">
+        <canvas id="pendu-canvas" width="300" height="400"></canvas>
+        <div id="pendu-steps">Étape: 0/8</div>
+    </div>
+    <br>
+
+    <div class="playground">
+        <div id="wordToFind">Input</div> 
+        
+        <!-- AJOUTÉ : Affichage des essais restants -->
+        <div>Essais restants: <span id="tries">8</span></div>
+        <br>
+    
+        <input type="text" id="props" maxlength="1" placeholder="Entrez une lettre">
+        <button id="testButton">Tester</button>
+        <br><br>
+        <div id="message"></div>
+        <br><br>
+        <button type="button" id="nextWord">Load the Game</button>
+    </div>
+
+    <!-- DÉPLACÉ : Le script DOIT être à la fin du body -->
+    <script src="inter.js"></script>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Pendu</title>
+
+</head>
+<body>
+    <h1>Jeu du Pendu</h1>
+    
+    <div class="game-info">
+        <p>Essais restants: <span id="tries">8</span></p>
+        <p>Lettres utilisées: <span id="lettersUsed"></span></p>
+    </div>
+    
+    <div id="wordToFind"></div>
+    
+    <div>
+        <input type="text" id="props" maxlength="1" placeholder="Entrez une lettre">
+        <button id="testButton">Tester</button>
+    </div>
+    
+    <div id="message"></div>
+    
+    <button id="nextWord">Nouveau Mot</button>
+
+</body>
+</html>
+-->

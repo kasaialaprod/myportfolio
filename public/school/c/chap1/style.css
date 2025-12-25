@@ -1,0 +1,59 @@
+body {
+      background: #050609;
+      color: #c7d8f0;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      margin: 0;
+      padding: 0;
+    }
+    .wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px 25px 40px 25px;
+      background: #0b0f16;
+      border-radius: 10px;
+      border: 2px solid #1b2230;
+      box-shadow: 0 0 30px #000a;
+    }
+    .title {
+      color: #6fffe9;
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 25px #00c7ccaa;
+    }
+    .subtitle {
+      color: #4a90e2;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .terminal {
+      background: #05070d;
+      border-radius: 8px;
+      padding: 16px 18px 20px 18px;
+      border: 1px solid #232a3b;
+      box-shadow: 0 0 20px #0009;
+    }
+    .prompt {
+      color: #6fffe9;
+    }
+    .cmd {
+      color: #98fc55;
+    }
+    .comment {
+      color: #4a90e2;
+    }
+    a {
+      color: #98fc55;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #c9ff8a;
+      text-shadow: 0 0 8px #c9ff8a60;
+    }
+    .line {
+      margin: 4px 0;
+      white-space: nowrap;
+      overflow-x: auto;
+    }

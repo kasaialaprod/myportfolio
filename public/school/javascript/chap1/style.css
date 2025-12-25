@@ -1,0 +1,77 @@
+body {
+      margin: 0; padding: 0;
+      background: #355e30;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+}
+
+header {
+    font-family: 'UnifrakturCook', cursive;
+    color: #3b413a;
+    text-align: center;
+    font-size: 36px;
+    padding: 40px 0 20px 0;
+    letter-spacing: 2px;
+}
+
+.header-subtitle {
+    font-size: 19px; 
+    color:#304f33; 
+    margin-top:7px; 
+    font-family:Roboto,sans-serif;
+}
+
+
+.map {
+  position: relative;
+  width: 95%;
+  height: 600px;
+  background: #46a82b;
+  border-radius: 45px;
+  margin: 0 auto;
+}
+
+.castleBox {
+  position: absolute;
+  display: block;
+  width: 150px;
+  height: 110px;
+}
+
+.castleBox:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s;
+  z-index: 10;
+}
+
+.castle1 { top: 8%; left: 7%; }
+.castle2 { top: 69%; left: 15%; }
+.castle3 { top: 29%; left: 40%; }
+.castle4 { top: 57%; left: 70%; }
+.castle5 { top: 9%; left: 68%; }
+
+.castle-label {
+  font-family: 'UnifrakturCook', cursive;
+  width: 100%;
+  color: #304f33;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 3px 10px;
+  margin-top: 2px;
+  margin-bottom: 3px;
+  display: inline-block;
+}
+
+img {
+  width: 100%;
+}
+
+footer {
+    text-align: center;
+    font-size: 15px;
+    color: #426439;
+    font-family: 'UnifrakturCook', cursive;
+    margin: 22px 0 10px 0;
+    opacity: .88;
+}

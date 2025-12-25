@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structures, Unions et Mémoire dynamique</title>
+</head>
+<body>
+    <header>
+    Structures, Unions & Mémoire dynamique
+  </header>
+  <main>
+    <h2>1. Structures (<code>struct</code>)</h2>
+    <ul>
+      <li>Une <b>structure</b> permet de regrouper plusieurs variables (de types différents) dans un seul “bloc”.</li>
+      <li>On l’utilise pour modéliser un “objet” : joueur, voiture, point 2D, etc.</li>
+    </ul>
+    <div class="code">
+        struct Joueur { <br>
+        &nbsp;&nbsp;char pseudo[20]; <br>
+        &nbsp;&nbsp;int niveau; <br>
+        &nbsp;&nbsp;float vie; <br>
+        }; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;struct Joueur j1; // Remplissage <br>
+        &nbsp;&nbsp;strcpy(j1.pseudo, "Link"); // nécessite &lt;string.h&gt; <br>
+        &nbsp;&nbsp;j1.niveau = 5; <br>
+        &nbsp;&nbsp;j1.vie = 72.5; <br>
+
+        &nbsp;&nbsp;printf("Joueur %s, niveau %d, vie %.1f\n", j1.pseudo, j1.niveau, j1.vie); <br>
+        &nbsp;&nbsp;return 0; <br>
+    }
+    </div>
+    <div class="console">
+      Joueur Link, niveau 5, vie 72.5
+    </div>
+    <ul>
+      <li>Accès aux champs avec l’opérateur <code>.</code> : <code>j1.niveau</code>, <code>j1.vie</code></li>
+      <li>On peut aussi faire un <code>typedef</code> pour simplifier l’écriture :</li>
+    </ul>
+    <div class="code">
+        typedef struct { <br>
+        &nbsp;&nbsp;char pseudo[20]; <br>
+        &nbsp;&nbsp;int niveau; <br>
+        &nbsp;&nbsp;float vie; <br>
+        } Joueur; // plus besoin d'écrire struct devant <br><br>
+
+        Joueur j2;
+    </div>
+
+    <h2>2. Unions (<code>union</code>) et différence avec struct</h2>
+    <ul>
+      <li>Une <b>union</b> ressemble à une <code>struct</code>, mais les membres partagent le même espace mémoire.</li>
+      <li>⇒ À un instant donné, <b>un seul membre est “valide”</b>.</li>
+    </ul>
+    <div class="code">
+        union Nombre { <br>
+        &nbsp;&nbsp;int entier; <br>
+        &nbsp;&nbsp;float reel; <br>
+        }; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;union Nombre n; <br>
+        &nbsp;&nbsp;n.entier = 10; <br>
+        &nbsp;&nbsp;printf("entier = %d\n", n.entier); <br>
+
+        &nbsp;&nbsp;n.reel = 3.14; // écrase la même zone mémoire <br>
+        &nbsp;&nbsp;printf("reel   = %.2f\n", n.reel); // n.entier n'existe plus ici, comme si, sur une feuille de papier, on avait écrit 10, puis on l'avait effacé pour écrire 3.14<br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+    <div class="console">
+      entier = 10<br>
+      reel   = 3.14
+    </div>
+    <ul>
+      <li>Utilité : économiser de la mémoire quand on sait qu’on n’utilise qu’un des champs à la fois.</li><br>
+      <li>Attetion: pour pouvoir réutiliser un champ, il faut savoir quel champ est valide à un instant donné. Dans cette exemple, pour pouvoir réutiliser n.entier, il faut le réaffecter.</li>
+    </ul>
+
+    <h3>Mélanger <code>struct</code> et <code>union</code></h3>
+    <ul>
+      <li>On peut mettre une <code>union</code> dans une <code>struct</code> pour construire des types plus flexibles.</li>
+    </ul>
+    <div class="code">
+        typedef struct { <br>
+        &nbsp;&nbsp;char type;  //'i' pour int, 'f' pour float <br>
+        &nbsp;&nbsp;union { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;int i; <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;float f; <br>
+        &nbsp;&nbsp;} valeur; <br>
+        } NombreGenerique; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;NombreGenerique n; <br>
+        &nbsp;&nbsp;n.type = 'i'; <br>
+        &nbsp;&nbsp;n.valeur.i = 42; <br>
+
+        &nbsp;&nbsp;if (n.type == 'i') { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Entier : %d\n", n.valeur.i); <br>
+        &nbsp;&nbsp;} else if (n.type == 'f') { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("Réel   : %.2f\n", n.valeur.f); <br>
+        &nbsp;&nbsp;} <br>
+        &nbsp;&nbsp;return 0; <br>
+        }
+    </div>
+
+    <h2>3. Mémoire dynamique : <code>malloc</code>, <code>calloc</code>, <code>realloc</code>, <code>free</code></h2>
+    <ul>
+      <li>Jusqu’ici, nos variables avaient une taille <b>fixe</b>, connue à la compilation.</li>
+      <li>Avec la mémoire dynamique, on peut demander de la mémoire à l’exécution (à l’OS) et la libérer quand on veut.</li>
+    </ul>
+    <h3><code>malloc</code></h3>
+    <ul>
+      <li><code>malloc(tailleEnOctets)</code> réserve un bloc de mémoire, renvoie un <code>void*</code>.</li>
+      <li>On doit le convertir (cast) vers le bon type de pointeur.</li>
+    </ul>
+    <div class="code">
+        int *p = malloc(5 * sizeof(int));  // tableau dynamique de 5 int <br><br>
+
+        if (p == NULL) { <br>
+        &nbsp;&nbsp;printf("Allocation échouée\n"); <br>
+        &nbsp;&nbsp;return 1; <br>
+        } <br><br>
+
+        // utilisation <br>
+        for (int i = 0; i < 5; i++) { <br>
+        &nbsp;&nbsp;p[i] = i * 10; <br>
+        } <br>
+        // libération <br>
+        free(p);
+    </div>
+
+    <h3><code>calloc</code></h3>
+    <ul>
+      <li><code>calloc(n, taille)</code> réserve un bloc pour n éléments et <b>initialise à 0</b>.</li>
+    </ul>
+    <div class="code">
+        int *tab = calloc(5, sizeof(int)); // 5 int initialisés à 0 <br><br>
+        // ... <br>
+        free(tab);
+    </div>
+
+    <h3><code>realloc</code></h3>
+    <ul>
+      <li><code>realloc(ptr, nouvelleTaille)</code> permet de <b>redimensionner</b> un bloc déjà alloué.</li>
+    </ul>
+    <div class="code">
+        int *t = malloc(3 * sizeof(int)); <br><br>
+        // ... (remplir t) <br><br>
+        int *t2 = realloc(t, 6 * sizeof(int)); // agrandir à 6 int <br><br>
+        if (t2 != NULL) { <br>
+        &nbsp;&nbsp;t = t2; <br>
+        } <br>
+        // ... (utiliser t) <br>
+        free(t);
+    </div>
+    <ul>
+      <li>Important : toujours <b>free()</b> toute mémoire allouée une fois qu’on n’en a plus besoin.</li>
+    </ul>
+
+    <h2>4. Chaînes dynamiques & tableaux dynamiques</h2>
+    <h3>Chaîne dynamique</h3>
+    <ul>
+      <li>On peut allouer une chaîne de caractères à la volée avec <code>malloc</code>.</li>
+    </ul>
+    <div class="code">
+        char *nom = malloc(50 * sizeof(char));  // chaîne de 49 chars + '\0' <br><br>
+        if (nom == NULL) { <br>
+        &nbsp;&nbsp;return 1; <br>
+        } <br><br>
+
+        printf("Entre ton pseudo : "); <br>
+        fgets(nom, 50, stdin); <br><br>
+
+        printf("Bienvenue %s", nom); <br><br>
+
+        free(nom);
+    </div>
+
+    <h3>Tableau dynamique de structures</h3>
+    <ul>
+      <li>On peut allouer un tableau de <code>Joueur</code> dynamiquement.</li>
+    </ul>
+    <div class="code">
+        typedef struct { <br>
+        &nbsp;&nbsp;char pseudo[20]; <br>
+        &nbsp;&nbsp;int niveau; <br>
+        } Joueur; <br><br>
+
+        int main() { <br>
+        &nbsp;&nbsp;int n = 3; <br>
+        &nbsp;&nbsp;Joueur *groupe = malloc(n * sizeof(Joueur)); <br>
+        &nbsp;&nbsp;if (groupe == NULL){ <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return 1; <br>
+        &nbsp;&nbsp;} <br><br>
+
+        &nbsp;&nbsp;strcpy(groupe[0].pseudo, "Link"); <br>
+        &nbsp;&nbsp;groupe[0].niveau = 5; <br><br>
+
+        &nbsp;&nbsp;strcpy(groupe[1].pseudo, "Zelda"); <br>
+        &nbsp;&nbsp;groupe[1].niveau = 8; <br><br>
+        
+        &nbsp;&nbsp;strcpy(groupe[2].pseudo, "Ganon"); <br>
+        &nbsp;&nbsp;groupe[2].niveau = 99; <br><br>
+
+        &nbsp;&nbsp;for (int i = 0; i &lt; n; i++) { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;printf("%s (niveau %d)\n", groupe[i].pseudo, groupe[i].niveau); <br>
+        &nbsp;&nbsp;} <br><br>
+
+        &nbsp;&nbsp;free(groupe); <br>
+        &nbsp;&nbsp;return 0; <br>
+}
+    </div>
+
+    <h2>Récapitulatif</h2>
+    <ul>
+      <li><b>struct</b> : regroupe plusieurs champs (tous coexistent en mémoire).</li><br>
+      <li><b>union</b> : partage la même zone mémoire entre plusieurs vues (un seul champ “actif” à la fois).</li><br>
+      <li><b>malloc / calloc / realloc</b> : allocation dynamique, à libérer avec <code>free()</code>.</li><br>
+      <li><b>malloc</b> : <br> malloc → demande de mémoire (réserve un bloc de n octets, mais son contenu est inconnu) <br> p → pointeur vers cette mémoire (tableau dynamique) <br> on remplit via p[i] <br> free(p) → on libère</li><br>
+      <li><b>calloc</b> : <br> calloc → demande de mémoire (réserve un bloc de n octets, initialisé à 0 avant même qu'on ne touche à p[i]) <br> p → pointeur vers cette mémoire (tableau dynamique) <br> on remplit via p[i] <br> free(p) → on libère</li><br>
+        <li><b>realloc</b> : <br> realloc → redimensionne un bloc déjà alloué <br> p → pointeur vers un ancien bloc (obtenu via malloc ou calloc) <br> nouvelleTaille → nouvelle taille totale en octets (peut être plus grande ou plus petite) <br> on remplit via le nouveau pointeur p[i] <br> free(p) → on libère</li><br>
+      <li><b>Chaînes / tableaux dynamiques</b> : utiliser des pointeurs + allocations pour gérer des tailles variables.</li><br>
+    </ul>
+  </main>
+</body>
+</html>

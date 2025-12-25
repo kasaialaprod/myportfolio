@@ -1,0 +1,194 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background: #22C1C3;
+background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(42, 194, 182, 1) 11%, rgba(49, 195, 171, 1) 20%, rgba(53, 196, 165, 1) 25%, rgba(58, 197, 156, 1) 32%, rgba(62, 198, 150, 1) 45%, rgba(68, 199, 138, 1) 57%, rgba(81, 201, 117, 1) 66%, rgba(62, 207, 108, 1) 74%, rgba(38, 215, 97, 1) 84%, rgba(39, 218, 97, 1) 99%, rgba(45, 253, 94, 1) 100%);
+    color: #253751;
+}
+    
+header {
+    background: #37a4c4;
+    color: #ffe38f;
+    font-family: cursive;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 35px 10px 20px 10px;
+    border-bottom: 3px solid #67b876;
+    box-shadow: 0 6px 24px #25375133;
+}
+    
+header h1 {
+    font-size: 37px;
+    margin-bottom: .4em;
+}
+    
+.dialog {
+    background: #fffde0;
+    border: 2px solid #b4a76a;
+    border-radius: 14px 40px 14px 14px;
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 60%;
+    color: #2e3126;
+    font-size: 1.05rem;
+    position: relative;
+    box-shadow: 0 0 12px #89c1d0aa;
+}
+
+.dialog:before {
+    content: "";
+    position: absolute;
+    left: -22px; top: 14px;
+    width: 0; height: 0;
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-right: 22px solid #fffde0;
+}
+    
+.link-pic {
+    width: 150px; 
+    height: 150px;
+    position: absolute;
+    left: -125px; top: -14px;
+    transform: scaleX(-1);
+    border-radius: 10px;
+}
+    
+section {
+    margin: 32px auto;
+    max-width: 830px;
+    background: #eaf8fc;
+    border-radius: 18px;
+    box-shadow: 0 3px 28px #25375126;
+    padding: 28px 31px 20px 31px;
+    border: 2px solid #60e6da;
+}
+
+h2, h3 {
+    font-family: 'UnifrakturCook', cursive;
+    color: #37a4c4;
+    margin-top: 0.6em; margin-bottom: 0.27em;
+    font-size: 27px; letter-spacing: 1px;
+}
+    
+.quest {
+    display: flex; align-items: center;
+    font-size: 19px; font-weight: bold;
+    color: #67b876;
+    margin-bottom: 6px;
+}
+    
+.quest img { 
+    width: 22px; 
+    margin-right: 8px;
+}
+    
+.code {
+    background: #222f49;
+    color: #aee899;
+    font-family: "Fira Mono", monospace;
+    border-left: 5px solid #60e6da;
+    border-radius: 6px;
+    margin: 17px 0 19px 0;
+    padding: 15px 12px 14px 23px;
+    font-size: 17px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px #46eae626;
+    position: relative;
+}
+    
+.code::before {
+    content: 'Sort du script';
+    display: block;
+    color: #ffe38f;
+    font-size: 15px;
+    font-family: 'UnifrakturCook';
+    letter-spacing: .3px;
+    position: absolute;
+    left: 16px; top: -23px;
+}
+
+#heros{
+    background:#1757d8; 
+    padding:12px 19px; 
+    border-radius:9px; 
+    border:2px solid #37a4c4; 
+    width:max-content; 
+    margin:9px 0;
+}
+    
+.resultbox {
+    background: #f7ffef;
+    margin: 13px 0 14px 0;
+    padding: 11px 13px;
+    border: 2px dotted #67b876;
+    border-radius: 8px;
+    color: #207838;
+    font-size: 15px;
+}
+    
+ul { 
+    list-style: '✨ ';
+    margin-left: 2.4em; 
+    font-size: 17px; 
+}
+    
+table {
+    border-collapse: collapse;
+    margin: 18px 0 18px 0;
+    width: 100%;
+    background: #e4ecd0;
+    font-size: 16px;
+    box-shadow: 0 2px 12px #37a4c433;
+    border-radius: 7px;
+    overflow: hidden;
+}
+    
+th, td {
+    padding: 13px 9px;
+    border: 1px solid #37a4c447;
+    text-align: left;
+}
+    
+th {
+    background: #37a4c4;
+    color: #ffe38f;
+    font-family: 'UnifrakturCook';
+    font-size: 17px;
+}
+    
+tr:nth-child(even) {
+    background: #e1f7ef;
+}
+    
+.mini-btn {
+    background: #207838;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 7px 13px;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+    
+.mini-btn:hover {
+    background: #348048;
+    color: #fff;
+    transform: scale(1.05);
+    transition-duration: 0.18s;
+}
+
+#key-event {
+    width: 30px;
+    height: 30px;
+}
+    
+@media (max-width: 750px) {
+    header, section, .pnj-bulle { max-width: 98vw; padding: 8px; }
+    .code { font-size: 15px; }
+    table, th, td { font-size: 13px;}
+}

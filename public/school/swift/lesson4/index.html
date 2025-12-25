@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift — Leçon 4 : POO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Swift Playground</h1>
+  <p>Leçon 4 : POO — Classes, Structures, Protocoles & Extensions</p>
+</header>
+
+<main>
+
+  <div class="island">
+    <h2>1. Structures (struct)</h2>
+    
+    <p>Une <strong>structure</strong> regroupe des propriétés et méthodes liées. C'est un <strong>type valeur</strong> (copié lors de l'assignation).</p>
+    
+    <h3>1.1 Définir une structure</h3>
+    <div class="code-block">struct Joueur {
+    var nom: String
+    var niveau: Int
+    var vie: Double
+    
+    func afficherInfo() {
+        print("\(nom) - Niveau \(niveau) - Vie \(vie)")
+    }
+}
+
+var joueur1 = Joueur(nom: "Marcus", niveau: 10, vie: 100.0)
+joueur1.afficherInfo()</div>
+    <div class="output">Marcus - Niveau 10 - Vie 100.0</div>
+    
+    <h3>1.2 Copie de structure (type valeur)</h3>
+    <div class="code-block">var joueur2 = joueur1
+joueur2.nom = "Wrench"
+
+print(joueur1.nom)
+print(joueur2.nom)</div>
+    <div class="output">Marcus
+Wrench</div>
+    
+    <p>Les structures sont <strong>copiées</strong>, modifier de>joueur2</code> ne touche pas de>joueur1</code>.</p>
+    
+    <h3>1.3 Méthode mutating (modifie la structure)</h3>
+    <div class="code-block">struct Compteur {
+    var valeur = 0
+    
+    mutating func incrementer() {
+        valeur += 1
+    }
+}
+
+var compteur = Compteur()
+compteur.incrementer()
+print(compteur.valeur)</div>
+    <div class="output">1</div>
+    
+    <p>de>mutating</code> indique que la méthode modifie la structure elle-même.</p>
+  </div>
+
+  <div class="island">
+    <h2>2. Classes (class)</h2>
+    
+    <p>Une <strong>classe</strong> est similaire à une struct, mais c'est un <strong>type référence</strong> (partagée, pas copiée).</p>
+    
+    <h3>2.1 Définir une classe</h3>
+    <div class="code-block">class Vehicule {
+    var marque: String
+    var vitesse: Int
+    
+    init(marque: String, vitesse: Int) {
+        self.marque = marque
+        self.vitesse = vitesse
+    }
+    
+    func accelerer() {
+        vitesse += 10
+        print("\(marque) roule à \(vitesse) km/h")
+    }
+}
+
+let voiture = Vehicule(marque: "Tesla", vitesse: 50)
+voiture.accelerer()</div>
+    <div class="output">Tesla roule à 60 km/h</div>
+    
+    <h3>2.2 Référence partagée (type référence)</h3>
+    <div class="code-block">let voiture1 = Vehicule(marque: "BMW", vitesse: 80)
+let voiture2 = voiture1
+
+voiture2.vitesse = 120
+
+print(voiture1.vitesse)
+print(voiture2.vitesse)</div>
+    <div class="output">120
+120</div>
+    
+    <p>de>voiture1</code> et de>voiture2</code> pointent vers le <strong>même objet</strong> en mémoire.</p>
+    
+    <h3>2.3 Héritage</h3>
+    <div class="code-block">class VehiculeElectrique: Vehicule {
+    var autonomie: Int
+    
+    init(marque: String, vitesse: Int, autonomie: Int) {
+        self.autonomie = autonomie
+        super.init(marque: marque, vitesse: vitesse)
+    }
+    
+    func afficherAutonomie() {
+        print("Autonomie : \(autonomie) km")
+    }
+}
+
+let tesla = VehiculeElectrique(marque: "Tesla", vitesse: 0, autonomie: 500)
+tesla.accelerer()
+tesla.afficherAutonomie()</div>
+    <div class="output">Tesla roule à 10 km/h
+Autonomie : 500 km</div>
+  </div>
+
+  <div class="island">
+    <h2>3. Struct vs Class : tableau comparatif</h2>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Critère</th>
+          <th>Struct</th>
+          <th>Class</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Type</td>
+          <td>Valeur (copie)</td>
+          <td>Référence (partage)</td>
+        </tr>
+        <tr>
+          <td>Héritage</td>
+          <td>❌ Non</td>
+          <td>✅ Oui</td>
+        </tr>
+        <tr>
+          <td>Initializer auto</td>
+          <td>✅ Oui</td>
+          <td>❌ Non (doit écrire de>init</code>)</td>
+        </tr>
+        <tr>
+          <td>Mutabilité</td>
+          <td>Nécessite de>mutating</code></td>
+          <td>Direct</td>
+        </tr>
+        <tr>
+          <td>Usage recommandé</td>
+          <td>Données simples, modèles</td>
+          <td>Objets complexes, identité</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p><strong>Règle Swift :</strong> préfère les de>struct</code> par défaut, utilise de>class</code> si besoin d'héritage ou de référence partagée.</p>
+  </div>
+
+  <div class="island">
+    <h2>4. Protocoles (protocols)</h2>
+    
+    <p>Un <strong>protocole</strong> définit un contrat (méthodes/propriétés) que des types doivent respecter.</p>
+    
+    <h3>4.1 Définir un protocole</h3>
+    <div class="code-block">protocol Identifiable {
+    var id: String { get }
+    func afficherID()
+}
+
+struct Utilisateur: Identifiable {
+    var id: String
+    var nom: String
+    
+    func afficherID() {
+        print("ID: \(id)")
+    }
+}
+
+let user = Utilisateur(id: "U123", nom: "Marcus")
+user.afficherID()</div>
+    <div class="output">ID: U123</div>
+    
+        <h3>4.2 Protocole avec plusieurs types</h3>
+    <div class="code-block">protocol Combattant {
+    var vie: Int { get set }
+    func attaquer()
+}
+
+struct Guerrier: Combattant {
+    var vie: Int
+    
+    func attaquer() {
+        print("Coup d'épée !")
+    }
+}
+
+class Mage: Combattant {
+    var vie: Int
+    
+    init(vie: Int) {
+        self.vie = vie
+    }
+    
+    func attaquer() {
+        print("Boule de feu !")
+    }
+}
+
+let g = Guerrier(vie: 100)
+let m = Mage(vie: 80)
+
+g.attaquer()
+m.attaquer()</div>
+    <div class="output">Coup d'épée !
+Boule de feu !</div>
+    
+    <h3>4.3 Protocole comme type</h3>
+    <div class="code-block">func lancerCombat(combattant: Combattant) {
+    print("Vie : \(combattant.vie)")
+    combattant.attaquer()
+}
+
+lancerCombat(combattant: g)
+lancerCombat(combattant: m)</div>
+    <div class="output">Vie : 100
+Coup d'épée !
+Vie : 80
+Boule de feu !</div>
+  </div>
+
+  <div class="island">
+    <h2>5. Extensions</h2>
+    
+    <p>Les <strong>extensions</strong> ajoutent des fonctionnalités à un type existant (même les types natifs Swift).</p>
+    
+    <h3>5.1 Extension sur un type existant</h3>
+    <div class="code-block">extension Int {
+    func carre() -> Int {
+        return self * self
+    }
+}
+
+let nombre = 5
+print(nombre.carre())</div>
+    <div class="output">25</div>
+    
+    <h3>5.2 Extension sur String</h3>
+    <div class="code-block">extension String {
+    func inverser() -> String {
+        return String(self.reversed())
+    }
+}
+
+let texte = "Swift"
+print(texte.inverser())</div>
+    <div class="output">tfiwS</div>
+    
+    <h3>5.3 Extension pour ajouter un protocole</h3>
+    <div class="code-block">protocol Descriptible {
+    func decrire() -> String
+}
+
+struct Joueur {
+    var nom: String
+    var niveau: Int
+}
+
+extension Joueur: Descriptible {
+    func decrire() -> String {
+        return "\(nom) - Niveau \(niveau)"
+    }
+}
+
+let joueur = Joueur(nom: "Marcus", niveau: 10)
+print(joueur.decrire())</div>
+    <div class="output">Marcus - Niveau 10</div>
+  </div>
+
+  <div class="island">
+    <h2>6. Propriétés calculées (computed properties)</h2>
+    
+    <div class="code-block">struct Rectangle {
+    var largeur: Double
+    var hauteur: Double
+    
+    var aire: Double {
+        return largeur * hauteur
+    }
+    
+    var perimetre: Double {
+        return 2 * (largeur + hauteur)
+    }
+}
+
+let rect = Rectangle(largeur: 10, hauteur: 5)
+print("Aire : \(rect.aire)")
+print("Périmètre : \(rect.perimetre)")</div>
+    <div class="output">Aire : 50.0
+Périmètre : 30.0</div>
+    
+    <p>Les propriétés calculées n'ont pas de stockage, elles calculent leur valeur à la volée.</p>
+  </div>
+
+  <div class="island">
+    <h2>7. Propriétés observées (property observers)</h2>
+    
+    <div class="code-block">struct Compte {
+    var solde: Double {
+        willSet {
+            print("Le solde va passer à \(newValue)")
+        }
+        didSet {
+            print("Le solde était \(oldValue), maintenant \(solde)")
+        }
+    }
+}
+
+var compte = Compte(solde: 100)
+compte.solde = 150</div>
+    <div class="output">Le solde va passer à 150.0
+Le solde était 100.0, maintenant 150.0</div>
+    
+    <ul>
+      <li>de>willSet</code> : appelé juste avant la modification</li>
+      <li>de>didSet</code> : appelé juste après la modification</li>
+    </ul>
+  </div>
+
+  <div class="island">
+    <h2>8. Gestion d'erreurs (Error handling)</h2>
+    
+    <h3>8.1 Définir une erreur</h3>
+    <div class="code-block">enum ErreurConnexion: Error {
+    case pasDeReseau
+    case identifiantsInvalides
+    case serveurIndisponible
+}
+
+func seConnecter(login: String, password: String) throws {
+    if login.isEmpty {
+        throw ErreurConnexion.identifiantsInvalides
+    }
+    if password.count < 6 {
+        throw ErreurConnexion.identifiantsInvalides
+    }
+    print("Connexion réussie")
+}</div>
+    
+    <h3>8.2 Gérer les erreurs avec try/catch</h3>
+    <div class="code-block">do {
+    try seConnecter(login: "Marcus", password: "12345")
+} catch ErreurConnexion.identifiantsInvalides {
+    print("Erreur : identifiants invalides")
+} catch {
+    print("Erreur inconnue : \(error)")
+}</div>
+    <div class="output">Erreur : identifiants invalides</div>
+    
+    <h3>8.3 try? (renvoie Optional)</h3>
+    <div class="code-block">let resultat = try? seConnecter(login: "Marcus", password: "abcdef")
+print(resultat)</div>
+    <div class="output">Connexion réussie
+Optional(())</div>
+    
+    <h3>8.4 try! (force, crash si erreur)</h3>
+    <div class="code-block">// Utilise seulement si tu es SÛR qu'il n'y aura pas d'erreur
+try! seConnecter(login: "Marcus", password: "password123")</div>
+    <div class="output">Connexion réussie</div>
+  </div>
+
+  <div class="island">
+    <h2>9. Enums (énumérations avancées)</h2>
+    
+    <h3>9.1 Enum simple</h3>
+    <div class="code-block">enum Direction {
+    case nord, sud, est, ouest
+}
+
+let direction = Direction.nord
+print(direction)</div>
+    <div class="output">nord</div>
+    
+    <h3>9.2 Enum avec valeurs associées</h3>
+    <div class="code-block">enum Notification {
+    case message(String)
+    case alerte(titre: String, niveau: Int)
+}
+
+let notif = Notification.alerte(titre: "Danger", niveau: 5)
+
+switch notif {
+case .message(let texte):
+    print("Message : \(texte)")
+case .alerte(let titre, let niveau):
+    print("Alerte : \(titre) - Niveau \(niveau)")
+}</div>
+    <div class="output">Alerte : Danger - Niveau 5</div>
+    
+    <h3>9.3 Enum avec méthodes</h3>
+    <div class="code-block">enum Lumiere {
+    case rouge, orange, vert
+    
+    func action() -> String {
+        switch self {
+        case .rouge:
+            return "Stop"
+        case .orange:
+            return "Ralentir"
+        case .vert:
+            return "Passer"
+        }
+    }
+}
+
+let feu = Lumiere.rouge
+print(feu.action())</div>
+    <div class="output">Stop</div>
+  </div>
+
+  <div class="island">
+    <h2>Résumé Leçon 4</h2>
+    <p><strong>Ce que tu as appris :</strong></p>
+    <ul>
+      <li><strong>Struct</strong> : type valeur, copié, pas d'héritage</li>
+      <li><strong>Class</strong> : type référence, partagé, héritage possible</li>
+      <li><strong>Protocoles</strong> : contrats que les types doivent respecter</li>
+      <li><strong>Extensions</strong> : ajouter des fonctionnalités aux types existants</li>
+      <li><strong>Propriétés calculées</strong> : valeurs dérivées sans stockage</li>
+      <li><strong>Propriétés observées</strong> : de>willSet</code>, de>didSet</code></li>
+      <li><strong>Gestion d'erreurs</strong> : de>throw</code>, de>try</code>, de>catch</code></li>
+      <li><strong>Enums avancées</strong> : valeurs associées, méthodes</li>
+    </ul>
+    
+    <p style="margin-top:20px; color:#5fc9f8;"><strong>Prochaine leçon :</strong> SwiftUI — Créer ton premier projet avec interface graphique (nécessite Xcode)</p>
+  </div>
+
+</main>
+
+</body>
+</html>

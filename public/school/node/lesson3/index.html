@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+  <h1>&gt; NODE.JS 101 – Leçon 3</h1>
+  <span>// Premier serveur HTTP sans framework</span>
+</header>
+<main>
+
+  <h2>1. C’est quoi un serveur HTTP ?</h2>
+  <ul>
+    <li>Un serveur HTTP écoute sur un <b>port</b> (par ex. 3000) et attend des requêtes (depuis un navigateur, curl, etc.).</li>
+    <li>Quand une requête arrive, il renvoie une <b>réponse</b> (HTML, JSON, texte, etc.).</li>
+    <li>Avec Node.js, on peut écrire ce serveur en quelques lignes grâce au module natif <code>http</code>.</li>
+  </ul>
+
+  <div class="terminal">
+    <span class="tag">SCHEMA</span><br>
+    <div class="schema">
+      Navigateur  --&gt;  [ Serveur Node ]  --&gt;  Réponse (HTML / JSON / texte)
+    </div>
+  </div>
+
+  <h2>2. Préparer le projet</h2>
+  <p>1. Crée un dossier pour ce serveur, par exemple : <code>dedsec-node-server</code></p>
+  <div class="terminal">
+    $ mkdir dedsec-node-server<br>
+    $ cd dedsec-node-server<br>
+    $ npm init -y
+  </div>
+  <p>2. Crée un fichier <code>server.js</code> dans ce dossier.</p>
+
+  <h2>3. Créer un serveur HTTP basique</h2>
+  <p>Mets ce code dans <code>server.js</code> :</p>
+
+  <div class="terminal">
+    // server.js<br>
+    import http from "http";<br><br>
+
+    const PORT = 3000;<br><br>
+
+    const server = http.createServer((req, res) =&gt; {<br>
+    &nbsp;&nbsp;console.log("[DEDSEC] New request:", req.method, req.url);<br><br>
+
+    &nbsp;&nbsp;res.statusCode = 200;<br>
+    &nbsp;&nbsp;res.setHeader("Content-Type", "text/plain; charset=utf-8");<br>
+    &nbsp;&nbsp;res.end("DEDSEC NODE SERVER ONLINE\n");<br>
+    });<br><br>
+
+    server.listen(PORT, () =&gt; {<br>
+    &nbsp;&nbsp;console.log(`[DEDSEC] Server listening on http://localhost:${PORT}`);<br>
+    });
+  </div>
+
+  <ul>
+    <li><code>require("http")</code> : charge le module HTTP intégré à Node. Ou <code>import http from "http"</code> si tu utilises les modules ES (avec <code>"type": "module"</code> dans package.json).</li>
+    <li><code>http.createServer((req, res) =&gt; { ... })</code> : crée un serveur HTTP avec une fonction callback (req, res) qui gère les requêtes et réponses.</li>
+    <li><code>req</code> = objet “requête” (méthode, URL, headers...).</li>
+    <li><code>res</code> = objet “réponse” (statut, headers, corps de la réponse).</li>
+    <li><code>res.statusCode = 200</code> : définit le code HTTP de la réponse (200 = OK).</li>
+    <li><code>res.setHeader("Content-Type", ...)</code> : définit le type de contenu de la réponse (ici du texte brut UTF-8).</li>
+    <li><code>res.end("...")</code> : envoie la réponse à l'utilisateur et termine la requête (ce qu'il verra à l'écran).</li>
+    <li><code>server.listen(PORT, ...)</code> : démarre l’écoute sur le port donné (3000).</li>
+  </ul>
+
+  <h3>3.1 Lancer le serveur</h3>
+  <div class="terminal">
+    $ node server.js<br>
+    [DEDSEC] Server listening on http://localhost:3000
+  </div>
+
+  <p>Ouvre ton navigateur et va sur <code>http://localhost:3000</code> : tu dois voir “DEDSEC NODE SERVER ONLINE”.</p>
+
+  <h2>4. Gérer des routes simples</h2>
+  <p>On va renvoyer un contenu différent selon l’URL (route) demandée.</p>
+
+  <div class="terminal">
+    // server.js<br>
+    import http from "http";<br>
+    const PORT = 3000;<br><br>
+
+    const server = http.createServer((req, res) =&gt; {<br><br>
+    &nbsp;&nbsp;console.log("[DEDSEC] Request:", req.method, req.url);<br><br>
+
+    &nbsp;&nbsp;if (req.url === "/") {<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.statusCode = 200;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.setHeader("Content-Type", "text/plain; charset=utf-8");<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.end("Accueil DedSec Node\n");<br><br>
+    &nbsp;&nbsp;} <br><br>
+    &nbsp;&nbsp;else if (req.url === "/status") {<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.statusCode = 200;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.setHeader("Content-Type", "application/json; charset=utf-8");<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const data = { status: "online", version: "1.0.0" };<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.end(JSON.stringify(data));<br><br>
+    &nbsp;&nbsp;} <br><br>
+    &nbsp;&nbsp;else {<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.statusCode = 404;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.setHeader("Content-Type", "text/plain; charset=utf-8");<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.end("404 Not Found\n");<br><br>
+    &nbsp;&nbsp;}<br>
+    });<br><br>
+
+    &nbsp;&nbsp;server.listen(PORT, () =&gt; {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.log(`[DEDSEC] Server listening on http://localhost:${PORT}`);<br>
+    &nbsp;&nbsp;});
+  </div>
+
+  <p>Si tu relances le serveur, tu peux tester :</p>
+  <div class="terminal">
+    http://localhost:3000/        // texte "Accueil DedSec Node"<br><br>
+    http://localhost:3000/status  // JSON {"status":"online","version":"1.0.0"}<br><br>
+    http://localhost:3000/xxx     // 404 Not Found
+  </div>
+
+  <h2>5. Ajouter un script npm pour démarrer plus vite</h2>
+  <p>Dans ton <code>package.json</code>, modifie la section de <code>scripts</code> :</p>
+  <div class="terminal">
+    "scripts": {<br>
+    &nbsp;&nbsp;"start": "node server.js"<br>
+    }
+  </div>
+
+  <p>Tu peux maintenant lancer ton serveur avec :</p>
+  <div class="terminal">
+    $ npm start
+  </div>
+
+  <h2>6. Bonus ambiance DedSec: mini page HTML</h2>
+  <p>On peut renvoyer une petite page HTML sur la route <code>/</code> au lieu de simple texte.</p>
+
+  <div class="terminal">
+    // extrait dans server.js, dans le if (req.url === "/") { ... }<br>
+    if (req.url === "/") {<br><br>
+    &nbsp;&nbsp;res.statusCode = 200;<br>
+    &nbsp;&nbsp;res.setHeader("Content-Type", "text/html; charset=utf-8");<br><br>
+    &nbsp;&nbsp;res.end(`&lt;!DOCTYPE html&gt;<br>
+    &nbsp;&nbsp;&lt;html&gt;&lt;head&gt;<br>
+    &nbsp;&nbsp;&lt;meta charset="utf-8"&gt;<br>
+    &nbsp;&nbsp;&lt;title&gt;DedSec Node Server&lt;/title&gt;<br><br>
+    &nbsp;&nbsp;&lt;style&gt;<br>
+    &nbsp;&nbsp;body{background:#05060b;color:#4ce0c6;font-family:monospace;text-align:center;padding-top:60px;}<br>
+    &nbsp;&nbsp;h1{color:#ff5fd1;}<br>
+    &nbsp;&nbsp;&lt;/style&gt;<br>
+    &nbsp;&nbsp;&lt;/head&gt;<br>
+    &nbsp;&nbsp;&lt;body&gt;<br>
+    &nbsp;&nbsp;&lt;h1&gt;[DEDSEC] NODE SERVER ONLINE&lt;/h1&gt;<br>
+    &nbsp;&nbsp;&lt;p&gt;Backend opérationnel sur port ${PORT}.&lt;/p&gt;<br>
+    &nbsp;&nbsp;&lt;/body&gt;&lt;/html&gt;`);<br>
+    }
+  </div>
+
+  <p>Maintenant, ouvrir <code>http://localhost:3000/</code> affiche une page HTML stylée.</p>
+
+  <hr>
+
+  <p style="font-size:13px;color:#7f8fb8;">
+    Leçon 3 – Résumé :<br>
+    - Tu as créé un <b>serveur HTTP Node</b> avec le module <code>http</code> natif.<br>
+    - Tu sais répondre différemment selon <b>l’URL</b> (routes).<br>
+    - Tu as renvoyé du <b>texte</b>, du <b>JSON</b> et du <b>HTML</b>.<br>
+    - Tu utilises désormais <code>npm start</code> pour lancer ton serveur.
+  </p>
+
+</main>
+</body>
+</html>

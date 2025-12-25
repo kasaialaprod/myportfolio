@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrôle du programme, boucles et tableaux</title>
+</head>
+<body>
+    <header>
+    Contrôle du programme, boucles et tableaux
+  </header>
+  <main>
+    <h2>1. Entrées utilisateur : lire les données</h2>
+    <ul>
+      <li>On utilise <b>scanf</b> pour demander une valeur à l’utilisateur (nombre, char, texte…)</li>
+      <li>On donne toujours l’<b>adresse</b> (avec <code>&amp;</code>) de la variable à remplir (sauf chaîne !)</li>
+    </ul>
+    <div class="code">
+        int age;<br>
+        printf("Quel âge as-tu ? ");<br>
+        scanf("%d", &amp;age);<br>
+        printf("Tu as %d ans !\n", age);
+    </div>
+    <div class="console">
+      Quel âge as-tu ? <span style="color:#55f3ff;">18</span> <br>
+      Tu as 18 ans !
+    </div>
+    <h2>2. Structure conditionnelle (<code>if</code>, <code>else</code>)</h2>
+    <ul>
+      <li>On teste une condition, on définit des alternatives</li>
+    </ul>
+    <div class="code">
+        if (age &lt; 18) {<br>
+        &nbsp;&nbsp;printf("Mineur\n");<br>
+        } else if (age &lt; 60) {<br>
+        &nbsp;&nbsp;printf("Adulte\n");<br>
+        } else {<br>
+        &nbsp;&nbsp;printf("Sénior\n");<br>
+        }
+    </div>
+    <h2>3. <code>switch</code> (menu, interrogation sur des cas précis)</h2>
+    <ul>
+      <li>On définit plusieurs cas précis pour une variable</li>
+    </ul>
+    <div class="code">
+        int choix = 2;<br>
+        switch(choix) {<br>
+        &nbsp;&nbsp;case 1: printf("Attaquer\n"); break;<br>
+        &nbsp;&nbsp;case 2: printf("Défendre\n"); break;<br>
+        &nbsp;&nbsp;case 3: printf("Inventaire\n"); break;<br>
+        &nbsp;&nbsp;default: printf("Action inconnue\n");<br>
+        }
+    </div>
+    <h2>4. Conditions multiples</h2>
+    <ul>
+      <li>&amp;&amp; (ET), || (OU), ! (NON)</li>
+    </ul>
+    <div class="code">
+        // Si mineur et joueur, accès spécial<br><br>
+        if (age &lt; 18 &amp;&amp; choix == 1) {<br>
+        &nbsp;&nbsp;printf("-75% de réduction\n");<br>
+        } else if (age &lt; 18 || choix == 2) {<br>
+        &nbsp;&nbsp;printf("-50% de réduction\n");<br>
+        } else {<br>
+        &nbsp;&nbsp;printf("Pas de réduction\n");<br>
+        }
+    </div>
+    <h2>5. Boucles : <code>while</code> et <code>for</code></h2>
+    <ul>
+      <li><b>while</b> : répète tant que la condition est vraie</li>
+      <li><b>for</b> : plus compact, pratique pour compter</li>
+    </ul>
+    <div class="code">
+        // Compter de 0 à 4 : <br><br>
+        for (int i=0; i&lt;5; i++) { <br>
+        &nbsp;&nbsp;printf("%d ", i); <br>
+        }<br><br>
+        // Tant que x n'est pas zéro <br><br>
+        int x = 5;<br>
+        while (x &gt; 0) {<br>
+        &nbsp;&nbsp;printf("%d ", x);<br>
+        &nbsp;&nbsp;x--;<br>
+        }<br>
+    </div>
+    <div class="console">
+      0 1 2 3 4 <br>
+      5 4 3 2 1 
+    </div>
+    <h2>6. Tableaux (“arrays”) & bouclage</h2>
+    <ul>
+      <li>Définir : <code>int notes[3] = {12, 15, 8};</code></li>
+      <li>Les indices commencent à zéro (<code>notes[0]</code> = 12)</li>
+      <li>Boucle : on accède à chaque case via un <code>for</code></li>
+    </ul>
+    <div class="code">
+        int notes[3] = {12, 15, 8};<br>
+        for (int i=0; i&lt;3; i++) {<br>
+        &nbsp;&nbsp;printf("Note %d : %d\n", i+1, notes[i]);<br>
+        }<br>
+    </div>
+    <div class="console">
+        Note 1 : 12 <br>
+        Note 2 : 15 <br>
+        Note 3 : 8 
+    </div>
+    <h2>7. Chaînes de caractères & entrée utilisateur</h2>
+    <ul>
+      <li>Déclarer une chaîne : <code>char nom[30];</code></li>
+      <li><b>scanf("%s", nom);</b> lit un mot (attention, s’arrête à l’espace !)</li>
+      <li>Pour lire une ligne entière : <code>fgets(nom, 30, stdin);</code>(la valeur saisie sur la console est stockée dans la variable <code>nom</code>, y compris les espaces, et ce jusqu’à 29 caractères)</li>
+    </ul>
+    <div class="code">
+        char nom[30];<br>
+        printf("Quel est ton pseudo ? ");<br>
+        scanf("%s", nom);<br>
+        printf("Bienvenue, %s !\n", nom);
+    </div>
+    <div class="console">
+      Quel est ton pseudo ? <span style="color:#55f3ff;">kasai2000</span> <br>
+      Bienvenue, kasai2000 !
+    </div>
+    <div class="code">
+        // Variante : lire toute une ligne (avec espace)<br><br>
+        char nom[30];<br>
+        printf("Quel est ton pseudo ? ");<br>
+        fgets(nom, 30, stdin);<br>
+        printf("Bienvenue, %s !\n", nom);
+    </div>
+    <div class="console">
+      Quel est ton pseudo ? <span style="color:#55f3ff;">Kasai le Dictateur</span> <br>
+      Bienvenue, Kasai le Dictateur !
+    </div>
+  </main>
+</body>
+</html>

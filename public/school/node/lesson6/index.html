@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture backend propre</title>
+</head>
+<body>
+    <header>
+  <h1>&gt; NODE.JS 101 – Leçon 6</h1>
+  <span>// Architecture backend propre + mini front connecté</span>
+</header>
+<main>
+
+  <h2>PARTIE 1 : Architecture backend organisée</h2>
+  <p>
+    Jusqu'ici, tout ton code était dans un seul fichier <code>server.js</code>.<br>
+    Pour un vrai projet, on sépare en plusieurs modules : routes, contrôleurs (logique métier), accès BDD.
+  </p>
+
+  <h3>1.1 Structure de dossiers proposée</h3>
+  <div class="terminal">
+    dedsec-api-clean/<br>
+    ├─ package.json<br>
+    ├─ server.js          // point d'entrée, init Express<br>
+    ├─ routes/<br>
+    │  └─ hacks.js        // définition des routes /hacks<br>
+    ├─ controllers/ <br>
+    │  └─ hackController.js   // logique métier (CREATE, READ, UPDATE, DELETE) <br>
+    └─ db/<br>
+       └─ database.js     // connexion SQLite <br>
+  </div>
+
+  <h3>1.2 Préparer le projet</h3>
+  <div class="terminal">
+    $ mkdir dedsec-api-clean<br>
+    $ cd dedsec-api-clean<br>
+    $ npm init -y<br>
+    $ npm install express sqlite3 cors
+  </div>
+  <p>
+    On ajoute <code>cors</code> pour permettre au front (sur un autre port) de communiquer avec l'API sans problème CORS.
+  </p>
+
+  <h3>1.3 Fichier db/database.js</h3>
+  <p>Crée le dossier <code>db/</code> et dedans <code>database.js</code> :</p>
+  <div class="terminal">
+    // db/database.js <br>
+    import Database from "better-sqlite3"; <br>
+    const db = new Database("dedsec.db"); <br><br>
+
+    db.exec(` <br>
+    &nbsp;&nbsp;CREATE TABLE IF NOT EXISTS hacks ( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;id INTEGER PRIMARY KEY AUTOINCREMENT, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;target TEXT NOT NULL, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;level TEXT NOT NULL <br>
+    &nbsp;&nbsp;) <br>
+    `); <br><br>
+
+    export default db;
+  </div>
+
+  <h3>1.4 Fichier controllers/hackController.js</h3>
+  <p>Crée le dossier <code>controllers/</code> et dedans <code>hackController.js</code> :</p>
+
+  <div class="terminal">
+    // controllers/hackController.js
+    import db from "../db/database.js"; <br><br>
+
+    export const getAllHacks = (req, res) => { <br>
+    &nbsp;&nbsp;try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const rows = db.prepare('SELECT * FROM hacks').all(); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json(rows); <br>
+    &nbsp;&nbsp;} catch (err) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(500).json({ error: err.message } ); <br>
+    &nbsp;&nbsp;} <br>
+    }; <br><br>
+
+    export const getHackById = (req, res) => { <br>
+    &nbsp;&nbsp;const id = req.params.id; <br><br>
+    &nbsp;&nbsp;try { <br>
+    &nbsp;&nbsp;const row = db.prepare('SELECT * FROM hacks WHERE id = ?').get(id); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (!row) return res.status(404).json({ error: "hack not found" }); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json(row); <br>
+    &nbsp;&nbsp;} catch (err) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(500).json({ error: err.message } ); <br>
+    &nbsp;&nbsp;} <br>
+    }; <br><br>
+
+    export const createHack = (req, res) => { <br>
+    &nbsp;&nbsp;const { target, level } = req.body; <br>
+    &nbsp;&nbsp;if (!target || !level) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ error: "target and level required" }); <br>
+    &nbsp;&nbsp;} <br>
+     <br>
+    &nbsp;&nbsp;try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare('INSERT INTO hacks (target, level) VALUES (?, ?)').run(target, level); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const info = stmt.run(target, level); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(201).json({ id: info.lastInsertRowid, target, level }); <br>
+    &nbsp;&nbsp;} catch (err) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(500).json({ error: err.message } ); <br>
+    &nbsp;&nbsp;} <br>
+    }; <br><br>
+
+    export const updateHack = (req, res) => { <br>
+    &nbsp;&nbsp;const id = req.params.id; <br>
+    &nbsp;&nbsp;const { target, level } = req.body; <br><br>
+    &nbsp;&nbsp;try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const row = db.prepare('SELECT * FROM hacks WHERE id = ?').get(id); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (!row) return res.status(404).json({ error: "hack not found" }); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const newTarget = target !== undefined ? target : row.target; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const newLevel = level !== undefined ? level : row.level; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare('UPDATE hacks SET target = ?, level = ? WHERE id = ?').run(newTarget, newLevel, id); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json({ id, target: newTarget, level: newLevel }); <br>
+    &nbsp;&nbsp;} catch (err) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(500).json({ error: err.message } ); <br>
+    &nbsp;&nbsp;} <br>
+    }; <br><br>
+
+    export const deleteHack = (req, res) => { <br>
+    &nbsp;&nbsp;const id = req.params.id; <br>
+    &nbsp;&nbsp;try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare('DELETE FROM hacks WHERE id = ?').run(id); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (stmt.changes === 0) return res.status(404).json({ error: "hack not found" }); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json({ deletedId: id }); <br>
+    &nbsp;&nbsp;} catch (err) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(500).json({ error: err.message } ); <br>
+    &nbsp;&nbsp;} <br>
+    }; <br><br>
+  </div>
+
+  <h3>1.5 Fichier routes/hacks.js</h3>
+  <p>Crée le dossier <code>routes/</code> et dedans <code>hacks.js</code> :</p>
+  <div class="terminal">
+    // routes/hacks.js <br>
+    import express from "express"; <br>
+    const router = express.Router(); <br>
+    import * as hackController from "../controllers/hackController"; <br><br>
+
+    router.get("/", hackController.getAllHacks); <br>
+    router.get("/:id", hackController.getHackById); <br>
+    router.post("/", hackController.createHack); <br>
+    router.put("/:id", hackController.updateHack); <br>
+    router.delete("/:id", hackController.deleteHack); <br><br>
+    export default router;<br><br>
+
+    // Autre méthode d'import : <br>
+    // import { getAllHacks, getHackById, createHack, updateHack, deleteHack } from "../controllers/hackController"; <br>
+    // router.get("/", getAllHacks); <br>
+    // etc...
+
+  </div>
+
+  <h3>1.6 Fichier server.js (point d'entrée)</h3>
+  <div class="terminal">
+    // server.js <br>
+    import express from "express"; <br>
+    import cors from "cors"; <br>
+    import hackRoutes from "./routes/hacks.js"; <br><br>
+
+    const app = express(); <br>
+    const PORT = 3000; <br><br>
+
+    app.use(cors());  // active CORS pour autoriser les requêtes du front <br>
+    app.use(express.json()); <br>
+
+    // Monter les routes /hacks <br>
+    app.use("/hacks", hackRoutes); <br><br>
+
+    app.get("/", (req, res) => { <br>
+    &nbsp;&nbsp;res.send("[DEDSEC] API backend online"); <br>
+    }); <br><br>
+
+    app.listen(PORT, () => { <br>
+    &nbsp;&nbsp;console.log(`[DEDSEC] Backend listening on http://localhost:${PORT}`); <br>
+    });
+  </div>
+
+  <p>Ajoute dans <code>package.json</code> :</p>
+  <div class="terminal">
+    "scripts": {
+    &nbsp;&nbsp;"start": "node server.js"
+    }
+  </div>
+
+  <p>Lance le serveur : <code>npm start</code>. Teste les routes CRUD comme avant.</p>
+
+  <hr>
+
+  <h2>PARTIE 2 : Mini front HTML/JS qui consomme l'API</h2>
+  <p>
+    On va créer une page HTML simple (côté client) qui affiche la liste des hacks, permet d'en créer, modifier, supprimer.<br>
+    Cette page communique avec ton API backend via <code>fetch()</code>.
+  </p>
+
+  <h3>2.1 Créer le fichier front</h3>
+  <p>
+    Dans un dossier séparé (ou dans <code>dedsec-api-clean/public/</code>), crée un fichier <code>index.html</code>.
+  </p>
+
+  <h3>2.2 Code du front (index.html complet)</h3>
+  <p>Copie ce code HTML dans ton fichier :</p>
+  <div class="terminal">
+    &lt;!DOCTYPE html&gt; <br>
+    &lt;html lang="fr"&gt; <br>
+    &lt;head&gt; <br>
+    &lt;meta charset="UTF-8"&gt; <br>
+    &lt;title&gt;DedSec Hack Manager&lt;/title&gt; <br>
+    &lt;style&gt; <br>
+    body{ <br>
+    &nbsp;&nbsp;background:#05060b; <br>
+    &nbsp;&nbsp;color:#e5f4ff;  <br>
+    &nbsp;&nbsp;font-family:'Courier New',monospace; <br>
+    &nbsp;&nbsp;padding:20px; <br>
+    } <br><br>
+
+    h1{color:#4ce0c6;} <br>
+    input,button{ <br>
+    &nbsp;&nbsp;background:#101424; <br>
+    &nbsp;&nbsp;color:#fff; <br>
+    &nbsp;&nbsp;border:1px solid #4ce0c6; <br>
+    &nbsp;&nbsp;padding:8px; <br>
+    &nbsp;&nbsp;margin:5px; <br>
+    &nbsp;&nbsp;border-radius:4px; <br>
+    } <br><br>
+
+    button:hover{background:#1a2a3a;cursor:pointer;} <br><br>
+    #hacks{margin-top:20px;} <br>
+    .hack-item{ <br>
+    &nbsp;&nbsp;background:#0d1018; <br>
+    &nbsp;&nbsp;border-left:3px solid #ff5fd1; <br>
+    &nbsp;&nbsp;padding:10px; <br>
+    &nbsp;&nbsp;margin:8px 0; <br>
+    &nbsp;&nbsp;border-radius:4px; <br>
+    } <br><br>
+
+    &lt;/style&gt; <br>
+    &lt;/head&gt; <br>
+    &lt;body&gt; <br>
+    &lt;h1&gt;[DEDSEC] Hack Manager&lt;/h1&gt; <br>
+
+    &lt;div&gt; <br>
+    &nbsp;&nbsp;&lt;input type="text" id="target" placeholder="Target"&gt; <br>
+    &nbsp;&nbsp;&lt;input type="text" id="level" placeholder="Level"&gt; <br>
+    &nbsp;&nbsp;&lt;button onclick="createHack()"&gt;Create Hack&lt;/button&gt; <br>
+    &lt;/div&gt; <br>
+
+    &nbsp;&nbsp;&lt;div id="hacks"&gt;&lt;/div&gt; <br>
+
+    &lt;script&gt; <br>
+    &nbsp;&nbsp;const API_URL = "http://localhost:3000/hacks"; <br><br>
+
+    &nbsp;&nbsp;// Charger tous les hacks <br>
+    &nbsp;&nbsp;async function loadHacks() { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const res = await fetch(API_URL); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const hacks = await res.json(); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const container = document.getElementById("hacks"); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;container.innerHTML = ""; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;hacks.forEach(hack =&gt; { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const div = document.createElement("div"); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div.className = "hack-item"; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;div.innerHTML = ` <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;strong&gt;#${hack.id}&lt;/strong&gt; - ${hack.target} (${hack.level}) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button onclick="deleteHack(${hack.id})"&gt;Delete&lt;/button&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.appendChild(div); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}); <br>
+    &nbsp;&nbsp;} <br><br>
+
+    &nbsp;&nbsp;// Créer un hack <br>
+    &nbsp;&nbsp;async function createHack() { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const target = document.getElementById("target").value; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const level = document.getElementById("level").value; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (!target || !level) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("Target et level requis"); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;await fetch(API_URL, { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method: "POST", <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers: { "Content-Type": "application/json" }, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body: JSON.stringify({ target, level }) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("target").value = ""; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("level").value = ""; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;loadHacks(); <br>
+    } <br><br>
+
+    &nbsp;&nbsp;// Supprimer un hack <br>
+    &nbsp;&nbsp;async function deleteHack(id) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;await fetch(`${API_URL}/${id}`, { method: "DELETE" }); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;loadHacks(); <br>
+    &nbsp;&nbsp;} <br><br>
+
+    &nbsp;&nbsp;// Charger au démarrage <br>
+    &nbsp;&nbsp;loadHacks(); <br>
+    &nbsp;&nbsp;&lt;/script&gt; <br>
+    &nbsp;&nbsp;&lt;/body&gt; <br>
+    &nbsp;&nbsp;&lt;/html&gt;
+  </div>
+
+  <h3>2.3 Tester le front</h3>
+  <ul>
+    <li>Lance ton backend : <code>npm start</code> dans <code>dedsec-api-clean/</code></li>
+    <li>Ouvre <code>index.html</code> dans ton navigateur (ou sers-le via un serveur HTTP simple)</li>
+    <li>Tu peux créer, afficher et supprimer des hacks directement depuis l'interface</li>
+  </ul>
+  <hr>
+
+  <h2>Résumé Leçon 6</h2>
+  <p style="font-size:13px;color:#7f8fb8;">
+    <strong>Partie 1 — Architecture backend :</strong><br>
+    - Tu as séparé ton code en <strong>modules</strong> : routes, contrôleurs, accès BDD.<br>
+    - Structure propre : <code>routes/</code>, <code>controllers/</code>, <code>db/</code>.<br>
+    - Tu utilises <code>cors</code> pour permettre au front de communiquer avec ton API.<br><br>
+
+    <strong>Partie 2 — Front connecté :</strong><br>
+    - Tu as créé une interface HTML/JS qui consomme ton API Node.js.<br>
+    - Tu utilises <code>fetch()</code> pour faire des requêtes GET, POST, DELETE.<br>
+    - Tu affiches dynamiquement les données en manipulant le DOM.<br><br>
+
+    Tu es maintenant capable de créer un backend Node.js organisé + un front qui communique avec lui = stack complète !
+  </p>
+
+</main>
+</body>
+</html>

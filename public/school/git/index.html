@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git, GitHub & Terminal — Guide Lunaire</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🌙 Git, GitHub & Terminal</h1>
+  <p>Guide lunaire des commandes essentielles</p>
+</header>
+
+<main>
+
+  <!-- PARTIE 1 : TERMINAL -->
+  <div class="section">
+    <h2>1. Terminal & Lignes de commande</h2>
+    
+    <p>Le <strong>terminal</strong> (ou invite de commande) permet d'interagir avec ton système via des commandes textuelles.</p>
+    
+    <h3>1.1 Navigation</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Description</th>
+          <th>Exemple</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>de>pwd</code></td>
+          <td>Affiche le dossier actuel</td>
+          <td>de>pwd</code></td>
+        </tr>
+        <tr>
+          <td>de>cd</code></td>
+          <td>Change de dossier</td>
+          <td>de>cd Documents</code></td>
+        </tr>
+        <tr>
+          <td>de>cd ..</code></td>
+          <td>Remonte d'un niveau</td>
+          <td>de>cd ..</code></td>
+        </tr>
+        <tr>
+          <td>de>cd ~</code></td>
+          <td>Va au dossier utilisateur</td>
+          <td>de>cd ~</code></td>
+        </tr>
+        <tr>
+          <td>de>ls</code> (Mac/Linux)<br>de>dir</code> (Windows)</td>
+          <td>Liste les fichiers/dossiers</td>
+          <td>de>ls -la</code></td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h3>1.2 Gestion fichiers & dossiers</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Description</th>
+          <th>Exemple</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>de>mkdir</code></td>
+          <td>Crée un dossier</td>
+          <td>de>mkdir mon-projet</code></td>
+        </tr>
+        <tr>
+          <td>de>touch</code> (Mac/Linux)</td>
+          <td>Crée un fichier vide</td>
+          <td>de>touch index.html</code></td>
+        </tr>
+        <tr>
+          <td>de>rm</code></td>
+          <td>Supprime un fichier</td>
+          <td>de>rm fichier.txt</code></td>
+        </tr>
+        <tr>
+          <td>de>rm -r</code></td>
+          <td>Supprime un dossier</td>
+          <td>de>rm -r dossier</code></td>
+        </tr>
+        <tr>
+          <td>de>cp</code></td>
+          <td>Copie un fichier</td>
+          <td>de>cp a.txt b.txt</code></td>
+        </tr>
+        <tr>
+          <td>de>mv</code></td>
+          <td>Déplace/renomme</td>
+          <td>de>mv old.txt new.txt</code></td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h3>1.3 Lecture & édition</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Description</th>
+          <th>Exemple</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>de>cat</code></td>
+          <td>Affiche le contenu d'un fichier</td>
+          <td>de>cat README.md</code></td>
+        </tr>
+        <tr>
+          <td>de>nano</code></td>
+          <td>Éditeur de texte dans le terminal</td>
+          <td>de>nano fichier.txt</code></td>
+        </tr>
+        <tr>
+          <td>de>code</code></td>
+          <td>Ouvre VS Code</td>
+          <td>de>code .</code></td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="note">
+      de>.</code> représente le dossier actuel, de>..</code> le dossier parent.
+    </div>
+  </div>
+
+  <!-- PARTIE 2 : GIT -->
+  <div class="section">
+    <h2>2. Git — Gestion de versions</h2>
+    
+    <h3>2.1 C'est quoi Git ?</h3>
+    <p><strong>Git</strong> est un système de contrôle de version qui permet de :</p>
+    <ul>
+      <li>Suivre l'historique des modifications de ton code</li>
+      <li>Revenir à une version précédente</li>
+      <li>Travailler en équipe sans conflits</li>
+      <li>Créer des branches pour tester des fonctionnalités</li>
+    </ul>
+    
+    <h3>2.2 C'est quoi un repository (repo) ?</h3>
+    <p>Un <strong>repository</strong> est un dossier de projet qui contient :</p>
+    <ul>
+      <li>Ton code source</li>
+      <li>Un dossier caché de>.git/</code> qui stocke l'historique des modifications</li>
+    </ul>
+    
+    <h3>2.3 Installation & Configuration</h3>
+    <div class="terminal">git --version</div>
+    <p>Si Git n'est pas installé : de>brew install git</code> (Mac) ou télécharge sur <strong>git-scm.com</strong>.</p>
+    
+    <p>Configure ton identité :</p>
+    <div class="terminal">git config --global user.name "Ton Nom"<br>
+git config --global user.email "ton@email.com"</div>
+    
+    <h3>2.4 Workflow de base</h3>
+    
+    <p class="category-title">Initialiser un repo</p>
+    <div class="terminal">git init</div>
+    <p>Crée un nouveau repo Git dans le dossier actuel.</p>
+    
+    <p class="category-title">Voir le statut</p>
+    <div class="terminal">git status</div>
+    <p>Affiche les fichiers modifiés, ajoutés, supprimés.</p>
+    
+    <p class="category-title">Ajouter des fichiers au staging</p>
+    <div class="terminal">git add fichier.txt<br>
+git add .  <span style="color:#888;"># ajoute tous les fichiers</span></div>
+    
+    <p class="category-title">Créer un commit (snapshot)</p>
+    <div class="terminal">git commit -m "Message du commit"</div>
+    
+    <p class="category-title">Voir l'historique</p>
+    <div class="terminal">git log<br>
+git log --oneline  <span style="color:#888;"># version compacte</span></div>
+    
+        <h3>2.5 Branches</h3>
+    
+    <p>Les <strong>branches</strong> permettent de travailler sur des fonctionnalités en parallèle sans toucher au code principal.</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>de>git branch</code></td>
+          <td>Liste les branches</td>
+        </tr>
+        <tr>
+          <td>de>git branch nom-branche</code></td>
+          <td>Crée une nouvelle branche</td>
+        </tr>
+        <tr>
+          <td>de>git checkout nom-branche</code></td>
+          <td>Change de branche</td>
+        </tr>
+        <tr>
+          <td>de>git checkout -b nouvelle</code></td>
+          <td>Crée et bascule sur la branche</td>
+        </tr>
+        <tr>
+          <td>de>git merge nom-branche</code></td>
+          <td>Fusionne une branche dans la branche actuelle</td>
+        </tr>
+        <tr>
+          <td>de>git branch -d nom-branche</code></td>
+          <td>Supprime une branche</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h3>2.6 Annuler des changements</h3>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>de>git restore fichier.txt</code></td>
+          <td>Annule les modifs d'un fichier (avant add)</td>
+        </tr>
+        <tr>
+          <td>de>git restore --staged fichier.txt</code></td>
+          <td>Retire du staging (après add)</td>
+        </tr>
+        <tr>
+          <td>de>git reset --soft HEAD~1</code></td>
+          <td>Annule le dernier commit (garde les modifs)</td>
+        </tr>
+        <tr>
+          <td>de>git reset --hard HEAD~1</code></td>
+          <td>Annule le dernier commit (perd les modifs)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PARTIE 3 : GITHUB -->
+  <div class="section">
+    <h2>3. GitHub — Travail distant</h2>
+    
+    <h3>3.1 C'est quoi GitHub ?</h3>
+    <p><strong>GitHub</strong> est une plateforme cloud qui héberge des repositories Git.</p>
+    <ul>
+      <li>Sauvegarde ton code en ligne</li>
+      <li>Collaboration en équipe</li>
+      <li>Portfolio de projets publics</li>
+      <li>CI/CD, GitHub Pages, etc.</li>
+    </ul>
+    
+    <div class="note">
+      <strong>Git</strong> = outil local | <strong>GitHub</strong> = service en ligne pour héberger des repos Git
+    </div>
+    
+    <h3>3.2 Lier un repo local à GitHub</h3>
+    
+    <p>1. Crée un repo sur GitHub (bouton "New repository")</p>
+    <p>2. Lie ton repo local :</p>
+    <div class="terminal">git remote add origin https://github.com/ton-username/ton-repo.git</div>
+    
+    <p>3. Pousse ton code sur GitHub :</p>
+    <div class="terminal">git push -u origin main</div>
+    
+    <h3>3.3 Commandes GitHub essentielles</h3>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>de>git clone url</code></td>
+          <td>Télécharge un repo depuis GitHub</td>
+        </tr>
+        <tr>
+          <td>de>git pull</code></td>
+          <td>Récupère les dernières modifications depuis GitHub</td>
+        </tr>
+        <tr>
+          <td>de>git push</code></td>
+          <td>Envoie tes commits vers GitHub</td>
+        </tr>
+        <tr>
+          <td>de>git remote -v</code></td>
+          <td>Affiche les remotes configurés</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h3>3.4 Fork & Pull Request (contribution open source)</h3>
+    
+    <p><strong>Fork</strong> : Crée une copie d'un repo GitHub sur ton compte</p>
+    <p><strong>Pull Request (PR)</strong> : Propose tes modifications au repo original</p>
+    
+    <p>Workflow :</p>
+    <ol>
+      <li>Fork le repo sur GitHub</li>
+      <li>Clone ton fork : de>git clone url-de-ton-fork</code></li>
+      <li>Crée une branche : de>git checkout -b ma-feature</code></li>
+      <li>Code, commit, push</li>
+      <li>Sur GitHub, ouvre une Pull Request</li>
+    </ol>
+    
+    <h3>3.5 README.md & .gitignore</h3>
+    
+    <p><strong>README.md</strong> : Fichier Markdown qui décrit ton projet (page d'accueil du repo)</p>
+    
+    <p><strong>.gitignore</strong> : Liste les fichiers/dossiers à ignorer par Git</p>
+    <div class="terminal"># Exemple .gitignore
+node_modules/
+.env
+*.log
+.DS_Store</div>
+  </div>
+
+  <!-- PARTIE 4 : TABLEAU RÉCAPITULATIF -->
+  <div class="section">
+    <h2>4. Tableau récapitulatif des commandes</h2>
+    
+    <h3>🖥️ Système (Navigation & Fichiers)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>de>pwd</code></td><td>Affiche le dossier actuel</td></tr>
+        <tr><td>de>cd dossier</code></td><td>Change de dossier</td></tr>
+        <tr><td>de>ls</code> / de>dir</code></td><td>Liste les fichiers</td></tr>
+        <tr><td>de>mkdir nom</code></td><td>Crée un dossier</td></tr>
+        <tr><td>de>touch fichier</code></td><td>Crée un fichier vide</td></tr>
+        <tr><td>de>rm fichier</code></td><td>Supprime un fichier</td></tr>
+        <tr><td>de>cp source dest</code></td><td>Copie un fichier</td></tr>
+        <tr><td>de>mv old new</code></td><td>Déplace/renomme</td></tr>
+        <tr><td>de>cat fichier</code></td><td>Affiche le contenu</td></tr>
+        <tr><td>de>code .</code></td><td>Ouvre VS Code</td></tr>
+      </tbody>
+    </table>
+    
+    <h3>📦 Git Local</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>de>git init</code></td><td>Initialise un repo</td></tr>
+        <tr><td>de>git status</code></td><td>Voir le statut</td></tr>
+        <tr><td>de>git add .</code></td><td>Ajoute tous les fichiers au staging</td></tr>
+        <tr><td>de>git commit -m "msg"</code></td><td>Crée un commit</td></tr>
+        <tr><td>de>git log</code></td><td>Voir l'historique</td></tr>
+        <tr><td>de>git branch</code></td><td>Liste les branches</td></tr>
+        <tr><td>de>git checkout -b nom</code></td><td>Crée et bascule sur une branche</td></tr>
+        <tr><td>de>git merge branche</code></td><td>Fusionne une branche</td></tr>
+        <tr><td>de>git restore fichier</code></td><td>Annule les modifications</td></tr>
+      </tbody>
+    </table>
+    
+    <h3>🌐 Git Distant (GitHub)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>de>git clone url</code></td><td>Clone un repo depuis GitHub</td></tr>
+        <tr><td>de>git remote add origin url</code></td><td>Lie le repo à GitHub</td></tr>
+        <tr><td>de>git push -u origin main</code></td><td>Premier push vers GitHub</td></tr>
+        <tr><td>de>git push</code></td><td>Envoie les commits vers GitHub</td></tr>
+        <tr><td>de>git pull</code></td><td>Récupère les dernières modifs</td></tr>
+        <tr><td>de>git remote -v</code></td><td>Affiche les remotes</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RÉSUMÉ -->
+  <div class="section">
+    <h2>Résumé Lunaire 🌙</h2>
+    <p><strong>Ce que tu sais maintenant :</strong></p>
+    <ul>
+      <li>Naviguer et gérer des fichiers dans le terminal</li>
+      <li>Initialiser un repo Git et tracker des modifications</li>
+      <li>Créer des commits, des branches, fusionner</li>
+      <li>Pousser ton code sur GitHub et collaborer</li>
+      <li>Utiliser .gitignore et README.md</li>
+      <li>Contribuer à des projets open source (fork, PR)</li>
+    </ul>
+    
+    <div class="note">
+      <strong>Workflow quotidien typique :</strong><br>
+      1. de>git pull</code> (récupérer les dernières modifs)<br>
+      2. Code tes features<br>
+      3. de>git add .</code> → de>git commit -m "message"</code><br>
+      4. de>git push</code> (envoyer sur GitHub)<br>
+    </div>
+    
+    <p style="margin-top:20px; color:#fff; text-align:center; font-size:18px; text-shadow: 0 0 15px rgba(255,255,255,0.6);">
+      Tu maîtrises maintenant Git, GitHub et le Terminal ! 🚀
+    </p>
+  </div>
+
+</main>
+
+</body>
+</html>
+

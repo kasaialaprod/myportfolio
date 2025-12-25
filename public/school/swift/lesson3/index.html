@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift — Leçon 3 : Collections & Contrôle de flux</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Swift Playground</h1>
+  <p>Leçon 3 : Collections & Contrôle de flux</p>
+</header>
+
+<main>
+
+  <div class="island">
+    <h2>1. Arrays (tableaux)</h2>
+    
+    <h3>1.1 Créer un Array</h3>
+    <div class="code-block">var noms: [String] = ["Marcus", "Wrench", "Sitara"]
+var scores = [100, 250, 180]  // type inféré : [Int]</div>
+    
+    <h3>1.2 Accéder aux éléments</h3>
+    <div class="code-block">print(noms[0])
+print(noms[2])</div>
+    <div class="output">Marcus
+Sitara</div>
+    
+    <h3>1.3 Modifier un élément</h3>
+    <div class="code-block">noms[1] = "Horatio"
+print(noms)</div>
+    <div class="output">["Marcus", "Horatio", "Sitara"]</div>
+    
+    <h3>1.4 Ajouter des éléments</h3>
+    <div class="code-block">noms.append("Josh")
+noms += ["Ray", "T-Bone"]
+print(noms)</div>
+    <div class="output">["Marcus", "Horatio", "Sitara", "Josh", "Ray", "T-Bone"]</div>
+    
+    <h3>1.5 Supprimer des éléments</h3>
+    <div class="code-block">noms.remove(at: 1)      // supprime "Horatio"
+noms.removeLast()        // supprime le dernier
+print(noms)</div>
+    <div class="output">["Marcus", "Sitara", "Josh", "Ray"]</div>
+    
+    <h3>1.6 Propriétés utiles</h3>
+    <div class="code-block">print(noms.count)        // nombre d'éléments
+print(noms.isEmpty)      // true si vide
+print(noms.first)        // Optional : premier élément
+print(noms.last)         // Optional : dernier élément</div>
+    <div class="output">4
+false
+Optional("Marcus")
+Optional("Ray")</div>
+  </div>
+
+  <div class="island">
+    <h2>2. Dictionaries (dictionnaires clé-valeur)</h2>
+    
+    <h3>2.1 Créer un Dictionary</h3>
+    <div class="code-block">var joueur: [String: Int] = ["niveau": 10, "vie": 100, "xp": 450]
+var scores = ["Marcus": 500, "Wrench": 320]</div>
+    
+    <h3>2.2 Accéder aux valeurs</h3>
+    <div class="code-block">print(joueur["niveau"])
+print(scores["Marcus"])</div>
+    <div class="output">Optional(10)
+Optional(500)</div>
+    
+    <p>⚠️ Renvoie toujours un <strong>Optional</strong> (la clé peut ne pas exister).</p>
+    
+    <h3>2.3 Unwrapping sécurisé</h3>
+    <div class="code-block">if let vie = joueur["vie"] {
+    print("Vie : \(vie)")
+}
+
+let niveau = joueur["niveau"] ?? 1
+print("Niveau : \(niveau)")</div>
+    <div class="output">Vie : 100
+Niveau : 10</div>
+    
+    <h3>2.4 Ajouter/Modifier</h3>
+    <div class="code-block">scores["Sitara"] = 600      // ajoute
+scores["Marcus"] = 550      // modifie
+print(scores)</div>
+    <div class="output">["Marcus": 550, "Wrench": 320, "Sitara": 600]</div>
+    
+    <h3>2.5 Supprimer</h3>
+    <div class="code-block">scores.removeValue(forKey: "Wrench")
+print(scores)</div>
+    <div class="output">["Marcus": 550, "Sitara": 600]</div>
+  </div>
+
+  <div class="island">
+    <h2>3. Sets (ensembles, valeurs uniques)</h2>
+    
+    <h3>3.1 Créer un Set</h3>
+    <div class="code-block">var tags: Set<String> = ["hacker", "coder", "gamer"]
+var nombres: Set = [1, 2, 3, 2, 1]  // doublon ignoré
+print(nombres)</div>
+    <div class="output">[1, 2, 3]</div>
+    
+    <h3>3.2 Ajouter/Supprimer</h3>
+    <div class="code-block">tags.insert("designer")
+tags.remove("coder")
+print(tags)</div>
+    <div class="output">["hacker", "gamer", "designer"]</div>
+    
+    <h3>3.3 Opérations sur ensembles</h3>
+    <div class="code-block">let setA: Set = [1, 2, 3, 4]
+let setB: Set = [3, 4, 5, 6]
+
+print(setA.union(setB))            // union
+print(setA.intersection(setB))     // intersection
+print(setA.subtracting(setB))      // différence</div>
+    <div class="output">[1, 2, 3, 4, 5, 6]
+[3, 4]
+[1, 2]</div>
+  </div>
+
+  <div class="island">
+    <h2>4. Boucles</h2>
+    
+    <h3>4.1 for-in (parcourir une collection)</h3>
+    <div class="code-block">let noms = ["Marcus", "Wrench", "Sitara"]
+
+for nom in noms {
+    print("Hello, \(nom)")
+}</div>
+    <div class="output">Hello, Marcus
+Hello, Wrench
+Hello, Sitara</div>
+    
+    <h3>4.2 for-in avec range</h3>
+    <div class="code-block">for i in 1...5 {
+    print("Niveau \(i)")
+}</div>
+    <div class="output">Niveau 1
+Niveau 2
+Niveau 3
+Niveau 4
+Niveau 5</div>
+    
+    <p>de>1...5</code> = de 1 à 5 inclus<br>
+    de>1..&lt;5</code> = de 1 à 4 (exclut 5)</p>
+    
+    <h3>4.3 Parcourir un Dictionary</h3>
+    <div class="code-block">let scores = ["Marcus": 500, "Wrench": 320]
+
+for (nom, score) in scores {
+    print("\(nom) : \(score) points")
+}</div>
+    <div class="output">Marcus : 500 points
+Wrench : 320 points</div>
+    
+    <h3>4.4 while</h3>
+    <div class="code-block">var compteur = 0
+
+while compteur < 3 {
+    print("Compteur : \(compteur)")
+    compteur += 1
+}</div>
+    <div class="output">Compteur : 0
+Compteur : 1
+Compteur : 2</div>
+    
+    <h3>4.5 repeat-while (do-while)</h3>
+    <div class="code-block">var x = 0
+
+repeat {
+    print("x = \(x)")
+    x += 1
+} while x < 2</div>
+    <div class="output">x = 0
+x = 1</div>
+  </div>
+
+    <div class="island">
+    <h2>5. Conditions</h2>
+    
+    <h3>5.1 if / else if / else</h3>
+    <div class="code-block">let score = 85
+
+if score >= 90 {
+    print("Excellent")
+} else if score >= 70 {
+    print("Bien")
+} else {
+    print("À améliorer")
+}</div>
+    <div class="output">Bien</div>
+    
+    <h3>5.2 guard (sortie anticipée)</h3>
+    <div class="code-block">func verifierAge(age: Int?) {
+    guard let a = age, a >= 18 else {
+        print("Âge invalide ou mineur")
+        return
+    }
+    print("Accès autorisé, âge : \(a)")
+}
+
+verifierAge(age: 25)
+verifierAge(age: 15)
+verifierAge(age: nil)</div>
+    <div class="output">Accès autorisé, âge : 25
+Âge invalide ou mineur
+Âge invalide ou mineur</div>
+    
+    <h3>5.3 switch (puissant en Swift)</h3>
+    <div class="code-block">let niveau = 3
+
+switch niveau {
+case 1:
+    print("Débutant")
+case 2:
+    print("Intermédiaire")
+case 3:
+    print("Avancé")
+default:
+    print("Expert")
+}</div>
+    <div class="output">Avancé</div>
+    
+    <h3>5.4 switch avec ranges</h3>
+    <div class="code-block">let score = 85
+
+switch score {
+case 90...100:
+    print("A")
+case 80..<90:
+    print("B")
+case 70..<80:
+    print("C")
+default:
+    print("D")
+}</div>
+    <div class="output">B</div>
+    
+    <h3>5.5 switch avec tuples</h3>
+    <div class="code-block">let coordonnees = (x: 0, y: 5)
+
+switch coordonnees {
+case (0, 0):
+    print("Origine")
+case (_, 0):
+    print("Sur l'axe X")
+case (0, _):
+    print("Sur l'axe Y")
+default:
+    print("Position quelconque")
+}</div>
+    <div class="output">Sur l'axe Y</div>
+    
+    <p>de>_</code> signifie "n'importe quelle valeur"</p>
+  </div>
+
+  <div class="island">
+    <h2>6. Contrôle de boucles</h2>
+    
+    <h3>6.1 break (sortir de la boucle)</h3>
+    <div class="code-block">for i in 1...10 {
+    if i == 5 {
+        break
+    }
+    print(i)
+}</div>
+    <div class="output">1
+2
+3
+4</div>
+    
+    <h3>6.2 continue (passer à l'itération suivante)</h3>
+    <div class="code-block">for i in 1...5 {
+    if i == 3 {
+        continue
+    }
+    print(i)
+}</div>
+    <div class="output">1
+2
+4
+5</div>
+  </div>
+
+  <div class="island">
+    <h2>7. Énumération avec enumerated()</h2>
+    
+    <p>Pour obtenir l'index ET la valeur dans une boucle :</p>
+    <div class="code-block">let noms = ["Marcus", "Wrench", "Sitara"]
+
+for (index, nom) in noms.enumerated() {
+    print("\(index): \(nom)")
+}</div>
+    <div class="output">0: Marcus
+1: Wrench
+2: Sitara</div>
+  </div>
+
+  <div class="island">
+    <h2>8. Méthodes de collection avancées</h2>
+    
+    <h3>8.1 map (transformer chaque élément)</h3>
+    <div class="code-block">let nombres = [1, 2, 3, 4]
+let doubles = nombres.map { $0 * 2 }
+print(doubles)</div>
+    <div class="output">[2, 4, 6, 8]</div>
+    
+    <h3>8.2 filter (filtrer des éléments)</h3>
+    <div class="code-block">let scores = [45, 78, 92, 63, 88]
+let reussis = scores.filter { $0 >= 70 }
+print(reussis)</div>
+    <div class="output">[78, 92, 88]</div>
+    
+    <h3>8.3 reduce (réduire à une seule valeur)</h3>
+    <div class="code-block">let nombres = [1, 2, 3, 4, 5]
+let somme = nombres.reduce(0) { $0 + $1 }
+print(somme)</div>
+    <div class="output">15</div>
+    
+    <p>de>$0</code> = accumulateur, de>$1</code> = élément actuel</p>
+    
+    <h3>8.4 sorted (trier)</h3>
+    <div class="code-block">let nombres = [5, 2, 8, 1, 9]
+let tries = nombres.sorted()
+print(tries)
+
+let desc = nombres.sorted { $0 > $1 }
+print(desc)</div>
+    <div class="output">[1, 2, 5, 8, 9]
+[9, 8, 5, 2, 1]</div>
+  </div>
+
+  <div class="island">
+    <h2>Résumé Leçon 3</h2>
+    <p><strong>Ce que tu as appris :</strong></p>
+    <ul>
+      <li><strong>Arrays</strong> : tableaux ordonnés, indexés de 0</li>
+      <li><strong>Dictionaries</strong> : clé-valeur, valeurs Optional</li>
+      <li><strong>Sets</strong> : collections sans doublon, non ordonnées</li>
+      <li><strong>Boucles</strong> : de>for-in</code>, de>while</code>, de>repeat-while</code></li>
+      <li><strong>Conditions</strong> : de>if</code>, de>guard</code>, de>switch</code> (très puissant)</li>
+      <li><strong>Contrôle de flux</strong> : de>break</code>, de>continue</code></li>
+      <li><strong>Méthodes fonctionnelles</strong> : de>map</code>, de>filter</code>, de>reduce</code>, de>sorted</code></li>
+    </ul>
+    
+    <p style="margin-top:20px; color:#5fc9f8;"><strong>Prochaine leçon :</strong> Programmation orientée objet (Classes, Structures, Protocoles, Extensions)</p>
+  </div>
+
+</main>
+
+</body>
+</html>

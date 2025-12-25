@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift — Leçon 6 : Navigation & Listes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Swift Playground</h1>
+  <p>Leçon 6 : Navigation, Listes & Data Binding</p>
+</header>
+
+<main>
+
+  <div class="island">
+    <h2>1. NavigationStack (navigation entre vues)</h2>
+    
+    <p>de>NavigationStack</code> permet de naviguer entre plusieurs écrans avec une barre de navigation en haut.</p>
+    
+    <h3>1.1 Navigation basique</h3>
+    <div class="code-block">struct ContentView: View {
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("Écran principal")
+                    .font(.largeTitle)
+                
+                NavigationLink("Aller au détail") {
+                    DetailView()
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            .navigationTitle("Accueil")
+        }
+    }
+}
+
+struct DetailView: View {
+    var body: some View {
+        Text("Écran de détail")
+            .font(.title)
+            .navigationTitle("Détail")
+    }
+}</div>
+    
+    <p><strong>Comportement :</strong> Cliquer sur "Aller au détail" pousse de>DetailView</code> sur la pile de navigation. Un bouton "Back" apparaît automatiquement.</p>
+  </div>
+
+  <div class="island">
+    <h2>2. List (listes)</h2>
+    
+    <p>de>List</code> affiche des données sous forme de liste déroulante (comme un tableau).</p>
+    
+    <h3>2.1 Liste statique</h3>
+    <div class="code-block">struct ContentView: View {
+    var body: some View {
+        List {
+            Text("Marcus")
+            Text("Wrench")
+            Text("Sitara")
+            Text("Josh")
+        }
+    }
+}</div>
+    
+    <h3>2.2 Liste avec ForEach (données dynamiques)</h3>
+    <div class="code-block">struct ContentView: View {
+    let noms = ["Marcus", "Wrench", "Sitara", "Josh"]
+    
+    var body: some View {
+        List(noms, id: \.self) { nom in
+            Text(nom)
+        }
+    }
+}</div>
+    
+    <p>de>id: \.self</code> identifie chaque élément de manière unique (ici, le nom lui-même).</p>
+    
+    <h3>2.3 Liste avec struct Identifiable</h3>
+    <div class="code-block">struct Joueur: Identifiable {
+    let id = UUID()
+    let nom: String
+    let niveau: Int
+}
+
+struct ContentView: View {
+    let joueurs = [
+        Joueur(nom: "Marcus", niveau: 10),
+        Joueur(nom: "Wrench", niveau: 8),
+        Joueur(nom: "Sitara", niveau: 12)
+    ]
+    
+    var body: some View {
+        List(joueurs) { joueur in
+            HStack {
+                Text(joueur.nom)
+                    .font(.headline)
+                Spacer()
+                Text("Niveau \(joueur.niveau)")
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}</div>
+    
+    <div class="note">
+      Le protocole de>Identifiable</code> fournit automatiquement un de>id</code> unique, plus besoin de spécifier de>id: \.self</code>.
+    </div>
+  </div>
+
+  <div class="island">
+    <h2>3. Navigation + Liste (app multi-écrans)</h2>
+    
+    <p>Combine de>NavigationStack</code> et de>List</code> pour créer une app avec liste cliquable.</p>
+    
+    <div class="code-block">struct Joueur: Identifiable {
+    let id = UUID()
+    let nom: String
+    let niveau: Int
+    let bio: String
+}
+
+struct ContentView: View {
+    let joueurs = [
+        Joueur(nom: "Marcus", niveau: 10, bio: "Hacker principal de DedSec"),
+        Joueur(nom: "Wrench", niveau: 8, bio: "Expert en explosifs"),
+        Joueur(nom: "Sitara", niveau: 12, bio: "Artiste et hackeuse")
+    ]
+    
+    var body: some View {
+        NavigationStack {
+            List(joueurs) { joueur in
+                NavigationLink {
+                    DetailView(joueur: joueur)
+                } label: {
+                    HStack {
+                        Text(joueur.nom)
+                            .font(.headline)
+                        Spacer()
+                        Text("Niv. \(joueur.niveau)")
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+            .navigationTitle("Équipe DedSec")
+        }
+    }
+}
+
+struct DetailView: View {
+    let joueur: Joueur
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Image(systemName: "person.circle.fill")
+                .resizable()
+                .frame(width: 100, height: 100)
+                .foregroundColor(.blue)
+            
+            Text(joueur.nom)
+                .font(.largeTitle)
+                .bold()
+            
+            Text("Niveau \(joueur.niveau)")
+                .font(.title2)
+                .foregroundColor(.secondary)
+            
+            Text(joueur.bio)
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Spacer()
+        }
+        .padding()
+        .navigationTitle(joueur.nom)
+    }
+}</div>
+    
+    <p><strong>Résultat :</strong> Une liste de joueurs ; cliquer sur un nom ouvre sa fiche détaillée.</p>
+  </div>
+
+  <div class="island">
+    <h2>4. @Binding (partage de données entre vues)</h2>
+    
+    <p>de>@Binding</code> permet à une vue enfant de <strong>modifier</strong> une variable de la vue parente.</p>
+    
+    <h3>4.1 Exemple : Toggle partagé</h3>
+    <div class="code-block">struct ContentView: View {
+    @State private var estActif = false
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Mode : \(estActif ? "ON" : "OFF")")
+                .font(.title)
+            
+            ToggleView(estActif: $estActif)
+        }
+        .padding()
+    }
+}
+
+struct ToggleView: View {
+    @Binding var estActif: Bool
+    
+    var body: some View {
+        Toggle("Activer", isOn: $estActif)
+            .toggleStyle(.switch)
+    }
+}</div>
+    
+    <p><strong>Explication :</strong></p>
+    <ul>
+      <li>de>@State</code> dans de>ContentView</code> : source de vérité</li>
+      <li>de>@Binding</code> dans de>ToggleView</code> : référence à cette source</li>
+      <li>Modifier le toggle dans de>ToggleView</code> met à jour de>estActif</code> dans de>ContentView</code></li>
+    </ul>
+  </div>
+
+  <div class="island">
+    <h2>5. @ObservedObject & @StateObject (objets complexes)</h2>
+    
+    <p>Pour gérer des données plus complexes (modèles, ViewModels), on utilise des classes conformes à de>ObservableObject</code>.</p>
+    
+    <h3>5.1 Créer un ObservableObject</h3>
+    <div class="code-block">class Compteur: ObservableObject {
+    @Published var valeur = 0
+    
+    func incrementer() {
+        valeur += 1
+    }
+}</div>
+    
+    <p>de>@Published</code> rend la propriété réactive : quand elle change, SwiftUI redessine les vues qui l'observent.</p>
+    
+        <h3>5.2 Utiliser avec @StateObject</h3>
+    <div class="code-block">struct ContentView: View {
+    @StateObject private var compteur = Compteur()
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Valeur : \(compteur.valeur)")
+                .font(.largeTitle)
+            
+            Button("Incrémenter") {
+                compteur.incrementer()
+            }
+            .buttonStyle(.borderedProminent)
+            
+            // Passer à une vue enfant
+            DetailView(compteur: compteur)
+        }
+        .padding()
+    }
+}
+
+struct DetailView: View {
+    @ObservedObject var compteur: Compteur
+    
+    var body: some View {
+        Text("Copie de la valeur : \(compteur.valeur)")
+            .foregroundColor(.secondary)
+    }
+}</div>
+    
+    <p><strong>Différence :</strong></p>
+    <ul>
+      <li>de>@StateObject</code> : crée et possède l'objet (vue parente)</li>
+      <li>de>@ObservedObject</code> : observe un objet créé ailleurs (vue enfant)</li>
+    </ul>
+  </div>
+
+  <div class="island">
+    <h2>6. Exemple complet : App Todo List</h2>
+    
+    <div class="code-block">struct Todo: Identifiable {
+    let id = UUID()
+    var titre: String
+    var estComplete: Bool = false
+}
+
+class TodoViewModel: ObservableObject {
+    @Published var todos: [Todo] = [
+        Todo(titre: "Apprendre Swift"),
+        Todo(titre: "Créer une app"),
+        Todo(titre: "Déployer sur l'App Store")
+    ]
+    
+    func ajouterTodo(_ titre: String) {
+        let nouveau = Todo(titre: titre)
+        todos.append(nouveau)
+    }
+    
+    func toggleComplete(_ todo: Todo) {
+        if let index = todos.firstIndex(where: { $0.id == todo.id }) {
+            todos[index].estComplete.toggle()
+        }
+    }
+}
+
+struct ContentView: View {
+    @StateObject private var viewModel = TodoViewModel()
+    @State private var nouveauTitre = ""
+    
+    var body: some View {
+        NavigationStack {
+            VStack {
+                HStack {
+                    TextField("Nouvelle tâche", text: $nouveauTitre)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Button("Ajouter") {
+                        if !nouveauTitre.isEmpty {
+                            viewModel.ajouterTodo(nouveauTitre)
+                            nouveauTitre = ""
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                .padding()
+                
+                List(viewModel.todos) { todo in
+                    HStack {
+                        Image(systemName: todo.estComplete ? "checkmark.circle.fill" : "circle")
+                            .foregroundColor(todo.estComplete ? .green : .gray)
+                            .onTapGesture {
+                                viewModel.toggleComplete(todo)
+                            }
+                        
+                        Text(todo.titre)
+                            .strikethrough(todo.estComplete)
+                            .foregroundColor(todo.estComplete ? .secondary : .primary)
+                    }
+                }
+            }
+            .navigationTitle("Ma Todo List")
+        }
+    }
+}</div>
+    
+    <p><strong>Fonctionnalités :</strong></p>
+    <ul>
+      <li>Ajouter une tâche via le TextField</li>
+      <li>Marquer une tâche comme complète en cliquant sur le cercle</li>
+      <li>Liste réactive : tout changement met à jour l'interface</li>
+    </ul>
+  </div>
+
+  <div class="island">
+    <h2>7. Gestes & Interactions</h2>
+    
+    <h3>7.1 onTapGesture (clic)</h3>
+    <div class="code-block">Text("Clique-moi")
+    .onTapGesture {
+        print("Texte cliqué")
+    }</div>
+    
+    <h3>7.2 Swipe actions (glisser pour actions)</h3>
+    <div class="code-block">List(joueurs) { joueur in
+    Text(joueur.nom)
+        .swipeActions {
+            Button("Supprimer", role: .destructive) {
+                // Supprimer le joueur
+            }
+            Button("Modifier") {
+                // Modifier le joueur
+            }
+            .tint(.blue)
+        }
+}</div>
+    
+    <h3>7.3 Alert (alerte)</h3>
+    <div class="code-block">struct ContentView: View {
+    @State private var montrerAlerte = false
+    
+    var body: some View {
+        Button("Afficher alerte") {
+            montrerAlerte = true
+        }
+        .alert("Attention", isPresented: $montrerAlerte) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Ceci est un message d'alerte")
+        }
+    }
+}</div>
+  </div>
+
+  <div class="island">
+    <h2>8. Sheet (modal)</h2>
+    
+    <p>Affiche une vue modale par-dessus l'écran actuel.</p>
+    
+    <div class="code-block">struct ContentView: View {
+    @State private var montrerSheet = false
+    
+    var body: some View {
+        Button("Ouvrir modal") {
+            montrerSheet = true
+        }
+        .sheet(isPresented: $montrerSheet) {
+            DetailSheet()
+        }
+    }
+}
+
+struct DetailSheet: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("Contenu du modal")
+                    .font(.title)
+                
+                Button("Fermer") {
+                    dismiss()
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            .navigationTitle("Modal")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}</div>
+    
+    <p>de>@Environment(\.dismiss)</code> permet de fermer le modal programmatiquement.</p>
+  </div>
+
+  <div class="island">
+    <h2>9. TabView (onglets)</h2>
+    
+    <p>Navigation par onglets en bas de l'écran (comme Instagram, Twitter...).</p>
+    
+    <div class="code-block">struct ContentView: View {
+    var body: some View {
+        TabView {
+            HomeView()
+                .tabItem {
+                    Label("Accueil", systemImage: "house.fill")
+                }
+            
+            SearchView()
+                .tabItem {
+                    Label("Recherche", systemImage: "magnifyingglass")
+                }
+            
+            ProfileView()
+                .tabItem {
+                    Label("Profil", systemImage: "person.fill")
+                }
+        }
+    }
+}
+
+struct HomeView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Écran d'accueil")
+                .navigationTitle("Accueil")
+        }
+    }
+}
+
+struct SearchView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Écran de recherche")
+                .navigationTitle("Recherche")
+        }
+    }
+}
+
+struct ProfileView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Écran de profil")
+                .navigationTitle("Profil")
+        }
+    }
+}</div>
+  </div>
+
+  <div class="island">
+    <h2>Résumé Leçon 6</h2>
+    <p><strong>Ce que tu as appris :</strong></p>
+    <ul>
+      <li>de>NavigationStack</code> : navigation entre écrans avec pile</li>
+      <li>de>List</code> : afficher des listes de données</li>
+      <li>de>NavigationLink</code> : lier une liste à des écrans de détail</li>
+      <li>de>@Binding</code> : partager et modifier des données entre vues</li>
+      <li>de>@ObservedObject</code> / de>@StateObject</code> : gérer des objets complexes</li>
+      <li>Gestes : de>onTapGesture</code>, de>swipeActions</code></li>
+      <li>de>Alert</code> et de>Sheet</code> : modales et alertes</li>
+      <li>de>TabView</code> : navigation par onglets</li>
+    </ul>
+    
+    <p style="margin-top:20px; color:#5fc9f8;"><strong>Prochaine étape :</strong> Tu maîtrises maintenant les bases de SwiftUI ! Tu peux créer des apps multi-écrans avec données dynamiques. La suite : animations, API réseau, persistence de données...</p>
+  </div>
+
+</main>
+
+</body>
+</html>
+

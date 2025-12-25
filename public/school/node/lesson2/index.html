@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+  <h1>&gt; NODE.JS 101 – Leçon 2</h1>
+  <span>// npm, package.json & mini outil en ligne de commande</span>
+</header>
+<main>
+
+  <h2>1. C’est quoi npm ? C’est quoi package.json ?</h2>
+  <ul>
+    <li><b>npm</b> = Node Package Manager. C’est l’outil qui installe et gère les librairies (packages) pour tes projets Node.</li>
+    <li><b>package.json</b> = fichier de configuration de ton projet (nom, version, scripts, dépendances, etc.).</li>
+  </ul>
+
+  <div class="terminal">
+    <span class="tag">INFO</span><br>
+      $ npm init // crée un package.json<br>
+      $ npm install x  // installe un package x dans ton projet
+  </div>
+
+  <h2>2. Initialiser un projet Node (npm init)</h2>
+  <p>1. Crée un dossier de projet, par exemple : <code>dedsec-node-tool</code></p>
+  <div class="terminal">
+    $ mkdir dedsec-node-tool<br>
+    $ cd dedsec-node-tool
+  </div>
+
+  <p>2. Lance l’initialisation npm :</p>
+  <div class="terminal">
+    $ npm init -y
+  </div>
+  <p>
+    L’option <code>-y</code> accepte les valeurs par défaut automatiquement et crée un fichier <code>package.json</code> dans ton dossier.
+  </p>
+
+  <h3>2.1 Aperçu du package.json</h3>
+  <p>Après <code>npm init -y</code>, tu obtiens un fichier du genre :</p>
+  <div class="terminal">
+    {<br>
+    &nbsp; "name": "dedsec-node-tool",<br>
+    &nbsp; "version": "1.0.0",<br>
+    &nbsp; "main": "index.js",<br>
+    &nbsp; "scripts": {<br>
+    &nbsp;&nbsp; "test": "echo \\"Error: no test specified\\" && exit 1"<br>
+    &nbsp; },<br>
+    &nbsp; "license": "ISC"<br>
+    }
+  </div>
+  <ul>
+    <li><code>name</code> : nom du projet.</li>
+    <li><code>main</code> : fichier JavaScript principal (point d’entrée).</li>
+    <li><code>scripts</code> : commandes personnalisées (on va en ajouter une).</li>
+  </ul>
+
+  <h2>3. Créer ton premier outil CLI (ligne de commande)</h2>
+  <p>On va faire un petit script Node qui affiche un message “hack” avec le pseudo passé en argument.</p>
+
+  <h3>3.1 Fichier index.js</h3>
+  <p>Dans le dossier du projet (<code>dedsec-node-tool</code>), crée un fichier <code>index.js</code> :</p>
+  <div class="terminal">
+    // index.js<br>
+    console.log("[DEDSEC] Node CLI booting...");<br><br>
+
+    // process.argv contient les arguments de la ligne de commande<br>
+    const args = process.argv.slice(2);<br>
+    const pseudo = args[0] || "anonymous";<br><br>
+
+    console.log(`Target acquired: ${pseudo}`);<br>
+    console.log("Launching scan protocol...");
+  </div>
+
+  <p>Explication rapide :</p>
+  <ul>
+    <li><code>process.argv</code> = tableau des arguments de la commande.</li>
+    <li><code>slice(2)</code> = on enlève les deux premiers (node + nom du fichier).</li>
+    <li><code>args[0]</code> = premier argument utilisateur (ex: ton pseudo).</li>
+    <li><code>|| "anonymous"</code> = Si aucun argument n’est passé, on utilise “anonymous” par défaut.</li>
+  </ul>
+  <p>En résumé :</p>
+  <ul>
+    <li>On récupère les arguments de la ligne de commande avec <code>process.argv</code>.</li>
+    <li>On garde uniquement les arguments utilisateur avec <code>slice(2)</code>.</li>
+    <li>On utilise le premier argument comme pseudo, ou “anonymous” si rien n’est passé.</li>
+  </ul>
+
+  <h3>3.2 Lancer le script avec node</h3>
+  <div class="terminal">
+    $ node index.js<br>
+    [DEDSEC] Node CLI booting...<br>
+    Target acquired: anonymous<br>
+    Launching scan protocol...<br><br>
+
+    $ node index.js Marcus<br>
+    [DEDSEC] Node CLI booting...<br>
+    Target acquired: Marcus<br>
+    Launching scan protocol...
+  </div>
+
+  <h2>4. Ajouter un script npm pour lancer plus facilement</h2>
+  <p>On va modifier le <code>package.json</code> pour ajouter un script “start” :</p>
+
+  <div class="terminal">
+    {<br>
+    &nbsp; "name": "dedsec-node-tool",<br>
+    &nbsp; "version": "1.0.0",<br>
+    &nbsp; "main": "index.js",<br>
+    &nbsp; "scripts": {<br>
+    &nbsp;&nbsp; "start": "node index.js"<br>
+    &nbsp; }<br>
+    }
+  </div>
+
+  <p>Maintenant, au lieu de taper <code>node index.js</code>, tu peux faire :</p>
+  <div class="terminal">
+    $ npm start
+  </div>
+
+  <p>Pour passer un pseudo en argument, tu peux garder <code>node index.js Marcus</code> pour l’instant. (Les scripts npm avec arguments viendront plus tard.)</p>
+
+  <h2>5. Installer un package externe (bonus simple)</h2>
+  <p>Exemple : installer un package qui colorise la sortie (par exemple <code>chalk</code>).</p>
+  <div class="terminal">
+    $ npm install chalk
+  </div>
+  <p>Assure toi que ton <code>package.json</code> ressemble à ceci :</p>
+  <div class="terminal">
+    // package.json<br>
+    &#123;<br>
+    "name": "dedsec-node-tool",<br>
+    "version": "1.0.0",<br>
+    "type": "module",<br>
+    "main": "index.js",<br>
+    "scripts": &#123;<br>
+    &nbsp; "start": "node index.js"<br>
+    &#125;<br>
+    &#125;
+  </div>
+  <p>Note : l’ajout de <code>"type": "module"</code> permet d’utiliser la syntaxe <code>import</code> au lieu de <code>require</code> qui n'est pas avec la nouvelle version de chalk (en gros elle est obselète sah).</p>
+  <p>Dans le <code>index.js</code> :</p>
+  <div class="terminal">
+    // index.js<br>
+    import chalk from 'chalk';<br><br>
+
+    console.log(chalk.cyan("[DEDSEC] Node CLI booting..."));<br>
+    const args = process.argv.slice(2);<br>
+    const pseudo = args[0] || "anonymous";<br><br>
+
+    console.log(chalk.magenta(`Target acquired: ${pseudo}`));<br>
+    console.log(chalk.green("Launching scan protocol..."));
+  </div>
+
+  <p>
+    Désormais, ton outil affiche ses messages en couleur dans le terminal.
+  </p>
+
+  <hr>
+
+  <p style="font-size:13px;color:#7f8fb8;">
+    Leçon 2 — Résumé:<br>
+    - <b>npm</b> gère les dépendances et scripts de ton projet.<br>
+    - <b>npm init -y</b> crée un <code>package.json</code> par défaut.<br>
+    - Tu peux créer un <b>outil en ligne de commande</b> simple avec Node (via <code>process.argv</code>).<br>
+    - Tu peux ajouter un script de <code>"start"</code> dans <code>package.json</code> pour lancer ton app plus facilement.<br>
+    - <b>npm install</b> te permet d’ajouter des librairies (ex: chalk) pour améliorer ton outil.
+  </p>
+
+</main>
+</body>
+</html>

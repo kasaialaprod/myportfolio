@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift — Leçon 2 : Variables, Types & Fonctions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Swift Playground</h1>
+  <p>Leçon 2 : Variables, Types, Optionals & Fonctions</p>
+</header>
+
+<main>
+
+  <div class="island">
+    <h2>1. Variables & Constantes</h2>
+    
+    <h3>1.1 let (constante) vs var (variable)</h3>
+    <div class="code-block">let nom = "Marcus"       // constante, ne peut pas changer
+var age = 25            // variable, peut changer
+
+age = 26                // OK
+// nom = "Wrench"       // ERREUR : let ne peut pas être modifié</div>
+    
+    <p><strong>Règle Swift :</strong> utilise de>let</code> par défaut, de>var</code> uniquement si la valeur doit changer.</p>
+  </div>
+
+  <div class="island">
+    <h2>2. Types de données</h2>
+    
+    <h3>2.1 Types de base</h3>
+    <div class="code-block">let entier: Int = 42
+let decimal: Double = 3.14
+let texte: String = "DedSec"
+let estVrai: Bool = true</div>
+    
+    <h3>2.2 Inférence de type</h3>
+    <p>Swift devine automatiquement le type :</p>
+    <div class="code-block">let x = 10              // Swift comprend que c'est un Int
+let pi = 3.14           // Double
+let message = "Hello"   // String</div>
+    
+    <h3>2.3 Conversion de types</h3>
+    <div class="code-block">let nombre = 42
+let texte = String(nombre)       // "42"
+let decimal = Double(nombre)     // 42.0
+
+let chaine = "123"
+let entier = Int(chaine)         // Optional(123)</div>
+  </div>
+
+  <div class="island">
+    <h2>3. Les Optionals (concept clé Swift)</h2>
+    
+    <p>Un <strong>Optional</strong> représente une valeur qui peut être de>nil</code> (vide/absent).</p>
+    
+    <h3>3.1 Déclarer un Optional</h3>
+    <div class="code-block">var pseudo: String?         // Optional String, peut être nil
+pseudo = "Marcus"
+pseudo = nil                // OK</div>
+    
+    <h3>3.2 Unwrapping sécurisé (if let)</h3>
+    <div class="code-block">var niveau: Int? = 5
+
+if let n = niveau {
+    print("Niveau : \(n)")
+} else {
+    print("Pas de niveau défini")
+}</div>
+    <div class="output">Niveau : 5</div>
+    
+    <h3>3.3 Guard let (sortie anticipée)</h3>
+    <div class="code-block">func afficherNiveau(niveau: Int?) {
+    guard let n = niveau else {
+        print("Niveau manquant")
+        return
+    }
+    print("Niveau actuel : \(n)")
+}
+
+afficherNiveau(niveau: 10)
+afficherNiveau(niveau: nil)</div>
+    <div class="output">Niveau actuel : 10
+Niveau manquant</div>
+    
+    <h3>3.4 Force unwrapping (⚠️ dangereux)</h3>
+    <div class="code-block">let nom: String? = "Wrench"
+print(nom!)             // Force unwrap avec !, crash si nil</div>
+    <p><strong>⚠️ À éviter :</strong> utilise de>if let</code> ou de>guard let</code> à la place.</p>
+    
+    <h3>3.5 Nil coalescing (valeur par défaut)</h3>
+    <div class="code-block">let pseudo: String? = nil
+let affichage = pseudo ?? "Anonyme"
+print(affichage)</div>
+    <div class="output">Anonyme</div>
+  </div>
+
+  <div class="island">
+    <h2>4. Les Fonctions</h2>
+    
+    <h3>4.1 Fonction simple</h3>
+    <div class="code-block">func direBonjour() {
+    print("Bonjour !")
+}
+
+direBonjour()</div>
+    <div class="output">Bonjour !</div>
+    
+    <h3>4.2 Fonction avec paramètres</h3>
+    <div class="code-block">func saluer(nom: String) {
+    print("Salut, \(nom)!")
+}
+
+saluer(nom: "Marcus")</div>
+    <div class="output">Salut, Marcus!</div>
+    
+    <h3>4.3 Fonction avec valeur de retour</h3>
+    <div class="code-block">func additionner(a: Int, b: Int) -> Int {
+    return a + b
+}
+
+let resultat = additionner(a: 5, b: 7)
+print(resultat)</div>
+    <div class="output">12</div>
+    
+    <h3>4.4 Étiquettes de paramètres externes</h3>
+    <div class="code-block">func afficherScore(de joueur: String, points: Int) {
+    print("\(joueur) a \(points) points")
+}
+
+afficherScore(de: "Marcus", points: 100)</div>
+    <div class="output">Marcus a 100 points</div>
+    
+    <p>de>de</code> est le label externe, de>joueur</code> est le nom interne dans la fonction.</p>
+    
+    <h3>4.5 Paramètre sans label externe (_)</h3>
+    <div class="code-block">func multiplier(_ a: Int, _ b: Int) -> Int {
+    return a * b
+}
+
+let produit = multiplier(4, 5)  // pas besoin de nommer les paramètres
+print(produit)</div>
+    <div class="output">20</div>
+    
+    <h3>4.6 Valeur par défaut</h3>
+    <div class="code-block">func afficherMessage(_ texte: String = "Hello") {
+    print(texte)
+}
+
+afficherMessage()
+afficherMessage("DedSec")</div>
+    <div class="output">Hello
+DedSec</div>
+  </div>
+
+  <div class="island">
+    <h2>5. Closures (fonctions anonymes)</h2>
+    
+    <p>Une <strong>closure</strong> est une fonction sans nom, souvent utilisée comme paramètre.</p>
+    
+    <h3>5.1 Syntaxe de base</h3>
+    <div class="code-block">let direHello = {
+    print("Hello from closure")
+}
+
+direHello()</div>
+    <div class="output">Hello from closure</div>
+    
+    <h3>5.2 Closure avec paramètres et retour</h3>
+    <div class="code-block">let multiplier = { (a: Int, b: Int) -> Int in
+    return a * b
+}
+
+let resultat = multiplier(3, 4)
+print(resultat)</div>
+    <div class="output">12</div>
+    
+    <h3>5.3 Closure en paramètre de fonction</h3>
+    <div class="code-block">func executerAction(action: () -> Void) {
+    print("Début")
+    action()
+    print("Fin")
+}
+
+executerAction {
+    print("Action en cours...")
+}</div>
+    <div class="output">Début
+Action en cours...
+Fin</div>
+  </div>
+
+    <div class="island">
+    <h2>6. Tuples (groupes de valeurs)</h2>
+    
+    <div class="code-block">let joueur = (nom: "Marcus", niveau: 10, vie: 100.0)
+
+print(joueur.nom)
+print(joueur.niveau)
+print(joueur.vie)</div>
+    <div class="output">Marcus
+10
+100.0</div>
+    
+    <h3>6.1 Décomposition de tuple</h3>
+    <div class="code-block">let coordonnees = (x: 50, y: 120)
+let (posX, posY) = coordonnees
+
+print("Position : \(posX), \(posY)")</div>
+    <div class="output">Position : 50, 120</div>
+    
+    <h3>6.2 Tuple en retour de fonction</h3>
+    <div class="code-block">func obtenirStats() -> (nom: String, score: Int) {
+    return ("Wrench", 450)
+}
+
+let stats = obtenirStats()
+print("\(stats.nom) : \(stats.score) points")</div>
+    <div class="output">Wrench : 450 points</div>
+  </div>
+
+  <div class="island">
+    <h2>7. String (manipulation de chaînes)</h2>
+    
+    <h3>7.1 Interpolation</h3>
+    <div class="code-block">let nom = "Marcus"
+let age = 25
+let message = "Je suis \(nom), j'ai \(age) ans"
+print(message)</div>
+    <div class="output">Je suis Marcus, j'ai 25 ans</div>
+    
+    <h3>7.2 Concaténation</h3>
+    <div class="code-block">let prenom = "Marcus"
+let nom = "Holloway"
+let complet = prenom + " " + nom
+print(complet)</div>
+    <div class="output">Marcus Holloway</div>
+    
+    <h3>7.3 Multilignes</h3>
+    <div class="code-block">let texte = """
+Bienvenue dans DedSec.
+Hack the planet.
+"""
+print(texte)</div>
+    <div class="output">Bienvenue dans DedSec.
+Hack the planet.</div>
+  </div>
+
+  <div class="island">
+    <h2>Résumé Leçon 2</h2>
+    <p><strong>Ce que tu as appris :</strong></p>
+    <ul>
+      <li>de>let</code> (constante) vs de>var</code> (variable)</li>
+      <li>Types de base : de>Int</code>, de>Double</code>, de>String</code>, de>Bool</code></li>
+      <li>Inférence de type automatique</li>
+      <li><strong>Optionals</strong> : de>?</code>, de>if let</code>, de>guard let</code>, de>??</code></li>
+      <li>Fonctions : paramètres, retour, labels externes, valeurs par défaut</li>
+      <li>Closures (fonctions anonymes)</li>
+      <li>Tuples (groupes de valeurs)</li>
+      <li>Manipulation de chaînes (interpolation, concaténation)</li>
+    </ul>
+    
+    <p style="margin-top:20px; color:#5fc9f8;"><strong>Prochaine leçon :</strong> Collections (Arrays, Dictionaries, Sets) & Contrôle de flux (if, guard, switch, boucles)</p>
+  </div>
+
+</main>
+
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container{
+  margin: auto;
+  background: lightgrey;
+  border: 2px solid black;
+  border-radius: 30px;
+  width: 500px;
+  height: auto;
+  text-align: center;
+   
+}
+
+h1{
+  font-size: 40px
+}
+
+h1 , p:hover{
+  cursor: default;
+}
+
+#time{
+  font-size : 50px;
+  font-weight: bold;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+button{
+  font-size : 30px;
+}
+
+#start{
+  font-size : 25px;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+#start:hover{
+  background: #494444;
+  cursor: pointer;
+  transform: scale(0.90);
+}
+
+#start::before{
+  content: "Click to start the game !";
+}
+
+#start:hover::before {
+  content: "Ready ?";
+}
+
+.response{
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.response:hover{
+  cursor: pointer;
+  transform: scale(0.90);
+}
+
+#reset{
+  font-size : 30px;
+}
+
+#reset:hover{
+  cursor: pointer;
+  transform: scale(0.90);
+}
+
+.score-container{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 30px;
+}
+

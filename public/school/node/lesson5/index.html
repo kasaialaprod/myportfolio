@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Express</title>
+</head>
+<body>
+    <header>
+  <h1>&gt; NODE.JS 101 – Leçon 5</h1>
+  <span>// CRUD Express : d’abord en mémoire, puis avec SQLite</span>
+</header>
+<main>
+
+  <h2>1. Notion de CRUD & “fausse base de données”</h2>
+  <ul>
+    <li><b>CRUD</b> = Create, Read, Update, Delete : les 4 opérations de base d’une API de données.</li>
+    <li>On va d’abord simuler une base de données avec un simple tableau en mémoire.</li>
+    <li>Puis on branchera une vraie base SQLite sur la même logique.</li>
+  </ul>
+
+  <h2>2. Projet Express + “BDD” en mémoire</h2>
+  <p>1. Crée un nouveau projet :</p>
+  <div class="terminal">
+    $ mkdir dedsec-crud-memory<br>
+    $ cd dedsec-crud-memory<br>
+    $ npm init -y<br>
+    $ npm install express
+  </div>
+
+  <p>2. Crée <code>server.js</code> :</p>
+
+  <div class="terminal">
+    // server.js<br>
+    import express from "express";<br>
+    const app = express();<br>
+    const PORT = 3000;<br><br>
+    app.use(express.json()); // pour lire le JSON dans req.body<br><br>
+
+    // "Base de données" en mémoire<br>
+    let hacks = [<br>
+    &nbsp;&nbsp;{ id: 1, target: "CTOS", level: "high" },<br>
+    &nbsp;&nbsp; { id: 2, target: "Blume", level: "medium" }<br> 
+    ];<br>
+    let nextId = 3;<br><br>
+
+    // CREATE - POST /hacks<br>
+    app.post("/hacks", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const { target, level } = req.body;<br>
+    &nbsp;&nbsp;if (!target || !level) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ error: "target and level are required" });<br>
+    &nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;const newHack = { id: nextId++, target, level };<br>
+    &nbsp;&nbsp;hacks.push(newHack);<br>
+    &nbsp;&nbsp;res.status(201).json(newHack);<br>
+    });<br><br>
+
+    // READ ALL - GET /hacks<br>
+    app.get("/hacks", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;res.json(hacks);<br>
+    });<br><br>
+
+    // READ ONE - GET /hacks/:id<br>
+    app.get("/hacks/:id", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const id = Number(req.params.id);<br>
+    &nbsp;&nbsp;const hack = hacks.find(h =&gt; h.id === id);<br>
+    &nbsp;&nbsp;if (!hack) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(404).json({ error: "hack not found" });<br>
+    &nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;res.json(hack);<br>
+    });<br><br>
+
+    // UPDATE - PUT /hacks/:id<br>
+    app.put("/hacks/:id", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const id = Number(req.params.id);<br>
+    &nbsp;&nbsp;const hack = hacks.find(h =&gt; h.id === id);<br>
+    &nbsp;&nbsp;if (!hack) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(404).json({ error: "hack not found" });<br>
+    &nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;const { target, level } = req.body;<br>
+    &nbsp;&nbsp;if (target !== undefined) hack.target = target;<br>
+    &nbsp;&nbsp;if (level !== undefined) hack.level = level;<br>
+    &nbsp;&nbsp;res.json(hack);<br>
+    });<br><br>
+
+    // DELETE - DELETE /hacks/:id<br>
+    app.delete("/hacks/:id", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const id = Number(req.params.id);<br>
+    &nbsp;&nbsp;const index = hacks.findIndex(h =&gt; h.id === id);<br>
+    &nbsp;&nbsp;if (index === -1) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(404).json({ error: "hack not found" });<br>
+    &nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;const deleted = hacks.splice(index, 1)[0];<br>
+    &nbsp;&nbsp;res.json(deleted);<br>
+    });<br><br>
+
+    app.listen(PORT, () =&gt; {<br>
+    &nbsp;&nbsp;console.log(`[DEDSEC] CRUD memory API listening on http://localhost:${PORT}`);<br>
+    });<br>
+  </div>
+
+  <p>Ajoute dans <code>package.json</code> :</p>
+  <div class="terminal">
+    "scripts": {<br>
+      "start": "node server.js"<br>
+    }
+  </div>
+
+  <h3>2.1 Tester le CRUD en mémoire</h3>
+  <p>Avec curl ou Postman :</p>
+  <div class="terminal">
+    # Lire tous les hacks<br>
+    $ curl http://localhost:3000/hacks<br><br>
+
+    # Créer un hack<br>
+    $ curl -X POST http://localhost:3000/hacks \<br>
+      -H "Content-Type: application/json" \<br>
+      -d "{\"target\":\"CTOS2\",\"level\":\"low\"}"<br><br>
+
+    # Lire un hack précis<br>
+    $ curl http://localhost:3000/hacks/1<br><br>
+
+    # Mettre à jour<br>
+    $ curl -X PUT http://localhost:3000/hacks/1 \<br>
+      -H "Content-Type: application/json" \<br>
+      -d "{\"level\":\"critical\"}"<br><br>
+
+    # Supprimer<br>
+    $ curl -X DELETE http://localhost:3000/hacks/2
+  </div>
+
+  <p>
+    Limite : dès que tu relances le serveur, le tableau se réinitialise.  
+    Prochaine étape : sauvegarder tout ça dans une vraie base (SQLite).
+  </p>
+
+  <hr>
+
+  <h2>3. Passer à une vraie base : SQLite + sqlite3</h2>
+  <ul>
+    <li><b>SQLite</b> = base de données légère dans un fichier .db.</li>
+    <li>Parfait pour apprendre et pour petits projets.</li>
+    <li>On va utiliser le module Node <code>sqlite3</code> (API callback) pour rester simple.</li>
+  </ul>
+
+  <h3>3.1 Préparer le projet SQLite</h3>
+  <p>1. Nouveau dossier :</p>
+  <div class="terminal">
+    $ mkdir dedsec-crud-sqlite<br>
+    $ cd dedsec-crud-sqlite<br>
+    $ npm init -y<br>
+    $ npm install express better-sqlite3
+  </div>
+
+  <p>Note : on utilise <code>better-sqlite3</code> ici car sqlite3 ne convient pas à ES Modules, uniquement le CommonJS. better-sqlite3 est plus moderne et simple à utiliser.</p>
+
+  <p>2. Crée <code>server.js</code> :</p>
+
+  <div class="terminal">
+    // server.js<br>
+    import express from 'express';<br>
+    import Database from 'better-sqlite3';<br>
+    // Ouvrir/Créer la base de données (fichier dedsec.db)<br>
+    const db = new Database('dedsec.db');<br><br>
+
+    const app = express();<br>
+    const PORT = 3000;<br><br>
+
+    app.use(express.json());<br><br>
+
+    // Créer la table si elle n'existe pas<br>
+    db.exec(`CREATE TABLE IF NOT EXISTS hacks (<br>
+    &nbsp;&nbsp;id INTEGER PRIMARY KEY AUTOINCREMENT,<br>
+    &nbsp;&nbsp;target TEXT NOT NULL,<br>
+    &nbsp;&nbsp;level TEXT NOT NULL<br>
+    )`);<br>
+
+    // CREATE - POST /hacks<br>
+    app.post("/hacks", (req, res) => {<br>
+    &nbsp;&nbsp;const { target, level } = req.body;<br>
+  
+    &nbsp;&nbsp;if (!target || !level) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(400).json({ error: "target and level are required" });<br>
+    &nbsp;&nbsp;}<br><br>
+  
+    &nbsp;&nbsp;try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare('INSERT INTO hacks (target, level) VALUES (?, ?)');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const info = stmt.run(target, level);<br>
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(201).json({ <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: info.lastInsertRowid, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.error(err);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(500).json({ error: "DB insert failed" });<br>
+    &nbsp;&nbsp;}<br>
+    });<br><br>
+
+
+    // READ ALL <br> 
+    app.get("/hacks", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;try {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare('SELECT * FROM hacks').all();<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json(stmt);<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.error(err);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(500).json({ error: "DB read failed" });<br>
+    &nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;});<br><br>
+
+    // READ ONE - GET /hacks/:id<br>
+    app.get("/hacks/:id", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const id = req.params.id;<br><br>
+    &nbsp;&nbsp;try {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const row = db.prepare('SELECT * FROM hacks WHERE id = ?').get(id);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (!row) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(404).json({ error: "hack not found" });<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json(row);<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.error(err);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.status(500).json({ error: "DB read failed" });<br>
+    &nbsp;&nbsp;}<br>
+    });<br><br>
+
+    // UPDATE - PUT /hacks/:id<br>
+    app.put("/hacks/:id", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const id = req.params.id;<br>
+    &nbsp;&nbsp;const { target, level } = req.body;<br>
+    &nbsp;&nbsp;try {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;// On lit d'abord l'entrée existante<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const row = db.prepare('SELECT * FROM hacks WHERE id = ?').get(id);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (!row) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(404).json({ error: "hack not found" });<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const newTarget = target !== undefined ? target : row.target;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const newLevel = level !== undefined ? level : row.level;<br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare('UPDATE hacks SET target = ?, level = ? WHERE id = ?');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;stmt.run(newTarget, newLevel, id);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json({ <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: parseInt(id), <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: newTarget, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level: newLevel <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.error(err);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(500).json({ error: "DB update failed" });<br>
+    &nbsp;&nbsp;}<br>
+    });<br><br>
+
+    // DELETE - DELETE /hacks/:id<br>
+    app.delete("/hacks/:id", (req, res) =&gt; {<br>
+    &nbsp;&nbsp;const id = req.params.id;<br>
+    &nbsp;&nbsp;try {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const stmt = db.prepare('DELETE FROM hacks WHERE id = ?');<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const info = stmt.run(id);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (info.changes === 0) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res.status(404).json({ error: "hack not found" });<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;res.json({ deletedId: parseInt(id) });<br>
+    &nbsp;&nbsp;} catch (err) {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.error(err);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return res.status(500).json({ error: "DB delete failed" });<br>
+    &nbsp;&nbsp;}<br>
+    });<br><br>
+
+    app.listen(PORT, () =&gt; {<br>
+    &nbsp;&nbsp;console.log(`[DEDSEC] CRUD SQLite API listening on http://localhost:${PORT}`);<br>
+    });<br><br>
+
+    // Fermer la base proprement à la fin du process<br>
+    process.on("SIGINT", () =&gt; {<br>
+    &nbsp;&nbsp;db.close();<br>
+    &nbsp;&nbsp;console.log("\n[DEDSEC] Database connection closed.");<br>
+    &nbsp;&nbsp;process.exit(0);<br>
+    });<br><br>
+  </div>
+
+  <p>3. Ajoute dans <code>package.json</code> :</p>
+  <div class="terminal">
+    "scripts": {<br>
+      "start": "node server.js"<br>
+    }
+  </div>
+
+  <h3>3.2 Tester le CRUD SQLite</h3>
+  <p>Mêmes commandes curl que pour la BDD en mémoire, mais cette fois les données sont stockées dans le fichier <code>dedsec.db</code> :</p>
+
+  <div class="terminal">
+    $ npm start<br>
+  </div>
+
+  <p>Dans un autre terminal :</p>
+
+  <div class="terminal">
+    $ cd ~/Documents/dedsec-crud-sqlite
+
+    # Créer un hack<br>
+    $ curl -X POST http://localhost:3000/hacks \<br>
+      -H "Content-Type: application/json" \<br>
+      -d "{\"target\":\"CTOS\",\"level\":\"high\"}"<br><br>
+
+    # Lire toutes les entrées<br>
+    $ curl http://localhost:3000/hacks
+  </div>
+
+  <p>Si tu arrêtes puis redémarres le serveur, les données sont toujours là : elles sont en base.</p>
+
+  <p>
+    Pour utiliser le CRUD dans le même terminal, tu peux utiliser <code>Ctrl+Z</code> pour suspendre le serveur, faire tes requêtes curl, puis <code>fg</code> pour relancer le serveur.<br>
+    On peut également le fermer proprement avec <code>Ctrl+C</code> puis le réouvrir par la suite.
+  </p>
+
+  <div class="terminal">
+    # Suspendre le serveur<br>
+    (Ctrl+Z)<br><br>
+
+    # Faire des requêtes curl...<br><br>
+
+    # Reprendre le serveur<br>
+    $ fg<br>
+  </div>
+
+  <hr>
+
+  <p style="font-size:13px;color:#7f8fb8;">
+    Leçon 5 – Résumé :<br>
+    - Tu as construit un vrai <b>CRUD Express</b> avec une “fausse BDD” en mémoire (tableau).<br>
+    - Tu as ensuite branché une <b>vraie base SQLite</b> via le module <code>better-sqlite3</code>.<br>
+    - Tu sais maintenant exposer une API REST simple (GET/POST/PUT/DELETE) pour un type de ressource (ici, des “hacks”).<br>
+    - Tu es passé du “full JS” côté serveur à un backend qui persiste des données.
+  </p>
+</main>
+</body>
+</html>

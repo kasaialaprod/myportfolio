@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift — Leçon 5 : SwiftUI Introduction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Swift Playground</h1>
+  <p>Leçon 5 : SwiftUI — Premier projet d'interface graphique</p>
+</header>
+
+<main>
+
+  <div class="island">
+    <h2>1. C'est quoi SwiftUI ?</h2>
+    
+    <p><strong>SwiftUI</strong> est le framework moderne d'Apple pour créer des interfaces utilisateur de façon <strong>déclarative</strong>.</p>
+    
+    <ul>
+      <li>✅ <strong>Déclaratif</strong> : tu décris ce que tu veux, pas comment le faire</li>
+      <li>✅ <strong>Multiplateforme</strong> : iOS, macOS, watchOS, tvOS avec le même code</li>
+      <li>✅ <strong>Preview en temps réel</strong> : vois tes changements instantanément dans Xcode</li>
+      <li>✅ <strong>Syntaxe moderne</strong> : utilise les closures, property wrappers (@State, @Binding...)</li>
+    </ul>
+    
+    <div class="note">
+      À partir de cette leçon, tu dois utiliser <strong>Xcode</strong> (pas VS Code). SwiftUI nécessite le simulateur et les outils de preview d'Xcode.
+    </div>
+  </div>
+
+  <div class="island">
+    <h2>2. Créer un projet SwiftUI dans Xcode</h2>
+    
+    <h3>Étapes</h3>
+    <ol>
+      <li>Lance <strong>Xcode</strong></li>
+      <li>Clique sur <strong>"Create New Project"</strong></li>
+      <li>Choisis <strong>iOS → App</strong></li>
+      <li>Remplis :
+        <ul>
+          <li><strong>Product Name</strong> : MonAppSwiftUI</li>
+          <li><strong>Interface</strong> : SwiftUI</li>
+          <li><strong>Language</strong> : Swift</li>
+        </ul>
+      </li>
+      <li>Clique sur <strong>Next</strong> puis <strong>Create</strong></li>
+    </ol>
+    
+    <p>Xcode génère automatiquement un fichier de>ContentView.swift</code> avec une vue de base.</p>
+  </div>
+
+  <div class="island">
+    <h2>3. Structure d'une vue SwiftUI</h2>
+    
+    <h3>Fichier ContentView.swift (généré par défaut)</h3>
+    <div class="code-block">import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        Text("Hello, World!")
+    }
+}
+
+#Preview {
+    ContentView()
+}</div>
+    
+    <h3>Décryptage</h3>
+    <ul>
+      <li>de>struct ContentView: View</code> : ta vue conforme au protocole de>View</code></li>
+      <li>de>var body: some View</code> : propriété obligatoire qui décrit le contenu de la vue</li>
+      <li>de>Text("Hello, World!")</code> : un composant texte</li>
+      <li>de>#Preview</code> : macro pour afficher un aperçu en temps réel dans Xcode</li>
+    </ul>
+  </div>
+
+  <div class="island">
+    <h2>4. Views de base</h2>
+    
+    <h3>4.1 Text (texte)</h3>
+    <div class="code-block">Text("Bienvenue dans SwiftUI")
+    .font(.title)
+    .foregroundColor(.blue)
+    .bold()</div>
+    
+    <h3>4.2 Image (image système SF Symbols)</h3>
+    <div class="code-block">Image(systemName: "star.fill")
+    .resizable()
+    .frame(width: 50, height: 50)
+    .foregroundColor(.yellow)</div>
+    
+    <h3>4.3 Button (bouton)</h3>
+    <div class="code-block">Button("Clique-moi") {
+    print("Bouton cliqué")
+}
+.buttonStyle(.borderedProminent)</div>
+    
+    <h3>4.4 TextField (champ de texte)</h3>
+    <div class="code-block">@State private var nom = ""
+
+TextField("Entre ton nom", text: $nom)
+    .textFieldStyle(.roundedBorder)
+    .padding()</div>
+    
+    <div class="note">
+      de>@State</code> crée une variable réactive : quand elle change, la vue se rafraîchit automatiquement.
+    </div>
+  </div>
+
+  <div class="island">
+    <h2>5. Layout : VStack, HStack, ZStack</h2>
+    
+    <h3>5.1 VStack (vertical)</h3>
+    <div class="code-block">VStack {
+    Text("Ligne 1")
+    Text("Ligne 2")
+    Text("Ligne 3")
+}</div>
+    
+    <h3>5.2 HStack (horizontal)</h3>
+    <div class="code-block">HStack {
+    Image(systemName: "star.fill")
+    Text("Marcus")
+    Spacer()
+    Text("Niveau 10")
+}</div>
+    
+    <h3>5.3 ZStack (superposition)</h3>
+    <div class="code-block">ZStack {
+    Circle()
+        .fill(Color.blue)
+        .frame(width: 100, height: 100)
+    
+    Text("42")
+        .foregroundColor(.white)
+        .font(.largeTitle)
+}</div>
+    
+    <h3>5.4 Spacing & Padding</h3>
+    <div class="code-block">VStack(spacing: 20) {
+    Text("Haut")
+    Text("Bas")
+}
+.padding()  // ajoute de l'espace autour</div>
+  </div>
+
+  <div class="island">
+    <h2>6. @State : gérer l'état local</h2>
+    
+    <p>de>@State</code> crée une variable <strong>réactive</strong> : quand elle change, SwiftUI redessine automatiquement la vue.</p>
+    
+    <h3>Exemple : compteur</h3>
+    <div class="code-block">struct ContentView: View {
+    @State private var compteur = 0
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Compteur : \(compteur)")
+                .font(.largeTitle)
+            
+            Button("Incrémenter") {
+                compteur += 1
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .padding()
+    }
+}</div>
+    
+    <p>À chaque clic sur le bouton, de>compteur</code> augmente et le de>Text</code> se met à jour automatiquement.</p>
+  </div>
+
+  <div class="island">
+    <h2>7. Mini app complète : Salutation</h2>
+    
+    <div class="code-block">struct ContentView: View {
+    @State private var nom = ""
+    
+    var body: some View {
+        VStack(spacing: 25) {
+            Text("Bienvenue")
+                .font(.largeTitle)
+                .bold()
+            
+            TextField("Entre ton pseudo", text: $nom)
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal)
+            
+            if !nom.isEmpty {
+                Text("Salut, \(nom) !")
+                    .font(.title2)
+                    .foregroundColor(.blue)
+            }
+            
+            Spacer()
+        }
+        .padding()
+    }
+}</div>
+    
+    <p><strong>Fonctionnement :</strong></p>
+    <ul>
+      <li>L'utilisateur tape son pseudo dans le de>TextField</code></li>
+      <li>La variable de>nom</code> se met à jour en temps réel</li>
+      <li>Si de>nom</code> n'est pas vide, un message de salutation apparaît</li>
+    </ul>
+  </div>
+
+    <div class="island">
+    <h2>8. Modifiers (modificateurs de vue)</h2>
+    
+    <p>Les <strong>modifiers</strong> changent l'apparence et le comportement des vues. Ils se chaînent.</p>
+    
+    <div class="code-block">Text("SwiftUI")
+    .font(.largeTitle)
+    .foregroundColor(.blue)
+    .padding()
+    .background(Color.yellow)
+    .cornerRadius(10)
+    .shadow(radius: 5)</div>
+    
+    <h3>Modifiers courants</h3>
+    <ul>
+      <li>de>.font()</code> : taille et style de police</li>
+      <li>de>.foregroundColor()</code> : couleur du texte</li>
+      <li>de>.padding()</code> : espacement intérieur</li>
+      <li>de>.background()</code> : couleur/image de fond</li>
+      <li>de>.cornerRadius()</code> : coins arrondis</li>
+      <li>de>.shadow()</code> : ombre portée</li>
+      <li>de>.frame(width:height:)</code> : taille fixe</li>
+    </ul>
+  </div>
+
+  <div class="island">
+    <h2>9. Lancer l'app dans le simulateur</h2>
+    
+    <h3>Étapes</h3>
+    <div class="step">
+      1. En haut de Xcode, choisis un simulateur (ex : <strong>iPhone 15 Pro</strong>)
+    </div>
+    <div class="step">
+      2. Clique sur le bouton <strong>Play ▶</strong> (ou de>Cmd + R</code>)
+    </div>
+    <div class="step">
+      3. Le simulateur iOS se lance et affiche ton app
+    </div>
+    <div class="step">
+      4. Modifie ton code → sauvegarde → l'app se recharge automatiquement
+    </div>
+  </div>
+
+  <div class="island">
+    <h2>10. Preview en temps réel (Canvas)</h2>
+    
+    <p>Dans Xcode, active le <strong>Canvas</strong> (panneau de droite) pour voir ton interface se mettre à jour en direct pendant que tu codes.</p>
+    
+    <h3>Activer le Canvas</h3>
+    <ul>
+      <li>Menu : <strong>Editor → Canvas</strong></li>
+      <li>Ou : de>Cmd + Option + Enter</code></li>
+    </ul>
+    
+    <p>Dès que tu modifies ton code, le Canvas rafraîchit l'aperçu automatiquement.</p>
+  </div>
+
+  <div class="island">
+    <h2>11. Exercice pratique : Carte de profil</h2>
+    
+    <p>Crée une carte de profil avec photo, nom, et bouton.</p>
+    
+    <div class="code-block">struct ContentView: View {
+    var body: some View {
+        VStack(spacing: 20) {
+            // Avatar
+            Image(systemName: "person.circle.fill")
+                .resizable()
+                .frame(width: 120, height: 120)
+                .foregroundColor(.blue)
+            
+            // Nom
+            Text("Marcus Holloway")
+                .font(.title)
+                .bold()
+            
+            // Rôle
+            Text("Hacker DedSec")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            
+            // Stats
+            HStack(spacing: 30) {
+                VStack {
+                    Text("250")
+                        .font(.title2)
+                        .bold()
+                    Text("Missions")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                VStack {
+                    Text("10")
+                        .font(.title2)
+                        .bold()
+                    Text("Niveau")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                VStack {
+                    Text("5.2k")
+                        .font(.title2)
+                        .bold()
+                    Text("XP")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
+            .padding()
+            
+            // Bouton
+            Button("Voir le profil") {
+                print("Profil ouvert")
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+        }
+        .padding()
+    }
+}</div>
+    
+    <p>Lance cette app dans le simulateur pour voir le résultat !</p>
+  </div>
+
+  <div class="island">
+    <h2>Résumé Leçon 5</h2>
+    <p><strong>Ce que tu as appris :</strong></p>
+    <ul>
+      <li>Créer un projet <strong>SwiftUI</strong> dans Xcode</li>
+      <li>Structure d'une vue : de>struct View + body</code></li>
+      <li>Views de base : de>Text</code>, de>Image</code>, de>Button</code>, de>TextField</code></li>
+      <li>Layout : de>VStack</code>, de>HStack</code>, de>ZStack</code></li>
+      <li>de>@State</code> : gérer l'état réactif d'une vue</li>
+      <li>Modifiers : chaîner les modificateurs pour styliser</li>
+      <li>Lancer l'app dans le simulateur</li>
+      <li>Utiliser le Canvas pour preview en temps réel</li>
+    </ul>
+    
+    <p style="margin-top:20px; color:#5fc9f8;"><strong>Prochaine leçon :</strong> Navigation, Listes & @Binding pour créer des apps multi-écrans</p>
+  </div>
+
+</main>
+
+</body>
+</html>
+

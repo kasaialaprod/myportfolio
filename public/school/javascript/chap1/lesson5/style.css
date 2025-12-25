@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #24394e;
+    background: #1096e3;
+background: linear-gradient(180deg, rgba(16, 150, 227, 1) 0%, rgba(29, 141, 253, 1) 27%, rgba(252, 176, 69, 1) 100%);
+}
+
+header {
+    background: #2fb6c0;
+    color: #ffe899;
+    font-family: cursive;
+    text-align: center;
+    padding: 33px 7px 17px 7px;
+    border-bottom: 3.5px solid #41a97c;
+    box-shadow: 0 6px 32px #22385533;
+}
+
+header h1 {
+    font-size: 32px;
+}
+
+.dialog {
+    background: #fffde0;
+    border: 2px solid #b4a76a;
+    border-radius: 14px 40px 14px 14px;
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 60%;
+    color: #2e3126;
+    font-size: 1.05rem;
+    position: relative;
+    box-shadow: 0 0 12px #89c1d0aa;
+}
+
+.dialog:before {
+    content: "";
+    position: absolute;
+    left: -22px; top: 14px;
+    width: 0; height: 0;
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-right: 22px solid #fffde0;
+}
+
+.link-pic {
+    width: 150px; 
+    height: 150px;
+    position: absolute;
+    left: -125px; top: -14px;
+    transform: scaleX(-1);
+    border-radius: 10px;
+}
+
+section {
+    margin: 29px auto;
+    max-width: 860px;
+    background: #f3fbfb;
+    border-radius: 15px;
+    box-shadow: 0 1px 20px #22385526;
+    padding: 26px 29px 19px 29px;
+    border: 2px solid #70e6e6;
+}
+
+h2, h3 {
+    font-family: 'roboto', Arial, sans-serif;
+    color: #2fb6c0;
+    margin-top: 0.4em; margin-bottom: 0.2em;
+    font-size: 22px; letter-spacing: 1px;
+}
+
+.quest {
+    display: flex; align-items: center;
+    font-size: 17px; font-weight: bold;
+    color: #41a97c;
+    margin-bottom: 6px;
+}
+
+.quest img { width: 21px; margin-right: 8px;}
+.code {
+    background: #222f49;
+    color: #eae890;
+    font-family: "Fira Mono", monospace;
+    border-left: 5px solid #70e6e6;
+    border-radius: 5px;
+    margin: 15px 0 16px 0;
+    padding: 14px 10px 11px 18px;
+    font-size: 15px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px #41a97c22;
+    position: relative;
+}
+
+.code::before {
+    content: 'Sort du script';
+    display: block;
+    color: #ffe899;
+    font-size: 13px;
+    font-family: 'UnifrakturCook';
+    letter-spacing: .3px;
+    position: absolute;
+    left: 12px; top: -18px;
+}
+
+ul {
+    list-style: '🔹 ';
+    margin-left: 2.2em;
+    font-size: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 15px 0 13px 0;
+    width: 100%;
+    background: #e2fdf2;
+    font-size: 14px;
+    box-shadow: 0 2px 12px #41a97c22;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 10px 7px;
+    border: 1px solid #70e6e655;
+    text-align: left;
+}
+
+th {
+    background: #2fb6c0;
+    color: #ffe899;
+    font-family: 'UnifrakturCook';
+    font-size: 15px;
+}
+
+tr:nth-child(even) {
+    background: #e3fbe9;
+}
+
+.mini-btn {
+    background: #41a97c;
+    color: #183e32;
+    border: 0;
+    border-radius: 8px;
+    padding: 6px 11px;
+    margin-left: 9px;
+    font-size: 13px;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background .19s;
+}
+
+.mini-btn:hover {
+    background: #ffe899;
+    color: #223855;
+}
+
+.anim-box {
+    width: 60px; height: 60px; border-radius: 13px;
+    background: #70e6e6;
+    margin: 8px; display: inline-block;
+    position: relative; left: 0;
+    transition: left .35s, background .3s;
+    border: 3px solid #223855;
+    text-align: center; line-height: 60px; font-size: 24px; color: #223855;
+    font-weight: bold;
+    box-shadow: 0 4px 11px #2fb6c033;
+}
+
+.resultbox {
+    background: #e2faec;
+    margin: 13px 0 14px 0;
+    padding: 10px 13px;
+    border: 2px dotted #41a97c;
+    border-radius: 7px;
+    color: #207838;
+    font-size: 14px;
+}
+
+@media (max-width: 750px) {
+    header, section, .pnj-bulle { max-width: 98vw; padding: 7px; }
+    .pnj-pic { display: none;}
+    .code { font-size: 13px; }
+    table, th, td { font-size: 12px;}
+}

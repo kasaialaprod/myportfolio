@@ -1,0 +1,190 @@
+body {
+    background-image: url('asset/image/fondecran3.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #f4f4f4;
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 36px 28px;
+    background: #0000008f;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 22px;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #00bcd4;
+    font-weight: bold;
+    font-size: 1.12em;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background 0.22s, color 0.22s;
+}
+
+header nav a:hover {
+    background: #00bcd4;
+    color: #181b1f;
+}
+
+section {
+    margin-bottom: 36px;
+}
+
+#about h1 {
+    font-size: 2.1em;
+    color: #36d99a;
+}
+
+table{
+    width: 100%;
+    table-layout: fixed;
+}
+
+td{
+    text-align: center;
+}
+
+td a{
+    display: inline-block;
+}
+
+.proj , .compet {
+    background: #222;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+}
+
+.proj h3 , .compet h3 {
+    color: #00bcd4;
+    margin-top: 0;
+}
+
+.compet , .proj{
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.h3container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.planetContainer {
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+}
+
+.planetComp {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 20px;
+    box-shadow: 20% 20% 50px rgba(0, 0, 0, 0.5);
+    background: #020024;
+    background: linear-gradient(-3deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 0%, rgba(8, 40, 141, 1) 12%, rgba(6, 71, 162, 1) 36%, rgba(3, 146, 211, 1) 71%, rgba(0, 212, 255, 1) 85%, rgba(0, 212, 255, 1) 92%);
+    transition: transform 0.5s;
+}
+
+.planetProj {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 20px;
+    box-shadow: 20% 20% 50px rgba(0, 0, 0, 0.5);
+    background: #22C1C3;
+    background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(85, 192, 160, 1) 7%, rgba(142, 190, 121, 1) 29%, rgba(190, 189, 88, 1) 46%, rgba(253, 187, 45, 1) 100%);
+    transition: transform 0.5s;
+}
+
+.planetComp:hover {
+    animation-play-state: paused;
+}
+
+.planetProj:hover {
+    animation-play-state: paused;
+}
+
+.planetText{
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+}
+.planetText p {
+    text-align: center;
+    font-weight: bold;
+    color: #f4f4f4;
+}
+
+.planetComp , .planetProj {
+    animation: gravite 5s linear infinite;
+}
+
+@keyframes gravite {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background: #1a1d22;
+    color: #f4f4f4;
+    font-size: 1em;
+}
+
+form input[type="submit"] {
+    background: #00bcd4;
+    color: #181b1f;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 7px;
+    transition: background 0.2s, color 0.2s;
+}
+
+form input[type="submit"]:hover {
+    background: #36d99a;
+    color: #fff;
+}
+
+footer {
+    text-align: center;
+    color: #cccccc;
+    margin-top: 24px;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+}

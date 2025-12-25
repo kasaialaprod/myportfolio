@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+  <h1>&gt; NODE.JS 101</h1>
+  <span>// Leçon 1 : Installation & premier script côté serveur</span>
+</header>
+<main>
+
+  <h2>1. C’est quoi Node.js ?</h2>
+  <p>
+    Node.js est un environnement qui permet d’exécuter du JavaScript <b>en dehors du navigateur</b>, directement dans le terminal, sur ton système.
+  </p>
+  <p>
+    Il est construit sur le <code>moteur V8</code> de Chrome et est pensé pour créer des scripts, des outils en ligne de commande, des APIs et des serveurs web rapides. <br><code>NOTA BENE:</code> V8 = le "cerveau" qui comprend et exécute le JavaScript.
+  </p>
+
+  <div class="terminal">
+    <span class="tag">INFO</span><br>
+      $ node script.js  // exécuter un fichier JavaScript côté backend<br>
+      $ npm install ... // gérer les dépendances de ton projet
+  </div>
+
+  <h2>2. Installation de Node.js</h2>
+  <p>On installe la version LTS (support long terme), recommandée pour apprendre et pour les projets stables.</p>
+
+  <p><span class="os-label win">Windows</span></p>
+  <ul>
+    <li>Va sur le site officiel : <a href="https://nodejs.org">https://nodejs.org</a></li>
+    <li>Télécharge l’installateur <b>LTS</b> (.msi) et lance-le.</li>
+    <li>Suivre “Next, Next…” en gardant npm coché, puis “Install”.</li>
+  </ul>
+
+  <p><span class="os-label mac">macOS</span></p>
+  <ul>
+    <li>Soit tu télécharges le .pkg sur <a href="https://nodejs.org">https://nodejs.org</a>, soit tu fais <code>brew install node</code> si tu as Homebrew.</li>
+  </ul>
+
+  <p><span class="os-label linux">Linux (Debian/Ubuntu)</span></p>
+  <ul>
+    <li>Dans le terminal : <code>sudo apt update</code> puis <code>sudo apt install nodejs npm</code>.</li>
+  </ul>
+
+  <h2>3. Vérifier que Node.js est bien installé</h2>
+  <p>Ouvre un terminal (PowerShell / CMD / Terminal) et tape :</p>
+  <div class="terminal">
+    $ node -v<br>
+    v18.x.x  // numéro de version Node.js<br><br>
+    $ npm -v<br>
+    10.x.x   // numéro de version npm
+  </div>
+  <p>Si tu vois des numéros de version, l’installation est ok.</p>
+
+  <h2>4. Ton premier programme Node.js</h2>
+  <p>1. Crée un dossier où tu veux, par exemple <code>node-playground</code>.</p>
+  <p>2. Dans ce dossier, crée un fichier <code>app.js</code> avec ce contenu :</p>
+
+  <div class="terminal">
+    // app.js<br>
+    console.log("DedSec Node.js online.");<br>
+    console.log("Hello from the backend.");
+  </div>
+
+  <p>3. Dans le terminal, place-toi dans ce dossier :</p>
+  <div class="terminal">
+    $ cd chemin/vers/node-playground<br>
+    $ node app.js
+  </div>
+  <p>Tu dois voir le message s’afficher dans le terminal : c’est Node qui exécute ton JavaScript côté machine.</p>
+</main>
+</body>
+</html>
