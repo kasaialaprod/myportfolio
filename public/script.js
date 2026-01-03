@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       console.log('Envoi de la requête...');
 
-      const API_URL = 'https://israkokesha.onrender.com/contact'; // adapte le chemin si besoin
+      const API_URL = 'https://israkokesha.onrender.com';
 
       const response = await fetch(API_URL, {
         method: 'POST',
