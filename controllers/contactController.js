@@ -44,12 +44,14 @@ ${message}`,
   };
 
   try {
-    console.log('Tentative d\'envoi...');
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email envoyé !', info.messageId);
-    res.status(200).json({ success: true, message: "Email envoyé avec succès !" });
-  } catch (error) {
-    console.error('Erreur envoi email:', error);
-    res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
-  }
+  console.log('Tentative d\'envoi...');
+  const info = await transporter.sendMail(mailOptions);
+  console.log('Après sendMail');
+  console.log('Email envoyé !', info.messageId);
+  res.status(200).json({ success: true, message: "Email envoyé avec succès !" });
+} catch (error) {
+  console.error('Erreur envoi email:', error);
+  res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
+}
+
 };
