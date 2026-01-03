@@ -27,7 +27,7 @@ const corsMiddleware = cors(corsOptions);
 
 app.use(cors({
   origin: [
-    'https://https://israkokesha.onrender.com',
+    'https://israkokesha.onrender.com',
     'http://localhost:3000',
     'http://127.0.0.1:5500'
   ],
