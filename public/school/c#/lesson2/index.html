@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche C# – Décisions, Boucles & Méthodes</title>
+</head>
+<body>
+    <div class="shell">
+  <div class="scanline"></div>
+
+  <header>
+    <div>
+      <h1>Fiche C# – Décisions & Boucles</h1>
+      <div class="h1-sub">Booléens, conditions, boucles et méthodes – noyau Astrobot</div>
+    </div>
+    <span class="chip">Leçon 2</span>
+  </header>
+
+  <main>
+    <!-- 1. Booléens & comparaisons -->
+    <section id="bool">
+      <h2>Booléens & opérateurs de comparaison</h2>
+      <div class="section-meta">true / false pour piloter le code</div>
+      <p>Un booléen est un type qui ne vaut que <code>true</code> ou <code>false</code> et sert à prendre des décisions [web:33].</p>
+      <ul>
+        <li><code>==</code> égal à</li>
+        <li><code>!=</code> différent de</li>
+        <li><code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code> comparaisons d&apos;ordre [web:33][web:36].</li>
+      </ul>
+      <pre><code>int age = 18;
+bool majeur = age &gt;= 18;   // true
+bool special = age == 42;  // false</code></pre>
+    </section>
+
+    <!-- 2. if / else -->
+    <section id="if">
+      <h2>if / else</h2>
+      <div class="section-meta">Exécuter un bloc seulement si la condition est vraie</div>
+      <pre><code>int age = 18;
+
+if (age &gt;= 18)
+{
+    Console.WriteLine("Accès autorisé au pont principal.");
+}
+else
+{
+    Console.WriteLine("Accès refusé, niveau trop bas.");
+}</code></pre>
+      <p>La condition entre parenthèses doit être un booléen ; le bloc <code>else</code> est optionnel [web:41].</p>
+    </section>
+
+    <!-- 3. switch -->
+    <section id="switch">
+      <h2>switch</h2>
+      <div class="section-meta">Choisir parmi plusieurs cas</div>
+      <pre><code>int mode = 2;
+
+switch (mode)
+{
+    case 1:
+        Console.WriteLine("Mode veille.");
+        break;
+    case 2:
+        Console.WriteLine("Mode exploration.");
+        break;
+    default:
+        Console.WriteLine("Mode inconnu.");
+        break;
+}</code></pre>
+      <p><code>switch</code> est pratique quand il y a plusieurs valeurs possibles sur une même variable [web:38].</p>
+    </section>
+
+    <!-- 4. Opérateurs logiques & ternaire -->
+    <section id="logique">
+      <h2>Opérateurs logiques & ternaire</h2>
+      <div class="section-meta">Combiner des conditions</div>
+      <ul>
+        <li><code>&amp;&amp;</code> : ET logique (les deux conditions vraies).</li>
+        <li><code>||</code> : OU logique (au moins une vraie).</li>
+        <li><code>!</code> : NON logique (inverse un booléen) [web:39][web:45].</li>
+      </ul>
+      <pre><code>bool batterieOk = niveauBatterie &gt;= 30;
+bool liaisonOk  = signal &gt;= 2;
+
+if (batterieOk &amp;&amp; liaisonOk)
+{
+    Console.WriteLine("Décollage autorisé.");
+}</code></pre>
+      <p>Opérateur ternaire : <code>condition ? valeurSiVrai : valeurSiFaux</code> [web:49].</p>
+      <pre><code>string statut = (age &gt;= 18) ? "Majeur" : "Mineur";</code></pre>
+    </section>
+
+    <!-- 5. for / while + break / continue -->
+    <section id="boucles">
+      <h2>Boucles for & while</h2>
+      <div class="section-meta">Répéter une action tant qu&apos;une condition est vraie</div>
+      <pre><code>// Boucle for
+for (int i = 0; i &lt; 5; i++)
+{
+    Console.WriteLine($"Scan #{i}");
+}</code></pre>
+      <pre><code>// Boucle while
+int energie = 100;
+while (energie &gt; 0)
+{
+    Console.WriteLine($"Énergie : {energie}%");
+    energie -= 10;
+}</code></pre>
+      <p><code>break</code> sort de la boucle immédiatement ; <code>continue</code> saute à l&apos;itération suivante [web:41].</p>
+      <pre><code>for (int i = 0; i &lt; 10; i++)
+{
+    if (i == 3) continue; // saute 3
+    if (i == 8) break;    // sort
+    Console.WriteLine(i);
+}</code></pre>
+    </section>
+
+    <!-- 6. Méthodes -->
+    <section id="methodes">
+      <h2>Méthodes, paramètres et retours</h2>
+      <div class="section-meta">Déclarer, appeler, passer des données et renvoyer un résultat</div>
+      <p>Une méthode se déclare avec un type de retour, un nom et des paramètres éventuels [web:49].</p>
+      <pre><code>public int CalculerEnergieRestante(int capaciteMax, int conso)
+{
+    int restante = capaciteMax - conso;
+    return restante;
+}</code></pre>
+      <p>Ici, la méthode prend deux paramètres <code>int</code> et renvoie un <code>int</code> via <code>return</code>.</p>
+      <pre><code>// Appel de méthode
+int max = 100;
+int consommee = 35;
+
+int reste = CalculerEnergieRestante(max, consommee);
+Console.WriteLine($"Énergie restante : {reste}%");</code></pre>
+      <p>On parle de paramètres dans la déclaration et d&apos;arguments lors de l&apos;appel.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Astrobot C# Core – Leçon 2</span>
+    <span>Décisions, boucles, méthodes</span>
+  </footer>
+</div>
+</body>
+</html>

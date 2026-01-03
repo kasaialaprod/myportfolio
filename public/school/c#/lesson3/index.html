@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Fiche C# – Leçon 3 : Objets & Tableaux</title>
+</head>
+<body>
+<div class="shell">
+  <div class="scanline"></div>
+
+  <header>
+    <div>
+      <h1>Fiche C# – Leçon 3</h1>
+      <div class="h1-sub">Classes, types, tableaux & chaînes – Astrobot Data Core</div>
+    </div>
+    <span class="chip">Objets & Collections</span>
+  </header>
+
+  <main>
+    <!-- 1. Classes et objets -->
+    <section id="classes-objets">
+      <h2>Classes et objets</h2>
+      <div class="section-meta">Plan de construction et instance</div>
+      <p>Une <strong>classe</strong> décrit la structure et le comportement d&apos;un type ; un <strong>objet</strong> est une instance concrète de cette classe en mémoire [web:53][web:54].</p>
+      <pre><code>public class Drone
+{
+    public string Nom;
+    public int Energie;
+
+    public void Scanner()
+    {
+        Console.WriteLine($"{Nom} scanne le secteur...");
+    }
+}
+
+// Création d&apos;objets
+Drone d1 = new Drone();
+d1.Nom = "Astro-01";
+d1.Energie = 100;
+d1.Scanner();</code></pre>
+      <p>Ici, <code>Drone</code> est la classe (plan), <code>d1</code> est un objet créé avec <code>new</code> [web:53].</p>
+    </section>
+
+    <!-- 2. Types valeur / référence -->
+    <section id="types-vr" class="grid-2">
+      <div>
+        <h2>Types valeur & types référence</h2>
+        <div class="section-meta">Empilement vs pointeur vers le tas</div>
+        <ul>
+          <li>Types valeur : <code>int</code>, <code>double</code>, <code>bool</code>, <code>struct</code>, <code>enum</code> [web:67][web:70].</li>
+          <li>Types référence : <code>class</code>, <code>string</code>, <code>array</code>, <code>object</code> [web:64].</li>
+        </ul>
+      </div>
+      <div>
+        <pre><code>int a = 5;
+int b = a;  // copie de la valeur
+b = 9;      // a reste 5
+
+Drone x = new Drone();
+Drone y = x;   // copie de la référence
+y.Nom = "Modifié";  // x.Nom est aussi modifié</code></pre>
+        <p>Un type valeur dupliqué est indépendant ; un type référence partage le même objet en mémoire [web:61][web:70].</p>
+      </div>
+    </section>
+
+    <!-- 3. Encapsulation -->
+    <section id="encapsulation">
+      <h2>Encapsulation</h2>
+      <div class="section-meta">Cacher l&apos;intérieur, exposer une interface propre</div>
+      <pre><code>public class Reactor
+{
+    private int energie;   // caché
+
+    public int Energie     // exposé
+    {
+        get { return energie; }
+        set
+        {
+            if (value &lt; 0) value = 0;
+            if (value &gt; 100) value = 100;
+            energie = value;
+        }
+    }
+}</code></pre>
+      <p>Les données sont en <code>private</code>, le contrôle d&apos;accès passe par des membres publics (propriétés, méthodes) [web:66].</p>
+    </section>
+
+    <!-- 4. Constructeurs -->
+    <section id="constructeurs">
+      <h2>Constructeurs</h2>
+      <div class="section-meta">Initialiser un objet au moment du new</div>
+      <pre><code>public class Drone
+{
+    public string Nom;
+    public int Energie;
+
+    // Constructeur
+    public Drone(string nom, int energieInitiale)
+    {
+        Nom = nom;
+        Energie = energieInitiale;
+    }
+}
+
+Drone d = new Drone("Astro-02", 80);</code></pre>
+      <p>Le constructeur a le même nom que la classe, aucun type de retour, et sert à garantir un état initial cohérent [web:54][web:69].</p>
+    </section>
+
+    <!-- 5. Propriétés & auto-implémentées -->
+    <section id="proprietes">
+      <h2>Propriétés & auto-propriétés</h2>
+      <div class="section-meta">Accès contrôlé à un champ</div>
+      <pre><code>public class Module
+{
+    private string id;
+
+    public string Id   // propriété classique
+    {
+        get { return id; }
+        set { id = value; }
+    }
+
+    // Auto-implémentée : champ privé généré automatiquement
+    public int Energie { get; set; }
+}</code></pre>
+      <p>Les propriétés exposent des getters/setters ; les auto-propriétés simplifient quand aucune logique particulière n&apos;est nécessaire [web:54][web:66].</p>
+    </section>
+
+    <!-- 6. Tableaux (array) -->
+    <section id="arrays">
+      <h2>Tableaux (array)</h2>
+      <div class="section-meta">Collection de taille fixe, même type</div>
+      <pre><code>// Déclaration + allocation
+int[] mesures = new int[3];
+mesures[0] = 10;
+mesures[1] = 20;
+mesures[2] = 30;
+
+// Déclaration + initialisation
+string[] drones = { "A-01", "A-02", "A-03" };</code></pre>
+      <p>Les tableaux sont des types référence avec une taille fixe, accessibles par indice à partir de 0 [web:65].</p>
+    </section>
+
+    <!-- 7. Boucles sur les tableaux (+ foreach) -->
+    <section id="arrays-boucles">
+      <h2>Boucles & foreach sur les tableaux</h2>
+      <div class="section-meta">Parcourir le contenu facilement</div>
+      <pre><code>// for classique
+for (int i = 0; i &lt; drones.Length; i++)
+{
+    Console.WriteLine(drones[i]);
+}</code></pre>
+      <pre><code>// foreach
+foreach (string nom in drones)
+{
+    Console.WriteLine($"Drone : {nom}");
+}</code></pre>
+      <p><code>foreach</code> simplifie la lecture quand on ne modifie pas la collection, surtout pour les tableaux multidimensionnels ou dentelés [web:65][web:62].</p>
+    </section>
+
+    <!-- 8. Tableaux multidimensionnels -->
+    <section id="arrays-multi">
+      <h2>Tableaux multidimensionnels</h2>
+      <div class="section-meta">Grille 2D, 3D, ...</div>
+      <pre><code>// Matrice 2D (lignes, colonnes)
+int[,] grille = new int[2, 3]
+{
+    { 1, 2, 3 },
+    { 4, 5, 6 }
+};
+
+Console.WriteLine(grille[1, 2]); // 6</code></pre>
+      <p>Les tableaux multidimensionnels représentent une grille régulière avec une taille connue sur chaque dimension [web:65][web:68].</p>
+    </section>
+
+    <!-- 9. Tableaux dentelés -->
+    <section id="arrays-jagged">
+      <h2>Tableaux dentelés</h2>
+      <div class="section-meta">Tableau de tableaux</div>
+      <pre><code>// Tableau de tableaux
+int[][] secteurs = new int[3][];
+
+secteurs[0] = new int[] { 1, 2 };
+secteurs[1] = new int[] { 3, 4, 5 };
+secteurs[2] = new int[] { 6 };
+
+// Parcours
+foreach (int[] ligne in secteurs)
+{
+    foreach (int valeur in ligne)
+    {
+        Console.Write($"{valeur} ");
+    }
+    Console.WriteLine();
+}</code></pre>
+      <p>Les tableaux dentelés permettent des “lignes” de longueurs différentes, utiles pour des données irrégulières [web:71][web:62].</p>
+    </section>
+
+    <!-- 10. Propriétés & méthodes des tableaux -->
+    <section id="arrays-api">
+      <h2>Propriétés & méthodes des tableaux</h2>
+      <div class="section-meta">Infos et opérations rapides</div>
+      <ul>
+        <li><code>Length</code> : nombre total d&apos;éléments.</li>
+        <li><code>Rank</code> : nombre de dimensions [web:65].</li>
+      </ul>
+      <pre><code>int[] data = { 3, 1, 4, 1, 5 };
+
+Array.Sort(data);      // tri
+Array.Reverse(data);   // inversion
+int index = Array.IndexOf(data, 4);</code></pre>
+      <p>La classe <code>Array</code> propose des méthodes utilitaires génériques pour manipuler les tableaux [web:65].</p>
+    </section>
+
+    <!-- 11. Chaînes & méthodes utiles -->
+    <section id="strings-api">
+      <h2>Chaînes : méthodes utiles</h2>
+      <div class="section-meta">Nettoyer, transformer, analyser</div>
+      <pre><code>string nom = "  AstroBot-Core  ";
+
+string upper   = nom.ToUpper();           // ASTROBOT-CORE
+string lower   = nom.ToLower();           // astrobot-core
+string trim    = nom.Trim();              // "AstroBot-Core"
+string replaced = nom.Replace("Core", "AI");</code></pre>
+      <p>Des méthodes comme <code>StartsWith</code>, <code>EndsWith</code>, <code>Contains</code>, <code>Substring</code> aident à analyser des messages ou commandes [web:64].</p>
+      <pre><code>bool ok = trim.StartsWith("Astro");
+string[] morceaux = trim.Split('-');   // découpe en segments</code></pre>
+      <p>Les chaînes restent immuables : chaque méthode renvoie une nouvelle chaîne plutôt que de modifier l&apos;originale [web:64].</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Astrobot C# Core – Leçon 3</span>
+    <span>Objets, types, tableaux, chaînes</span>
+  </footer>
+</div>
+</body>
+</html>

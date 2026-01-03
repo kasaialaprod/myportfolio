@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche C# – Astrobot</title>
+</head>
+<body>
+    <div class="shell">
+    <div class="scanline"></div>
+
+    <header>
+      <div class="title-block">
+        <div class="astro-orbit"></div>
+        <div>
+          <h1>Fiche C# – Astrobot Core</h1>
+          <div class="h1-sub">Structure, types, opérateurs et chaînes – mode console .NET</div>
+        </div>
+      </div>
+      <span class="chip">Niveau : Début–Intermédiaire</span>
+    </header>
+
+    <main>
+      <!-- 1. Structure d’un programme -->
+      <section id="structure">
+        <h2>Structure d&apos;un programme C#</h2>
+        <div class="section-meta">using, namespace, classe, méthode Main</div>
+        <p>Un programme console C# classique est composé de directives <code>using</code>, d&apos;un <code>namespace</code>, d&apos;une <code>class</code> et d&apos;une méthode <code>Main</code> servant de point d&apos;entrée au programme [web:16][web:13].</p>
+        <pre><code>// Exemple minimal
+using System;
+
+namespace AstroBot.Core
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Boot système Astrobot...");
+        }
+    }
+}</code></pre>
+        <ul>
+          <li><code>using System;</code> : donne accès à <code>Console</code> et autres types du namespace <code>System</code> [web:16].</li>
+          <li><code>namespace AstroBot.Core</code> : espace logique pour organiser tes classes.</li>
+          <li><code>public class Program</code> : vaisseau principal contenant le code exécutable.</li>
+          <li><code>static void Main(string[] args)</code> : salle de contrôle appelée au démarrage du programme [web:16].</li>
+        </ul>
+      </section>
+
+      <!-- 2. Classes + modificateurs -->
+      <section id="classes">
+        <h2>Classes et modificateurs d&apos;accès</h2>
+        <div class="section-meta">public, private et organisation du code</div>
+        <p>Une classe regroupe des données et des comportements, avec des modificateurs d&apos;accès pour contrôler ce qui est visible à l&apos;extérieur [web:21][web:24].</p>
+        <pre><code>public class Drone
+{
+    // Champ privé (interne à la classe)
+    private int energie;
+
+    // Propriété publique (visible de l'extérieur)
+    public int Energie
+    {
+        get { return energie; }
+        set { energie = value; }
+    }
+
+    // Méthode publique
+    public void Boot()
+    {
+        Console.WriteLine("Drone en ligne.");
+    }
+}</code></pre>
+        <ul>
+          <li><code>public</code> : accessible depuis l&apos;extérieur de la classe/du namespace [web:21].</li>
+          <li><code>private</code> : accessible uniquement à l&apos;intérieur de la classe (valeur par défaut pour les champs) [web:21][web:30].</li>
+          <li>Bon réflexe : garder les données sensibles en <code>private</code> et exposer seulement ce qui est nécessaire via des membres publics.</li>
+        </ul>
+      </section>
+
+      <!-- 3. Méthodes -->
+      <section id="methodes">
+        <h2>Méthodes</h2>
+        <div class="section-meta">Signature, type de retour, paramètres</div>
+        <p>Une méthode est une fonction attachée à une classe, décrite par un modificateur, un type de retour, un nom, d&apos;éventuels paramètres et un corps de code [web:16].</p>
+        <pre><code>public int Additionner(int a, int b)
+{
+    int resultat = a + b;
+    return resultat;
+}</code></pre>
+        <ul>
+          <li><code>public int Additionner(int a, int b)</code> : méthode publique qui renvoie un <code>int</code>.</li>
+          <li><code>void</code> signifie que la méthode ne renvoie aucune valeur.</li>
+        </ul>
+      </section>
+
+      <!-- 4. Déclaration de variables -->
+      <section id="variables">
+        <h2>Déclaration de variables</h2>
+        <div class="section-meta">Simple, initialisation, déclarations multiples</div>
+        <ul>
+          <li>Déclaration simple : <code>int score;</code></li>
+          <li>Déclaration + initialisation : <code>int score = 0;</code> [web:14].</li>
+          <li>Déclaration multiple : <code>int x = 1, y = 2, z = 3;</code></li>
+        </ul>
+        <p>Le type est toujours indiqué avant le nom ; l&apos;inférence avec <code>var</code> se fera plus tard.</p>
+      </section>
+
+      <!-- 5. Types de données -->
+      <section id="types" class="grid-2">
+        <div>
+          <h2>Types de données</h2>
+          <div class="section-meta">Numériques, booléens, caractères, chaînes</div>
+          <ul>
+            <li><code>int</code> : entier 32 bits, type le plus courant pour compter [web:14].</li>
+            <li><code>double</code> : réel en double précision.</li>
+            <li><code>float</code> : réel simple précision (suffixe <code>f</code>).</li>
+            <li><code>bool</code> : <code>true</code> ou <code>false</code>.</li>
+            <li><code>char</code> : caractère unique, entre apostrophes (<code>'A'</code>).</li>
+            <li><code>string</code> : texte, entre guillemets (<code>"Hello"</code>) [web:14].</li>
+          </ul>
+        </div>
+        <div>
+          <p>On utilise ces types pour exprimer des concepts mathématiques simples, comme le calcul d&apos;un score, d&apos;une moyenne ou d&apos;un pourcentage de batterie de ton astrobot.</p>
+        </div>
+      </section>
+
+      <!-- 6. Opérateurs arithmétiques -->
+      <section id="arithmetique">
+        <h2>Opérateurs arithmétiques</h2>
+        <div class="section-meta">+, -, *, /, %</div>
+        <ul>
+          <li><code>+</code> : addition.</li>
+          <li><code>-</code> : soustraction.</li>
+          <li><code>*</code> : multiplication.</li>
+          <li><code>/</code> : division.</li>
+          <li><code>%</code> : modulo (reste de la division) [web:28].</li>
+        </ul>
+        <pre><code>int a = 10;
+int b = 3;
+int somme = a + b;      // 13
+int reste = a % b;      // 1</code></pre>
+      </section>
+
+      <!-- 7. ++ / -- et affectation -->
+      <section id="increment">
+        <h2>Incrémentation, décrémentation et affectation</h2>
+        <div class="section-meta">++, --, +=, -=, *=, /=, %=</div>
+        <ul>
+          <li><code>x++</code> / <code>++x</code> : ajoute 1 à <code>x</code>.</li>
+          <li><code>x--</code> / <code>--x</code> : enlève 1 à <code>x</code> [web:22].</li>
+        </ul>
+        <pre><code>int n = 5;
+n++;      // n = 6
+++n;      // n = 7</code></pre>
+        <p>Préfixe <code>++x</code> : on modifie puis on utilise la nouvelle valeur ; postfixe <code>x++</code> : on utilise l&apos;ancienne valeur puis on modifie [web:22][web:25].</p>
+        <ul>
+          <li><code>x += 2;</code> équivaut à <code>x = x + 2;</code></li>
+          <li><code>x -= 1;</code>, <code>x *= 3;</code>, <code>x /= 2;</code>, <code>x %= 10;</code> [web:28].</li>
+        </ul>
+      </section>
+
+      <!-- 8. Entrées utilisateur & conversions -->
+      <section id="entrees">
+        <h2>Entrées utilisateur et conversions</h2>
+        <div class="section-meta">Console.ReadLine, int.Parse, Convert</div>
+        <p>Pour lire une entrée clavier, on utilise <code>Console.ReadLine()</code> qui renvoie une chaîne de caractères [web:14].</p>
+        <pre><code>Console.Write("Entrer un niveau d&apos;énergie : ");
+string input = Console.ReadLine();
+
+int energie = int.Parse(input);          // suppose une entrée valide
+// ou
+int energie2 = Convert.ToInt32(input);   // autre méthode de conversion</code></pre>
+        <p>Pour la robustesse, on peut utiliser <code>int.TryParse</code> afin d&apos;éviter les exceptions si l&apos;entrée n&apos;est pas un nombre.</p>
+      </section>
+
+      <!-- 9. Strings, échappement, verbatim -->
+      <section id="strings">
+        <h2>Chaînes de caractères</h2>
+        <div class="section-meta">Échappement, verbatim, concaténation, interpolation</div>
+        <ul>
+          <li>Caractère d&apos;échappement <code>\n</code> : saut de ligne.</li>
+          <li><code>\t</code> : tabulation horizontale.</li>
+          <li><code>\\</code> : barre oblique inversée.</li>
+          <li><code>\"</code> : guillemet dans une chaîne [web:14].</li>
+        </ul>
+        <pre><code>string log = "Boot Astrobot\\Core\\v1.0\\n\\tSystème prêt.";</code></pre>
+        <p>Une chaîne verbatim commence par <code>@</code> et conserve les backslashes et retours à la ligne tels quels.</p>
+        <pre><code>string chemin = @"C:\Astrobot\logs\core.log";</code></pre>
+        <p>Concaténation simple :</p>
+        <pre><code>string nom = "Astrobot";
+string msg = "Salut " + nom + " !";</code></pre>
+        <p>Interpolation de chaînes (recommandée) :</p>
+        <pre><code>int niveau = 42;
+string status = $"[Core] Niveau d&apos;énergie : {niveau}%";</code></pre>
+      </section>
+    </main>
+
+    <footer>
+      <span>Astrobot C# Core – Console Edition</span>
+      <span>Thème cyber violet inspiré .NET</span>
+    </footer>
+  </div>
+</body>
+</html>
