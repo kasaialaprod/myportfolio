@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       console.log('Envoi de la requête...');
       
-      const API_URL = 'https://cornflowerblue-skunk-255429.hostingersite.com';
+      const API_URL = 'https://israkokesha.onrender.com';
 
       await fetch(API_URL, {
         method: 'POST',
