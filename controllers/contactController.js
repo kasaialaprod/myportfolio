@@ -13,21 +13,24 @@ export const sendContactEmail = async (req, res) => {
     return res.status(400).json({ error: "Tous les champs sont requis" });
   }
 
-  console.log('Champs validés');
-  console.log('EMAIL_USER:', process.env.EMAIL_USER);
-  console.log('EMAIL_PASSWORD existe:', !!process.env.EMAIL_PASSWORD);
+  console.log('SMTP_HOST:', process.env.SMTP_HOST);
+console.log('SMTP_USER:', process.env.SMTP_USER);
+console.log('SMTP_PASS existe:', !!process.env.SMTP_PASS);
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD
-    }
-  });
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: false, // pour le port 587
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
+});
+  console.log('Transporteur créé');
 
   const mailOptions = {
     from: email,
-    to: process.env.EMAIL_USER,
+    to: 'israelkokesha2@gmail.com',
     subject: `[Portfolio] Message de ${name}`,
     text: `Nom: ${name}
     Email: ${email}
