@@ -24,13 +24,13 @@ export const sendContactEmail = async (req, res) => {
       },
       body: JSON.stringify({
         sender: {
-          name: 'Portfolio Israél',
+          name: 'Portfolio Israël',
           email: toEmail     // adresse vérifiée sur Brevo
         },
         to: [
           {
-            email: toEmail,
-            name: 'Israél'
+            email: 'israelkokesha2@gmail.com',
+            name: 'Israël'
           }
         ],
         replyTo: {
