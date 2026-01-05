@@ -53,8 +53,13 @@ ${message}`,
   console.log('Email envoyé !', info.messageId);
   res.status(200).json({ success: true, message: "Email envoyé avec succès !" });
 } catch (error) {
-  console.error('Erreur envoi email:', error);
-  res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
+  console.error('Erreur envoi email:', error); // garde cette ligne
+  res.status(500).json({ 
+    success: false,
+    error: "Erreur lors de l'envoi de l'email",
+    details: error.message  // <-- ajoute ça si tu veux le voir côté front
+  });
 }
+
 
 };
