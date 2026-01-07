@@ -1,0 +1,90 @@
+body {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      background: #02041a;
+      color: #e0e0ff;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    h1 {
+      color: #27f3ff;
+      font-size: 2.8rem;
+      text-shadow: 0 0 10px #27f3ff;
+      letter-spacing: 4px;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #8ad3ff;
+      margin-top: 10px;
+    }
+
+    .separator {
+      height: 3px;
+      margin: 25px auto 0;
+      max-width: 900px;
+      background: linear-gradient(90deg,#27f3ff,#ff00cc,#27f3ff);
+      box-shadow: 0 0 10px #ff00cc;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto 50px;
+      padding: 0 15px;
+    }
+
+    .chapters-title {
+      color: #ff1f7a;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #13003a;
+      border-left: 4px solid #ff1f7a;
+      padding: 18px 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 18px #ff1f7a;
+    }
+
+    .card a {
+      display: block;
+      text-decoration: none;
+      color: #e0e0ff;
+    }
+
+    .card-title {
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      color: #27f3ff;
+    }
+
+    .card-sub {
+      font-size: 0.9rem;
+      color: #c4c4ff;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6669a8;
+      margin-bottom: 20px;
+    }
