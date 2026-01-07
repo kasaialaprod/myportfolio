@@ -1,0 +1,665 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.haut2page{
+    background: linear-gradient(135deg, #FF9E00, #FF6D00);
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.menu2page{
+    display: flex;
+    justify-content: space-around;
+    background: #000;
+    border: 2px solid #FF9E00;
+    border-radius: 15px;
+    margin: 20px;
+    overflow: hidden;
+}
+
+.menu2page nav ul{
+    display: grid;
+    grid-template-columns: repeat(6, 10fr);
+    flex-wrap: nowrap;
+    width: 100%;
+    list-style: none;
+}
+
+.menu2page a{
+    flex-wrap: wrap;
+    text-align: center;
+    text-decoration: none;
+    color: #FF9E00;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.menu2page a:hover{
+    background: #FF9E00;
+    color: #ffffff;
+}
+
+.menu2page a:last-child{
+    border-right: none;
+}
+
+main{
+    padding: 30px;
+    border: 3px solid #FF9E00;
+    border-radius: 30px;
+    margin: 20px;
+    background: #000;
+}
+
+h2{
+    text-align: center;
+    font-size: 32px;
+    color: #FF9E00;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#h2mini{
+    margin-left: 30px;
+}
+
+h3{
+    color: #E65100;
+    font-size: 24px;
+    margin-top: 40px;
+    border-bottom: 2px solid #FF6D00;
+    padding-bottom: 10px;
+}
+
+h4{
+    color: #000;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+h5{
+    color: #FFD180;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Grilles et Layout */
+.content-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.margin-grid,
+.padding-grid,
+.border-grid,
+.collapse-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.types-grid,
+.comparison-grid,
+.practice-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Cartes et Composants */
+.card,
+.margin-card,
+.padding-card,
+.border-card,
+.collapse-card,
+.type-card,
+.comparison-card,
+.practice-card{
+    background: linear-gradient(135deg, #FF6D00, #FF9E00);
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(255, 158, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.card:hover,
+.margin-card:hover,
+.padding-card:hover,
+.border-card:hover,
+.collapse-card:hover,
+.type-card:hover,
+.comparison-card:hover,
+.practice-card:hover{
+    transform: translateY(-5px);
+}
+
+/* Box Model Visual */
+.box-model-visual{
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.box-margin{
+    background: #E3F2FD;
+    padding: 30px;
+    border: 2px dashed #2196F3;
+    color: #1565C0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.box-border{
+    background: #e2b774;
+    padding: 20px;
+    border: 4px solid #ff9900;
+    color: #E65100;
+    font-weight: bold;
+}
+
+.box-padding{
+    background: #19c819;
+    padding: 20px;
+    border: 2px dashed #4CAF50;
+    color: #14c41d;
+    font-weight: bold;
+}
+
+.box-content{
+    background: #b1194c;
+    padding: 40px;
+    border: 2px solid #E91E63;
+    color: #C2185B;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Size Calculation */
+.size-calculation{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    color: #2a2a2a;
+}
+
+.size-calculation p{
+    margin: 10px 0;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+/* Box Model Types */
+.content-box-demo,
+.border-box-demo{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.demo-box{
+    padding: 20px;
+    border: 5px solid #FF6D00;
+    text-align: center;
+    font-weight: bold;
+    color: #2a2a2a;
+}
+
+.content-box{
+    width: 200px;
+    background: #d46c11;
+}
+
+.border-box{
+    width: 200px;
+    background: #d46c11;
+    box-sizing: border-box;
+}
+
+/* Margin Syntax */
+.margin-syntax-demo{
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    margin: 15px 0;
+    position: relative;
+    height: 200px;
+}
+
+.margin-box{
+    position: absolute;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.margin-box.top{
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #F44336;
+}
+
+.margin-box.right{
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: #4CAF50;
+}
+
+.margin-box.bottom{
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FF9800;
+}
+
+.margin-box.left{
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: #9C27B0;
+}
+
+/* Special Margins */
+.special-margins{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.auto-margin{
+    width: 200px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #4CAF50;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.percentage-margin{
+    margin: 5%;
+    padding: 15px;
+    background: #2196F3;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.inherit-margin{
+    margin: 30px;
+    padding: 20px;
+    background: #FF9800;
+    color: white;
+    border-radius: 4px;
+}
+
+.inherit-child{
+    margin: inherit;
+    padding: 10px;
+    background: #FF5722;
+    color: white;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+/* Negative Margin */
+.negative-margin-demo{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    position: relative;
+}
+
+.normal-box{
+    padding: 15px;
+    background: #4CAF50;
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.negative-box{
+    padding: 15px;
+    background: #F44336;
+    color: white;
+    margin-left: -50px;
+    border-radius: 4px;
+}
+
+/* Margin Applications */
+.margin-applications{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.centering-demo{
+    background: #f5f5f5;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.centered-box{
+    width: 20%px;
+    margin: 0 auto;
+    padding: 15px;
+    background: #2196F3;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.spacing-demo{
+    display: grid;
+    grid-template-columns: 3 , 1fr;
+    gap: 10px;
+}
+
+.spaced-item{
+    flex: 1;
+    padding: 15px;
+    background: #FF9800;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    margin: 5px;
+}
+
+/* Padding Visual */
+.padding-visual{
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.padding-demo-box{
+    position: relative;
+    padding: 40px;
+    background: #E3F2FD;
+    border: 2px solid #2196F3;
+    border-radius: 8px;
+    color: #1565C0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.padding-area{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px dashed #2196F3;
+    pointer-events: none;
+}
+
+/* Padding vs Margin */
+.comparison-demo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.comparison-item{
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.box-with-margin{
+    background: #FFECB3;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 4px;
+    color: #2a2a2a;
+}
+
+.box-with-padding{
+    background: #C8E6C9;
+    padding: 35px; /* 15px + 20px */
+    border-radius: 4px;
+    color: #2a2a2a;
+}
+
+/* Padding Effects */
+.padding-effects{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.btn-no-padding,
+.btn-with-padding{
+    border: none;
+    background: #2196F3;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.btn-no-padding{
+    padding: 0;
+}
+
+.btn-with-padding{
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+.text-no-padding,
+.text-with-padding{
+    background: #f5f5f5;
+    margin: 10px 0;
+}
+
+.text-no-padding{
+    padding: 0;
+}
+
+.text-with-padding{
+    padding: 15px;
+    border-radius: 4px;
+}
+
+/* Padding Background */
+.padding-background-demo{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.bg-padding-box{
+    background: #4CAF50;
+    color: white;
+    padding: 30px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.bg-margin-box{
+    background: #FF9800;
+    color: white;
+    margin: 50px 0;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Border Styles */
+.border-styles-demo{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.border-solid,
+.border-dashed,
+.border-dotted,
+.border-double{
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #2a2a2a;
+}
+
+.border-solid{
+    border: 3px solid #2196F3;
+}
+
+.border-dashed{
+    border: 3px dashed #F44336;
+}
+
+.border-dotted{
+    border: 3px dotted #4CAF50;
+}
+
+.border-double{
+    border: 6px double #FF9800;
+}
+
+/* Border Width & Color */
+.border-width-color{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.border-thin,
+.border-medium,
+.border-thick,
+.border-custom{
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #2a2a2a;
+    border-style: solid;
+    border-color: #2196F3;
+}
+
+.border-thin{ border-width: thin; }
+.border-medium{ border-width: medium; }
+.border-thick{ border-width: thick; }
+.border-custom{ border-width: 5px; }
+
+/* Border Radius */
+.border-radius-demo{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.radius-small,
+.radius-medium,
+.radius-large,
+.radius-custom{
+    padding: 20px;
+    background: #2196F3;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid #1976D2;
+}
+
+.radius-small{ border-radius: 10px; }
+.radius-medium{ border-radius: 20px; }
+.radius-large{ border-radius: 50%; height: 80px; display: flex; align-items: center; justify-content: center; }
+.radius-custom{ border-radius: 10px 30px; }
+
+/* Border Sides */
+.border-sides-demo{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.different-borders{
+    padding: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #2a2a2a;
+    border-top: 4px solid #F44336;
+    border-right: 4px dashed #4CAF50;
+    border-bottom: 4px dotted #2196F3;
+    border-left: 4px double #FF9800;
+}
+
+/* Box Sizing Visual */
+.visual-comparison{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.content-box-visual,
+.border-box-visual{
+    padding: 15px;
+    border: 2px solid #666;
+    border-radius: 4px;
+}
+
+.box-width,
+.box-padding-vis,
+.box-border-vis,
+.box-total,
+.box-content-vis{
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 3px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.box-width{ background: #E3F2FD; color: #1565C0; }
+.box-padding-vis{ background: #FFF3E0; color: #E65100; }
+.box-border-vis{ background: #E8F5E8; color: #2E7D32; }
+.box-total{ background: #FCE4EC; color: #C2185B; }
+.box-content-vis{ background: #F3E5F5;}

@@ -1,0 +1,123 @@
+/* Style général années 90 avec thème techno/espace */
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a2e;
+            color: #c0c0c0;
+            margin: 0;
+            padding: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 20, 80, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 40, 120, 0.2) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #2d3047;
+            border: 1px solid #4a4e69;
+            box-shadow: 0 0 15px rgba(0, 100, 255, 0.3);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px dashed #4cc9f0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+            margin: 0;
+        }
+        
+        h2 {
+            color: #f72585;
+            border-left: 5px solid #f72585;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #7209b7;
+        }
+
+        h1, h2, h3, p, ul, li, div:hover{
+            cursor: default;
+        }
+        
+        .nav-bar {
+            background: #3a0ca3;
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid #4361ee;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-bar a {
+            color: #c0c0c0;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #4361ee;
+            background: #2d3047;
+        }
+        
+        .nav-bar a:hover {
+            background: #4361ee;
+            color: white;
+        }
+
+        a{
+            color: #8d99ae;
+            text-decoration: none;
+        }
+        a:hover{
+            color: #3a0ca3;
+        }
+        
+        .content {
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: #0d1b2a;
+            border: 1px solid #4cc9f0;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            color: #90e0ef;
+            overflow-x: auto;
+            box-shadow: 0 0 10px rgba(76, 201, 240, 0.2);
+        }
+        
+        .note {
+            background: #3a0ca3;
+            border-left: 5px solid #f72585;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        
+        .example {
+            background-color: #14213d;
+            border: 1px dashed #4cc9f0;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 2px dashed #4cc9f0;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #8d99ae;
+        }
+        
+        .glowing-text {
+            color: #4cc9f0;
+            text-shadow: 0 0 5px rgba(76, 201, 240, 0.7);
+        }
+        

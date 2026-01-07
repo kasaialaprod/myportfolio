@@ -1,0 +1,340 @@
+/* Style général années 90 avec thème techno/espace */
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a2e;
+            color: #c0c0c0;
+            margin: 0;
+            padding: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 20, 80, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 40, 120, 0.2) 0%, transparent 20%);
+            cursor: crosshair;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #2d3047;
+            border: 1px solid #4a4e69;
+            box-shadow: 0 0 15px rgba(0, 100, 255, 0.3);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px dashed #4cc9f0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+            margin: 0;
+        }
+        
+        h2 {
+            color: #f72585;
+            border-left: 5px solid #f72585;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #7209b7;
+        }
+        
+        .nav-bar {
+            background: #3a0ca3;
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid #4361ee;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .nav-bar a {
+            color: #c0c0c0;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #4361ee;
+            background: #2d3047;
+            cursor: pointer;
+            margin: 2px;
+        }
+        
+        .nav-bar a:hover {
+            background: #4361ee;
+            color: white;
+            cursor: grab;
+        }
+        
+        .content {
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: #0d1b2a;
+            border: 1px solid #4cc9f0;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            color: #90e0ef;
+            overflow-x: auto;
+            box-shadow: 0 0 10px rgba(76, 201, 240, 0.2);
+            cursor: text;
+        }
+        
+        .note {
+            background: #3a0ca3;
+            border-left: 5px solid #f72585;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background: #6a0dad;
+            border-left: 5px solid #ff0000;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        
+        .info {
+            background-color: #1a1a2e;
+            border-left: 5px solid #4cc9f0;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        
+        .example {
+            background: #14213d;
+            border: 1px dashed #4cc9f0;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: move;
+        }
+        
+        .example:hover {
+            border: 1px dashed #f72585;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 2px dashed #4cc9f0;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #8d99ae;
+        }
+        
+        .glowing-text {
+            color: #4cc9f0;
+            text-shadow: 0 0 5px rgba(76, 201, 240, 0.7);
+        }
+        
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        /* Styles spécifiques pour ce chapitre */
+        .sql-keyword {
+            color: #f72585;
+            font-weight: bold;
+        }
+        
+        .sql-function {
+            color: #4cc9f0;
+        }
+        
+        .sql-table {
+            color: #90e0ef;
+        }
+        
+        .sql-comment {
+            color: #8d99ae;
+        }
+        
+        .sql-string {
+            color: #a7c7e7;
+        }
+        
+        .table-schema {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .table-box {
+            background: #0d1b2a;
+            border: 1px solid #f72585;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(247, 37, 133, 0.3);
+        }
+        
+        .table-box h4 {
+            color: #4cc9f0;
+            margin-top: 0;
+            text-align: center;
+            border-bottom: 1px solid #4361ee;
+            padding-bottom: 5px;
+        }
+        
+        .table-column {
+            padding: 5px 0;
+            border-bottom: 1px dotted #4361ee;
+        }
+        
+        .column-name {
+            color: #90e0ef;
+            font-weight: bold;
+        }
+        
+        .column-type {
+            color: #f72585;
+            font-size: 0.9em;
+        }
+        
+        .operator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .operator-box {
+            background: #0d1b2a;
+            border: 1px solid #4cc9f0;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+        }
+        
+        .operator-box h4 {
+            color: #f72585;
+            margin-top: 0;
+        }
+        
+        .function-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .function-table th {
+            background: #3a0ca3;
+            color: white;
+            padding: 10px;
+            border: 1px solid #4361ee;
+        }
+        
+        .function-table td {
+            padding: 10px;
+            border: 1px solid #4361ee;
+            background: #14213d;
+        }
+        
+        .join-diagram {
+            background: #1a1a2e;
+            border: 2px solid #7209b7;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(114, 9, 183, 0.3);
+        }
+        
+        .join-box {
+            display: inline-block;
+            background: #0d1b2a;
+            border: 1px solid #4cc9f0;
+            padding: 15px;
+            margin: 10px;
+            color: #90e0ef;
+            vertical-align: top;
+        }
+        
+        .join-arrow {
+            color: #f72585;
+            font-size: 1.5em;
+            display: inline-block;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+        
+        .interactive-console {
+            background: #0d1b2a;
+            border: 2px solid #7209b7;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(114, 9, 183, 0.3);
+        }
+        
+        .query-input {
+            width: 100%;
+            background: #1a1a2e;
+            color: #90e0ef;
+            border: 1px solid #4cc9f0;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            min-height: 120px;
+        }
+        
+        .execute-btn {
+            background: #3a0ca3;
+            color: white;
+            border: 1px solid #4361ee;
+            padding: 10px 20px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+        }
+        
+        .execute-btn:hover {
+            background: #4361ee;
+            cursor: grab;
+        }
+        
+        .console-output {
+            background: #000;
+            color: #90e0ef;
+            padding: 15px;
+            min-height: 100px;
+            margin: 10px 0;
+            border: 1px solid #4cc9f0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .data-table th {
+            background: #3a0ca3;
+            color: white;
+            padding: 8px;
+            border: 1px solid #4361ee;
+        }
+        
+        .data-table td {
+            padding: 8px;
+            border: 1px solid #4361ee;
+            background: #14213d;
+        }

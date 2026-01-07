@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="background.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backgrounds CSS - Arrière-plans</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Backgrounds CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#couleurs">Couleurs unies</a></li>
+                <li><a href="#degradés">Dégradés</a></li>
+                <li><a href="#images">Images</a></li>
+                <li><a href="#positions">Positions</a></li>
+                <li><a href="#multiple">Backgrounds multiples</a></li>
+                <li><a href="#avance">Techniques avancées</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="couleurs">
+            <header>
+                <h2>Couleurs unies</h2>
+                <p id="h2mini">Les bases des arrière-plans avec des couleurs simples</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>background-color</h4>
+                    <div class="code-example">
+                        <code>background-color: #3498db;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-solid bg-blue"></div>
+                    </div>
+                    <p>Couleur unie simple avec notation hexadécimale</p>
+                </div>
+                <div class="card">
+                    <h4>Couleurs nommées</h4>
+                    <div class="code-example">
+                        <code>background-color: coral;<br>background-color: transparent;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-solid bg-coral"></div>
+                        <div class="bg-solid bg-transparent">Transparent</div>
+                    </div>
+                    <p>Utilisation des noms de couleurs prédéfinis</p>
+                </div>
+                <div class="card">
+                    <h4>RGBA & HSLA</h4>
+                    <div class="code-example">
+                        <code>background-color: rgba(52, 152, 219, 0.7);<br>background-color: hsla(204, 70%, 53%, 0.5);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-solid bg-rgba"></div>
+                        <div class="bg-solid bg-hsla"></div>
+                    </div>
+                    <p>Couleurs avec transparence (alpha channel)</p>
+                </div>
+            </div>
+
+            <section class="color-methods">
+                <h3>Méthodes de notation des couleurs</h3>
+                <div class="methods-grid">
+                    <div class="method-card">
+                        <h4>HEX</h4>
+                        <div class="color-demo hex-demo">#3498db</div>
+                        <p>Notation hexadécimale</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>RGB</h4>
+                        <div class="color-demo rgb-demo">rgb(52, 152, 219)</div>
+                        <p>Rouge, Vert, Bleu</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>RGBA</h4>
+                        <div class="color-demo rgba-demo">rgba(52, 152, 219, 0.7)</div>
+                        <p>RGB avec transparence</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>HSL</h4>
+                        <div class="color-demo hsl-demo">hsl(204, 70%, 53%)</div>
+                        <p>Teinte, Saturation, Lumière</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>HSLA</h4>
+                        <div class="color-demo hsla-demo">hsla(204, 70%, 53%, 0.5)</div>
+                        <p>HSL avec transparence</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="degradés">
+            <h2>Dégradés CSS</h2>
+            
+            <div class="gradients-grid">
+                <div class="gradient-card">
+                    <h4>Dégradé linéaire</h4>
+                    <div class="code-example">
+                        <code>background: linear-gradient(45deg, #ff6b6b, #4ecdc4);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-gradient linear-45"></div>
+                    </div>
+                    <p>Dégradé avec angle personnalisé</p>
+                </div>
+
+                <div class="gradient-card">
+                    <h4>Dégradé radial</h4>
+                    <div class="code-example">
+                        <code>background: radial-gradient(circle, #ff6b6b, #4ecdc4);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-gradient radial-circle"></div>
+                    </div>
+                    <p>Dégradé circulaire partant du centre</p>
+                </div>
+
+                <div class="gradient-card">
+                    <h4>Multiples couleurs</h4>
+                    <div class="code-example">
+                        <code>background: linear-gradient(<br>  to right,<br>  #ff6b6b,<br>  #ff8e53,<br>  #ffd166<br>);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-gradient multi-color"></div>
+                    </div>
+                    <p>Dégradé avec plusieurs couleurs</p>
+                </div>
+
+                <div class="gradient-card">
+                    <h4>Dégradé répétitif</h4>
+                    <div class="code-example">
+                        <code>background: repeating-linear-gradient(<br>  45deg,<br>  #ff6b6b,<br>  #ff6b6b 10px,<br>  #4ecdc4 10px,<br>  #4ecdc4 20px<br>);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-gradient repeating-linear"></div>
+                    </div>
+                    <p>Motif répétitif avec dégradé</p>
+                </div>
+            </div>
+
+            <section class="gradient-directions">
+                <h3>Directions des dégradés linéaires</h3>
+                <div class="directions-grid">
+                    <div class="direction-card">
+                        <div class="bg-gradient to-right"></div>
+                        <p><code>to right</code></p>
+                    </div>
+                    <div class="direction-card">
+                        <div class="bg-gradient to-bottom"></div>
+                        <p><code>to bottom</code></p>
+                    </div>
+                    <div class="direction-card">
+                        <div class="bg-gradient to-bottom-right"></div>
+                        <p><code>to bottom right</code></p>
+                    </div>
+                    <div class="direction-card">
+                        <div class="bg-gradient angle-135"></div>
+                        <p><code>135deg</code></p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="images">
+            <h2>Images d'arrière-plan</h2>
+            
+            <div class="images-grid">
+                <div class="image-card">
+                    <h4>Image simple</h4>
+                    <div class="code-example">
+                        <code>background-image: url('image.jpg');</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-image bg-simple"></div>
+                    </div>
+                    <p>Image d'arrière-plan basique</p>
+                </div>
+
+                <div class="image-card">
+                    <h4>Répétition</h4>
+                    <div class="code-example">
+                        <code>background-repeat: repeat;<br>background-repeat: no-repeat;<br>background-repeat: repeat-x;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-image bg-repeat"></div>
+                        <div class="bg-image bg-no-repeat"></div>
+                        <div class="bg-image bg-repeat-x"></div>
+                    </div>
+                    <p>Différents modes de répétition</p>
+                </div>
+
+                <div class="image-card">
+                    <h4>Taille (background-size)</h4>
+                    <div class="code-example">
+                        <code>background-size: cover;<br>background-size: contain;<br>background-size: 50%;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-image bg-cover"></div>
+                        <div class="bg-image bg-contain"></div>
+                        <div class="bg-image bg-custom-size"></div>
+                    </div>
+                    <p>Contrôle de la taille de l'image</p>
+                </div>
+
+                <div class="image-card">
+                    <h4>Image avec dégradé</h4>
+                    <div class="code-example">
+                        <code>background: <br>  linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),<br>  url('image.jpg');</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-image bg-with-overlay"></div>
+                    </div>
+                    <p>Superposition d'un dégradé sur une image</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="positions">
+            <h2>Positionnement du background</h2>
+            
+            <div class="positions-grid">
+                <div class="position-card">
+                    <h4>Positions de base</h4>
+                    <div class="code-example">
+                        <code>background-position: center;<br>background-position: top left;<br>background-position: 20px 50px;</code>
+                    </div>
+                    <div class="position-demo-container">
+                        <div class="bg-position-demo center">center</div>
+                        <div class="bg-position-demo top-left">top left</div>
+                        <div class="bg-position-demo custom-pos">20px 50px</div>
+                    </div>
+                </div>
+
+                <div class="position-card">
+                    <h4>Attachement (attachment)</h4>
+                    <div class="code-example">
+                        <code>background-attachment: scroll;<br>background-attachment: fixed;<br>background-attachment: local;</code>
+                    </div>
+                    <div class="scroll-demo-container">
+                        <div class="scroll-content">
+                            <div class="bg-attachment bg-scroll">
+                                <p>scroll (défaut)</p>
+                            </div>
+                            <div class="bg-attachment bg-fixed">
+                                <p>fixed (fixe)</p>
+                            </div>
+                            <div class="bg-attachment bg-local">
+                                <p>local (contenu)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="position-card">
+                    <h4>Origine et rognage</h4>
+                    <div class="code-example">
+                        <code>background-origin: padding-box;<br>background-clip: content-box;</code>
+                    </div>
+                    <div class="origin-clip-demo">
+                        <div class="bg-origin-clip padding-box">
+                            <p>padding-box</p>
+                        </div>
+                        <div class="bg-origin-clip border-box">
+                            <p>border-box</p>
+                        </div>
+                        <div class="bg-origin-clip content-box">
+                            <p>content-box</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="multiple">
+            <h2>Backgrounds multiples</h2>
+            
+            <div class="multiple-grid">
+                <div class="multiple-card">
+                    <h4>Images multiples</h4>
+                    <div class="code-example">
+                        <code>background-image: <br>  url('pattern.png'),<br>  url('photo.jpg');<br>background-size: 50px, cover;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-multiple bg-multiple-images"></div>
+                    </div>
+                    <p>Superposition de plusieurs images</p>
+                </div>
+
+                <div class="multiple-card">
+                    <h4>Dégradés multiples</h4>
+                    <div class="code-example">
+                        <code>background-image: <br>  linear-gradient(45deg, #0000 50%, #ff6b6b 0),<br>  linear-gradient(-45deg, #0000 50%, #4ecdc4 0);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-multiple bg-multiple-gradients"></div>
+                    </div>
+                    <p>Combinaison de plusieurs dégradés</p>
+                </div>
+
+                <div class="multiple-card">
+                    <h4>Mix images et dégradés</h4>
+                    <div class="code-example">
+                        <code>background-image: <br>  linear-gradient(rgba(0,0,0,0.3), transparent),<br>  url('image.jpg');</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-multiple bg-mixed"></div>
+                    </div>
+                    <p>Dégradé de superposition sur image</p>
+                </div>
+
+                <div class="multiple-card">
+                    <h4>Patterns complexes</h4>
+                    <div class="code-example">
+                        <code>background: <br>  radial-gradient(circle at 20% 80%, ...),<br>  linear-gradient(45deg, ...),<br>  url('texture.png');</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-multiple bg-complex-pattern"></div>
+                    </div>
+                    <p>Combinaison de plusieurs éléments</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="avance">
+            <h2>Techniques avancées</h2>
+            
+            <div class="advanced-grid">
+                <div class="advanced-card">
+                    <h4>Background blend-mode</h4>
+                    <div class="code-example">
+                        <code>background-blend-mode: multiply;<br>background-image: <br>  url('image.jpg'),<br>  linear-gradient(red, blue);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-advanced bg-blend-multiply"></div>
+                        <div class="bg-advanced bg-blend-overlay"></div>
+                    </div>
+                    <p>Fusion des différents backgrounds</p>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Gradients animés</h4>
+                    <div class="code-example">
+                        <code>@keyframes gradientShift {<br>  0% { background-position: 0% 50%; }<br>  50% { background-position: 100% 50%; }<br>  100% { background-position: 0% 50%; }<br>}</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="bg-advanced bg-animated-gradient"></div>
+                    </div>
+                    <p>Animation de dégradés avec keyframes</p>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Background clip text</h4>
+                    <div class="code-example">
+                        <code>background: linear-gradient(...);<br>-webkit-background-clip: text;<br>-webkit-text-fill-color: transparent;</code>
+                    </div>
+                    <div class="demo-container">
+                        <h3 class="bg-text-clip">Texte avec dégradé</h3>
+                    </div>
+                    <p>Application d'un background au texte</p>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Responsive backgrounds</h4>
+                    <div class="code-example">
+                        <code>@media (max-width: 768px) {<br>  .element {<br>    background-size: contain;<br>    background-position: center;<br>  }<br>}</code>
+                    </div>
+                    <div class="demo-container responsive-bg-demo">
+                        <div class="bg-responsive"></div>
+                    </div>
+                    <p>Backgrounds adaptatifs pour mobile</p>
+                </div>
+            </div>
+
+            <section class="best-practices">
+                <h3>Bonnes pratiques</h3>
+                <div class="practices-grid">
+                    <div class="practice-card">
+                        <h4>Performance</h4>
+                        <ul>
+                            <li>Préférez les dégradés CSS aux images</li>
+                            <li>Optimisez les images lourdes</li>
+                            <li>Utilisez le format WebP quand possible</li>
+                        </ul>
+                    </div>
+                    <div class="practice-card">
+                        <h4>Accessibilité</h4>
+                        <ul>
+                            <li>Contraste suffisant texte/background</li>
+                            <li>Évitez les backgrounds qui distraient</li>
+                            <li>Fournissez des alternatives</li>
+                        </ul>
+                    </div>
+                    <div class="practice-card">
+                        <h4>Maintenance</h4>
+                        <ul>
+                            <li>Utilisez des variables CSS</li>
+                            <li>Organisez vos backgrounds</li>
+                            <li>Documentez les combinaisons complexes</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/background">MDN - Background</a></li>
+                <li><a href="https://cssgradient.io/">Générateur de dégradés</a></li>
+                <li><a href="https://css-tricks.com/almanac/properties/b/background/">CSS Tricks - Background</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2025 Cours Backgrounds CSS</p>
+    </footer>
+</body>
+</html>

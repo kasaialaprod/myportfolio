@@ -1,0 +1,288 @@
+/* Styles généraux */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #334155;
+    line-height: 1.6;
+}
+
+/* En-tête */
+header {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    padding: 2.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.haut2page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.haut2page h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1.8rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+}
+
+.navigation {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+}
+
+.navigation a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navigation a.active {
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+}
+
+/* Contenu principal */
+main {
+    padding: 3rem 0;
+}
+
+section {
+    background: white;
+    border-radius: 10px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-5px);
+}
+
+h2 {
+    color: #065f46;
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 3px solid #10b981;
+    font-size: 2rem;
+}
+
+h4 {
+    color: #065f46;
+    margin: 2rem 0 1.2rem;
+    font-size: 1.5rem;
+}
+
+h6 {
+    color: #059669;
+    margin: 1.8rem 0 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+p {
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    color: #475569;
+}
+
+code {
+    background-color: #f1f5f9;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    color: #dc2626;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+}
+
+.highlight {
+    background: linear-gradient(120deg, #d1fae5 0%, #a7f3d0 100%);
+    padding: 1.8rem;
+    border-radius: 10px;
+    border-left: 5px solid #10b981;
+    margin: 2rem 0;
+}
+
+/* Styles des listes */
+.list-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+
+.list-example {
+    flex: 1;
+    min-width: 300px;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+}
+
+.list-example h5 {
+    color: #065f46;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+ol, ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.styled-ol {
+    list-style-type: upper-roman;
+    counter-reset: list-counter;
+}
+
+.styled-ol li {
+    counter-increment: list-counter;
+    margin-bottom: 0.8rem;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.styled-ul {
+    list-style-type: square;
+}
+
+.styled-ul li {
+    margin-bottom: 0.8rem;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.feature-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.feature {
+    flex: 1;
+    min-width: 250px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border-top: 4px solid #10b981;
+}
+
+.feature h5 {
+    color: #065f46;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.code-block {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    line-height: 1.5;
+}
+
+/* Pied de page */
+footer {
+    background-color: #1e293b;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 2.5rem 0;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #10b981;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .haut2page h1 {
+        font-size: 2.2rem;
+    }
+    
+    .navigation {
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .navigation a {
+        text-align: center;
+    }
+    
+    section {
+        padding: 1.8rem;
+    }
+    
+    .list-container {
+        flex-direction: column;
+    }

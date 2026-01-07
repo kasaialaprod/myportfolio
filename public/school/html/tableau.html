@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="tableau.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableaux</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="haut2page">
+                <h1>Les Tableaux HTML</h1>
+                <nav class="navigation">
+                    <a href="index.html">Intro</a>
+                    <a href="liste.html">Listes</a>
+                    <a href="tableau.html" class="active">Tableaux</a>
+                    <a href="image.html">Images</a>
+                    <a href="form.html">Formulaires</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section>
+            <h2>Maîtriser les Tableaux en HTML</h2>
+            <p>Les tableaux sont un élément essentiel du HTML permettant d'organiser et de présenter des données de manière structurée. Apprenez à créer des tableaux efficaces et esthétiques.</p>
+            
+            <div class="highlight">
+                <h4>Création d'un tableau</h4>
+                <p>En HTML, un tableau est créé à l'aide de la balise <code>&lt;table&gt;</code>. Chaque ligne du tableau est définie avec la balise <code>&lt;tr&gt;</code> (table row), et chaque cellule de la ligne est définie avec les balises <code>&lt;td&gt;</code> (table data) pour les cellules de données ou <code>&lt;th&gt;</code> (table header) pour les cellules d'en-tête affiché en gras.</p>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature">
+                    <h5>Structure de base</h5>
+                    <p>Un tableau HTML se compose de lignes (<code>&lt;tr&gt;</code>) contenant des cellules (<code>&lt;td&gt;</code> ou <code>&lt;th&gt;</code>).</p>
+                </div>
+                <div class="feature">
+                    <h5>En-têtes de tableau</h5>
+                    <p>Utilisez <code>&lt;th&gt;</code> pour les cellules d'en-tête, automatiquement mises en gras et centrées.</p>
+                </div>
+                <div class="feature">
+                    <h5>Accessibilité</h5>
+                    <p>Les tableaux bien structurés améliorent l'accessibilité pour les utilisateurs de lecteurs d'écran.</p>
+                </div>
+            </div>
+            
+            <h6>Exemple de tableau simple</h6>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Âge</th>
+                        <th>Ville</th>
+                    </tr>
+                    <tr>
+                        <td>Alice</td>
+                        <td>30</td>
+                        <td><a href="https://fr.wikipedia.org/wiki/Paris">Paris</a></td>
+                    </tr>
+                    <tr>
+                        <td>Bob</td>
+                        <td>25</td>
+                        <td><a href="https://fr.wikipedia.org/wiki/Lyon">Lyon</a></td>
+                    </tr>
+                    <tr>
+                        <td>Charlie</td>
+                        <td>35</td>
+                        <td><a href="https://fr.wikipedia.org/wiki/Marseille">Marseille</a></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h6>Exemple avec fusion de cellules</h6>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Histoire d'Or</th>
+                        <th>Pandora</th>
+                        <th>Swarovski</th>
+                        <th>Daniel Wellington</th>
+                        <th>Cartier</th>
+                        <th>Tiffany & Co.</th>
+                    </tr>
+                    <tr>
+                        <td>Bijoux personnalisés</td>
+                        <td>Charms et bracelets</td>
+                        <td>Bijoux en cristal</td>
+                        <td>Montres élégantes</td>
+                        <td colspan="2">Bijoux de luxe</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="highlight">
+                <h4>Fusion de cellules</h4>
+                <p>On peut se servir de <code>colspan</code> pour réunir deux colonnes de tableau ou <code>rowspan</code> pour deux lignes. Ces attributs permettent de créer des mises en page plus complexes et adaptées à vos données.</p>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Bonnes pratiques pour les tableaux</h2>
+            
+            <h4>Utilisez les balises sémantiques</h4>
+            <p>Pour des tableaux complexes, HTML offre des balises supplémentaires comme <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> et <code>&lt;tfoot&gt;</code> qui améliorent la structure et l'accessibilité.</p>
+            
+            <h4>Responsive Design</h4>
+            <p>Sur les petits écrans, envisagez d'utiliser des techniques CSS pour rendre vos tableaux responsives, comme permettre le défilement horizontal ou transformer le tableau en cartes.</p>
+            
+            <h4>Accessibilité</h4>
+            <p>N'oubliez pas d'utiliser l'attribut <code>scope</code> sur les cellules d'en-tête pour indiquer si elles s'appliquent à une ligne ou une colonne, ce qui aide les technologies d'assistance.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Cours de HTML - Les Tableaux. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="#">Accueil</a>
+                    <a href="#">À propos</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

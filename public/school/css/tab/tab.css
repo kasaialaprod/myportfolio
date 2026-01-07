@@ -1,0 +1,482 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.haut2page{
+    background: linear-gradient(135deg, #9D4EDD, #7B2CBF);
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.menu2page{
+    gap: 10px;
+    background: #1a1a1a;
+    border: 2px solid #9D4EDD;
+    border-radius: 15px;
+    margin: 20px;
+    overflow: hidden;
+}
+
+.menu2page nav ul{
+    display: grid;
+    grid-template-columns: repeat(6, 10fr);
+    flex-wrap: nowrap;
+    width: 100%;
+    list-style: none;
+}
+
+.menu2page a{
+    text-align: center;
+    padding: 15px 0;
+    text-decoration: none;
+    color: #9D4EDD;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.menu2page a:hover{
+    background-color: #9D4EDD;
+    color: #ffffff;
+}
+
+.menu2page a:last-child{
+    border-right: none;
+}
+
+main{
+    padding: 30px;
+    border: 3px solid #9D4EDD;
+    border-radius: 30px;
+    margin: 20px;
+    background: #1a1a1a;
+}
+
+h2{
+    text-align: center;
+    font-size: 32px;
+    color: #9D4EDD;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+#h2mini{
+    margin-left: 30px;
+}
+
+h3{
+    color: #7B2CBF;
+    font-size: 24px;
+    margin-top: 40px;
+    border-bottom: 2px solid #7B2CBF;
+    padding-bottom: 10px;
+}
+
+h4{
+    color: #000000;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* Grilles et Layout */
+.content-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.borders-grid,
+.striping-grid,
+.headers-grid,
+.methods-grid,
+.advanced-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.elements-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* Cartes et Composants */
+.card,
+.border-card,
+.striping-card,
+.header-card,
+.method-card,
+.advanced-card,
+.element-card{
+    background: linear-gradient(135deg, #7B2CBF, #9D4EDD);
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.card:hover,
+.border-card:hover,
+.striping-card:hover,
+.header-card:hover,
+.method-card:hover,
+.advanced-card:hover,
+.element-card:hover{
+    transform: translateY(-5px);
+}
+
+/* Styles de tableaux de base */
+table{
+    width: 100%;
+    margin: 15px 0;
+    background: white;
+    color: #2a2a2a;
+}
+
+.table-basic{
+    border: 1px solid #ddd;
+}
+
+.table-basic th,
+.table-basic td{
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.table-basic caption{
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #9D4EDD;
+}
+
+/* Bordures */
+.table-collapsed{
+    border-collapse: collapse;
+}
+
+.table-collapsed th,
+.table-collapsed td{
+    border: 2px solid #9D4EDD;
+    padding: 12px;
+    text-align: center;
+}
+
+.table-collapsed th{
+    background: #7B2CBF;
+    color: white;
+}
+
+.table-separated{
+    border-collapse: separate;
+    border-spacing: 10px;
+    background: #f8f9fa;
+}
+
+.table-separated th,
+.table-separated td{
+    border: 2px solid #9D4EDD;
+    padding: 12px;
+    text-align: center;
+    background: white;
+    border-radius: 8px;
+}
+
+.table-custom-border th,
+.table-custom-border td{
+    border: 2px solid #e74c3c;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.table-custom-border th{
+    background: #e74c3c;
+    color: white;
+}
+
+/* Styles de bordures démo */
+.border-styles-table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.border-styles-table th,
+.border-styles-table td{
+    padding: 15px;
+    text-align: center;
+}
+
+.border-solid{
+    border: 2px solid #9D4EDD !important;
+    padding: 10px;
+}
+
+.border-dashed{
+    border: 2px dashed #e74c3c !important;
+    padding: 10px;
+}
+
+.border-dotted{
+    border: 2px dotted #3498db !important;
+    padding: 10px;
+}
+
+.border-double{
+    border: 4px double #2ecc71 !important;
+    padding: 10px;
+}
+
+.border-groove{
+    border: 4px groove #f39c12 !important;
+    padding: 10px;
+}
+
+/* Zebrage */
+.table-zebra{
+    border-collapse: collapse;
+}
+
+.table-zebra th,
+.table-zebra td{
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.table-zebra th{
+    background: #7B2CBF;
+    color: white;
+}
+
+.table-zebra tr:nth-child(even){
+    background: #f8f9fa;
+}
+
+.table-zebra tr:nth-child(odd){
+    background: white;
+}
+
+.table-zebra-hover{
+    border-collapse: collapse;
+    transition: all 0.3s ease;
+}
+
+.table-zebra-hover th,
+.table-zebra-hover td{
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.table-zebra-hover th{
+    background: #9D4EDD;
+    color: white;
+}
+
+.table-zebra-hover tr:nth-child(even){
+    background: #f8f9fa;
+}
+
+.table-zebra-hover tr:hover{
+    background: #e3f2fd !important;
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.table-grouped{
+    border-collapse: collapse;
+}
+
+.table-grouped th,
+.table-grouped td{
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.table-grouped th{
+    background: #7B2CBF;
+    color: white;
+}
+
+.table-grouped tr:nth-child(4n+1),
+.table-grouped tr:nth-child(4n+2){
+    background: #f5f5f5;
+}
+
+/* En-têtes */
+.table-header-simple{
+    border-collapse: collapse;
+}
+
+.table-header-simple th,
+.table-header-simple td{
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table-header-simple th{
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.table-header-gradient{
+    border-collapse: collapse;
+}
+
+.table-header-gradient th,
+.table-header-gradient td{
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table-header-gradient th{
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* En-tête fixe */
+.sticky-table-container{
+    height: 200px;
+    overflow-y: auto;
+    border: 2px solid #7B2CBF;
+    border-radius: 8px;
+}
+
+.table-header-sticky{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-header-sticky th,
+.table-header-sticky td{
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table-header-sticky th{
+    background: #9D4EDD;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Responsive */
+.scrollable-table{
+    overflow-x: auto;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+}
+
+.table-scroll{
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.table-scroll th,
+.table-scroll td{
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table-scroll th{
+    background: #3498db;
+    color: white;
+}
+
+/* Cartes sur mobile */
+.card-table-container{
+    overflow-x: auto;
+}
+
+.table-cards{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-cards th{
+    display: none;
+}
+
+.table-cards td{
+    display: block;
+    padding: 12px;
+    border: 1px solid #ddd;
+    position: relative;
+    padding-left: 50%;
+}
+
+.table-cards td:before{
+    content: attr(data-label);
+    position: absolute;
+    left: 12px;
+    width: 45%;
+    font-weight: bold;
+    color: #7B2CBF;
+}
+
+/* Techniques avancées */
+.fixed-columns-container{
+    overflow-x: auto;
+    border: 2px solid #e74c3c;
+    border-radius: 8px;
+}
+
+.table-fixed-columns{
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.table-fixed-columns th,
+.table-fixed-columns td{
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table-fixed-columns th:first-child,
+.table-fixed-columns td:first-child{
+    position: sticky;
+    left: 0;
+    background: white;
+    font-weight: bold;
+    color: #7B2CBF;
+}
+
+.table-fixed-columns th{
+    background: #e74c3c;
+    color: white;
+}
+
+/* Cellules fusionnées */
+.table-merged{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-merged th,
+.table-merged td{
+    padding: 15px;
+}

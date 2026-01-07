@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="liste.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listes</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="haut2page">
+                <h1>Les Listes en HTML</h1>
+                <nav class="navigation">
+                    <a href="index.html">Intro</a>
+                    <a href="liste.html" class="active">Listes</a>
+                    <a href="tableau.html">Tableaux</a>
+                    <a href="image.html">Images</a>
+                    <a href="form.html">Formulaires</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section>
+            <h2>Organiser le contenu avec les Listes HTML</h2>
+            <p>Les listes sont des éléments fondamentaux en HTML qui permettent de structurer et d'organiser le contenu de manière claire et hiérarchique. Découvrez les différents types de listes et leurs utilisations.</p>
+            
+            <div class="feature-box">
+                <div class="feature">
+                    <h5>Listes Ordonnées</h5>
+                    <p>Idéales pour présenter des étapes séquentielles, des classements ou toute information nécessitant un ordre spécifique.</p>
+                </div>
+                <div class="feature">
+                    <h5>Listes Non Ordonnées</h5>
+                    <p>Parfaites pour énumérer des éléments sans ordre particulier, comme des caractéristiques ou des points clés.</p>
+                </div>
+                <div class="feature">
+                    <h5>Listes de Définition</h5>
+                    <p>Utilisées pour créer des glossaires ou des listes de termes avec leurs définitions.</p>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h4>Listes Ordonnées</h4>
+                <p>Les listes ordonnées sont utilisées pour afficher des éléments dans un ordre spécifique, généralement numéroté. En HTML, elles sont créées à l'aide de la balise <code>&lt;ol&gt;</code> (ordered list) et chaque élément de la liste est défini avec la balise <code>&lt;li&gt;</code> (list item).</p>
+            </div>
+            
+            <div class="list-container">
+                <div class="list-example">
+                    <h5>Exemple basique</h5>
+                    <ol>
+                        <li>Premier élément</li>
+                        <li>Deuxième élément</li>
+                        <li>Troisième élément</li>
+                    </ol>
+                </div>
+                
+                <div class="list-example">
+                    <h5>Exemple stylisé</h5>
+                    <ol class="styled-ol">
+                        <li>Étape numéro un</li>
+                        <li>Étape numéro deux</li>
+                        <li>Étape numéro trois</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="code-block">
+&lt;ol&gt;
+    &lt;li&gt;Premier élément&lt;/li&gt;
+    &lt;li&gt;Deuxième élément&lt;/li&gt;
+    &lt;li&gt;Troisième élément&lt;/li&gt;
+&lt;/ol&gt;
+            </div>
+            
+            <div class="highlight">
+                <h4>Listes Non Ordonnées</h4>
+                <p>Les listes non ordonnées sont utilisées pour afficher des éléments sans ordre spécifique, généralement avec des puces. En HTML, elles sont créées à l'aide de la balise <code>&lt;ul&gt;</code> (unordered list) et chaque élément de la liste est également défini avec la balise <code>&lt;li&gt;</code>.</p>
+            </div>
+            
+            <div class="list-container">
+                <div class="list-example">
+                    <h5>Exemple basique</h5>
+                    <ul>
+                        <li>Premier élément</li>
+                        <li>Deuxième élément</li>
+                        <li>Troisième élément</li>
+                    </ul>
+                </div>
+                
+                <div class="list-example">
+                    <h5>Exemple stylisé</h5>
+                    <ul class="styled-ul">
+                        <li>Élément important</li>
+                        <li>Autre point clé</li>
+                        <li>Dernier élément</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="code-block">
+&lt;ul&gt;
+    &lt;li&gt;Premier élément&lt;/li&gt;
+    &lt;li&gt;Deuxième élément&lt;/li&gt;
+    &lt;li&gt;Troisième élément&lt;/li&gt;
+&lt;/ul&gt;
+            </div>
+        </section>
+        
+        <section>
+            <h2>Types de Listes Avancées</h2>
+            
+            <h4>Listes de Définition</h4>
+            <p>Les listes de définition utilisent les balises <code>&lt;dl&gt;</code> (definition list), <code>&lt;dt&gt;</code> (definition term) et <code>&lt;dd&gt;</code> (definition description).</p>
+            
+            <div class="code-block">
+&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;Langage de balisage pour créer des pages web&lt;/dd&gt;
+    
+    &lt;dt&gt;CSS&lt;/dt&gt;
+    &lt;dd&gt;Langage de style pour mettre en forme des pages web&lt;/dd&gt;
+&lt;/dl&gt;
+            </div>
+            
+            <h4>Listes Imbriquées</h4>
+            <p>Vous pouvez imbriquer des listes les unes dans les autres pour créer des structures hiérarchiques complexes.</p>
+            
+            <div class="code-block">
+&lt;ul&gt;
+    &lt;li&gt;Premier niveau
+        &lt;ul&gt;
+            &lt;li&gt;Deuxième niveau&lt;/li&gt;
+            &lt;li&gt;Autre élément du deuxième niveau&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Retour au premier niveau&lt;/li&gt;
+&lt;/ul&gt;
+            </div>
+        </section>
+        
+        <section>
+            <h2>Bonnes pratiques pour les listes</h2>
+            
+            <h4>Utilisation sémantique</h4>
+            <p>Choisissez le type de liste en fonction du contenu : ordonnée pour les étapes séquentielles, non ordonnée pour les énumérations sans ordre particulier.</p>
+            
+            <h4>Accessibilité</h4>
+            <p>Les technologies d'assistance annoncent le type et le nombre d'éléments dans une liste, ce qui améliore la navigation pour les utilisateurs handicapés.</p>
+            
+            <h4>Style avec CSS</h4>
+            <p>Utilisez les propriétés CSS comme <code>list-style-type</code>, <code>list-style-image</code> et <code>list-style-position</code> pour personnaliser l'apparence de vos listes.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Cours de HTML - Les Listes. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="#">Accueil</a>
+                    <a href="#">À propos</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="cible.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciblage CSS - Sélecteurs</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Ciblage d'Éléments CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <a href="#base">Sélecteurs Base</a>
+                <a href="#combinateurs">Combinateurs</a>
+                <a href="#pseudo-classes">Pseudo-classes</a>
+                <a href="#pseudo-elements">Pseudo-éléments</a>
+                <a href="#attributs">Sélecteurs Attributs</a>
+                <a href="#specificite">Spécificité</a>
+            
+        </nav>
+    </div>
+
+    <main>
+        <article id="base">
+            <header>
+                <h2>Sélecteurs de Base</h2>
+                <p id="dessousdutitre">Les fondamentaux du ciblage CSS</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Sélecteur d'Élément</h4>
+                    <div class="code-example">
+                        <code>p { color: blue; }</code>
+                    </div>
+                    <p>Cible tous les éléments &lt;p&gt;</p>
+                    <div class="demo-element">
+                        <p class="element-demo">Ce paragraphe est ciblé</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4>Sélecteur de Classe</h4>
+                    <div class="code-example">
+                        <code>.ma-classe { color: red; }</code>
+                    </div>
+                    <p>Cible les éléments avec class="ma-classe"</p>
+                    <div class="demo-element">
+                        <p class="class-demo">Ce texte a une classe</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4>Sélecteur d'ID</h4>
+                    <div class="code-example">
+                        <code>#mon-id { color: green; }</code>
+                    </div>
+                    <p>Cible l'élément avec id="mon-id"</p>
+                    <div class="demo-element">
+                        <p id="id-demo">Ce texte a un ID</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4>Sélecteur Universel</h4>
+                    <div class="code-example">
+                        <code>* { margin: 0; }</code>
+                    </div>
+                    <p>Cible tous les éléments de la page</p>
+                </div>
+                <div class="card">
+                    <h4>Sélecteur Groupé</h4>
+                    <div class="code-example">
+                        <code>h1, h2, h3 { font-family: Arial; }</code>
+                    </div>
+                    <p>Cible plusieurs sélecteurs en même temps</p>
+                    <div class="demo-element">
+                        <h4 class="group-demo">Titre 1</h4>
+                        <h5 class="group-demo">Titre 2</h5>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="combinateurs">
+            <h2>Combinateurs</h2>
+            
+            <div class="combinators-grid">
+                <div class="combinator-card">
+                    <h4>Descendant (espace)</h4>
+                    <div class="code-example">
+                        <code>div p { color: blue; }</code>
+                    </div>
+                    <p>Tous les &lt;p&gt; dans un &lt;div&gt;</p>
+                    <div class="demo-combinator">
+                        <div class="combinator-demo">
+                            <p>Paragraphe dans div</p>
+                            <section>
+                                <p>Paragraphe dans section dans div</p>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="combinator-card">
+                    <h4>Enfant direct (&gt;)</h4>
+                    <div class="code-example">
+                        <code>div > p { color: red; }</code>
+                    </div>
+                    <p>Seulement les &lt;p&gt; enfants directs de &lt;div&gt;</p>
+                    <div class="demo-combinator">
+                        <div class="child-demo">
+                            <p>Enfant direct</p>
+                            <section>
+                                <p>Pas enfant direct</p>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="combinator-card">
+                    <h4>Frère adjacent (+)</h4>
+                    <div class="code-example">
+                        <code>h1 + p { margin-top: 0; }</code>
+                    </div>
+                    <p>Premier &lt;p&gt; juste après un &lt;h1&gt;</p>
+                    <div class="demo-combinator">
+                        <div class="adjacent-demo">
+                            <h4>Titre</h4>
+                            <p>Frère adjacent</p>
+                            <p>Pas frère adjacent</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="combinator-card">
+                    <h4>Frères suivants (~)</h4>
+                    <div class="code-example">
+                        <code>h1 ~ p { color: green; }</code>
+                    </div>
+                    <p>Tous les &lt;p&gt; après un &lt;h1&gt;</p>
+                    <div class="demo-combinator">
+                        <div class="sibling-demo">
+                            <h4>Titre</h4>
+                            <p>Frère suivant</p>
+                            <div>Div entre deux</div>
+                            <p>Autre frère suivant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="pseudo-classes">
+            <h2>Pseudo-classes</h2>
+            
+            <section class="pseudo-section">
+                <h3>Pseudo-classes d'État</h3>
+                <div class="pseudo-grid">
+                    <div class="pseudo-card">
+                        <h4>:hover</h4>
+                        <div class="code-example">
+                            <code>button:hover { background: #EF476F; }</code>
+                        </div>
+                        <button class="hover-demo">Passe la souris</button>
+                    </div>
+                    <div class="pseudo-card">
+                        <h4>:focus</h4>
+                        <div class="code-example">
+                            <code>input:focus { border-color: #EF476F; }</code>
+                        </div>
+                        <input type="text" class="focus-demo" placeholder="Clique ici">
+                    </div>
+                    <div class="pseudo-card">
+                        <h4>:active</h4>
+                        <div class="code-example">
+                            <code>a:active { color: #EF476F; }</code>
+                        </div>
+                        <button class="active-demo">Maintiens cliqué</button>
+                    </div>
+                    <div class="pseudo-card">
+                        <h4>:visited</h4>
+                        <div class="code-example">
+                            <code>a:visited { color: #EF476F; }</code>
+                        </div>
+                        <a href="#visited" class="visited-demo">Lien visité</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pseudo-section">
+                <h3>Pseudo-classes Structurelles</h3>
+                <div class="structural-demo">
+                    <div class="code-example">
+                        <code>li:first-child { font-weight: bold; }<br>
+li:last-child { color: red; }<br>
+li:nth-child(odd) { background: #f0f0f0; }<br>
+li:nth-child(3n) { color: blue; }</code>
+                    </div>
+                    <ul class="structural-list">
+                        <li>Premier élément (first-child)</li>
+                        <li>Deuxième élément (nth-child(odd))</li>
+                        <li>Troisième élément (nth-child(3n))</li>
+                        <li>Quatrième élément (nth-child(odd))</li>
+                        <li>Cinquième élément</li>
+                        <li>Dernier élément (last-child)</li>
+                    </ul>
+                </div>
+            </section>
+        </article>
+
+        <article id="pseudo-elements">
+            <h2>Pseudo-éléments</h2>
+            
+            <div class="pseudo-elements-grid">
+                <div class="pseudo-element-card">
+                    <h4>::before</h4>
+                    <div class="code-example">
+                        <code>.element::before {<br>  content: "★ ";<br>  color: gold;<br>}</code>
+                    </div>
+                    <p class="before-demo">Élément avec contenu avant</p>
+                </div>
+
+                <div class="pseudo-element-card">
+                    <h4>::after</h4>
+                    <div class="code-example">
+                        <code>.element::after {<br>  content: " !";<br>  color: red;<br>}</code>
+                    </div>
+                    <p class="after-demo">Élément avec contenu après</p>
+                </div>
+
+                <div class="pseudo-element-card">
+                    <h4>::first-letter</h4>
+                    <div class="code-example">
+                        <code>p::first-letter {<br>  font-size: 2em;<br>  color: blue;<br>}</code>
+                    </div>
+                    <p class="first-letter-demo">Première lettre stylisée</p>
+                </div>
+
+                <div class="pseudo-element-card">
+                    <h4>::first-line</h4>
+                    <div class="code-example">
+                        <code>p::first-line {<br>  font-weight: bold;<br>  color: green;<br>}</code>
+                    </div>
+                    <p class="first-line-demo">Ceci est la première ligne qui sera stylisée différemment du reste du paragraphe. Le reste du texte conserve son apparence normale.</p>
+                </div>
+
+                <div class="pseudo-element-card">
+                    <h4>::selection</h4>
+                    <div class="code-example">
+                        <code>::selection {<br>  background: yellow;<br>  color: black;<br>}</code>
+                    </div>
+                    <p class="selection-demo">Sélectionne ce texte pour voir l'effet</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="attributs">
+            <h2>Sélecteurs d'Attributs</h2>
+            
+            <div class="attributes-grid">
+                <div class="attribute-card">
+                    <h4>[attribut]</h4>
+                    <div class="code-example">
+                        <code>[disabled] { opacity: 0.5; }</code>
+                    </div>
+                    <p>Cible les éléments avec l'attribut</p>
+                    <button disabled class="attr-demo">Bouton désactivé</button>
+                </div>
+
+                <div class="attribute-card">
+                    <h4>[attribut=valeur]</h4>
+                    <div class="code-example">
+                        <code>[type="password"] {<br>  font-family: monospace;<br>}</code>
+                    </div>
+                    <p>Cible avec valeur exacte</p>
+                    <input type="password" value="123456" class="attr-demo" placeholder="Mot de passe">
+                </div>
+
+                <div class="attribute-card">
+                    <h4>[attribut^=valeur]</h4>
+                    <div class="code-example">
+                        <code>[href^="https"] {<br>  color: green;<br>}</code>
+                    </div>
+                    <p>Commence par la valeur</p>
+                    <a href="https://example.com" class="attr-demo">Lien HTTPS</a>
+                </div>
+
+                <div class="attribute-card">
+                    <h4>[attribut$=valeur]</h4>
+                    <div class="code-example">
+                        <code>[src$=".jpg"] {<br>  border: 2px solid red;<br>}</code>
+                    </div>
+                    <p>Se termine par la valeur</p>
+                    <div class="attr-demo">image.jpg</div>
+                </div>
+
+                <div class="attribute-card">
+                    <h4>[attribut*=valeur]</h4>
+                    <div class="code-example">
+                        <code>[class*="btn"] {<br>  padding: 10px;<br>}</code>
+                    </div>
+                    <p>Contient la valeur</p>
+                    <button class="primary-btn attr-demo">Bouton primaire</button>
+                </div>
+            </div>
+        </article>
+
+        <article id="specificite">
+            <h2>Spécificité et Cascade</h2>
+            
+            <section class="specificity-section">
+                <h3>Hiérarchie de Spécificité</h3>
+                <div class="specificity-scale">
+                    <div class="specificity-level">
+                        <h4>!important (10000)</h4>
+                        <div class="code-example">
+                            <code>p { color: red !important; }</code>
+                        </div>
+                        <p class="important-demo">Ce texte est rouge malgré tout</p>
+                    </div>
+                    <div class="specificity-level">
+                        <h4>Style inline (1000)</h4>
+                        <div class="code-example">
+                            <code>&lt;p style="color: blue;"&gt;</code>
+                        </div>
+                        <p style="color: blue;" class="inline-demo">Style inline</p>
+                    </div>
+                    <div class="specificity-level">
+                        <h4>ID (100)</h4>
+                        <div class="code-example">
+                            <code>#mon-id { color: green; }</code>
+                        </div>
+                        <p id="specific-id" class="id-demo">Élément avec ID</p>
+                    </div>
+                    <div class="specificity-level">
+                        <h4>Classe/Pseudo-classe (10)</h4>
+                        <div class="code-example">
+                            <code>.ma-classe { color: orange; }</code>
+                        </div>
+                        <p class="specific-class element-demo">Élément avec classe</p>
+                    </div>
+                    <div class="specificity-level">
+                        <h4>Élément (1)</h4>
+                        <div class="code-example">
+                            <code>p { color: purple; }</code>
+                        </div>
+                        <p class="element-demo">Élément simple</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cascade-section">
+                <h3>Règles de la Cascade</h3>
+                <div class="cascade-rules">
+                    <div class="cascade-card">
+                        <h4>Importance</h4>
+                        <p>!important > style inline > ID > Classe > Élément</p>
+                    </div>
+                    <div class="cascade-card">
+                        <h4>Spécificité</h4>
+                        <p>Le sélecteur le plus spécifique l'emporte</p>
+                    </div>
+                    <div class="cascade-card">
+                        <h4>Ordre Source</h4>
+                        <p>La dernière règle définie l'emporte</p>
+                        <div class="code-example">
+                            <code>p { color: red; }<br>p { color: blue; }<br>/* Le texte sera bleu */</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Selectors">MDN - Sélecteurs CSS</a></li>
+                <li><a href="https://css-tricks.com/almanac/selectors/">CSS Tricks - Almanach des sélecteurs</a></li>
+                <li><a href="https://specificity.keegan.st/">Calculateur de Spécificité</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2025 Cours Ciblage CSS</p>
+    </footer>
+</body>
+</html>

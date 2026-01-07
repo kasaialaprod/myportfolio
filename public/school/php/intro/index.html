@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro PHP</title>
+</head>
+<body>
+    
+    <div class="container">
+        <header>
+            <h1>COURS PHP - CHAPITRE 1</h1>
+            <p class="glowing-text">Introduction au langage PHP</p>
+        </header>
+        
+        <div class="nav-bar">
+            <a href="#histoire">Histoire</a>
+            <a href="#variables">Variables</a>
+            <a href="#calculs">Calculs</a>
+        </div>
+        
+        <div class="content">
+            <section id="histoire">
+                <h2>Histoire de PHP</h2>
+                <p>PHP (Personal Home Page, maintenant PHP: Hypertext Preprocessor) a été créé en 1994 par <span class="glowing-text">Rasmus Lerdorf</span>. À l'origine, c'était un ensemble de scripts Perl pour suivre les visites sur son CV en ligne.</p>
+                
+                <div class="note">
+                    <p><strong>Saviez-vous?</strong> Le premier nom de PHP était "Personal Home Page Tools".</p>
+                </div>
+                
+                <p>En 1995, Lerdorf a publié la première version publique, PHP/FI (Forms Interpreter). Cette version incluait déjà certaines fonctionnalités de base que nous connaissons aujourd'hui.</p>
+                
+                <p>PHP a évolué au fil des versions :</p>
+                <ul>
+                    <li><strong>PHP 3 (1998)</strong> : Première version ressemblant à PHP moderne</li>
+                    <li><strong>PHP 4 (2000)</strong> : Introduction du moteur Zend</li>
+                    <li><strong>PHP 5 (2004)</strong> : Modèle objet amélioré</li>
+                    <li><strong>PHP 7 (2015)</strong> : Performances considérablement améliorées</li>
+                    <li><strong>PHP 8 (2020)</strong> : JIT compiler et nouvelles fonctionnalités</li>
+                </ul>
+            </section>
+            
+            <section id="variables">
+                <h2>Les Variables en PHP</h2>
+                <p>En PHP, les variables sont des conteneurs pour stocker des données. Elles sont identifiées par le signe dollar <span class="glowing-text">$</span>.</p>
+                
+                <h3>Déclaration de variables</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    $nom = "Jean";<br>
+                    $age = 25;<br>
+                    $est_etudiant = true;<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Types de données</h3>
+                <div class="example">
+                    <p>PHP supporte plusieurs types de données :</p>
+                    <ul>
+                        <li><strong>String</strong> : Chaîne de caractères (texte)</li>
+                        <li><strong>Integer</strong> : Nombre entier</li>
+                        <li><strong>Float</strong> : Nombre à virgule flottante</li>
+                        <li><strong>Boolean</strong> : Vrai ou faux</li>
+                        <li><strong>Array</strong> : Tableau</li>
+                        <li><strong>Object</strong> : Objet</li>
+                        <li><strong>NULL</strong> : Valeur nulle</li>
+                    </ul>
+                </div>
+                
+                <h3>Affichage de variables</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    echo $nom; // Affiche: Jean<br>
+                    echo "Bonjour " . $nom; // Affiche: Bonjour Jean<br>
+                    echo "Vous avez " . $age . " ans"; // Affiche: Vous avez 25 ans<br>
+                    ?&gt;
+                </div>
+
+                <h3>Assignations de variables</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    $nom = 'Jean'; // La variable $nom prend la valeur 'Jean'<br>
+                    $age == 25; // La valeur $age est égale à 25<br>
+                    $age === 25; // La valeur $age es strictement égale à 25 (en parle du type de donnée)<br>
+                    <br>
+                    echo "Prénom: " . $nom . " Âge: " . $age . "ans"; // Affiche: "Prénom: Jean Âge: 25ans"<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="calculs">
+                <h2>Calculs Simples en PHP</h2>
+                <p>PHP supporte tous les opérateurs arithmétiques de base.</p>
+                
+                <h3>Opérateurs arithmétiques</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    $a = 10;<br>
+                    $b = 3;<br>
+                    <br>
+                    $somme = $a + $b; // 13<br>
+                    $difference = $a - $b; // 7<br>
+                    $produit = $a * $b; // 30<br>
+                    $quotient = $a / $b; // 3.333...<br>
+                    $reste = $a % $b; // 1<br>
+                    $puissance = $a ** $b; // 1000 (10^3)<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Exemple pratique</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    $prix_ht = 50;<br>
+                    $tva = 0.2; // 20%<br>
+                    $prix_ttc = $prix_ht * (1 + $tva);<br>
+                    <br>
+                    echo "Prix TTC: " . $prix_ttc . " €"; // Affiche: Prix TTC: 60 €<br>
+                    ?&gt;
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Cours PHP <a href="#">Introduction au PHP</a> </p>
+            <p>Prochain chapitre: <a href="../structure/struct.html">Structures de contrôle et boucles</a></p>
+        </footer>
+    </div>
+</body>
+</html>

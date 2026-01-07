@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="image.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="haut2page">
+                <h1>Les Images en HTML</h1>
+                <nav class="navigation">
+                    <a href="index.html">Intro</a>
+                    <a href="liste.html">Listes</a>
+                    <a href="tableau.html">Tableaux</a>
+                    <a href="image.html" class="active">Images</a>
+                    <a href="form.html">Formulaires</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section>
+            <h2>Enrichir vos pages avec des Images</h2>
+            <p>Les images sont des éléments essentiels pour rendre vos pages web attrayantes et engageantes. Apprenez à les intégrer correctement en respectant les bonnes pratiques d'accessibilité et de performance.</p>
+            
+            <div class="feature-box">
+                <div class="feature">
+                    <h5>Engagement visuel</h5>
+                    <p>Les images capturent l'attention et rendent le contenu plus mémorable pour vos visiteurs.</p>
+                </div>
+                <div class="feature">
+                    <h5>Accessibilité</h5>
+                    <p>Les attributs alt permettent aux technologies d'assistance de décrire les images aux utilisateurs handicapés.</p>
+                </div>
+                <div class="feature">
+                    <h5>Performance</h5>
+                    <p>Des images optimisées améliorent les temps de chargement et l'expérience utilisateur.</p>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h4>Insertion d'images en HTML</h4>
+                <p>En HTML, les images sont insérées à l'aide de la balise <code>&lt;img&gt;</code>. Cette balise est auto-fermante et nécessite au minimum l'attribut <code>src</code> pour spécifier le chemin de l'image, ainsi que l'attribut <code>alt</code> pour fournir une description alternative de l'image.</p>
+            </div>
+            
+            <h6>Exemple de code</h6>
+            <pre><code>&lt;img src="chemin/vers/image.webp" alt="Description de l'image"&gt;</code></pre>
+            
+            <h4>Attributs courants de la balise &lt;img&gt;</h4>
+            <div class="attribute-list">
+                <ul>
+                    <li>
+                        <strong><code>src</code></strong> : Spécifie le chemin de l'image à afficher. Peut être une URL relative ou absolue.
+                    </li>
+                    <li>
+                        <strong><code>alt</code></strong> : Fournit une description textuelle de l'image, utile pour l'accessibilité et lorsque l'image ne peut pas être chargée.
+                    </li>
+                    <li>
+                        <strong><code>width</code></strong> et <strong><code>height</code></strong> : Permettent de définir la largeur et la hauteur de l'image en pixels.
+                    </li>
+                    <li>
+                        <strong><code>title</code></strong> : Affiche un texte d'infobulle lorsque l'utilisateur survole l'image.
+                    </li>
+                    <li>
+                        <strong><code>loading</code></strong> : Contrôle le chargement paresseux (lazy loading) de l'image.
+                    </li>
+                </ul>
+            </div>
+            
+            <h4>Exemples pratiques</h4>
+            <div class="image-gallery">
+                <div class="image-card">
+                    <div class="image-placeholder">
+                        <img src="asset/image/paysage.webp" alt="Coucher de soleil sur les montagnes" style="width:100%; height:200px;">
+                    </div>
+                    <div class="image-info">
+                        <h5>Image accessible</h5>
+                        <p><code>&lt;img src="paysage.webp" alt="Coucher de soleil sur les montagnes"&gt;</code></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">
+                        <img src="asset/image/portrait.webp" alt="Portrait" width="400" height="300" style="width:100%; height:200px;">
+                    </div>
+                    <div class="image-info">
+                        <h5>Contrôle des dimensions</h5>
+                        <p><code>&lt;img src="photo.webp" alt="Portrait" width="400" height="300"&gt;</code></p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder">
+                        <img src="asset/image/graphique.webp" alt="Graphique" title="Statistiques 2025" style="width:100%; height:200px;">
+                    </div>
+                    <div class="image-info">
+                        <h5>Avec infobulle</h5>
+                        <p><code>&lt;img src="graphique.webp" alt="Graphique" title="Statistiques 2025"&gt;</code></p>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Exemple complet</h4>
+            <div class="image-card">
+                <div class="image-placeholder">
+                    <img src="asset/image/exemple.webp" alt="Graphique" title="Statistiques 2025" style="width:100%; height:200px;">
+                </div>
+                <div class="image-info">
+                    <h5>Image avec tous les attributs</h5>
+                <p style="margin-top: 1rem; font-style: italic;">
+                    Simulation : <code>&lt;img src="example.webp" alt="Exemple d'image" width="300" height="200" title="Ceci est une image exemple"&gt;</code>
+                </p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Formats d'Image Recommandés</h2>
+            
+            <div class="image-gallery">
+                <div class="image-card">
+                    <div class="image-placeholder" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
+                        JPEG
+                    </div>
+                    <div class="image-info">
+                        <h5>JPEG/JPG</h5>
+                        <p>Idéal pour les photographies et images complexes avec beaucoup de couleurs. Supporte la compression avec perte.</p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder" style="background: linear-gradient(135deg, #10b981, #34d399);">
+                        PNG
+                    </div>
+                    <div class="image-info">
+                        <h5>PNG</h5>
+                        <p>Parfait pour les images avec transparence, logos et graphiques. Compression sans perte.</p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+                        WebP
+                    </div>
+                    <div class="image-info">
+                        <h5>WebP</h5>
+                        <p>Format moderne offrant une meilleure compression que JPEG et PNG. Supporte l'animation et la transparence.</p>
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <div class="image-placeholder" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+                        SVG
+                    </div>
+                    <div class="image-info">
+                        <h5>SVG</h5>
+                        <p>Format vectoriel idéal pour les logos, icônes et illustrations. Redimensionnable sans perte de qualité.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Bonnes Pratiques pour les Images</h2>
+            
+            <div class="best-practices">
+                <div class="practice-card">
+                    <h5>Optimisation des images</h5>
+                    <p>Compressez vos images avant de les mettre en ligne pour réduire les temps de chargement. Utilisez des outils comme ImageOptim ou Squoosh.</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h5>Textes alternatifs</h5>
+                    <p>Toujours fournir un attribut alt descriptif. Pour les images décoratives, utilisez alt="".</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h5>Responsive images</h5>
+                    <p>Utilisez srcset et sizes pour fournir différentes versions d'une image selon la taille de l'écran.</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h5>Lazy loading</h5>
+                    <p>Implémentez le chargement paresseux avec loading="lazy" pour améliorer les performances.</p>
+                </div>
+            </div>
+            
+            <h4>Exemple d'image responsive</h4>
+            <pre><code>&lt;img src="image-400.jpg" 
+     srcset="image-400.jpg 400w, 
+             image-800.jpg 800w,
+             image-1200.jpg 1200w"
+     sizes="(max-width: 600px) 400px,
+            (max-width: 1200px) 800px,
+            1200px"
+     alt="Image responsive exemple"&gt;</code></pre>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Cours de HTML - Les Images. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="#">Accueil</a>
+                    <a href="#">À propos</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

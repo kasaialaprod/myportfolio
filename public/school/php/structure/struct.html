@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="struct.css">
+    <script src="struct.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structures de contrôle et boucles</title>
+</head>
+<body>
+    
+    <div class="container">
+        <header>
+            <h1>COURS PHP - CHAPITRE 2</h1>
+            <p class="glowing-text">Structures de contrôle et boucles</p>
+        </header>
+        
+        <div class="nav-bar">
+            <a href="#conditions">Conditions</a>
+            <a href="#boucles">Boucles</a>
+            <a href="#comparaison">Comparaison</a>
+        </div>
+        
+        <div class="content">
+            <section id="introduction">
+                <h2>Introduction aux structures de contrôle</h2>
+                <p>Les structures de contrôle permettent de modifier le flux d'exécution d'un programme en fonction de conditions ou de répéter des blocs de code.</p>
+                
+                <div class="flowchart">
+                    <h3>Flux d'exécution d'un programme</h3>
+                    <div style="color: #4cc9f0; font-size: 1.2em;">
+                        [Début] → [Condition] → [Action si vrai] → [Action si faux] → [Fin]
+                    </div>
+                </div>
+            </section>
+            
+            <section id="conditions">
+                <h2>Les structures conditionnelles</h2>
+                
+                <h3>La condition IF</h3>
+                <p>Exécute un bloc de code si une condition est vraie.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    $age = 18;<br>
+                    <br>
+                    if ($age >= 18) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Vous êtes majeur";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>IF...ELSE</h3>
+                <p>Exécute un bloc si la condition est vraie, un autre si elle est fausse.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    $temperature = 25;<br>
+                    <br>
+                    if ($temperature > 30) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Il fait chaud";<br>
+                    } else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Il fait bon";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>IF...ELSEIF...ELSE</h3>
+                <p>Teste plusieurs conditions successivement.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    $note = 14;<br>
+                    <br>
+                    if ($note >= 16) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Très bien";<br>
+                    } elseif ($note >= 14) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Bien";<br>
+                    } elseif ($note >= 12) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Assez bien";<br>
+                    } else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Insuffisant";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>SWITCH</h3>
+                <p>Alternative à une série de conditions IF, utile pour comparer une variable à plusieurs valeurs.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    $jour = "lundi";<br>
+                    <br>
+                    switch ($jour) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;case "lundi":<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "Début de semaine";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;case "vendredi":<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "Bientôt le weekend";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;default:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "Jour ordinaire";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <div class="note">
+                    <p><strong>Attention:</strong> N'oubliez pas le <span class="glowing-text">break</span> dans un switch, sinon l'exécution continuera aux cas suivants!</p>
+                </div>
+            </section>
+            
+            <section id="boucles">
+                <h2>Les boucles</h2>
+                
+                <h3>Boucle WHILE</h3>
+                <p>Répète un bloc tant qu'une condition est vraie.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    $i = 1;<br>
+                    <br>
+                    while ($i <= 5) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Tour numéro: " . $i . "&lt;br&gt;";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$i++;<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Boucle DO...WHILE</h3>
+                <p>Similaire à WHILE, mais exécute le bloc au moins une fois.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    $i = 10;<br>
+                    <br>
+                    do {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Valeur: " . $i . "&lt;br&gt;";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$i++;<br>
+                    } while ($i <= 5);<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Boucle FOR</h3>
+                <p>Boucle avec initialisation, condition et incrémentation regroupées.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    for ($i = 1; $i <= 5; $i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Itération: " . $i . "&lt;br&gt;";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Boucle FOREACH</h3>
+                <p>Spécialement conçue pour parcourir les tableaux.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    $fruits = array("pomme", "banane", "orange");<br>
+                    <br>
+                    foreach ($fruits as $fruit) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo $fruit . "&lt;br&gt;";<br>
+                    }<br>
+                    <br>
+                    // Avec les clés<br>
+                    $personne = array(<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"nom" => "Dupont",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"prenom" => "Jean",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"age" => 25<br>
+                    );<br>
+                    <br>
+                    foreach ($personne as $cle => $valeur) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo $cle . ": " . $valeur . "&lt;br&gt;";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="comparaison">
+                <h2>Comparaison des boucles</h2>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Type de boucle</th>
+                        <th>Utilisation</th>
+                        <th>Avantages</th>
+                    </tr>
+                    <tr>
+                        <td><strong>WHILE</strong></td>
+                        <td>Quand le nombre d'itérations est inconnu</td>
+                        <td>Flexible, condition évaluée avant</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DO...WHILE</strong></td>
+                        <td>Quand on veut exécuter au moins une fois</td>
+                        <td>Garantit une exécution minimum</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FOR</strong></td>
+                        <td>Quand le nombre d'itérations est connu</td>
+                        <td>Structure compacte et lisible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FOREACH</strong></td>
+                        <td>Pour parcourir des tableaux</td>
+                        <td>Simple et optimisé pour les tableaux</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section id="interruptions">
+                <h2>Interrompre les boucles</h2>
+                
+                <h3>BREAK</h3>
+                <p>Sort immédiatement d'une boucle.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    for ($i = 1; $i <= 10; $i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if ($i == 5) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break; // Sort de la boucle quand i=5<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo $i . "&lt;br&gt;";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>CONTINUE</h3>
+                <p>Passe à l'itération suivante sans exécuter le reste du bloc.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    for ($i = 1; $i <= 5; $i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if ($i == 3) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue; // Saute l'itération quand i=3<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo $i . "&lt;br&gt;";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="demo">
+                <h2>Démonstration interactive</h2>
+                
+                <div class="interactive-demo">
+                    <h3>Générateur de table de multiplication</h3>
+                    <p>Ce code génère la table de multiplication d'un nombre:</p>
+                    
+                    <div class="code-block">
+                        &lt;?php<br>
+                        $nombre = num;<br>
+                        echo "Table de multiplication de " . $nombre . ":&lt;br&gt;";<br>
+                        <br>
+                        for ($i = 1; $i <= 10; $i++) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;$resultat = $nombre * $i;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;echo $nombre . " × " . $i . " = " . $resultat . "&lt;br&gt;";<br>
+                        }<br>
+                        ?&gt;
+                    </div>
+                    
+                    <button class="btn-run" onclick="runDemo()">Exécuter la démo</button>
+                    
+                    <div class="output" id="demo-output">
+                        <!-- Le résultat apparaîtra ici -->
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Cours PHP <a href="#"> Structures de contrôle et boucles</a></p>
+            <p>Chapitre précédent: <a href="../intro/index.html">Introduction au PHP</a></p>
+            <p>Prochain chapitre: <a href="../fontion_variable/func_pv.html">Fonctions et portée des variables</a></p>
+        </footer>
+    </div>
+</body>
+</html>

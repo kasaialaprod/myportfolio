@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="animation.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animations CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Animations CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#concepts">Concepts de Base</a></li>
+                <li><a href="#keyframes">@keyframes</a></li>
+                <li><a href="#proprietes">Propriétés</a></li>
+                <li><a href="#exemples">Exemples Pratiques</a></li>
+                <li><a href="#avance">Techniques Avancées</a></li>
+                <li><a href="#performance">Performance</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="concepts">
+            <header>
+                <h2>Concepts Fondamentaux des Animations</h2>
+                <p>Comprendre la différence entre transitions et animations</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Animation vs Transition</h4>
+                    <div class="comparison-demo">
+                        <div class="transition-example">
+                            <div class="demo-box transition-box">Transition</div>
+                            <p>Déclenchée par un événement</p>
+                        </div>
+                        <div class="animation-example">
+                            <div class="demo-box animation-box">Animation</div>
+                            <p>Joue automatiquement</p>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li><strong>Transition</strong> : Réaction à un événement</li>
+                        <li><strong>Animation</strong> : Séquence automatique</li>
+                        <li><strong>Contrôle</strong> : Boucles, direction, état</li>
+                        <li><strong>Complexité</strong> : Multiples étapes</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Structure d'une Animation</h4>
+                    <div class="code-example">
+                        <code>@keyframes nomAnimation {<br>  0% { /* état initial */ }<br>  50% { /* état intermédiaire */ }<br>  100% { /* état final */ }<br>}<br><br>.element {<br>  animation: nomAnimation 2s ease infinite;<br>}</code>
+                    </div>
+                    <p>Définition + Application = Animation</p>
+                </div>
+                <div class="card">
+                    <h4>Propriétés Animables</h4>
+                    <div class="animable-properties">
+                        <div class="property-badge">transform</div>
+                        <div class="property-badge">opacity</div>
+                        <div class="property-badge">color</div>
+                        <div class="property-badge">background</div>
+                        <div class="property-badge">width/height</div>
+                        <div class="property-badge">margin/padding</div>
+                    </div>
+                    <p>La plupart des propriétés CSS peuvent être animées</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="keyframes">
+            <h2>Les @keyframes</h2>
+            
+            <section class="keyframes-explication">
+                <h3>Définition des Étapes d'Animation</h3>
+                <div class="keyframes-demo">
+                    <div class="timeline">
+                        <div class="keyframe" style="left: 0%">
+                            <div class="keyframe-point">0%</div>
+                            <div class="keyframe-label">Début</div>
+                        </div>
+                        <div class="keyframe" style="left: 30%">
+                            <div class="keyframe-point">30%</div>
+                            <div class="keyframe-label">Milieu</div>
+                        </div>
+                        <div class="keyframe" style="left: 70%">
+                            <div class="keyframe-point">70%</div>
+                            <div class="keyframe-label">Presque fin</div>
+                        </div>
+                        <div class="keyframe" style="left: 100%">
+                            <div class="keyframe-point">100%</div>
+                            <div class="keyframe-label">Fin</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="keyframes-grid">
+                <div class="keyframe-card">
+                    <h4>Syntaxe From/To</h4>
+                    <div class="code-example">
+                        <code>@keyframes slideIn {<br>  from {<br>    transform: translateX(-100px);<br>  }<br>  to {<br>    transform: translateX(0);<br>  }<br>}</code>
+                    </div>
+                    <div class="demo-element from-to-demo">Slide In</div>
+                </div>
+
+                <div class="keyframe-card">
+                    <h4>Syntaxe par Pourcentages</h4>
+                    <div class="code-example">
+                        <code>@keyframes bounce {<br>  0%, 100% { <br>    transform: translateY(0); <br>  }<br>  50% { <br>    transform: translateY(-30px); <br>  }<br>}</code>
+                    </div>
+                    <div class="demo-element bounce-demo">Bounce</div>
+                </div>
+
+                <div class="keyframe-card">
+                    <h4>Animations Multiples</h4>
+                    <div class="code-example">
+                        <code>@keyframes complexe {<br>  0% { <br>    transform: rotate(0);<br>    opacity: 0;<br>  }<br>  100% { <br>    transform: rotate(360deg);<br>    opacity: 1;<br>  }<br>}</code>
+                    </div>
+                    <div class="demo-element complex-demo">Complexe</div>
+                </div>
+            </div>
+        </article>
+
+        <article id="proprietes">
+            <h2>Propriétés des Animations</h2>
+            
+            <div class="properties-grid">
+                <div class="property-card">
+                    <h4>animation-name</h4>
+                    <div class="code-example">
+                        <code>animation-name: slideIn;</code>
+                    </div>
+                    <p>Nom de l'animation @keyframes</p>
+                    <div class="demo-element name-demo">slideIn</div>
+                </div>
+
+                <div class="property-card">
+                    <h4>animation-duration</h4>
+                    <div class="code-example">
+                        <code>animation-duration: 2s;</code>
+                    </div>
+                    <p>Durée totale de l'animation</p>
+                    <div class="duration-demo">
+                        <div class="duration-bar fast">1s</div>
+                        <div class="duration-bar medium">2s</div>
+                        <div class="duration-bar slow">4s</div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <h4>animation-timing-function</h4>
+                    <div class="code-example">
+                        <code>animation-timing-function: ease-in;</code>
+                    </div>
+                    <p>Courbe d'accélération</p>
+                    <div class="timing-demo">
+                        <div class="timing-ball ease">ease</div>
+                        <div class="timing-ball linear">linear</div>
+                        <div class="timing-ball ease-in">ease-in</div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <h4>animation-delay</h4>
+                    <div class="code-example">
+                        <code>animation-delay: 1s;</code>
+                    </div>
+                    <p>Délai avant le début</p>
+                    <div class="delay-demo">
+                        <div class="delay-item no-delay">0s</div>
+                        <div class="delay-item with-delay">1s delay</div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <h4>animation-iteration-count</h4>
+                    <div class="code-example">
+                        <code>animation-iteration-count: 3;</code>
+                    </div>
+                    <p>Nombre de répétitions</p>
+                    <div class="iteration-demo">
+                        <div class="iteration-item once">1</div>
+                        <div class="iteration-item thrice">3</div>
+                        <div class="iteration-item infinite">∞</div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <h4>animation-direction</h4>
+                    <div class="code-example">
+                        <code>animation-direction: alternate;</code>
+                    </div>
+                    <p>Sens de lecture</p>
+                    <div class="direction-demo">
+                        <div class="direction-item normal">normal</div>
+                        <div class="direction-item reverse">reverse</div>
+                        <div class="direction-item alternate">alternate</div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="shorthand-section">
+                <h3>Syntaxe Raccourcie</h3>
+                <div class="code-example large">
+                    <code>animation: nom duration timing-function delay iteration-count direction fill-mode;</code>
+                </div>
+                <div class="shorthand-example">
+                    <div class="code-example">
+                        <code>animation: slideIn 2s ease 1s infinite alternate;</code>
+                    </div>
+                    <div class="demo-element shorthand-demo">Raccourci</div>
+                </div>
+            </section>
+        </article>
+
+        <article id="exemples">
+            <h2>Exemples Pratiques</h2>
+            
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h4>Rotation Infinie</h4>
+                    <div class="code-example">
+                        <code>@keyframes spin {<br>  to { <br>    transform: rotate(360deg); <br>  }<br>}<br><br>.element {<br>  animation: spin 2s linear infinite;<br>}</code>
+                    </div>
+                    <div class="demo-element spin-demo">⚡</div>
+                </div>
+
+                <div class="example-card">
+                    <h4>Pulse (Battement)</h4>
+                    <div class="code-example">
+                        <code>@keyframes pulse {<br>  0%, 100% { <br>    transform: scale(1); <br>  }<br>  50% { <br>    transform: scale(1.1); <br>  }<br>}</code>
+                    </div>
+                    <div class="demo-element pulse-demo">💓</div>
+                </div>
+
+                <div class="example-card">
+                    <h4>Fade In/Out</h4>
+                    <div class="code-example">
+                        <code>@keyframes fade {<br>  0%, 100% { <br>    opacity: 0; <br>  }<br>  50% { <br>    opacity: 1; <br>  }<br>}</code>
+                    </div>
+                    <div class="demo-element fade-demo">✨</div>
+                </div>
+
+                <div class="example-card">
+                    <h4>Slide In</h4>
+                    <div class="code-example">
+                        <code>@keyframes slideIn {<br>  from { <br>    transform: translateX(-100px);<br>  }<br>  to { <br>    transform: translateX(0);<br>  }<br>}</code>
+                    </div>
+                    <div class="demo-element slide-in-demo">🎯</div>
+                </div>
+            </div>
+
+            <section class="ui-examples">
+                <h3>Animations d'Interface</h3>
+                <div class="ui-grid">
+                    <div class="ui-card">
+                        <h4>Loading Spinner</h4>
+                        <div class="loader-demo">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+
+                    <div class="ui-card">
+                        <h4>Progress Bar</h4>
+                        <div class="progress-demo">
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui-card">
+                        <h4>Notification</h4>
+                        <div class="notification-demo">
+                            <div class="notification">Nouveau message</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="avance">
+            <h2>Techniques Avancées</h2>
+            
+            <div class="advanced-grid">
+                <div class="advanced-card">
+                    <h4>Animations Multiples</h4>
+                    <div class="code-example">
+                        <code>.element {<br>  animation: <br>    slideIn 1s ease,<br>    fadeIn 2s ease 1s;<br>}</code>
+                    </div>
+                    <div class="demo-element multi-anim-demo">Multi</div>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Animation Fill Mode</h4>
+                    <div class="code-example">
+                        <code>animation-fill-mode: forwards;</code>
+                    </div>
+                    <p>Conserve le style final après l'animation</p>
+                    <div class="demo-element fill-mode-demo">Forwards</div>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Contrôle JavaScript</h4>
+                    <div class="code-example">
+                        <code>// Démarrer<br>element.style.animation = 'slideIn 1s';<br><br>// Pauser<br>element.style.animationPlayState = 'paused';</code>
+                    </div>
+                    <div class="js-control-demo">
+                        <button onclick="toggleAnimation()">Toggle</button>
+                        <div class="demo-element js-controlled" id="jsAnim">JS Control</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="performance">
+            <h2>Performance et Bonnes Pratiques</h2>
+            
+            <div class="performance-grid">
+                <div class="performance-card">
+                    <h4>Propriétés Performantes</h4>
+                    <div class="perf-list">
+                        <div class="perf-good">transform</div>
+                        <div class="perf-good">opacity</div>
+                        <div class="perf-ok">color</div>
+                        <div class="perf-bad">width/height</div>
+                    </div>
+                    <p>Préférez transform et opacity pour de meilleures performances</p>
+                </div>
+
+                <div class="performance-card">
+                    <h4>Hardware Acceleration</h4>
+                    <div class="code-example">
+                        <code>.element {<br>  transform: translateZ(0);<br>}</code>
+                    </div>
+                    <p>Force l'accélération GPU</p>
+                </div>
+
+                <div class="performance-card">
+                    <h4>Durées Appropriées</h4>
+                    <div class="duration-guide">
+                        <p><strong>200-500ms</strong> : Interactions utilisateur</p>
+                        <p><strong>500-1000ms</strong> : Transitions de page</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="best-practices">
+                <h3>Bonnes Pratiques</h3>
+                <ul class="practices-list">
+                    <li>Évitez <code>animation: all</code> pour de meilleures performances</li>
+                    <li>Utilisez <code>will-change</code> pour les éléments animés</li>
+                    <li>Testez sur mobile pour les performances</li>
+                    <li>Fournissez des alternatives pour <code>prefers-reduced-motion</code></li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Animations/Using_CSS_animations">MDN - Animations CSS</a></li>
+                <li><a href="https://css-tricks.com/almanac/properties/a/animation/">CSS Tricks - Animation</a></li>
+                <li><a href="https://animista.net/">Animista - Bibliothèque d'animations</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2024 Cours Animations CSS</p>
+    </footer>
+
+    <script>
+        function toggleAnimation() {
+            const element = document.getElementById('jsAnim');
+            if (element.style.animationPlayState === 'paused') {
+                element.style.animationPlayState = 'running';
+            } else {
+                element.style.animationPlayState = 'paused';
+            }
+        }
+    </script>
+</body>
+</html>

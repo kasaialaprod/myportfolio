@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="police.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polices d'Écriture CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Polices d'Écriture CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            
+                <a href="#introduction">Introduction</a>
+                <a href="#familles-polices">Familles de Polices</a>
+                <a href="#proprietes-texte">Propriétés Texte</a>
+                <a href="#google-fonts">Google Fonts</a>
+
+                <a href="#bonnes-pratiques">Bonnes Pratiques</a>
+            
+        </nav>
+    </div>
+
+    <main>
+        <article id="introduction">
+            <header>
+                <h2>Introduction aux Polices CSS</h2>
+                <p>Maîtriser l'art de la typographie sur le web</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Lisible</h4>
+                    <p>Choisir des polices faciles à lire pour une meilleure expérience utilisateur</p>
+                </div>
+                <div class="card">
+                    <h4>Harmonie</h4>
+                    <p>Combiner les polices pour créer une hiérarchie visuelle cohérente</p>
+                </div>
+                <div class="card">
+                    <h4>Performance</h4>
+                    <p>Optimiser le chargement des polices pour des sites rapides</p>
+                </div>
+                <div class="card">
+                    <h4>Accessibilité</h4>
+                    <p>Respecter les standards d'accessibilité pour tous les utilisateurs</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="familles-polices">
+            <h2>Familles de Polices</h2>
+            
+            <section class="police-section">
+                <h3>Serif - Empattement</h3>
+                <div class="police-exemple serif">
+                    <p>Georgia, Times New Roman, Garamond</p>
+                    <p class="description">Idéal pour les textes longs et formels</p>
+                </div>
+            </section>
+
+            <section class="police-section">
+                <h3>Sans-Serif - Sans Empattement</h3>
+                <div class="police-exemple sans-serif">
+                    <p>Arial, Helvetica, Verdana, Roboto</p>
+                    <p class="description">Moderne et lisible sur écran</p>
+                </div>
+            </section>
+
+            <section class="police-section">
+                <h3>Monospace - Chasse Fixe</h3>
+                <div class="police-exemple monospace">
+                    <p>Courier New, Consolas, Monaco</p>
+                    <p class="description">Parfait pour le code et les terminaux</p>
+                </div>
+            </section>
+
+            <section class="police-section">
+                <h3>Cursive - Script</h3>
+                <div class="police-exemple cursive">
+                    <p>Brush Script, Comic Sans, Dancing Script</p>
+                    <p class="description">Pour un style personnel et créatif</p>
+                </div>
+            </section>
+        </article>
+
+        <article id="proprietes-texte">
+            <h2>Propriétés CSS du Texte</h2>
+            
+            <div class="properties-grid">
+                <div class="property-card">
+                    <h4>font-family</h4>
+                    <div class="code-example">
+                        <code>font-family: Arial, sans-serif;</code>
+                    </div>
+                    <p>Définit la famille de police</p>
+                </div>
+
+                <div class="property-card">
+                    <h4>font-size</h4>
+                    <div class="code-example">
+                        <code>font-size: 16px;</code>
+                    </div>
+                    <p>Définit la taille de la police</p>
+                </div>
+
+                <div class="property-card">
+                    <h4>font-weight</h4>
+                    <div class="code-example">
+                        <code>font-weight: bold;</code>
+                    </div>
+                    <p>Contrôle l'épaisseur du texte</p>
+                </div>
+
+                <div class="property-card">
+                    <h4>line-height</h4>
+                    <div class="code-example">
+                        <code>line-height: 1.5;</code>
+                    </div>
+                    <p>Espacement entre les lignes</p>
+                </div>
+
+                <div class="property-card">
+                    <h4>text-align</h4>
+                    <div class="code-example">
+                        <code>text-align: center;</code>
+                    </div>
+                    <p>Alignement horizontal du texte</p>
+                </div>
+
+                <div class="property-card">
+                    <h4>letter-spacing</h4>
+                    <div class="code-example">
+                        <code>letter-spacing: 1px;</code>
+                    </div>
+                    <p>Espacement entre les caractères</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="google-fonts">
+            <h2>Intégration avec Google Fonts</h2>
+            
+            <section class="import-section">
+                <h3>Méthode d'import</h3>
+                <div class="code-example large">
+                    <pre><code>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.ma-classe {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}</code></pre>
+                </div>
+            </section>
+
+            <section class="font-combinations">
+                <h3>Combinaisons Populaires</h3>
+                <div class="combination-grid">
+                    <div class="combination-card">
+                        <h4 class="combo-title-1">Roboto + Lora</h4>
+                        <p>Moderne et élégant</p>
+                    </div>
+                    <div class="combination-card">
+                        <h4 class="combo-title-2">Open Sans + Merriweather</h4>
+                        <p>Lisible et professionnel</p>
+                    </div>
+                    <div class="combination-card">
+                        <h4 class="combo-title-3">Montserrat + Source Serif</h4>
+                        <p>Audacieux et contrasté</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="bonnes-pratiques">
+            <h2>Bonnes Pratiques Typographiques</h2>
+            
+            <div class="best-practices">
+                <div class="practice-card">
+                    <h4>Hiérarchie Visuelle</h4>
+                    <p>Utilisez différentes tailles et poids pour guider la lecture</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Contraste</h4>
+                    <p>Assurez un bon contraste texte/fond pour la lisibilité</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Limitez les Polices</h4>
+                    <p>2-3 polices maximum par site pour la cohérence</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Fallbacks</h4>
+                    <p>Toujours spécifier des polices de secours</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://fonts.google.com/">Google Fonts</a></li>
+                <li><a href="https://css-tricks.com/snippets/css/basics-of-typography/">CSS Tricks - Typography</a></li>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/font">MDN Web Docs</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2025 Cours Polices CSS</p>
+    </footer>
+</body>
+</html>

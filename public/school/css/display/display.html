@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="display.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display CSS - Flexbox & Grid</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Display CSS - Flexbox & Grid</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#concepts">Concepts de Base</a></li>
+                <li><a href="#flexbox">Flexbox</a></li>
+                <li><a href="#grid">CSS Grid</a></li>
+                <li><a href="#autres">Autres Display</a></li>
+                <li><a href="#comparaison">Comparaison</a></li>
+                <li><a href="#cas-pratiques">Cas Pratiques</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="concepts">
+            <header>
+                <h2>Concepts Fondamentaux du Display</h2>
+                <p id="h2mini">Comprendre les différents types d'affichage en CSS</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Display: Block</h4>
+                    <div class="code-example">
+                        <code>display: block;</code>
+                    </div>
+                    <div class="display-demo">
+                        <div class="block-element">Élément bloc 1</div>
+                        <div class="block-element">Élément bloc 2</div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Prend toute la largeur disponible</li>
+                        <li>Commence sur une nouvelle ligne</li>
+                        <li>Accepte width/height</li>
+                        <li>Exemples: div, p, h1-h6, section</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Display: Inline</h4>
+                    <div class="code-example">
+                        <code>display: inline;</code>
+                    </div>
+                    <div class="display-demo">
+                        <span class="inline-element">Élément inline 1</span>
+                        <span class="inline-element">Élément inline 2</span>
+                        <span class="inline-element">Élément inline 3</span>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Prend seulement l'espace nécessaire</li>
+                        <li>Ne commence pas de nouvelle ligne</li>
+                        <li>Ignore width/height</li>
+                        <li>Exemples: span, a, strong, em</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Display: Inline-Block</h4>
+                    <div class="code-example">
+                        <code>display: inline-block;</code>
+                    </div>
+                    <div class="display-demo">
+                        <div class="inline-block-element">Inline-block 1</div>
+                        <div class="inline-block-element">Inline-block 2</div>
+                        <div class="inline-block-element">Inline-block 3</div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Comportement inline</li>
+                        <li>Accepte width/height</li>
+                        <li>Parfait pour les boutons, icônes</li>
+                        <li>Évite le problème des espaces</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="display-comparison">
+                <h3>Comparaison Visuelle</h3>
+                <div class="comparison-table">
+                    <table class="display-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Largeur</th>
+                                <th>Hauteur</th>
+                                <th>Ligne</th>
+                                <th>Margin/Padding</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Block</strong></td>
+                                <td>100% parent</td>
+                                <td>✓ Contenu</td>
+                                <td>Nouvelle ligne</td>
+                                <td>✓ Tous côtés</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inline</strong></td>
+                                <td>Contenu</td>
+                                <td>✗ Ignoré</td>
+                                <td>Même ligne</td>
+                                <td>✓ Horizontal seulement</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inline-Block</strong></td>
+                                <td>✓ Définissable</td>
+                                <td>✓ Définissable</td>
+                                <td>Même ligne</td>
+                                <td>✓ Tous côtés</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+
+        <article id="flexbox">
+            <h2>Flexbox - Layout 1D</h2>
+            
+            <section class="flex-intro">
+                <h3>Concepts Flexbox</h3>
+                <div class="flex-concepts">
+                    <div class="concept-card">
+                        <h4>Conteneur Flex</h4>
+                        <div class="code-example">
+                            <code>display: flex;<br>/* ou */<br>display: inline-flex;</code>
+                        </div>
+                        <p>Élément parent qui contrôle ses enfants</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Éléments Flex</h4>
+                        <p>Enfants directs du conteneur flex</p>
+                        <div class="flex-items-demo">
+                            <div class="flex-item-demo">Item 1</div>
+                            <div class="flex-item-demo">Item 2</div>
+                            <div class="flex-item-demo">Item 3</div>
+                        </div>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Axes Flexbox</h4>
+                        <div class="axes-demo">
+                            <div class="main-axis">Axe Principal</div>
+                            <div class="cross-axis">Axe Secondaire</div>
+                        </div>
+                        <p>Deux axes : principal et secondaire</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="flex-container-props">
+                <h3>Propriétés du Conteneur Flex</h3>
+                <div class="flex-props-grid">
+                    <div class="prop-card">
+                        <h4>flex-direction</h4>
+                        <div class="code-example">
+                            <code>flex-direction: row;<br>flex-direction: column;<br>flex-direction: row-reverse;<br>flex-direction: column-reverse;</code>
+                        </div>
+                    </div>
+
+                    <div class="prop-card">
+                        <h4>justify-content</h4>
+                        <div class="code-example">
+                            <code>justify-content: flex-start;<br>justify-content: center;<br>justify-content: space-between;<br>justify-content: space-around;</code>
+                        </div>
+                    </div>
+
+                    <div class="prop-card">
+                        <h4>align-items</h4>
+                        <div class="code-example">
+                            <code>align-items: stretch;<br>align-items: flex-start;<br>align-items: center;<br>align-items: baseline;</code>
+                        </div>
+                    </div>
+
+                    <div class="prop-card">
+                        <h4>flex-wrap</h4>
+                        <div class="code-example">
+                            <code>flex-wrap: nowrap;<br>flex-wrap: wrap;<br>flex-wrap: wrap-reverse;</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="flex-items-props">
+                <h3>Propriétés des Éléments Flex</h3>
+                <div class="item-props-grid">
+                    <div class="item-prop-card">
+                        <h4>flex-grow</h4>
+                        <div class="code-example">
+                            <code>flex-grow: 0; /* défaut */<br>flex-grow: 1;<br>flex-grow: 2;</code>
+                        </div>
+                    </div>
+
+                    <div class="item-prop-card">
+                        <h4>flex-shrink</h4>
+                        <div class="code-example">
+                            <code>flex-shrink: 1; /* défaut */<br>flex-shrink: 0;<br>flex-shrink: 2;</code>
+                        </div>
+                    </div>
+
+                    <div class="item-prop-card">
+                        <h4>flex-basis</h4>
+                        <div class="code-example">
+                            <code>flex-basis: auto;<br>flex-basis: 100px;<br>flex-basis: 50%;</code>
+                        </div>
+                    </div>
+
+                    <div class="item-prop-card">
+                        <h4>align-self</h4>
+                        <div class="code-example">
+                            <code>align-self: auto;<br>align-self: flex-start;<br>align-self: center;<br>align-self: flex-end;</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="grid">
+            <h2>CSS Grid - Layout 2D</h2>
+            
+            <section class="grid-intro">
+                <h3>Concepts CSS Grid</h3>
+                <div class="grid-concepts">
+                    <div class="concept-card">
+                        <h4>Conteneur Grid</h4>
+                        <div class="code-example">
+                            <code>display: grid;<br>/* ou */<br>display: inline-grid;</code>
+                        </div>
+                        <p>Élément parent qui crée une grille</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Cellules Grid</h4>
+                        <p>Enfants placés dans la grille</p>
+                        <div class="grid-cells-demo">
+                            <div class="grid-cell">Cell 1</div>
+                            <div class="grid-cell">Cell 2</div>
+                            <div class="grid-cell">Cell 3</div>
+                        </div>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Lignes et Colonnes</h4>
+                        <div class="grid-lines-demo">
+                            <div class="grid-line-col">Colonnes</div>
+                            <div class="grid-line-row">Lignes</div>
+                        </div>
+                        <p>Système de lignes et colonnes</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid-container-props">
+                <h3>Propriétés du Conteneur Grid</h3>
+                <div class="grid-props-grid">
+                    <div class="prop-card">
+                        <h4>grid-template-columns</h4>
+                        <div class="code-example">
+                            <code>grid-template-columns: 100px 1fr 2fr;<br>grid-template-columns: repeat(3, 1fr);<br>grid-template-columns: 1fr minmax(200px, 1fr);</code>
+                        </div>
+                    </div>
+
+                    <div class="prop-card">
+                        <h4>grid-template-rows</h4>
+                        <div class="code-example">
+                            <code>grid-template-rows: 50px 100px auto;<br>grid-template-rows: repeat(2, 1fr);<br>grid-template-rows: minmax(100px, auto);</code>
+                        </div>
+                    </div>
+
+                    <div class="prop-card">
+                        <h4>grid-template-areas</h4>
+                        <div class="code-example">
+                            <code>grid-template-areas:<br>  "header header"<br>  "sidebar main"<br>  "footer footer";</code>
+                        </div>
+                    </div>
+
+                    <div class="prop-card">
+                        <h4>gap</h4>
+                        <div class="code-example">
+                            <code>gap: 10px;<br>/* ou */<br>row-gap: 10px;<br>column-gap: 20px;</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid-items-props">
+                <h3>Propriétés des Éléments Grid</h3>
+                <div class="grid-item-props-grid">
+                    <div class="item-prop-card">
+                        <h4>grid-column / grid-row</h4>
+                        <div class="code-example">
+                            <code>grid-column: 1 / 3;<br>grid-row: 2 / 4;<br><br>/* Raccourci */<br>grid-area: 2 / 1 / 4 / 3;</code>
+                        </div>
+                    </div>
+
+                    <div class="item-prop-card">
+                        <h4>grid-area</h4>
+                        <div class="code-example">
+                            <code>grid-area: header;<br>grid-area: 1 / 1 / 3 / 2;<br>/* row-start / col-start / row-end / col-end */</code>
+                        </div>
+                    </div>
+
+                    <div class="item-prop-card">
+                        <h4>justify-self / align-self</h4>
+                        <div class="code-example">
+                            <code>justify-self: start;<br>align-self: center;<br><br>/* Raccourci */<br>place-self: center start;</code>
+                        </div>
+                        <div class="self-alignment-demo">
+                            <div class="grid-demo self-align">
+                                <div class="self-start">start</div>
+                                <div class="self-center">center</div>
+                                <div class="self-end">end</div>
+                                <div class="self-stretch">stretch</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="autres">
+            <h2>Autres Valeurs de Display</h2>
+            
+            <div class="other-display-grid">
+                <div class="other-card">
+                    <h4>Display: None</h4>
+                    <div class="code-example">
+                        <code>display: none;</code>
+                    </div>
+                    <div class="none-demo">
+                        <div class="visible-element">Élément visible</div>
+                        <div class="hidden-element">Élément caché (display: none)</div>
+                        <div class="visible-element">Autre élément visible</div>
+                    </div>
+                    <p>L'élément est complètement supprimé du flux</p>
+                </div>
+
+                <div class="other-card">
+                    <h4>Visibility: Hidden</h4>
+                    <div class="code-example">
+                        <code>visibility: hidden;</code>
+                    </div>
+                    <div class="visibility-demo">
+                        <div class="visible-element">Élément visible</div>
+                        <div class="visibility-hidden">Élément hidden (espace conservé)</div>
+                        <div class="visible-element">Autre élément visible</div>
+                    </div>
+                    <p>L'élément est invisible mais l'espace est conservé</p>
+                </div>
+
+                <div class="other-card">
+                    <h4>Display: Table</h4>
+                    <div class="code-example">
+                        <code>display: table;<br>display: table-cell;<br>display: table-row;</code>
+                    </div>
+                    <div class="table-display-demo">
+                        <div class="table-container">
+                            <div class="table-row">
+                                <div class="table-cell">Cellule 1</div>
+                                <div class="table-cell">Cellule 2</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell">Cellule 3</div>
+                                <div class="table-cell">Cellule 4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Comportement de tableau sans balises table</p>
+                </div>
+
+                <div class="other-card">
+                    <h4>Display: Contents</h4>
+                    <div class="code-example">
+                        <code>display: contents;</code>
+                    </div>
+                    <div class="contents-demo">
+                        <div class="contents-container">
+                            <div class="contents-element">
+                                Parent (display: contents)
+                                <div class="contents-child">Enfant 1</div>
+                                <div class="contents-child">Enfant 2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>L'élément est supprimé, ses enfants deviennent enfants du grand-parent</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="comparaison">
+            <h2>Comparaison Flexbox vs Grid</h2>
+            
+            <section class="comparison-section">
+                <h3>Quand utiliser quoi ?</h3>
+                <div class="use-case-grid">
+                    <div class="use-case-card">
+                        <h4>📱 Utiliser Flexbox pour :</h4>
+                        <ul class="use-case-list">
+                            <li>Alignement 1 dimension (ligne OU colonne)</li>
+                            <li>Navigation, menus</li>
+                            <li>Cartes alignées horizontalement</li>
+                            <li>Centrage vertical/horizontal simple</li>
+                            <li>Distribution d'espace dans un conteneur</li>
+                        </ul>
+                    </div>
+
+                    <div class="use-case-card">
+                        <h4>🎯 Utiliser Grid pour :</h4>
+                        <ul class="use-case-list">
+                            <li>Layout 2 dimensions (lignes ET colonnes)</li>
+                            <li>Grilles complexes de contenu</li>
+                            <li>Layout de page complet</li>
+                            <li>Galleries d'images</li>
+                            <li>Tableaux de bord</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="feature-comparison">
+                <h3>Tableau Comparatif</h3>
+                <div class="comparison-table">
+                    <table class="feature-table">
+                        <thead>
+                            <tr>
+                                <th>Caractéristique</th>
+                                <th>Flexbox</th>
+                                <th>CSS Grid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Dimensions</strong></td>
+                                <td>1D (ligne ou colonne)</td>
+                                <td>2D (lignes et colonnes)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Contrôle</strong></td>
+                                <td>Conteneur + enfants</td>
+                                <td>Principalement conteneur</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Alignement</strong></td>
+                                <td>Excellent pour 1 axe</td>
+                                <td>Parfait pour 2 axes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cas d'usage</strong></td>
+                                <td>Composants, navigation</td>
+                                <td>Layouts globaux, grilles</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Compatibilité</strong></td>
+                                <td>Très bonne</td>
+                                <td>Bonne (IE partiel)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+
+        <article id="cas-pratiques">
+            <h2>Cas Pratiques et Exemples</h2>
+            
+            <div class="practical-examples">
+                <div class="example-card">
+                    <h4>🎯 Centrage Parfait</h4>
+                    <div class="code-example">
+                        <code>.center-flex {<br>  display: flex;<br>  justify-content: center;<br>  align-items: center;<br>}</code>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h4>📐 Grille Responsive</h4>
+                    <div class="code-example">
+                        <code>.responsive-grid {<br>  display: grid;<br>  grid-template-columns: <br>    repeat(auto-fit, minmax(250px, 1fr));<br>  gap: 20px;<br>}</code>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h4>🧩 Layout Holy Grail</h4>
+                    <div class="code-example">
+                        <code>.holy-grail {<br>  display: grid;<br>  grid-template: <br>    "header header header" auto<br>    "nav content ads" 1fr<br>    "footer footer footer" auto / <br>    200px 1fr 200px;<br>}</code>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h4>📱 Menu Mobile First</h4>
+                    <div class="code-example">
+                        <code>.mobile-menu {<br>  display: flex;<br>  flex-direction: column;<br>}<br><br>@media (min-width: 768px) {<br>  .mobile-menu {<br>    flex-direction: row;<br>  }<br>}</code>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://flexboxfroggy.com/">🎮 Flexbox Froggy (jeu)</a></li>
+                <li><a href="https://cssgridgarden.com/">🌱 Grid Garden (jeu)</a></li>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Flexible_Box_Layout">MDN - Flexbox</a></li>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Grid_Layout">MDN - CSS Grid</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2024 Cours Display CSS</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="emboite.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emboîtement CSS - Margin & Padding</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Emboîtement CSS - Box Model</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#box-model">Box Model</a></li>
+                <li><a href="#margin">Margin</a></li>
+                <li><a href="#padding">Padding</a></li>
+                <li><a href="#border">Border</a></li>
+                <li><a href="#box-sizing">Box-Sizing</a></li>
+                <li><a href="#collapse">Effondrement</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="box-model">
+            <header>
+                <h2>Le Box Model CSS</h2>
+                <p id="h2mini">Comprendre la structure des boîtes en CSS</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Structure du Box Model</h4>
+                    <div class="box-model-visual">
+                        <div class="box-margin">
+                            Margin
+                            <div class="box-border">
+                                Border
+                                <div class="box-padding">
+                                    Padding
+                                    <div class="box-content">
+                                        Content
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>De l'extérieur vers l'intérieur : Margin → Border → Padding → Content</p>
+                </div>
+                <div class="card">
+                    <h4>Propriétés du Box Model</h4>
+                    <div class="code-example">
+                        <code>.element {<br>  width: 300px;<br>  height: 200px;<br>  padding: 20px;<br>  border: 5px solid;<br>  margin: 30px;<br>}</code>
+                    </div>
+                    <div class="size-calculation">
+                        <p><strong>Largeur totale :</strong><br>
+                        width + padding-left + padding-right + border-left + border-right</p>
+                        <p><strong>Hauteur totale :</strong><br>
+                        height + padding-top + padding-bottom + border-top + border-bottom</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="box-model-types">
+                <h3>Types de Box Model</h3>
+                <div class="types-grid">
+                    <div class="type-card">
+                        <h4>Content-Box (Défaut)</h4>
+                        <div class="code-example">
+                            <code>box-sizing: content-box;</code>
+                        </div>
+                        <div class="content-box-demo">
+                            <div class="demo-box content-box">
+                                Width: 200px<br>
+                                + Padding: 20px<br>
+                                + Border: 5px<br>
+                                = 250px total
+                            </div>
+                        </div>
+                        <p>La width/heigth ne incluent que le contenu</p>
+                    </div>
+                    <div class="type-card">
+                        <h4>Border-Box</h4>
+                        <div class="code-example">
+                            <code>box-sizing: border-box;</code>
+                        </div>
+                        <div class="border-box-demo">
+                            <div class="demo-box border-box">
+                                Width: 200px<br>
+                                Inclut padding et border<br>
+                                = 200px total
+                            </div>
+                        </div>
+                        <p>La width/heigth incluent padding et border</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="margin">
+            <h2>La Propriété Margin</h2>
+            
+            <div class="margin-grid">
+                <div class="margin-card">
+                    <h4>Syntaxe Margin</h4>
+                    <div class="code-example">
+                        <code>/* 4 valeurs */<br>margin: 10px 20px 30px 40px;<br><br>/* 2 valeurs */<br>margin: 20px 40px;<br><br>/* 1 valeur */<br>margin: 20px;</code>
+                    </div>
+                    <div class="margin-syntax-demo">
+                        <div class="margin-box top">margin-top</div>
+                        <div class="margin-box right">margin-right</div>
+                        <div class="margin-box bottom">margin-bottom</div>
+                        <div class="margin-box left">margin-left</div>
+                    </div>
+                </div>
+
+                <div class="margin-card">
+                    <h4>Valeurs Spéciales</h4>
+                    <div class="code-example">
+                        <code>margin: auto; /* Centrage */<br>margin: 0; /* Reset */<br>margin: inherit; /* Héritage */<br>margin: 10%; /* Pourcentage */</code>
+                    </div>
+                    <div class="special-margins">
+                        <div class="auto-margin">margin: auto (centré)</div>
+                        <div class="percentage-margin">margin: 5%</div>
+                        <div class="inherit-margin">
+                            Parent
+                            <div class="inherit-child">margin: inherit</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="margin-card">
+                    <h4>Margin Négatif</h4>
+                    <div class="code-example">
+                        <code>margin-left: -20px;<br>margin-top: -10px;</code>
+                    </div>
+                    <div class="negative-margin-demo">
+                        <div class="normal-box">Élément normal</div>
+                        <div class="negative-box">margin-left: -50px</div>
+                    </div>
+                    <p>Permet de chevaucher des éléments</p>
+                </div>
+
+                <div class="margin-card">
+                    <h4>Applications Pratiques</h4>
+                    <div class="margin-applications">
+                        <div class="centering-demo">
+                            <div class="centered-box">margin: 0 auto</div>
+                        </div>
+                        <div class="spacing-demo">
+                            <div class="spaced-item">Élément 1</div>
+                            <div class="spaced-item">Élément 2</div>
+                            <div class="spaced-item">Élément 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="padding">
+            <h2>La Propriété Padding</h2>
+            
+            <div class="padding-grid">
+                <div class="padding-card">
+                    <h4>Syntaxe Padding</h4>
+                    <div class="code-example">
+                        <code>/* 4 valeurs */<br>padding: 10px 20px 30px 40px;<br><br>/* 2 valeurs */<br>padding: 20px 40px;<br><br>/* 1 valeur */<br>padding: 20px;</code>
+                    </div>
+                    <div class="padding-visual">
+                        <div class="padding-demo-box">
+                            Contenu
+                            <div class="padding-area"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="padding-card">
+                    <h4>Padding vs Margin</h4>
+                    <div class="comparison-demo">
+                        <div class="comparison-item">
+                            <h5>Avec Margin</h5>
+                            <div class="box-with-margin">
+                                Élément
+                            </div>
+                            <div class="box-with-margin">
+                                Élément
+                            </div>
+                        </div>
+                        <div class="comparison-item">
+                            <h5>Avec Padding</h5>
+                            <div class="box-with-padding">
+                                Élément
+                            </div>
+                            <div class="box-with-padding">
+                                Élément
+                            </div>
+                        </div>
+                    </div>
+                    <p>Margin : espace externe | Padding : espace interne</p>
+                </div>
+
+                <div class="padding-card">
+                    <h4>Effets du Padding</h4>
+                    <div class="padding-effects">
+                        <button class="btn-no-padding">Sans padding</button>
+                        <button class="btn-with-padding">Avec padding</button>
+                        <div class="text-no-padding">Texte sans padding</div>
+                        <div class="text-with-padding">Texte avec padding</div>
+                    </div>
+                </div>
+
+                <div class="padding-card">
+                    <h4>Padding et Background</h4>
+                    <div class="padding-background-demo">
+                        <div class="bg-padding-box">
+                            Le background s'étend dans le padding
+                        </div>
+                        <div class="bg-margin-box">
+                            Le background ne s'étend pas dans la margin
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="border">
+            <h2>La Propriété Border</h2>
+            
+            <div class="border-grid">
+                <div class="border-card">
+                    <h4>Style de Bordure</h4>
+                    <div class="code-example">
+                        <code>border-style: solid;<br>border-style: dashed;<br>border-style: dotted;<br>border-style: double;</code>
+                    </div>
+                    <div class="border-styles-demo">
+                        <div class="border-solid">solid</div>
+                        <div class="border-dashed">dashed</div>
+                        <div class="border-dotted">dotted</div>
+                        <div class="border-double">double</div>
+                    </div>
+                </div>
+
+                <div class="border-card">
+                    <h4>Épaisseur et Couleur</h4>
+                    <div class="code-example">
+                        <code>border-width: 2px;<br>border-width: thin medium thick;<br><br>border-color: red;<br>border-color: #ff0000;</code>
+                    </div>
+                    <div class="border-width-color">
+                        <div class="border-thin">thin</div>
+                        <div class="border-medium">medium</div>
+                        <div class="border-thick">thick</div>
+                        <div class="border-custom">5px</div>
+                    </div>
+                </div>
+
+                <div class="border-card">
+                    <h4>Bordures Arrondies</h4>
+                    <div class="code-example">
+                        <code>border-radius: 10px;<br>border-radius: 50%;<br>border-radius: 10px 20px 30px 40px;</code>
+                    </div>
+                    <div class="border-radius-demo">
+                        <div class="radius-small">10px</div>
+                        <div class="radius-medium">20px</div>
+                        <div class="radius-large">50%</div>
+                        <div class="radius-custom">10px 30px</div>
+                    </div>
+                </div>
+
+                <div class="border-card">
+                    <h4>Bordures par Côtés</h4>
+                    <div class="code-example">
+                        <code>border-top: 2px solid red;<br>border-right: 4px dashed blue;<br>border-bottom: 1px dotted green;<br>border-left: 3px double purple;</code>
+                    </div>
+                    <div class="border-sides-demo">
+                        <div class="different-borders">
+                            Bordures différentes sur chaque côté
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="box-sizing">
+            <h2>Box-Sizing</h2>
+            
+            <section class="box-sizing-comparison">
+                <h3>Content-Box vs Border-Box</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Content-Box (Défaut)</h4>
+                        <div class="code-example">
+                            <code>.element {<br>  width: 200px;<br>  padding: 20px;<br>  border: 5px solid;<br>  /* Largeur réelle : 250px */<br>}</code>
+                        </div>
+                        <div class="visual-comparison">
+                            <div class="content-box-visual">
+                                <div class="box-width">200px</div>
+                                <div class="box-padding-vis">+20px padding</div>
+                                <div class="box-border-vis">+5px border</div>
+                                <div class="box-total">= 250px</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-card">
+                        <h4>Border-Box</h4>
+                        <div class="code-example">
+                            <code>.element {<br>  box-sizing: border-box;<br>  width: 200px;<br>  padding: 20px;<br>  border: 5px solid;<br>  /* Largeur réelle : 200px */<br>}</code>
+                        </div>
+                        <div class="visual-comparison">
+                            <div class="border-box-visual">
+                                <div class="box-total">200px total</div>
+                                <div class="box-content-vis">contenu: 150px</div>
+                                <div class="box-padding-vis">padding: 20px</div>
+                                <div class="box-border-vis">border: 5px</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="box-sizing-practice">
+                <h3>Pratique Recommandée</h3>
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <h4>Reset Global</h4>
+                        <div class="code-example">
+                            <code>* {<br>  box-sizing: border-box;<br>}</code>
+                        </div>
+                        <p>Applique border-box à tous les éléments</p>
+                    </div>
+                    <div class="practice-card">
+                        <h4>Héritage</h4>
+                        <div class="code-example">
+                            <code>html {<br>  box-sizing: border-box;<br>}<br><br>*, *::before, *::after {<br>  box-sizing: inherit;<br>}</code>
+                        </div>
+                        <p>Permet de changer facilement pour des composants spécifiques</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="collapse">
+            <h2>Effondrement des Marges</h2>
+            
+            <div class="collapse-grid">
+                <div class="collapse-card">
+                    <h4>Margin Collapse Vertical</h4>
+                    <div class="code-example">
+                        <code>.box1 { margin-bottom: 30px; }<br>.box2 { margin-top: 20px; }<br>/* Espace total : 30px (pas 50px) */</code>
+                    </div>
+                    <div class="collapse-demo">
+                        <div class="collapsing-box top">margin-bottom: 30px</div>
+                        <div class="collapsing-box bottom">margin-top: 20px</div>
+                        <div class="collapse-result">Espace réel : 30px</div>
+                    </div>
+                    <p>Les marges verticales adjacentes se combinent</p>
+                </div>
+
+                <div class="collapse-card">
+                    <h4>Éviter l'Effondrement</h4>
+                    <div class="code-example">
+                        <code>/* Solutions */<br>padding: 1px 0;<br>border: 1px solid transparent;<br>display: inline-block;<br>overflow: auto;</code>
+                    </div>
+                    <div class="prevent-collapse-demo">
+                        <div class="prevent-box">Avec padding</div>
+                        <div class="prevent-box with-border">Avec border</div>
+                        <div class="prevent-box inline">Inline-block</div>
+                    </div>
+                </div>
+
+                <div class="collapse-card">
+                    <h4>Margin Collapse Parent-Enfant</h4>
+                    <div class="code-example">
+                        <code>.parent { margin-top: 20px; }<br>.child { margin-top: 30px; }<br>/* Les deux marges se combinent */</code>
+                    </div>
+                    <div class="parent-child-collapse">
+                        <div class="parent-box">
+                            Parent (margin-top: 20px)
+                            <div class="child-box">
+                                Enfant (margin-top: 30px)
+                            </div>
+                        </div>
+                        <div class="collapse-info">Marge combinée : 30px</div>
+                    </div>
+                </div>
+
+                <div class="collapse-card">
+                    <h4>Cas sans Effondrement</h4>
+                    <div class="code-example">
+                        <code>/* Pas d'effondrement */<br>flexbox, grid<br>position: absolute/fixed<br>float<br>overflow (autre que visible)</code>
+                    </div>
+                    <div class="no-collapse-demo">
+                        <div class="flex-container">
+                            <div class="flex-item">Flex item 1</div>
+                            <div class="flex-item">Flex item 2</div>
+                        </div>
+                        <div class="position-container">
+                            <div class="positioned">Position: absolute</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="collapse-rules">
+                <h3>Règles d'Effondrement</h3>
+                <ul class="rules-list">
+                    <li>Se produit seulement avec les marges <strong>verticales</strong></li>
+                    <li>Entre éléments frères adjacents</li>
+                    <li>Entre parent et premier/dernier enfant</li>
+                    <li>La plus grande marge l'emporte</li>
+                    <li>Les marges négatives se soustraient</li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Box_Model">MDN - Box Model</a></li>
+                <li><a href="https://css-tricks.com/the-css-box-model/">CSS Tricks - Box Model</a></li>
+                <li><a href="https://www.joshwcomeau.com/css/rules-of-margin-collapse/">Rules of Margin Collapse</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2025 Cours Emboîtement CSS</p>
+    </footer>
+</body>
+</html>

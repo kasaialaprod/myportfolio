@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="gestion2.css">
+    <script src="gestion2.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion avancée</title>
+</head>
+<body>
+    <!-- Fond étoilé pour l'effet spatial -->
+    <div class="space-bg" id="space-bg"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Cours PHP - Chapitre 5: Formulaires avancés et sécurité</h1>
+            <p class="glowing-text">Formulaires avancés, superglobales et sécurité</p>
+        </header>
+        
+        <div class="nav-bar">
+            <a href="#superglobales">Superglobales</a>
+            <a href="#securite">Sécurité</a>
+            <a href="#chiffrement">Chiffrement</a>
+        </div>
+        
+        <div class="content">
+            <section id="introduction">
+                <h2>Introduction aux superglobales PHP</h2>
+                <p>Les superglobales sont des variables prédéfinies en PHP qui sont accessibles depuis n'importe quel scope dans un script.</p>
+                
+                <div class="flow-diagram">
+                    <h3>Cycle de traitement d'une requête HTTP</h3>
+                    <div class="flow-steps">
+                        <span class="flow-step">Client</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">Serveur Web</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">PHP</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">Superglobales</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="superglobales">
+                <h2>Les superglobales PHP</h2>
+                
+                <div class="superglobal-grid">
+                    <div class="superglobal-box">
+                        <h4>$_GET</h4>
+                        <p><strong>Contient les paramètres passés dans l'URL</strong></p>
+                        <p>Exemple: <code>page.php?nom=value</code></p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $id = $_GET['id'];<br>
+                            $search = $_GET['search'];
+                        </div>
+                    </div>
+                    
+                    <div class="superglobal-box">
+                        <h4>$_POST</h4>
+                        <p><strong>Contient les données de formulaire envoyées en POST</strong></p>
+                        <p>Utilisé pour les données sensibles</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $username = $_POST['username'];<br>
+                            $password = $_POST['password'];
+                        </div>
+                    </div>
+                    
+                    <div class="superglobal-box">
+                        <h4>$_REQUEST</h4>
+                        <p><strong>Combinaison de $_GET, $_POST et $_COOKIE</strong></p>
+                        <p>Attention: moins sécurisé</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $data = $_REQUEST['param'];
+                        </div>
+                    </div>
+                    
+                    <div class="superglobal-box">
+                        <h4>$_SERVER</h4>
+                        <p><strong>Informations sur le serveur et l'environnement</strong></p>
+                        <p>Headers, chemins, adresses IP</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $ip = $_SERVER['REMOTE_ADDR'];<br>
+                            $method = $_SERVER['REQUEST_METHOD'];
+                        </div>
+                    </div>
+                    
+                    <div class="superglobal-box">
+                        <h4>$_SESSION</h4>
+                        <p><strong>Variables de session persistantes</strong></p>
+                        <p>Stockées côté serveur</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $_SESSION['user_id'] = 123;<br>
+                            $_SESSION['logged_in'] = true;
+                        </div>
+                    </div>
+                    
+                    <div class="superglobal-box">
+                        <h4>$_COOKIE</h4>
+                        <p><strong>Cookies HTTP envoyés par le client</strong></p>
+                        <p>Stockées côté client</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $theme = $_COOKIE['theme'];<br>
+                            $language = $_COOKIE['lang'];
+                        </div>
+                    </div>
+                    
+                    <div class="superglobal-box">
+                        <h4>$_FILES</h4>
+                        <p><strong>Informations sur les fichiers uploadés</strong></p>
+                        <p>Nom, type, taille, erreurs</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $filename = $_FILES['file']['name'];<br>
+                            $tmp_name = $_FILES['file']['tmp_name'];
+                        </div>
+                    </div>
+                    
+                    <div class="superglobal-box">
+                        <h4>$_ENV</h4>
+                        <p><strong>Variables d'environnement</strong></p>
+                        <p>Configuration du serveur</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $db_host = $_ENV['DB_HOST'];<br>
+                            $api_key = $_ENV['API_KEY'];
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Exemple complet d'utilisation des superglobales</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    <span style="color: #8d99ae;">// Démarrer une session</span><br>
+                    session_start();<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Traiter les données GET</span><br>
+                    if (isset($_GET['action'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$action = htmlspecialchars($_GET['action']);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Action demandée: " . $action . "&lt;br&gt;";<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Traiter les données POST</span><br>
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$password = $_POST['password'];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Stocker en session</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$_SESSION['username'] = $username;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Vérifier les cookies</span><br>
+                    if (isset($_COOKIE['preferences'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$prefs = json_decode($_COOKIE['preferences'], true);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Préférences chargées depuis les cookies&lt;br&gt;";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="securite-avancee">
+                <h2>Sécurité avancée des formulaires</h2>
+                
+                <div class="warning">
+                    <p><strong>⚠️ SÉCURITÉ MAXIMALE REQUISE :</strong> Les données utilisateur sont la principale source de vulnérabilités !</p>
+                </div>
+                
+                <h3>Validation approfondie des données</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    function validerFormulaireAvance($donnees) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$erreurs = [];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$donnees_valides = [];<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Validation du nom (lettres, espaces, tirets)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (empty($donnees['nom']) || !preg_match('/^[a-zA-Z\s\-]{2,50}$/', $donnees['nom'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$erreurs[] = "Le nom doit contenir entre 2 et 50 caractères alphabétiques";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$donnees_valides['nom'] = htmlspecialchars(trim($donnees['nom']));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Validation email stricte</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (empty($donnees['email']) || !filter_var($donnees['email'], FILTER_VALIDATE_EMAIL)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$erreurs[] = "L'email n'est pas valide";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$donnees_valides['email'] = filter_var($donnees['email'], FILTER_SANITIZE_EMAIL);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Validation âge (entre 1 et 120)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (!isset($donnees['age']) || !filter_var($donnees['age'], FILTER_VALIDATE_INT, <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;['options' => ['min_range' => 1, 'max_range' => 120]])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$erreurs[] = "L'âge doit être un nombre entre 1 et 120";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$donnees_valides['age'] = (int)$donnees['age'];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return ['erreurs' => $erreurs, 'donnees' => $donnees_valides];<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Utilisation</span><br>
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$resultat = validerFormulaireAvance($_POST);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (empty($resultat['erreurs'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Traitement des données validées</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;traiterDonnees($resultat['donnees']);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;afficherErreurs($resultat['erreurs']);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Protection CSRF (Cross-Site Request Forgery)</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    session_start();<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Générer un token CSRF</span><br>
+                    function genererTokenCSRF() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (empty($_SESSION['csrf_token'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$_SESSION['csrf_token'] = bin2hex(random_bytes(32));<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return $_SESSION['csrf_token'];<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Valider le token CSRF</span><br>
+                    function validerTokenCSRF($token) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return isset($_SESSION['csrf_token']) && <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash_equals($_SESSION['csrf_token'], $token);<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Dans le formulaire HTML</span><br>
+                    ?&gt;<br>
+                    &lt;form method="post"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="hidden" name="csrf_token" value="&lt;?php echo genererTokenCSRF(); ?&gt;"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- autres champs --&gt;<br>
+                    &lt;/form&gt;<br>
+                    <br>
+                    &lt;?php<br>
+                    <span style="color: #8d99ae;">// Dans le traitement du formulaire</span><br>
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (!validerTokenCSRF($_POST['csrf_token'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die("Erreur de sécurité: Token CSRF invalide");<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Traitement sécurisé...</span><br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="chiffrement">
+                <h2>Chiffrement des mots de passe</h2>
+                
+                <div class="info">
+                    <p><strong>💡 IMPORTANT :</strong> Ne stockez jamais les mots de passe en clair ! Utilisez toujours des fonctions de hachage sécurisées.</p>
+                </div>
+                
+                <h3>Évolution du hachage des mots de passe</h3>
+                <div class="hash-comparison">
+                    <div class="hash-box">
+                        <h4>❌ MD5 (DANGEREUX)</h4>
+                        <p>Rapide, vulnérable aux attaques</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $hash = md5($password);<br>
+                            <span style="color: #f72585;">// À NE PLUS UTILISER!</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hash-box">
+                        <h4>⚠️ SHA1 (OBSOLÈTE)</h4>
+                        <p>Plus sécurisé que MD5 mais dépassé</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $hash = sha1($password);<br>
+                            <span style="color: #f72585;">// DÉCONSEILLÉ</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hash-box">
+                        <h4>✅ password_hash() (RECOMMANDÉ)</h4>
+                        <p>Lent, salé, adaptatif</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+                            $hash = password_hash(<br>
+                            &nbsp;&nbsp;$password,<br>
+                            &nbsp;&nbsp;PASSWORD_DEFAULT<br>
+                            );
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Algorithmes de hachage modernes</h3>
+                <table class="algorithm-table">
+                    <tr>
+                        <th>Algorithme</th>
+                        <th>Description</th>
+                        <th>Utilisation</th>
+                    </tr>
+                    <tr>
+                        <td><strong>PASSWORD_DEFAULT</strong></td>
+                        <td>Utilise bcrypt (actuellement recommandé)</td>
+                        <td>Recommandé pour la plupart des cas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PASSWORD_BCRYPT</strong></td>
+                        <td>Algorithme bcrypt avec coût paramétrable</td>
+                        <td>Bon équilibre sécurité/performance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PASSWORD_ARGON2I</strong></td>
+                        <td>Argon2i (gagnant du Password Hashing Competition)</td>
+                        <td>Très sécurisé, nécessite PHP 7.2+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PASSWORD_ARGON2ID</strong></td>
+                        <td>Argon2id (version hybride)</td>
+                        <td>Le plus sécurisé, PHP 7.3+</td>
+                    </tr>
+                </table>
+                
+                <h3>Implémentation complète du hachage sécurisé</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    class GestionnaireMotDePasse {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;private $options;<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;public function __construct() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Configuration du coût de hachage (10-12 recommandé)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;options = [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'cost' =&gt; 12,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Hacher un mot de passe</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;public function hacher($motDePasse) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return password_hash($motDePasse, PASSWORD_DEFAULT, $this-&gt;options);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Vérifier un mot de passe</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;public function verifier($motDePasse, $hash) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return password_verify($motDePasse, $hash);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Vérifier si un hash doit être réhaché (après changement d'algorithme)</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;public function doitEtreRehache($hash) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return password_needs_rehash($hash, PASSWORD_DEFAULT, $this-&gt;options);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Utilisation</span><br>
+                    $gestionnaire = new GestionnaireMotDePasse();<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Inscription</span><br>
+                    $motDePasseClair = "MonMotDePasseSecret123";<br>
+                    $hash = $gestionnaire-&gt;hacher($motDePasseClair);<br>
+                                        <span style="color: #8d99ae;">// Stocker $hash dans la base de données</span><br>
+                    <br>
+                    <span style="color: #8d99ae;">// Connexion</span><br>
+                    $motDePasseSaisi = "MonMotDePasseSecret123";<br>
+                    $hashEnBase = "..."; <span style="color: #8d99ae;">// Récupéré de la BDD</span><br>
+                    if ($gestionnaire-&gt;verifier($motDePasseSaisi, $hashEnBase)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Mot de passe correct!";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Vérifier si le hash doit être mis à jour</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if ($gestionnaire-&gt;doitEtreRehache($hashEnBase)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$nouveauHash = $gestionnaire-&gt;hacher($motDePasseSaisi);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Mettre à jour le hash en base</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    } else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Mot de passe incorrect!";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+
+            <section id="sessions-cookies">
+                <h2>Gestion avancée des sessions et cookies</h2>
+
+                <h3>Sécurisation des sessions</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    <span style="color: #8d99ae;">// Configuration sécurisée des sessions</span><br>
+                    ini_set('session.cookie_httponly', 1);<br>
+                    ini_set('session.cookie_secure', 1); <span style="color: #8d99ae;">// En production avec HTTPS</span><br>
+                    ini_set('session.use_strict_mode', 1);<br>
+                    <br>
+                    session_start();<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Régénérer l'ID de session pour éviter le fixation</span><br>
+                    if (!isset($_SESSION['initiated'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;session_regenerate_id(true);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$_SESSION['initiated'] = true;<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Vérifier l'adresse IP pour détecter le vol de session</span><br>
+                    if (isset($_SESSION['ip']) && $_SESSION['ip'] !== $_SERVER['REMOTE_ADDR']) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;session_destroy();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;die("Suspicion de vol de session");<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Stocker l'IP dans la session</span><br>
+                    $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Ajouter un timestamp pour expiration</span><br>
+                    $_SESSION['last_activity'] = time();<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Vérifier l'expiration de session (30 minutes)</span><br>
+                    if (isset($_SESSION['last_activity']) && <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;(time() - $_SESSION['last_activity'] > 1800)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;session_destroy();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;die("Session expirée");<br>
+                    }<br>
+                    ?&gt;
+                </div>
+
+                <h3>Cookies sécurisés</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    function setSecureCookie($name, $value, $expire = 0) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$options = [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'expires' => $expire,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'path' => '/',<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'domain' => $_SERVER['HTTP_HOST'],<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'secure' => true, <span style="color: #8d99ae;">// HTTPS seulement</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'httponly' => true, <span style="color: #8d99ae;">// Inaccessible en JavaScript</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'samesite' => 'Strict' <span style="color: #8d99ae;">// Protection CSRF</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;setcookie($name, $value, $options);<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Utilisation</span><br>
+                    setSecureCookie('user_prefs', json_encode(['theme' => 'dark']), time() + 86400);<br>
+                    ?&gt;
+                </div>
+            </section>
+
+            <section id="upload-securise">
+                <h2>Upload sécurisé de fichiers</h2>
+
+                <div class="code-block">
+                    &lt;?php<br>
+                    class UploadHandler {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;private $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;private $maxSize = 5 * 1024 * 1024; <span style="color: #8d99ae;">// 5MB</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;private $uploadDir = 'uploads/';<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;public function handleUpload($file) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Vérifier les erreurs</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($file['error'] !== UPLOAD_ERR_OK) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Exception('Erreur lors de l\'upload');<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Vérifier la taille</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($file['size'] > $this->maxSize) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Exception('Fichier trop volumineux');<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Vérifier le type MIME</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$finfo = finfo_open(FILEINFO_MIME_TYPE);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$mime = finfo_file($finfo, $file['tmp_name']);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finfo_close($finfo);<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!in_array($mime, $this->allowedTypes)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Exception('Type de fichier non autorisé');<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Générer un nom de fichier sécurisé</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$extension = pathinfo($file['name'], PATHINFO_EXTENSION);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$safeName = bin2hex(random_bytes(16)) . '.' . $extension;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$destination = $this->uploadDir . $safeName;<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8d99ae;">// Déplacer le fichier</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!move_uploaded_file($file['tmp_name'], $destination)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Exception('Erreur lors du déplacement du fichier');<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $safeName;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Utilisation</span><br>
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fichier'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;try {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$uploader = new UploadHandler();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$fileName = $uploader->handleUpload($_FILES['fichier']);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "Fichier uploadé avec succès: " . $fileName;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} catch (Exception $e) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "Erreur: " . $e->getMessage();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+
+            <section id="demo-interactive">
+                <h2>Démonstration interactive de sécurité</h2>
+
+                <div class="interactive-demo">
+                    <h3>Testez le hachage de mots de passe</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password-input">Mot de passe à tester :</label>
+                        <input class="form-input" type="password" id="password-input" value="MonMotDePasse123">
+                    </div>
+
+                    <div class="demo-controls">
+                        <button class="demo-btn" onclick="testerHachage()">Tester le hachage</button>
+                        <button class="demo-btn" onclick="comparerAlgorithmes()">Comparer les algorithmes</button>
+                        <button class="demo-btn" onclick="genererTokenCSRF()">Générer token CSRF</button>
+                    </div>
+
+                    <div class="console-output" id="security-result">
+                        <span style="color: #8d99ae;">// Les résultats de sécurité apparaîtront ici</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="best-practices">
+                <h2>Checklist de sécurité</h2>
+
+                <table class="security-table">
+                    <tr>
+                        <th>Risque</th>
+                        <th>Protection</th>
+                        <th>Implémentation</th>
+                    </tr>
+                    <tr>
+                        <td><strong>XSS</strong></td>
+                        <td>Échappement HTML</td>
+                        <td>htmlspecialchars(), htmlentities()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SQL Injection</strong></td>
+                        <td>Requêtes préparées</td>
+                        <td>PDO, MySQLi préparé</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CSRF</strong></td>
+                        <td>Tokens synchronisers</td>
+                        <td>Tokens de session uniques</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Session Hijacking</strong></td>
+                        <td>Régénération d'ID</td>
+                        <td>session_regenerate_id()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Password Theft</strong></td>
+                        <td>Hachage sécurisé</td>
+                        <td>password_hash() / password_verify()</td>
+                    </tr>
+                    <tr>
+                        <td><strong>File Upload Attacks</strong></td>
+                        <td>Validation stricte</td>
+                        <td>Vérification MIME, extension</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clickjacking</strong></td>
+                        <td>Headers de sécurité</td>
+                        <td>X-Frame-Options, CSP</td>
+                    </tr>
+                </table>
+
+                <h3>Headers de sécurité HTTP</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    <span style="color: #8d99ae;">// Headers de sécurité recommandés</span><br>
+                    header('X-Frame-Options: DENY'); <span style="color: #8d99ae;">// Anti-clickjacking</span><br>
+                    header('X-XSS-Protection: 1; mode=block');<br>
+                    header('X-Content-Type-Options: nosniff');<br>
+                    header('Referrer-Policy: strict-origin-when-cross-origin');<br>
+                    <br>
+                    <span style="color: #8d99ae;">// Content Security Policy (CSP)</span><br>
+                    header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'");<br>
+                    <br>
+                    <span style="color: #8d99ae;">// HSTS (HTTPS Strict Transport Security)</span><br>
+                    header('Strict-Transport-Security: max-age=31536000; includeSubDomains');<br>
+                    ?&gt;
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>Cours PHP - Chapitre 5 | Formulaires avancés, superglobales et sécurité</p>
+            <p>Prochain chapitre: <a href="../base_de_donnee/bdd_mysql.html">Bases de données et MySQL</a></p>
+        </footer>
+    </div>
+</body>
+</html>

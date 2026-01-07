@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="tab.css">
+    <script src="tab.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableaux et structures de données</title>
+</head>
+<body>
+    <div class="container">
+    <header>
+            <h1>COURS PHP - CHAPITRE 4</h1>
+            <p class="glowing-text">Tableaux et structures de données</p>
+        </header>
+        
+        <div class="nav-bar">
+            <a href="#tableaux">Tableaux</a>
+            <a href="#fonctions">Fonctions</a>
+        </div>
+        
+        <div class="content">
+            <section id="introduction">
+                <h2>Introduction aux tableaux</h2>
+                <p>Les tableaux (arrays) sont des structures de données qui permettent de stocker plusieurs valeurs dans une seule variable.</p>
+                
+                <div class="array-visual">
+                    <h3>Structure d'un tableau</h3>
+                    <div class="array-grid">
+                        <div class="array-cell">
+                            <div class="array-index">[0]</div>
+                            <div class="array-value">"Pomme"</div>
+                        </div>
+                        <div class="array-cell">
+                            <div class="array-index">[1]</div>
+                            <div class="array-value">"Banane"</div>
+                        </div>
+                        <div class="array-cell">
+                            <div class="array-index">[2]</div>
+                            <div class="array-value">"Orange"</div>
+                        </div>
+                        <div class="array-cell">
+                            <div class="array-index">[3]</div>
+                            <div class="array-value">"Kiwi"</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; color: #4cc9f0; margin-top: 10px;">
+                        Tableau indexé - Accès par position numérique
+                    </p>
+                </div>
+            </section>
+            
+            <section id="tableaux-indexes">
+                <h2>Tableaux indexés</h2>
+                <p>Les tableaux indexés utilisent des indices numériques pour accéder aux éléments.</p>
+                
+                <h3>Création d'un tableau indexé</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    // Méthode 1: avec array()<br>
+                    $fruits = array("Pomme", "Banane", "Orange");<br>
+                    <br>
+                    // Méthode 2: avec [] (PHP 5.4+)<br>
+                    $couleurs = ["Rouge", "Vert", "Bleu"];<br>
+                    <br>
+                    // Méthode 3: assignation manuelle<br>
+                    $jours[0] = "Lundi";<br>
+                    $jours[1] = "Mardi";<br>
+                    $jours[2] = "Mercredi";<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Accès aux éléments</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    $fruits = ["Pomme", "Banane", "Orange"];<br>
+                    <br>
+                    echo $fruits[0]; // Affiche: Pomme<br>
+                    echo $fruits[1]; // Affiche: Banane<br>
+                    echo $fruits[2]; // Affiche: Orange<br>
+                    <br>
+                    // Modification d'un élément<br>
+                    $fruits[1] = "Kiwi";<br>
+                    echo $fruits[1]; // Affiche: Kiwi<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="tableaux-associatifs">
+                <h2>Tableaux associatifs</h2>
+                <p>Les tableaux associatifs utilisent des clés nommées au lieu d'indices numériques.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    // Création d'un tableau associatif<br>
+                    $personne = [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"nom" => "Dupont",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"prenom" => "Jean",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"age" => 25,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"ville" => "Paris"<br>
+                    ];<br>
+                    <br>
+                    // Accès aux éléments<br>
+                    echo $personne["nom"]; // Affiche: Dupont<br>
+                    echo $personne["age"]; // Affiche: 25<br>
+                    <br>
+                    // Modification<br>
+                    $personne["age"] = 26;<br>
+                    ?&gt;
+                </div>
+                
+                <div class="array-visual">
+                    <h3>Tableau associatif</h3>
+                    <div class="array-grid">
+                        <div class="array-cell">
+                            <div class="array-index">["nom"]</div>
+                            <div class="array-value">"Dupont"</div>
+                        </div>
+                        <div class="array-cell">
+                            <div class="array-index">["prenom"]</div>
+                            <div class="array-value">"Jean"</div>
+                        </div>
+                        <div class="array-cell">
+                            <div class="array-index">["age"]</div>
+                            <div class="array-value">25</div>
+                        </div>
+                        <div class="array-cell">
+                            <div class="array-index">["ville"]</div>
+                            <div class="array-value">"Paris"</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; color: #4cc9f0; margin-top: 10px;">
+                        Accès par clés nommées
+                    </p>
+                </div>
+            </section>
+            
+            <section id="tableaux-multi">
+                <h2>Tableaux multidimensionnels</h2>
+                <p>Un tableau qui contient d'autres tableaux comme éléments.</p>
+                
+                <div class="code-block">
+                    &lt;?php<br>
+                    $etudiants = [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;[<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"nom" => "Martin",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"notes" => [15, 12, 18]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;],<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;[<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"nom" => "Bernard",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"notes" => [10, 14, 16]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;]<br>
+                    ];<br>
+                    <br>
+                    // Accès aux données<br>
+                    echo $etudiants[0]["nom"]; // Affiche: Martin<br>
+                    echo $etudiants[1]["notes"][0]; // Affiche: 10<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="fonctions">
+                <h2>Fonctions utiles pour les tableaux</h2>
+                
+                <h3>Fonctions de base</h3>
+                <table class="function-table">
+                    <tr>
+                        <th>Fonction</th>
+                        <th>Description</th>
+                        <th>Exemple</th>
+                    </tr>
+                    <tr>
+                        <td>count()</td>
+                        <td>Nombre d'éléments</td>
+                        <td>count($fruits) → 3</td>
+                    </tr>
+                    <tr>
+                        <td>array_push()</td>
+                        <td>Ajoute un élément à la fin</td>
+                        <td>array_push($fruits, "Kiwi")</td>
+                    </tr>
+                    <tr>
+                        <td>array_pop()</td>
+                        <td>Supprime le dernier élément</td>
+                        <td>array_pop($fruits)</td>
+                    </tr>
+                    <tr>
+                        <td>array_merge()</td>
+                        <td>Fusionne des tableaux</td>
+                        <td>array_merge($tab1, $tab2)</td>
+                    </tr>
+                    <tr>
+                        <td>in_array()</td>
+                        <td>Vérifie si une valeur existe</td>
+                        <td>in_array("Pomme", $fruits)</td>
+                    </tr>
+                    <tr>
+                        <td>array_search()</td>
+                        <td>Recherche une valeur</td>
+                        <td>array_search("Banane", $fruits)</td>
+                    </tr>
+                </table>
+                
+                <h3>Parcourir un tableau</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    $fruits = ["Pomme", "Banane", "Orange"];<br>
+                    <br>
+                    // Avec for<br>
+                    for ($i = 0; $i < count($fruits); $i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo $fruits[$i] . "&lt;br&gt;";<br>
+                    }<br>
+                    <br>
+                    // Avec foreach (recommandé)<br>
+                    foreach ($fruits as $fruit) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo $fruit . "&lt;br&gt;";<br>
+                    }<br>
+                    <br>
+                    // Avec foreach et clés (tableau associatif)<br>
+                    foreach ($personne as $cle => $valeur) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo $cle . ": " . $valeur . "&lt;br&gt;";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="comparaison">
+                <h2>Comparaison des types de tableaux</h2>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Type</th>
+                        <th>Clés</th>
+                        <th>Utilisation</th>
+                        <th>Exemple</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Indexé</strong></td>
+                        <td>Numériques (0, 1, 2...)</td>
+                        <td>Listes ordonnées</td>
+                        <td>["Pomme", "Banane", "Orange"]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Associatif</strong></td>
+                        <td>Chaînes de caractères</td>
+                        <td>Données structurées</td>
+                        <td>["nom" => "Dupont", "age" => 25]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multidimensionnel</strong></td>
+                        <td>Mixte</td>
+                        <td>Données complexes</td>
+                        <td>[["nom" => "A", "notes" => [12,15]]]</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section id="demo">
+                <h2>Démonstration interactive</h2>
+                
+                <div class="interactive-demo">
+                    <h3>Gestionnaire de liste de courses</h3>
+                    <p>Manipulez un tableau PHP en temps réel :</p>
+                    
+                    <div class="demo-controls">
+                        <button class="demo-btn" onclick="ajouterElement()">Ajouter "Lait"</button>
+                        <button class="demo-btn" onclick="supprimerElement()">Supprimer dernier</button>
+                        <button class="demo-btn" onclick="trierTableau()">Trier par ordre alphabétique</button>
+                        <button class="demo-btn" onclick="compterElements()">Compter éléments</button>
+                        <button class="demo-btn" onclick="reinitialiser()">Réinitialiser</button>
+                    </div>
+                    
+                    <div class="array-output" id="array-output">
+                        // Tableau initial<br>
+                        $courses = ["Pain", "Fromage", "Oeufs"];<br><br>
+                        
+                        Contenu: Pain, Fromage, Oeufs<br>
+                        Nombre d'éléments: 3
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Cours PHP <a href="#"> Tableaux et structures de données</a></p>
+            <p>Chapitre précédent: <a href="../fontion_variable/func_pv.html">Fonctions et portés de variables</a> </p>
+            <p>Prochain chapitre: <a href="../gestion_de_donnee/gestion.html">Gestion des formulaires et interactions utilisateur</a></p>
+        </footer>
+    </div>
+</body>
+</html>

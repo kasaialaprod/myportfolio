@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="form.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylisation des Formulaires CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Stylisation des Formulaires CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#base">Éléments de Base</a></li>
+                <li><a href="#inputs">Champs de Saisie</a></li>
+                <li><a href="#validation">Validation</a></li>
+                <li><a href="#disposition">Disposition</a></li>
+                <li><a href="#avance">Techniques Avancées</a></li>
+                <li><a href="#accessibilite">Accessibilité</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="base">
+            <header>
+                <h2>Éléments de Base des Formulaires</h2>
+                <p>Structure HTML et éléments fondamentaux</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Structure HTML</h4>
+                    <div class="code-example">
+                        <code>&lt;form&gt;<br>  &lt;label for="nom"&gt;Nom:&lt;/label&gt;<br>  &lt;input type="text" id="nom"&gt;<br>  &lt;button type="submit"&gt;Envoyer&lt;/button&gt;<br>&lt;/form&gt;</code>
+                    </div>
+                    <form class="form-basic">
+                        <label for="nom">Nom:</label>
+                        <input type="text" id="nom" placeholder="Votre nom">
+                        <button type="submit">Envoyer</button>
+                    </form>
+                    <p>Structure de base d'un formulaire HTML</p>
+                </div>
+                <div class="card">
+                    <h4>Éléments de Formulaires</h4>
+                    <ul class="elements-list">
+                        <li><strong>&lt;form&gt;</strong> - Conteneur principal</li>
+                        <li><strong>&lt;input&gt;</strong> - Champ de saisie</li>
+                        <li><strong>&lt;label&gt;</strong> - Étiquette de champ</li>
+                        <li><strong>&lt;textarea&gt;</strong> - Zone de texte</li>
+                        <li><strong>&lt;select&gt;</strong> - Liste déroulante</li>
+                        <li><strong>&lt;button&gt;</strong> - Bouton d'action</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="form-elements">
+                <h3>Types d'Inputs</h3>
+                <div class="elements-grid">
+                    <div class="element-card">
+                        <h4>Textuel</h4>
+                        <input type="text" placeholder="text" class="demo-input">
+                        <input type="email" placeholder="email" class="demo-input">
+                        <input type="password" placeholder="password" class="demo-input">
+                    </div>
+                    <div class="element-card">
+                        <h4>Sélection</h4>
+                        <select class="demo-select">
+                            <option>select</option>
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                        </select>
+                        <textarea placeholder="textarea" class="demo-textarea"></textarea>
+                    </div>
+                    <div class="element-card">
+                        <h4>Boutons</h4>
+                        <button type="button" class="demo-button">button</button>
+                        <input type="submit" value="submit" class="demo-submit">
+                        <input type="reset" value="reset" class="demo-reset">
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="inputs">
+            <h2>Stylisation des Champs</h2>
+            
+            <div class="inputs-grid">
+                <div class="input-card">
+                    <h4>Champs de Base</h4>
+                    <div class="code-example">
+                        <code>input, textarea, select {<br>  padding: 12px;<br>  border: 2px solid #ddd;<br>  border-radius: 8px;<br>  font-size: 16px;<br>}</code>
+                    </div>
+                    <form class="form-basic-styled">
+                        <label for="nom-styled">Nom complet</label>
+                        <input type="text" id="nom-styled" placeholder="Votre nom">
+                        
+                        <label for="email-styled">Email</label>
+                        <input type="email" id="email-styled" placeholder="votre@email.com">
+                        
+                        <label for="message-styled">Message</label>
+                        <textarea id="message-styled" placeholder="Votre message"></textarea>
+                    </form>
+                </div>
+
+                <div class="input-card">
+                    <h4>States (États)</h4>
+                    <div class="code-example">
+                        <code>input:focus {<br>  border-color: #007bff;<br>  outline: none;<br>}<br><br>input:disabled {<br>  opacity: 0.6;<br>}</code>
+                    </div>
+                    <form class="form-states">
+                        <label for="focus-demo">Focus</label>
+                        <input type="text" id="focus-demo" placeholder="Cliquez ici" class="focus-input">
+                        
+                        <label for="disabled-demo">Désactivé</label>
+                        <input type="text" id="disabled-demo" value="Champ désactivé" disabled class="disabled-input">
+                        
+                        <label for="readonly-demo">Lecture seule</label>
+                        <input type="text" id="readonly-demo" value="Lecture seule" readonly class="readonly-input">
+                    </form>
+                </div>
+
+                <div class="input-card">
+                    <h4>Placeholders</h4>
+                    <div class="code-example">
+                        <code>::placeholder {<br>  color: #999;<br>  font-style: italic;<br>}<br><br>::-webkit-input-placeholder {<br>  /* Pour Webkit */<br>}</code>
+                    </div>
+                    <form class="form-placeholders">
+                        <input type="text" placeholder="Placeholder normal" class="placeholder-normal">
+                        <input type="text" placeholder="Placeholder stylisé" class="placeholder-styled">
+                        <input type="text" placeholder="Placeholder animé" class="placeholder-animated">
+                    </form>
+                </div>
+
+                <div class="input-card">
+                    <h4>Cases à Cocher & Radio</h4>
+                    <div class="code-example">
+                        <code>input[type="checkbox"] {<br>  transform: scale(1.2);<br>  margin-right: 10px;<br>}</code>
+                    </div>
+                    <form class="form-checkboxes">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="options" value="1">
+                                Option 1
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="options" value="2">
+                                Option 2
+                            </label>
+                        </div>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="choice" value="a">
+                                Choix A
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="choice" value="b">
+                                Choix B
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </article>
+
+        <article id="validation">
+            <h2>Validation des Formulaires</h2>
+            
+            <div class="validation-grid">
+                <div class="validation-card">
+                    <h4>Validation HTML5</h4>
+                    <div class="code-example">
+                        <code>&lt;input required&gt;<br>&lt;input type="email"&gt;<br>&lt;input pattern="[A-Za-z]{3}"&gt;</code>
+                    </div>
+                    <form class="form-html5-validation">
+                        <label for="required-field">Champ requis *</label>
+                        <input type="text" id="required-field" required>
+                        
+                        <label for="email-field">Email valide</label>
+                        <input type="email" id="email-field" required>
+                        
+                        <label for="pattern-field">3 lettres</label>
+                        <input type="text" id="pattern-field" pattern="[A-Za-z]{3}" placeholder="ABC">
+                        
+                        <button type="submit">Valider</button>
+                    </form>
+                </div>
+
+                <div class="validation-card">
+                    <h4>Styles de Validation</h4>
+                    <div class="code-example">
+                        <code>input:valid {<br>  border-color: #28a745;<br>}<br><br>input:invalid {<br>  border-color: #dc3545;<br>}</code>
+                    </div>
+                    <form class="form-styled-validation">
+                        <label for="valid-field">Champ valide</label>
+                        <input type="text" id="valid-field" value="Valeur correcte" class="valid-input">
+                        
+                        <label for="invalid-field">Champ invalide</label>
+                        <input type="email" id="invalid-field" value="email-invalide" class="invalid-input">
+                        
+                        <label for="focus-validation">Testez-moi</label>
+                        <input type="text" id="focus-validation" placeholder="Tapez quelque chose" class="dynamic-validation">
+                    </form>
+                </div>
+
+                <div class="validation-card">
+                    <h4>Messages d'Erreur</h4>
+                    <div class="code-example">
+                        <code>.error-message {<br>  color: #dc3545;<br>  font-size: 14px;<br>  margin-top: 5px;<br>}</code>
+                    </div>
+                    <form class="form-error-messages">
+                        <div class="form-group">
+                            <label for="error-field">Email</label>
+                            <input type="email" id="error-field" class="error-input" value="email-invalide">
+                            <div class="error-message">Veuillez entrer une adresse email valide</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="success-field">Nom</label>
+                            <input type="text" id="success-field" class="success-input" value="Nom valide">
+                            <div class="success-message">Champ valide ✓</div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="validation-card">
+                    <h4>Validation en Temps Réel</h4>
+                    <div class="code-example">
+                        <code>input:not(:focus):valid {<br>  border-color: #28a745;<br>}<br><br>input:not(:focus):invalid {<br>  border-color: #dc3545;<br>}</code>
+                    </div>
+                    <form class="form-realtime-validation">
+                        <label for="realtime-email">Email</label>
+                        <input type="email" id="realtime-email" placeholder="test@exemple.com" class="realtime-input">
+                        <div class="validation-feedback"></div>
+                        
+                        <label for="realtime-password">Mot de passe</label>
+                        <input type="password" id="realtime-password" placeholder="Min. 8 caractères" class="realtime-input">
+                        <div class="validation-feedback"></div>
+                    </form>
+                </div>
+            </div>
+        </article>
+
+        <article id="disposition">
+            <h2>Disposition et Mise en Page</h2>
+            
+            <section class="layout-examples">
+                <h3>Dispositions Courantes</h3>
+                <div class="layout-grid">
+                    <div class="layout-card">
+                        <h4>Formulaire Vertical</h4>
+                        <div class="code-example">
+                            <code>.form-vertical .form-group {<br>  margin-bottom: 1rem;<br>}<br><br>.form-vertical label {<br>  display: block;<br>  margin-bottom: 0.5rem;<br>}</code>
+                        </div>
+                        <form class="form-vertical">
+                            <div class="form-group">
+                                <label for="v-nom">Nom</label>
+                                <input type="text" id="v-nom">
+                            </div>
+                            <div class="form-group">
+                                <label for="v-email">Email</label>
+                                <input type="email" id="v-email">
+                            </div>
+                            <button type="submit">S'inscrire</button>
+                        </form>
+                    </div>
+
+                    <div class="layout-card">
+                        <h4>Formulaire Horizontal</h4>
+                        <div class="code-example">
+                            <code>.form-horizontal .form-group {<br>  display: flex;<br>  align-items: center;<br>}<br><br>.form-horizontal label {<br>  width: 120px;<br>}</code>
+                        </div>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="h-nom">Nom</label>
+                                <input type="text" id="h-nom">
+                            </div>
+                            <div class="form-group">
+                                <label for="h-email">Email</label>
+                                <input type="email" id="h-email">
+                            </div>
+                            <div class="form-group">
+                                <label></label>
+                                <button type="submit">S'inscrire</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="layout-card">
+                        <h4>Grille Responsive</h4>
+                        <div class="code-example">
+                            <code>.form-grid {<br>  display: grid;<br>  grid-template-columns: 1fr 1fr;<br>  gap: 1rem;<br>}</code>
+                        </div>
+                        <form class="form-grid">
+                            <div class="form-group">
+                                <label for="g-prenom">Prénom</label>
+                                <input type="text" id="g-prenom">
+                            </div>
+                            <div class="form-group">
+                                <label for="g-nom">Nom</label>
+                                <input type="text" id="g-nom">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="g-email">Email</label>
+                                <input type="email" id="g-email">
+                            </div>
+                            <div class="form-group full-width">
+                                <button type="submit">S'inscrire</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="layout-card">
+                        <h4>Groupes de Champs</h4>
+                        <div class="code-example">
+                            <code>.fieldset {<br>  border: 1px solid #ddd;<br>  padding: 1rem;<br>  border-radius: 8px;<br>}</code>
+                        </div>
+                        <form class="form-fieldset">
+                            <fieldset class="fieldset">
+                                <legend>Informations personnelles</legend>
+                                <div class="form-group">
+                                    <label for="f-nom">Nom</label>
+                                    <input type="text" id="f-nom">
+                                </div>
+                                <div class="form-group">
+                                    <label for="f-email">Email</label>
+                                    <input type="email" id="f-email">
+                                </div>
+                            </fieldset>
+                            
+                            <fieldset class="fieldset">
+                                <legend>Préférences</legend>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox"> Newsletter
+                                    </label>
+                                    <label>
+                                        <input type="checkbox"> Offres spéciales
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="avance">
+            <h2>Techniques Avancées</h2>
+            
+            <div class="advanced-grid">
+                <div class="advanced-card">
+                    <h4>Champs avec Icônes</h4>
+                    <div class="code-example">
+                        <code>.input-with-icon {<br>  position: relative;<br>}<br><br>.input-icon {<br>  position: absolute;<br>  left: 12px;<br>  top: 50%;<br>  transform: translateY(-50%);<br>}</code>
+                    </div>
+                    <form class="form-icons">
+                        <div class="input-with-icon">
+                            <span class="input-icon">📧</span>
+                            <input type="email" placeholder="Email" class="icon-input">
+                        </div>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" placeholder="Mot de passe" class="icon-input">
+                        </div>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔍</span>
+                            <input type="search" placeholder="Rechercher..." class="icon-input">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Boutons Personnalisés</h4>
+                    <div class="code-example">
+                        <code>.btn-gradient {<br>  background: linear-gradient(45deg, #FF6B6B, #FF8E53);<br>  color: white;<br>  border: none;<br>  padding: 12px 30px;<br>}</code>
+                    </div>
+                    <div class="buttons-demo">
+                        <button class="btn-gradient">Bouton gradient</button>
+                        <button class="btn-outline">Bouton outline</button>
+                        <button class="btn-3d">Bouton 3D</button>
+                        <button class="btn-loading">
+                            <span class="spinner"></span>
+                            Chargement...
+                        </button>
+                    </div>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Toggle Switches</h4>
+                    <div class="code-example">
+                        <code>.toggle {<br>  position: relative;<br>  display: inline-block;<br>  width: 60px;<br>  height: 34px;<br>}</code>
+                    </div>
+                    <div class="toggles-demo">
+                        <label class="toggle-label">
+                            <input type="checkbox" class="toggle-input">
+                            <span class="toggle-slider"></span>
+                            Notifications
+                        </label>
+                        
+                        <label class="toggle-label">
+                            <input type="checkbox" class="toggle-input" checked>
+                            <span class="toggle-slider"></span>
+                            Mode sombre
+                        </label>
+                    </div>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Range Sliders</h4>
+                    <div class="code-example">
+                        <code>input[type="range"] {<br>  -webkit-appearance: none;<br>  width: 100%;<br>  height: 6px;<br>  background: #ddd;<br>}</code>
+                    </div>
+                    <form class="form-sliders">
+                        <label for="range-simple">Volume</label>
+                        <input type="range" id="range-simple" class="range-slider">
+                        
+                        <label for="range-styled">Progression</label>
+                        <input type="range" id="range-styled" class="range-slider-styled">
+                        
+                        <label for="range-steps">Niveau</label>
+                        <input type="range" id="range-steps" class="range-slider-steps" min="0" max="100" step="25">
+                    </form>
+                </div>
+            </div>
+        </article>
+
+        <article id="accessibilite">
+            <h2>Accessibilité</h2>
+            
+            <div class="accessibility-grid">
+                <div class="accessibility-card">
+                    <h4>Labels et ARIA</h4>
+                    <div class="code-example">
+                        <code>&lt;label for="input-id"&gt;Nom:&lt;/label&gt;<br>&lt;input id="input-id" aria-describedby="help-text"&gt;<br>&lt;div id="help-text"&gt;Aide supplémentaire&lt;/div&gt;</code>
+                    </div>
+                    <form class="form-accessible">
+                        <div class="form-group">
+                            <label for="accessible-name" class="required">Nom complet</label>
+                            <input type="text" id="accessible-name" aria-required="true" aria-describedby="name-help">
+                            <div id="name-help" class="help-text">Votre nom complet tel qu'il apparaît sur vos documents officiels</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="accessible-email" class="required">Email</label>
+                            <input type="email" id="accessible-email" aria-required="true" aria-invalid="false">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="accessibility-card">
+                    <h4>Focus Management</h4>
+                    <div class="code-example">
+                        <code>input:focus {<br>  outline: 2px solid #007bff;<br>  outline-offset: 2px;<br>}<br><br>.skip-link {<br>  position: absolute;<br>  top: -40px;<br>}</code>
+                    </div>
+                    <form class="form-focus">
+                        <a href="#main-content" class="skip-link">Passer au contenu principal</a>
+                        
+                        <div class="form-group">
+                            <label for="focus-name">Nom</label>
+                            <input type="text" id="focus-name" class="focus-visible">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="focus-email">Email</label>
+                            <input type="email" id="focus-email" class="focus-visible">
+                        </div>
+                        
+                        <button type="submit" class="btn-focus">Soumettre</button>
+                    </form>
+                </div>
+
+                <div class="accessibility-card">
+                    <h4>Contraste des Couleurs</h4>
+                    <div class="contrast-demo">
+                        <div class="contrast-good">
+                            <label>Bon contraste ✓</label>
+                            <input type="text" value="Texte lisible">
+                        </div>
+                        <div class="contrast-bad">
+                            <label>Mauvais contraste ✗</label>
+                            <input type="text" value="Texte peu lisible">
+                        </div>
+                    </div>
+                    <p>Assurez-vous d'un ratio de contraste d'au moins 4.5:1</p>
+                </div>
+
+                <div class="accessibility-card">
+                    <h4>Bonnes Pratiques</h4>
+                    <ul class="best-practices-list">
+                        <li>Toujours utiliser des labels associés</li>
+                        <li>Fournir des messages d'erreur clairs</li>
+                        <li>Utiliser aria-* attributes quand nécessaire</li>
+                        <li>Maintenir un ordre logique de tabulation</li>
+                        <li>Tester avec un lecteur d'écran</li>
+                        <li>Assurer un contraste suffisant</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/HTML/Element/form">MDN - Élément Form</a></li>
+                <li><a href="https://css-tricks.com/tips-for-creating-great-web-forms/">CSS Tricks - Formulaires</a></li>
+                <li><a href="https://webaim.org/techniques/forms/">WebAIM - Formulaires Accessibles</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2024 Cours Stylisation Formulaires CSS</p>
+    </footer>
+</body>
+</html>

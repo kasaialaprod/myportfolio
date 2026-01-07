@@ -1,0 +1,260 @@
+/* Style général années 90 avec thème techno/espace - Identique aux chapitres précédents */
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a2e;
+            color: #c0c0c0;
+            margin: 0;
+            padding: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 20, 80, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 40, 120, 0.2) 0%, transparent 20%);
+            cursor: crosshair;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #2d3047;
+            border: 1px solid #4a4e69;
+            box-shadow: 0 0 15px rgba(0, 100, 255, 0.3);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px dashed #4cc9f0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+            margin: 0;
+        }
+        
+        h2 {
+            color: #f72585;
+            border-left: 5px solid #f72585;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #7209b7;
+        }
+
+        h1, h2, h3, p, ul, li, div:hover{
+            cursor: default;
+        }
+        
+        .nav-bar {
+            background-color: #3a0ca3;
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid #4361ee;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-bar a {
+            color: #c0c0c0;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #4361ee;
+            background-color: #2d3047;
+            cursor: pointer;
+        }
+        
+        .nav-bar a:hover {
+            background-color: #4361ee;
+            color: white;
+            cursor: grab;
+        }
+
+        a{
+            color: #8d99ae;
+            text-decoration: none;
+        }
+        a:hover{
+            color: #3a0ca3;
+        }
+        
+        .content {
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background-color: #0d1b2a;
+            border: 1px solid #4cc9f0;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            color: #90e0ef;
+            overflow-x: auto;
+            box-shadow: 0 0 10px rgba(76, 201, 240, 0.2);
+            cursor: text;
+        }
+        
+        .note {
+            background-color: #3a0ca3;
+            border-left: 5px solid #f72585;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        
+        .example {
+            background-color: #14213d;
+            border: 1px dashed #4cc9f0;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: move;
+        }
+        
+        .example:hover {
+            border: 1px dashed #f72585;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 2px dashed #4cc9f0;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #8d99ae;
+        }
+        
+        .glowing-text {
+            color: #4cc9f0;
+            text-shadow: 0 0 5px rgba(76, 201, 240, 0.7);
+        }
+        
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        /* Styles spécifiques pour ce chapitre */
+        .array-visual {
+            background-color: #1a1a2e;
+            border: 2px solid #4cc9f0;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(76, 201, 240, 0.3);
+        }
+        
+        .array-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .array-cell {
+            background-color: #0d1b2a;
+            border: 1px solid #f72585;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(247, 37, 133, 0.3);
+        }
+        
+        .array-index {
+            color: #4cc9f0;
+            font-size: 0.8em;
+        }
+        
+        .array-value {
+            color: #90e0ef;
+            font-weight: bold;
+        }
+        
+        .function-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .function-table th {
+            background-color: #3a0ca3;
+            color: white;
+            padding: 10px;
+            border: 1px solid #4361ee;
+        }
+        
+        .function-table td {
+            padding: 10px;
+            border: 1px solid #4361ee;
+            background-color: #14213d;
+        }
+        
+        .interactive-demo {
+            background-color: #0d1b2a;
+            border: 2px solid #7209b7;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(114, 9, 183, 0.3);
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .demo-btn {
+            background-color: #3a0ca3;
+            color: white;
+            border: 1px solid #4361ee;
+            padding: 8px 15px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+        }
+        
+        .demo-btn:hover {
+            background-color: #4361ee;
+            cursor: grab;
+        }
+        
+        .array-output {
+            background-color: #000;
+            color: #90e0ef;
+            padding: 15px;
+            min-height: 100px;
+            margin: 10px 0;
+            border: 1px solid #4cc9f0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #4361ee;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background-color: #3a0ca3;
+            color: white;
+        }
+        
+        .comparison-table td {
+            background-color: #14213d;
+        }

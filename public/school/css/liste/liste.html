@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="liste.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylisation des Listes CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Stylisation des Listes CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#types">Types de Listes</a></li>
+                <li><a href="#puces">Puces Personnalisées</a></li>
+                <li><a href="#numerotation">Numérotation</a></li>
+                <li><a href="#navigation">Listes de Navigation</a></li>
+                <li><a href="#avance">Techniques Avancées</a></li>
+                <li><a href="#reset">Reset CSS</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="types">
+            <header>
+                <h2>Types de Listes HTML</h2>
+                <p>Les différents types de listes et leur sémantique</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Liste Non Ordonnée (&lt;ul&gt;)</h4>
+                    <div class="code-example">
+                        <code>&lt;ul&gt;<br>  &lt;li&gt;Élément 1&lt;/li&gt;<br>  &lt;li&gt;Élément 2&lt;/li&gt;<br>&lt;/ul&gt;</code>
+                    </div>
+                    <ul class="list-demo basic-ul">
+                        <li>Premier élément</li>
+                        <li>Deuxième élément</li>
+                        <li>Troisième élément</li>
+                    </ul>
+                    <p>Pour les listes sans ordre particulier</p>
+                </div>
+                <div class="card">
+                    <h4>Liste Ordonnée (&lt;ol&gt;)</h4>
+                    <div class="code-example">
+                        <code>&lt;ol&gt;<br>  &lt;li&gt;Premier&lt;/li&gt;<br>  &lt;li&gt;Deuxième&lt;/li&gt;<br>&lt;/ol&gt;</code>
+                    </div>
+                    <ol class="list-demo basic-ol">
+                        <li>Étape 1</li>
+                        <li>Étape 2</li>
+                        <li>Étape 3</li>
+                    </ol>
+                    <p>Pour les listes séquentielles ou étapes</p>
+                </div>
+                <div class="card">
+                    <h4>Liste de Définition (&lt;dl&gt;)</h4>
+                    <div class="code-example">
+                        <code>&lt;dl&gt;<br>  &lt;dt&gt;Terme&lt;/dt&gt;<br>  &lt;dd&gt;Définition&lt;/dd&gt;<br>&lt;/dl&gt;</code>
+                    </div>
+                    <dl class="list-demo basic-dl">
+                        <dt>HTML</dt>
+                        <dd>Langage de balisage pour le web</dd>
+                        <dt>CSS</dt>
+                        <dd>Langage de style pour le web</dd>
+                    </dl>
+                    <p>Pour les listes de définitions</p>
+                </div>
+            </div>
+
+            <section class="list-structure">
+                <h3>Structure des Listes</h3>
+                <div class="structure-grid">
+                    <div class="structure-card">
+                        <h4>&lt;ul&gt; / &lt;ol&gt;</h4>
+                        <p>Conteneur de liste</p>
+                        <ul class="structure-demo">
+                            <li>Élément liste</li>
+                        </ul>
+                    </div>
+                    <div class="structure-card">
+                        <h4>&lt;li&gt;</h4>
+                        <p>Élément de liste</p>
+                        <div class="li-demo">Élément</div>
+                    </div>
+                    <div class="structure-card">
+                        <h4>&lt;dl&gt;</h4>
+                        <p>Liste de définitions</p>
+                        <dl class="structure-demo">
+                            <dt>Terme</dt>
+                            <dd>Description</dd>
+                        </dl>
+                    </div>
+                    <div class="structure-card">
+                        <h4>&lt;dt&gt; / &lt;dd&gt;</h4>
+                        <p>Terme et définition</p>
+                        <div class="dt-dd-demo">
+                            <div class="dt-demo">Terme</div>
+                            <div class="dd-demo">Description</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="puces">
+            <h2>Stylisation des Puces</h2>
+            
+            <div class="bullets-grid">
+                <div class="bullet-card">
+                    <h4>Puces Standards</h4>
+                    <div class="code-example">
+                        <code>list-style-type: disc;<br>list-style-type: circle;<br>list-style-type: square;<br>list-style-type: none;</code>
+                    </div>
+                    <div class="bullets-demo">
+                        <ul class="list-disc">
+                            <li>disc (par défaut)</li>
+                        </ul>
+                        <ul class="list-circle">
+                            <li>circle</li>
+                        </ul>
+                        <ul class="list-square">
+                            <li>square</li>
+                        </ul>
+                        <ul class="list-none">
+                            <li>none</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bullet-card">
+                    <h4>Puces Personnalisées</h4>
+                    <div class="code-example">
+                        <code>list-style-type: "✓ ";<br>list-style-type: "→ ";<br>list-style-type: "◆ ";</code>
+                    </div>
+                    <div class="custom-bullets-demo">
+                        <ul class="list-check">
+                            <li>Élément avec check</li>
+                            <li>Autre élément</li>
+                        </ul>
+                        <ul class="list-arrow">
+                            <li>Élément avec flèche</li>
+                            <li>Autre élément</li>
+                        </ul>
+                        <ul class="list-diamond">
+                            <li>Élément avec diamant</li>
+                            <li>Autre élément</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bullet-card">
+                    <h4>Images comme Puces</h4>
+                    <div class="code-example">
+                        <code>list-style-image: url('icon.png');</code>
+                    </div>
+                    <div class="image-bullets-demo">
+                        <ul class="list-image-star">
+                            <li>Élément avec étoile</li>
+                            <li>Autre élément</li>
+                            <li>Dernier élément</li>
+                        </ul>
+                        <ul class="list-image-heart">
+                            <li>Élément avec cœur</li>
+                            <li>Autre élément</li>
+                            <li>Dernier élément</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bullet-card">
+                    <h4>Position des Puces</h4>
+                    <div class="code-example">
+                        <code>list-style-position: outside;<br>list-style-position: inside;</code>
+                    </div>
+                    <div class="position-demo">
+                        <div class="position-example">
+                            <h5>outside (défaut)</h5>
+                            <ul class="list-outside">
+                                <li>Ceci est un élément de liste assez long pour montrer la différence de positionnement des puces par rapport au texte.</li>
+                                <li>Deuxième élément également long.</li>
+                            </ul>
+                        </div>
+                        <div class="position-example">
+                            <h5>inside</h5>
+                            <ul class="list-inside">
+                                <li>Ceci est un élément de liste assez long pour montrer la différence de positionnement des puces par rapport au texte.</li>
+                                <li>Deuxième élément également long.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="numerotation">
+            <h2>Numérotation des Listes</h2>
+            
+            <div class="numbering-grid">
+                <div class="numbering-card">
+                    <h4>Types de Numérotation</h4>
+                    <div class="code-example">
+                        <code>list-style-type: decimal;<br>list-style-type: lower-roman;<br>list-style-type: upper-alpha;<br>list-style-type: lower-greek;</code>
+                    </div>
+                    <div class="numbering-types">
+                        <ol class="list-decimal">
+                            <li>decimal (défaut)</li>
+                            <li>Deuxième élément</li>
+                        </ol>
+                        <ol class="list-lower-roman">
+                            <li>lower-roman</li>
+                            <li>Deuxième élément</li>
+                        </ol>
+                        <ol class="list-upper-alpha">
+                            <li>upper-alpha</li>
+                            <li>Deuxième élément</li>
+                        </ol>
+                        <ol class="list-lower-greek">
+                            <li>lower-greek</li>
+                            <li>Deuxième élément</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="numbering-card">
+                    <h4>Compteurs CSS</h4>
+                    <div class="code-example">
+                        <code>counter-reset: section;<br>li::before {<br>  counter-increment: section;<br>  content: counter(section) ". ";<br>}</code>
+                    </div>
+                    <div class="counter-demo">
+                        <ol class="list-custom-counter">
+                            <li>Élément avec compteur personnalisé</li>
+                            <li>Deuxième élément</li>
+                            <li>Troisième élément</li>
+                        </ol>
+                    </div>
+                    <p>Compteurs personnalisés pour une numérotation avancée</p>
+                </div>
+
+                <div class="numbering-card">
+                    <h4>Listes Imbriquées</h4>
+                    <div class="code-example">
+                        <code>ol { list-style-type: decimal; }<br>ol ol { list-style-type: lower-alpha; }<br>ol ol ol { list-style-type: lower-roman; }</code>
+                    </div>
+                    <div class="nested-lists-demo">
+                        <ol class="list-nested">
+                            <li>Niveau 1
+                                <ol>
+                                    <li>Niveau 2
+                                        <ol>
+                                            <li>Niveau 3</li>
+                                            <li>Niveau 3</li>
+                                        </ol>
+                                    </li>
+                                    <li>Niveau 2</li>
+                                </ol>
+                            </li>
+                            <li>Niveau 1</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="numbering-card">
+                    <h4>Attribut start</h4>
+                    <div class="code-example">
+                        <code>&lt;ol start="5"&gt;<br>  &lt;li&gt;Commence à 5&lt;/li&gt;<br>&lt;/ol&gt;</code>
+                    </div>
+                    <div class="start-attribute-demo">
+                        <ol class="list-start" start="5">
+                            <li>Élément 5</li>
+                            <li>Élément 6</li>
+                            <li>Élément 7</li>
+                        </ol>
+                        <ol class="list-start" start="10">
+                            <li>Élément 10</li>
+                            <li>Élément 11</li>
+                            <li>Élément 12</li>
+                        </ol>
+                    </div>
+                    <p>Commencer la numérotation à une valeur spécifique</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="navigation">
+            <h2>Listes de Navigation</h2>
+            
+            <section class="nav-examples">
+                <h3>Menus de Navigation</h3>
+                <div class="nav-grid">
+                    <div class="nav-card">
+                        <h4>Menu Horizontal</h4>
+                        <div class="code-example">
+                            <code>nav ul {<br>  display: flex;<br>  list-style: none;<br>  gap: 20px;<br>}</code>
+                        </div>
+                        <nav class="nav-horizontal">
+                            <ul>
+                                <li><a href="#">Accueil</a></li>
+                                <li><a href="#">Services</a></li>
+                                <li><a href="#">Portfolio</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="nav-card">
+                        <h4>Menu Vertical</h4>
+                        <div class="code-example">
+                            <code>nav ul {<br>  list-style: none;<br>  padding: 0;<br>}<br>nav li {<br>  border-bottom: 1px solid #ddd;<br>}</code>
+                        </div>
+                        <nav class="nav-vertical">
+                            <ul>
+                                <li><a href="#">Tableau de bord</a></li>
+                                <li><a href="#">Profil</a></li>
+                                <li><a href="#">Paramètres</a></li>
+                                <li><a href="#">Déconnexion</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="nav-card">
+                        <h4>Menu avec Sous-menus</h4>
+                        <div class="code-example">
+                            <code>nav ul ul {<br>  display: none;<br>  position: absolute;<br>}<br>nav li:hover > ul {<br>  display: block;<br>}</code>
+                        </div>
+                        <nav class="nav-dropdown">
+                            <ul>
+                                <li>
+                                    <a href="#">Produits</a>
+                                    <ul>
+                                        <li><a href="#">Web</a></li>
+                                        <li><a href="#">Mobile</a></li>
+                                        <li><a href="#">Desktop</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Services</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="nav-card">
+                        <h4>Breadcrumb (Fil d'Ariane)</h4>
+                        <div class="code-example">
+                            <code>.breadcrumb li {<br>  display: inline;<br>}<br>.breadcrumb li+li:before {<br>  content: ">";<br>}</code>
+                        </div>
+                        <nav class="breadcrumb">
+                            <ul>
+                                <li><a href="#">Accueil</a></li>
+                                <li><a href="#">Catégorie</a></li>
+                                <li><a href="#">Sous-catégorie</a></li>
+                                <li>Page actuelle</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+
+            <section class="social-lists">
+                <h3>Listes Sociales</h3>
+                <div class="social-grid">
+                    <div class="social-card">
+                        <h4>Liste avec Icônes</h4>
+                        <ul class="social-list">
+                            <li class="social-twitter">
+                                <a href="#">Twitter</a>
+                            </li>
+                            <li class="social-facebook">
+                                <a href="#">Facebook</a>
+                            </li>
+                            <li class="social-instagram">
+                                <a href="#">Instagram</a>
+                            </li>
+                            <li class="social-linkedin">
+                             <a href="#">LinkedIn</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="social-card">
+                        <h4>Liste de Contacts</h4>
+                        <ul class="contact-list">
+                            <li class="contact-email">contact@example.com</li>
+                            <li class="contact-phone">+33 1 23 45 67 89</li>
+                            <li class="contact-address">123 Rue Example, Paris</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="avance">
+            <h2>Techniques Avancées</h2>
+            
+            <div class="advanced-grid">
+                <div class="advanced-card">
+                    <h4>Listes en Grille</h4>
+                    <div class="code-example">
+                        <code>ul {<br>  display: grid;<br>  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));<br>  gap: 10px;<br>}</code>
+                    </div>
+                    <ul class="grid-list">
+                        <li>Élément 1</li>
+                        <li>Élément 2</li>
+                        <li>Élément 3</li>
+                        <li>Élément 4</li>
+                        <li>Élément 5</li>
+                        <li>Élément 6</li>
+                    </ul>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Listes avec Cartes</h4>
+                    <div class="code-example">
+                        <code>li {<br>  background: white;<br>  border-radius: 8px;<br>  padding: 20px;<br>  box-shadow: 0 2px 4px rgba(0,0,0,0.1);<br>}</code>
+                    </div>
+                    <ul class="card-list">
+                        <li>
+                            <h5>Fonctionnalité 1</h5>
+                            <p>Description de la fonctionnalité</p>
+                        </li>
+                        <li>
+                            <h5>Fonctionnalité 2</h5>
+                            <p>Description de la fonctionnalité</p>
+                        </li>
+                        <li>
+                            <h5>Fonctionnalité 3</h5>
+                            <p>Description de la fonctionnalité</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Listes Chronologiques</h4>
+                    <div class="code-example">
+                        <code>.timeline li {<br>  position: relative;<br>  padding-left: 30px;<br>}<br>.timeline li::before {<br>  content: "";<br>  position: absolute;<br>  left: 0;<br>  top: 0;<br>  width: 12px;<br>  height: 12px;<br>  border-radius: 50%;<br>}</code>
+                    </div>
+                    <ul class="timeline">
+                        <li>
+                            <strong>2024</strong> - Lancement du projet
+                        </li>
+                        <li>
+                            <strong>2023</strong> - Développement
+                        </li>
+                        <li>
+                            <strong>2022</strong> - Conception
+                        </li>
+                        <li>
+                            <strong>2021</strong> - Étude de marché
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Listes avec Barres de Progression</h4>
+                    <div class="code-example">
+                        <code>.skill-list li {<br>  position: relative;<br>}<br>.skill-bar {<br>  height: 8px;<br>  background: #3498db;<br>  border-radius: 4px;<br>}</code>
+                    </div>
+                    <ul class="skill-list">
+                        <li>
+                            <span>HTML/CSS</span>
+                            <div class="skill-bar" style="width: 90%"></div>
+                        </li>
+                        <li>
+                            <span>JavaScript</span>
+                            <div class="skill-bar" style="width: 75%"></div>
+                        </li>
+                        <li>
+                            <span>React</span>
+                            <div class="skill-bar" style="width: 60%"></div>
+                        </li>
+                        <li>
+                            <span>Node.js</span>
+                            <div class="skill-bar" style="width: 50%"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <article id="reset">
+            <h2>Reset CSS pour Listes</h2>
+            
+            <div class="reset-grid">
+                <div class="reset-card">
+                    <h4>Reset Complet</h4>
+                    <div class="code-example">
+                        <code>ul, ol {<br>  list-style: none;<br>  margin: 0;<br>  padding: 0;<br>}<br><br>li {<br>  margin: 0;<br>  padding: 0;<br>}</code>
+                    </div>
+                    <p>Supprime tous les styles par défaut</p>
+                </div>
+
+                <div class="reset-card">
+                    <h4>Reset Partiel</h4>
+                    <div class="code-example">
+                        <code>ul, ol {<br>  margin: 0 0 1rem 0;<br>  padding-left: 2rem;<br>}<br><br>li {<br>  margin-bottom: 0.5rem;<br>}</code>
+                    </div>
+                    <p>Conserve une mise en page cohérente</p>
+                </div>
+
+                <div class="reset-card">
+                    <h4>Normalisation</h4>
+                    <div class="code-example">
+                        <code>ul, ol {<br>  margin: 1rem 0;<br>  padding-left: 2.5rem;<br>}<br><br>li {<br>  line-height: 1.6;<br>}</code>
+                    </div>
+                    <p>Styles cohérents cross-browser</p>
+                </div>
+            </div>
+
+            <section class="best-practices">
+                <h3>Bonnes Pratiques</h3>
+                <ul class="best-practices-list">
+                    <li>Utilisez <code>list-style: none</code> pour les navigations</li>
+                    <li>Préférez les marges aux paddings pour l'espacement</li>
+                    <li>Utilisez des unités relatives (rem/em) pour le responsive</li>
+                    <li>Testez l'accessibilité avec les lecteurs d'écran</li>
+                    <li>Maintenez la sémantique HTML appropriée</li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/HTML/Element/ul">MDN - Élément UL</a></li>
+                <li><a href="https://css-tricks.com/almanac/properties/l/list-style/">CSS Tricks - list-style</a></li>
+                <li><a href="https://moderncss.dev/styling-ordered-lists-with-css-counters/">Modern CSS - Compteurs</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2025 Cours Stylisation Listes CSS</p>
+    </footer>
+</body>
+</html>

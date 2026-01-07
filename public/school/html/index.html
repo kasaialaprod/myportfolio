@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="intro.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro de chapitre</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="haut2page">
+                <h1>Introduction au HTML</h1>
+                <nav class="navigation">
+                    <a href="index.html" class="active">Intro</a>
+                    <a href="liste.html">Listes</a>
+                    <a href="tableau.html">Tableaux</a>
+                    <a href="image.html">Images</a>
+                    <a href="form.html">Formulaires</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section>
+            <h2>Découvrez les Fondements du Web</h2>
+            <p>Le HTML (HyperText Markup Language) est le langage fondamental qui structure toutes les pages web que vous consultez. C'est le point de départ essentiel pour quiconque souhaite créer des sites web.</p>
+            
+            <div class="feature-box">
+                <div class="feature">
+                    <h5>Structure du contenu</h5>
+                    <p>Le HTML organise et structure le contenu d'une page web en utilisant des balises sémantiques.</p>
+                </div>
+                <div class="feature">
+                    <h5>Accessibilité</h5>
+                    <p>Un bon HTML améliore l'accessibilité pour tous les utilisateurs, y compris ceux utilisant des technologies d'assistance.</p>
+                </div>
+                <div class="feature">
+                    <h5>Base solide</h5>
+                    <p>Le HTML constitue la fondation sur laquelle le CSS et le JavaScript viennent s'ajouter.</p>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h4>Qu'est-ce que le HTML ?</h4>
+                <p>Le HTML (HyperText Markup Language) est le langage de balisage standard utilisé pour créer des pages web. Il permet de structurer le contenu d'une page en utilisant des balises pour définir différents éléments tels que les titres, les paragraphes, les liens, les images, et bien plus encore.</p>
+            </div>
+            
+            <h4>Structure de base d'un document HTML</h4>
+            <p>Un document HTML commence par une déclaration de type de document <code>&lt;!DOCTYPE html&gt;</code> suivie de la balise <code>&lt;html&gt;</code> qui englobe tout le contenu de la page. À l'intérieur de cette balise, on trouve deux sections principales : <code>&lt;head&gt;</code> et <code>&lt;body&gt;</code>. La section <code>&lt;head&gt;</code> contient des informations méta, des liens vers des feuilles de style, et le titre de la page, tandis que la section <code>&lt;body&gt;</code> contient le contenu visible de la page.</p>
+            
+            <div class="structure-visual">
+                <div class="structure-item">&lt;!DOCTYPE html&gt;</div>
+                <div class="structure-item">&lt;html&gt;</div>
+                <div class="structure-item child">&lt;head&gt;</div>
+                <div class="structure-item grandchild">Métadonnées et liens</div>
+                <div class="structure-item child">&lt;/head&gt;</div>
+                <div class="structure-item child">&lt;body&gt;</div>
+                <div class="structure-item grandchild">Contenu visible</div>
+                <div class="structure-item child">&lt;/body&gt;</div>
+                <div class="structure-item">&lt;/html&gt;</div>
+            </div>
+            
+            <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ma Première Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Bienvenue sur ma page&lt;/h1&gt;
+    &lt;p&gt;Ceci est mon premier paragraphe en HTML.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+        </section>
+        
+        <section>
+            <h2>Les Éléments HTML Essentiels</h2>
+            
+            <div class="element-grid">
+                <div class="element-card">
+                    <h5>Balises de Titre</h5>
+                    <p>Les balises <code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code> définissent les titres et sous-titres, avec <code>&lt;h1&gt;</code> étant le plus important.</p>
+                    <code>&lt;h1&gt;Titre principal&lt;/h1&gt;</code>
+                </div>
+                
+                <div class="element-card">
+                    <h5>Paragraphes</h5>
+                    <p>La balise <code>&lt;p&gt;</code> définit un paragraphe de texte.</p>
+                    <code>&lt;p&gt;Ceci est un paragraphe.&lt;/p&gt;</code>
+                </div>
+                
+                <div class="element-card">
+                    <h5>Liens</h5>
+                    <p>La balise <code>&lt;a&gt;</code> crée des liens hypertextes avec l'attribut <code>href</code>.</p>
+                    <code>&lt;a href="https://exemple.com"&gt;Visitez Exemple&lt;/a&gt;</code>
+                </div>
+                
+                <div class="element-card">
+                    <h5>Images</h5>
+                    <p>La balise <code>&lt;img&gt;</code> insère des images avec les attributs <code>src</code> et <code>alt</code>.</p>
+                    <code>&lt;img src="image.jpg" alt="Description"&gt;</code>
+                </div>
+                
+                <div class="element-card">
+                    <h5>Listes</h5>
+                    <p>Les balises <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> et <code>&lt;li&gt;</code> créent des listes.</p>
+                    <code>&lt;ul&gt;&lt;li&gt;Élément&lt;/li&gt;&lt;/ul&gt;</code>
+                </div>
+                
+                <div class="element-card">
+                    <h5>Conteneurs</h5>
+                    <p>Les balises <code>&lt;div&gt;</code> et <code>&lt;span&gt;</code> regroupent et structurent le contenu.</p>
+                    <code>&lt;div&gt;Contenu groupé&lt;/div&gt;</code>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Bonnes Pratiques en HTML</h2>
+            
+            <div class="feature-box">
+                <div class="feature">
+                    <h5>HTML Sémantique</h5>
+                    <p>Utilisez des balises sémantiques comme <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, et <code>&lt;footer&gt;</code> pour donner du sens à votre structure.</p>
+                </div>
+                
+                <div class="feature">
+                    <h5>Accessibilité</h5>
+                    <p>Pensez à l'accessibilité dès le début. Utilisez les attributs <code>alt</code> pour les images, structurez votre contenu logiquement et utilisez les balises appropriées.</p>
+                </div>
+                
+                <div class="feature">
+                    <h5>Validation</h5>
+                    <p>Validez régulièrement votre code HTML avec le validateur du W3C pour vous assurer qu'il respecte les standards.</p>
+                </div>
+            </div>
+            
+            <h4>Séparation des Préoccupations</h4>
+            <p>Le HTML doit se concentrer uniquement sur la structure du contenu. Utilisez CSS pour le style et JavaScript pour l'interactivité. Cette séparation rend votre code plus maintenable et évolutif.</p>
+            
+            <div class="highlight">
+                <h4>Évolution du HTML</h4>
+                <p>HTML5, la dernière version majeure du langage, a introduit de nombreuses nouvelles balises sémantiques et APIs qui améliorent à la fois la structure des pages et les possibilités d'interaction. Les balises comme <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, et <code>&lt;footer&gt;</code> donnent du sens à la structure de la page, améliorant à la fois l'accessibilité et le référencement.</p>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Prochaines Étapes</h2>
+            
+            <p>Maintenant que vous comprenez les bases du HTML, explorez les autres sections de ce cours pour approfondir vos connaissances :</p>
+            
+            <div class="element-grid">
+                <div class="element-card">
+                    <h5>Listes</h5>
+                    <p>Apprenez à organiser le contenu avec les listes ordonnées et non ordonnées.</p>
+                </div>
+                
+                <div class="element-card">
+                    <h5>Tableaux</h5>
+                    <p>Découvrez comment structurer des données complexes avec les tableaux HTML.</p>
+                </div>
+                
+                <div class="element-card">
+                    <h5>Images</h5>
+                    <p>Maîtrisez l'intégration d'images et l'optimisation pour le web.</p>
+                </div>
+                
+                <div class="element-card">
+                    <h5>Formulaires</h5>
+                    <p>Créez des interfaces interactives pour recueillir des informations utilisateur.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Cours d'Introduction au HTML. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="#">Accueil</a>
+                    <a href="#">À propos</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

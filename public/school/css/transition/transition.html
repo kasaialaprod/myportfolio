@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="transition.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transitions CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Transitions CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#base">Fonctions de Base</a></li>
+                <li><a href="#proprietes">Propriétés</a></li>
+                <li><a href="#timing">Timing Functions</a></li>
+                <li><a href="#delais">Délais</a></li>
+                <li><a href="#multiple">Transitions Multiples</a></li>
+                <li><a href="#exemples">Exemples Pratiques</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="base">
+            <header>
+                <h2>Fonctions de Base des Transitions</h2>
+                <p id="h2mini">Les propriétés essentielles pour créer des animations fluides</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>transition-property</h4>
+                    <div class="code-example">
+                        <code>transition-property: all;<br>transition-property: opacity, transform;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element transition-property-demo">Survole-moi</div>
+                    </div>
+                    <p>Définit les propriétés à animer</p>
+                </div>
+                <div class="card">
+                    <h4>transition-duration</h4>
+                    <div class="code-example">
+                        <code>transition-duration: 0.3s;<br>transition-duration: 500ms;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element transition-duration-demo">Durée: 0.5s</div>
+                    </div>
+                    <p>Définit la durée de l'animation</p>
+                </div>
+                <div class="card">
+                    <h4>Syntaxe Courte</h4>
+                    <div class="code-example">
+                        <code>transition: all 0.3s ease;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element transition-short-demo">Short syntax</div>
+                    </div>
+                    <p>Syntaxe raccourcie pour toutes les propriétés</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="proprietes">
+            <h2>Propriétés Animables</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Couleurs</h4>
+                    <div class="code-example">
+                        <code>transition: background-color 0.3s, color 0.3s;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element color-transition">Couleurs</div>
+                    </div>
+                    <p>background-color, color, border-color</p>
+                </div>
+                <div class="card">
+                    <h4>Dimensions</h4>
+                    <div class="code-example">
+                        <code>transition: width 0.5s, height 0.5s;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element dimension-transition">Dimensions</div>
+                    </div>
+                    <p>width, height, padding, margin</p>
+                </div>
+                <div class="card">
+                    <h4>Transformations</h4>
+                    <div class="code-example">
+                        <code>transition: transform 0.4s ease;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element transform-transition">Transform</div>
+                    </div>
+                    <p>transform, opacity, visibility</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="timing">
+            <h2>Fonctions de Timing</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>ease (par défaut)</h4>
+                    <div class="code-example">
+                        <code>transition-timing-function: ease;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="timing-demo">
+                            <div class="ball ease-ball"></div>
+                        </div>
+                    </div>
+                    <p>Démarrage lent, rapide au milieu, fin lent</p>
+                </div>
+                <div class="card">
+                    <h4>linear</h4>
+                    <div class="code-example">
+                        <code>transition-timing-function: linear;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="timing-demo">
+                            <div class="ball linear-ball"></div>
+                        </div>
+                    </div>
+                    <p>Vitesse constante du début à la fin</p>
+                </div>
+                <div class="card">
+                    <h4>ease-in-out</h4>
+                    <div class="code-example">
+                        <code>transition-timing-function: ease-in-out;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="timing-demo">
+                            <div class="ball ease-in-out-ball"></div>
+                        </div>
+                    </div>
+                    <p>Démarrage et fin lents</p>
+                </div>
+            </div>
+
+            <section class="timing-comparison">
+                <h3>Comparaison des Timing Functions</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>ease-in</h4>
+                        <div class="timing-demo wide">
+                            <div class="ball ease-in-ball"></div>
+                        </div>
+                        <p>Démarrage lent, fin rapide</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>ease-out</h4>
+                        <div class="timing-demo wide">
+                            <div class="ball ease-out-ball"></div>
+                        </div>
+                        <p>Démarrage rapide, fin lent</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>cubic-bezier</h4>
+                        <div class="timing-demo wide">
+                            <div class="ball cubic-bezier-ball"></div>
+                        </div>
+                        <p>cubic-bezier(0.68, -0.55, 0.27, 1.55)</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="delais">
+            <h2>Délais de Transition</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Sans délai</h4>
+                    <div class="code-example">
+                        <code>transition: transform 0.5s ease 0s;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element no-delay">Pas de délai</div>
+                    </div>
+                    <p>L'animation commence immédiatement</p>
+                </div>
+                <div class="card">
+                    <h4>Avec délai</h4>
+                    <div class="code-example">
+                        <code>transition: transform 0.5s ease 0.5s;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element with-delay">Délai: 0.5s</div>
+                    </div>
+                    <p>L'animation attend 0.5 seconde avant de commencer</p>
+                </div>
+                <div class="card">
+                    <h4>Délai différentiel</h4>
+                    <div class="code-example">
+                        <code>transition: <br>  opacity 0.3s ease 0.1s,<br>  transform 0.3s ease 0.2s;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element staggered-delay">Délais échelonnés</div>
+                    </div>
+                    <p>Différents délais pour différentes propriétés</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="multiple">
+            <h2>Transitions Multiples</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Propriétés multiples</h4>
+                    <div class="code-example">
+                        <code>transition: <br>  background-color 0.3s,<br>  transform 0.5s,<br>  opacity 0.4s;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element multiple-properties">Multi propriétés</div>
+                    </div>
+                    <p>Plusieurs propriétés avec différentes durées</p>
+                </div>
+                <div class="card">
+                    <h4>Timing functions multiples</h4>
+                    <div class="code-example">
+                        <code>transition: <br>  transform 0.5s ease-in,<br>  opacity 0.3s ease-out;</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element multiple-timing">Multi timing</div>
+                    </div>
+                    <p>Différentes fonctions de timing par propriété</p>
+                </div>
+                <div class="card">
+                    <h4>Transition sur tous les états</h4>
+                    <div class="code-example">
+                        <code>transition: all 0.3s ease;<br>/* S'applique à hover ET focus */</code>
+                    </div>
+                    <div class="demo-container">
+                        <button class="element state-transition">Focus & Hover</button>
+                    </div>
+                    <p>Transition appliquée à tous les changements d'état</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="exemples">
+            <h2>Exemples Pratiques</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Bouton moderne</h4>
+                    <div class="code-example">
+                        <code>.btn {<br>  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);<br>}<br>.btn:hover {<br>  transform: translateY(-2px);<br>  box-shadow: 0 4px 12px rgba(0,0,0,0.15);<br>}</code>
+                    </div>
+                    <div class="demo-container">
+                        <button class="modern-button">Bouton Moderne</button>
+                    </div>
+                    <p>Effet de levitation au survol</p>
+                </div>
+                <div class="card">
+                    <h4>Menu navigation</h4>
+                    <div class="code-example">
+                        <code>.nav-item {<br>  transition: color 0.2s ease,<br>    border-bottom 0.2s ease;<br>}<br>.nav-item:hover {<br>  color: #FF6B6B;<br>  border-bottom: 2px solid #FF6B6B;<br>}</code>
+                    </div>
+                    <div class="demo-container">
+                        <nav class="nav-demo">
+                            <a href="#" class="nav-item">Accueil</a>
+                            <a href="#" class="nav-item">Services</a>
+                            <a href="#" class="nav-item">Contact</a>
+                        </nav>
+                    </div>
+                    <p>Animation fluide des liens de navigation</p>
+                </div>
+                <div class="card">
+                    <h4>Carte interactive</h4>
+                    <div class="code-example">
+                        <code>.card {<br>  transition: transform 0.4s ease,<br>    box-shadow 0.4s ease;<br>}<br>.card:hover {<br>  transform: scale(1.05);<br>  box-shadow: 0 8px 25px rgba(0,0,0,0.15);<br>}</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="interactive-card">
+                            <h5>Titre de la carte</h5>
+                            <p>Contenu de la carte avec transition fluide</p>
+                        </div>
+                    </div>
+                    <p>Effet d'agrandissement et d'ombre portée</p>
+                </div>
+            </div>
+
+            <section class="best-practices">
+                <h3>Bonnes Pratiques</h3>
+                <div class="practices-grid">
+                    <div class="practice-card">
+                        <h4>Performance</h4>
+                        <ul>
+                            <li>Préférez <code>transform</code> et <code>opacity</code></li>
+                            <li>Évitez d'animer <code>width</code>/<code>height</code></li>
+                            <li>Utilisez <code>will-change</code> avec parcimonie</li>
+                        </ul>
+                    </div>
+                    <div class="practice-card">
+                        <h4>UX</h4>
+                        <ul>
+                            <li>Durée idéale : 200-500ms</li>
+                            <li>Évitez les animations trop longues</li>
+                            <li>Respectez le <code>prefers-reduced-motion</code></li>
+                        </ul>
+                    </div>
+                    <div class="practice-card">
+                        <h4>Code</h4>
+                        <ul>
+                            <li>Utilisez la syntaxe courte</li>
+                            <li>Définissez les transitions sur l'état par défaut</li>
+                            <li>Testez sur différents appareils</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/transition">MDN - Transition</a></li>
+                <li><a href="https://cubic-bezier.com/">Générateur cubic-bezier</a></li>
+                <li><a href="https://css-tricks.com/almanac/properties/t/transition/">CSS Tricks - Transition</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2025 Cours Transitions CSS</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="tab.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylisation des Tableaux CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Stylisation des Tableaux CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#base">Structure de Base</a></li>
+                <li><a href="#bordures">Bordures</a></li>
+                <li><a href="#alternance">Alternance</a></li>
+                <li><a href="#entetes">En-têtes</a></li>
+                <li><a href="#responsive">Tableaux Responsive</a></li>
+                <li><a href="#avance">Techniques Avancées</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="base">
+            <header>
+                <h2>Structure de Base d'un Tableau</h2>
+                <p id="h2mini">Comprendre les éléments HTML d'un tableau</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Éléments Principaux</h4>
+                    <div class="code-example">
+                        <code>&lt;table&gt;<br>  &lt;caption&gt;Titre&lt;/caption&gt;<br>  &lt;thead&gt;<br>    &lt;tr&gt;<br>      &lt;th&gt;En-tête&lt;/th&gt;<br>    &lt;/tr&gt;<br>  &lt;/thead&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;Donnée&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</code>
+                    </div>
+                    <p>Structure sémantique complète d'un tableau</p>
+                </div>
+                <div class="card">
+                    <h4>Tableau Basique</h4>
+                    <table class="table-basic">
+                        <caption>Liste des Employés</caption>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Poste</th>
+                                <th>Département</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Marie Dupont</td>
+                                <td>Développeuse</td>
+                                <td>IT</td>
+                            </tr>
+                            <tr>
+                                <td>Pierre Martin</td>
+                                <td>Designer</td>
+                                <td>Créa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Tableau HTML sans style CSS</p>
+                </div>
+            </div>
+
+            <section class="table-elements">
+                <h3>Éléments HTML des Tableaux</h3>
+                <div class="elements-grid">
+                    <div class="element-card">
+                        <h4>&lt;table&gt;</h4>
+                        <p>Conteneur principal du tableau</p>
+                    </div>
+                    <div class="element-card">
+                        <h4>&lt;caption&gt;</h4>
+                        <p>Titre ou légende du tableau</p>
+                    </div>
+                    <div class="element-card">
+                        <h4>&lt;thead&gt;</h4>
+                        <p>Section d'en-tête du tableau</p>
+                    </div>
+                    <div class="element-card">
+                        <h4>&lt;tbody&gt;</h4>
+                        <p>Corps du tableau avec les données</p>
+                    </div>
+                    <div class="element-card">
+                        <h4>&lt;tfoot&gt;</h4>
+                        <p>Pied de tableau (totaux, etc.)</p>
+                    </div>
+                    <div class="element-card">
+                        <h4>&lt;tr&gt;</h4>
+                        <p>Ligne du tableau (table row)</p>
+                    </div>
+                    <div class="element-card">
+                        <h4>&lt;th&gt;</h4>
+                        <p>Cellule d'en-tête (table header)</p>
+                    </div>
+                    <div class="element-card">
+                        <h4>&lt;td&gt;</h4>
+                        <p>Cellule de donnée (table data)</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="bordures">
+            <h2>Stylisation des Bordures</h2>
+            
+            <div class="borders-grid">
+                <div class="border-card">
+                    <h4>Bordures Collapsed</h4>
+                    <div class="code-example">
+                        <code>table {<br>  border-collapse: collapse;<br>}</code>
+                    </div>
+                    <table class="table-collapsed">
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                        </tr>
+                        <tr>
+                            <td>Ordinateur</td>
+                            <td>999€</td>
+                        </tr>
+                        <tr>
+                            <td>Souris</td>
+                            <td>25€</td>
+                        </tr>
+                    </table>
+                    <p>Bordures fusionnées pour un look propre</p>
+                </div>
+
+                <div class="border-card">
+                    <h4>Bordures Separated</h4>
+                    <div class="code-example">
+                        <code>table {<br>  border-collapse: separate;<br>  border-spacing: 10px;<br>}</code>
+                    </div>
+                    <table class="table-separated">
+                        <tr>
+                            <th>Ville</th>
+                            <th>Population</th>
+                        </tr>
+                        <tr>
+                            <td>Paris</td>
+                            <td>2.1M</td>
+                        </tr>
+                        <tr>
+                            <td>Lyon</td>
+                            <td>500k</td>
+                        </tr>
+                    </table>
+                    <p>Bordures séparées avec espacement</p>
+                </div>
+
+                <div class="border-card">
+                    <h4>Bordures Personnalisées</h4>
+                    <div class="code-example">
+                        <code>td, th {<br>  border: 2px solid #e74c3c;<br>  border-radius: 8px;<br>}</code>
+                    </div>
+                    <table class="table-custom-border">
+                        <tr>
+                            <th>Langage</th>
+                            <th>Niveau</th>
+                        </tr>
+                        <tr>
+                            <td>HTML/CSS</td>
+                            <td>Avancé</td>
+                        </tr>
+                        <tr>
+                            <td>JavaScript</td>
+                            <td>Intermédiaire</td>
+                        </tr>
+                    </table>
+                    <p>Bordures avec coins arrondis</p>
+                </div>
+            </div>
+
+            <section class="border-styles">
+                <h3>Styles de Bordures</h3>
+                <div class="border-styles-demo">
+                    <table class="border-styles-table">
+                        <tr>
+                            <th>Style</th>
+                            <th>Exemple</th>
+                            <th>Code CSS</th>
+                        </tr>
+                        <tr>
+                            <td>Solid</td>
+                            <td class="border-solid">Texte</td>
+                            <td><code>border: 2px solid</code></td>
+                        </tr>
+                        <tr>
+                            <td>Dashed</td>
+                            <td class="border-dashed">Texte</td>
+                            <td><code>border: 2px dashed</code></td>
+                        </tr>
+                        <tr>
+                            <td>Dotted</td>
+                            <td class="border-dotted">Texte</td>
+                            <td><code>border: 2px dotted</code></td>
+                        </tr>
+                        <tr>
+                            <td>Double</td>
+                            <td class="border-double">Texte</td>
+                            <td><code>border: 4px double</code></td>
+                        </tr>
+                        <tr>
+                            <td>Groove</td>
+                            <td class="border-groove">Texte</td>
+                            <td><code>border: 4px groove</code></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </article>
+
+        <article id="alternance">
+            <h2>Alternance des Lignes</h2>
+            
+            <div class="striping-grid">
+                <div class="striping-card">
+                    <h4>Zebrage Classique</h4>
+                    <div class="code-example">
+                        <code>tr:nth-child(even) {<br>  background: #f8f9fa;<br>}<br><br>tr:nth-child(odd) {<br>  background: white;<br>}</code>
+                    </div>
+                    <table class="table-zebra">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Montant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>Entreprise A</td>
+                                <td>1,500€</td>
+                            </tr>
+                            <tr>
+                                <td>002</td>
+                                <td>Entreprise B</td>
+                                <td>2,300€</td>
+                            </tr>
+                            <tr>
+                                <td>003</td>
+                                <td>Entreprise C</td>
+                                <td>800€</td>
+                            </tr>
+                            <tr>
+                                <td>004</td>
+                                <td>Entreprise D</td>
+                                <td>3,100€</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Alternance pairs/impairs pour meilleure lisibilité</p>
+                </div>
+
+                <div class="striping-card">
+                    <h4>Zebrage avec Survol</h4>
+                    <div class="code-example">
+                        <code>tr:hover {<br>  background: #e3f2fd;<br>  transform: scale(1.01);<br>}</code>
+                    </div>
+                    <table class="table-zebra-hover">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Stock</th>
+                                <th>Prix</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop</td>
+                                <td>15</td>
+                                <td>899€</td>
+                            </tr>
+                            <tr>
+                                <td>Smartphone</td>
+                                <td>32</td>
+                                <td>599€</td>
+                            </tr>
+                            <tr>
+                                <td>Tablette</td>
+                                <td>8</td>
+                                <td>399€</td>
+                            </tr>
+                            <tr>
+                                <td>Écran</td>
+                                <td>12</td>
+                                <td>249€</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Effet au survol pour l'interactivité</p>
+                </div>
+
+                <div class="striping-card">
+                    <h4>Zebrage par Groupes</h4>
+                    <div class="code-example">
+                        <code>tr:nth-child(4n+1),<br>tr:nth-child(4n+2) {<br>  background: #f5f5f5;<br>}</code>
+                    </div>
+                    <table class="table-grouped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Événement</th>
+                                <th>Participants</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01/01/2024</td>
+                                <td>Réveillon</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>15/01/2024</td>
+                                <td>Formation</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>01/02/2024</td>
+                                <td>Conférence</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>14/02/2024</td>
+                                <td>Saint-Valentin</td>
+                                <td>75</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Groupes de 2 lignes pour séparer visuellement</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="entetes">
+            <h2>Stylisation des En-têtes</h2>
+            
+            <div class="headers-grid">
+                <div class="header-card">
+                    <h4>En-tête Simple</h4>
+                    <div class="code-example">
+                        <code>th {<br>  background: #3498db;<br>  color: white;<br>  padding: 15px;<br>}</code>
+                    </div>
+                    <table class="table-header-simple">
+                        <thead>
+                            <tr>
+                                <th>Mois</th>
+                                <th>Ventes</th>
+                                <th>Croissance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Janvier</td>
+                                <td>15,000€</td>
+                                <td>+5%</td>
+                            </tr>
+                            <tr>
+                                <td>Février</td>
+                                <td>18,000€</td>
+                                <td>+20%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="header-card">
+                    <h4>En-tête Dégradé</h4>
+                    <div class="code-example">
+                        <code>th {<br>  background: linear-gradient(135deg, #e74c3c, #c0392b);<br>  color: white;<br>  text-transform: uppercase;<br>}</code>
+                    </div>
+                    <table class="table-header-gradient">
+                        <thead>
+                            <tr>
+                                <th>Projet</th>
+                                <th>Statut</th>
+                                <th>Échéance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Site Web</td>
+                                <td>En cours</td>
+                                <td>15/03</td>
+                            </tr>
+                            <tr>
+                                <td>App Mobile</td>
+                                <td>Terminé</td>
+                                <td>01/02</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="header-card">
+                    <h4>En-tête Fixe</h4>
+                    <div class="code-example">
+                        <code>thead {<br>  position: sticky;<br>  top: 0;<br>}</code>
+                    </div>
+                    <div class="sticky-table-container">
+                        <table class="table-header-sticky">
+                            <thead>
+                                <tr>
+                                    <th>Employé</th>
+                                    <th>Département</th>
+                                    <th>Salaire</th>
+                                    <th>Ancienneté</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Alice</td><td>IT</td><td>45,000€</td><td>2 ans</td></tr>
+                                <tr><td>Bob</td><td>Marketing</td><td>38,000€</td><td>1 an</td></tr>
+                                <tr><td>Charlie</td><td>Finance</td><td>52,000€</td><td>4 ans</td></tr>
+                                <tr><td>Diana</td><td>RH</td><td>41,000€</td><td>3 ans</td></tr>
+                                <tr><td>Eve</td><td>IT</td><td>48,000€</td><td>5 ans</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>En-tête qui reste visible au défilement</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="responsive">
+            <h2>Tableaux Responsive</h2>
+            
+            <section class="responsive-methods">
+                <h3>Méthodes Responsive</h3>
+                <div class="methods-grid">
+                    <div class="method-card">
+                        <h4>Défilement Horizontal</h4>
+                        <div class="code-example">
+                            <code>.container {<br>  overflow-x: auto;<br>}</code>
+                        </div>
+                        <div class="scrollable-table">
+                            <table class="table-scroll">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Téléphone</th>
+                                        <th>Adresse</th>
+                                        <th>Ville</th>
+                                        <th>Code Postal</th>
+                                        <th>Pays</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Jean Martin</td>
+                                        <td>jean@email.com</td>
+                                        <td>01 23 45 67 89</td>
+                                        <td>123 Rue Exemple</td>
+                                        <td>Paris</td>
+                                        <td>75001</td>
+                                        <td>France</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>Barre de défilement pour les grands tableaux</p>
+                    </div>
+
+                    <div class="method-card">
+                        <h4>Transformation en Cartes</h4>
+                        <div class="code-example">
+                            <code>@media (max-width: 768px) {<br>  table, thead, tbody, th, td, tr {<br>    display: block;<br>  }<br>}</code>
+                        </div>
+                        <div class="card-table-container">
+                            <table class="table-cards">
+                                <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Catégorie</th>
+                                        <th>Prix</th>
+                                        <th>Stock</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="Produit">iPhone 15</td>
+                                        <td data-label="Catégorie">Smartphone</td>
+                                        <td data-label="Prix">959€</td>
+                                        <td data-label="Stock">25</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Produit">MacBook Air</td>
+                                        <td data-label="Catégorie">Ordinateur</td>
+                                        <td data-label="Prix">1,299€</td>
+                                        <td data-label="Stock">12</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>Sur mobile, chaque ligne devient une carte</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="avance">
+            <h2>Techniques Avancées</h2>
+            
+            <div class="advanced-grid">
+                <div class="advanced-card">
+                    <h4>Colonnes Fixes</h4>
+                    <div class="code-example">
+                        <code>th:first-child,<br>td:first-child {<br>  position: sticky;<br>  left: 0;<br>  background: white;<br>}</code>
+                    </div>
+                    <div class="fixed-columns-container">
+                        <table class="table-fixed-columns">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Q1</th>
+                                    <th>Q2</th>
+                                    <th>Q3</th>
+                                    <th>Q4</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Laptop</td>
+                                    <td>150</td>
+                                    <td>200</td>
+                                    <td>180</td>
+                                    <td>220</td>
+                                    <td>750</td>
+                                </tr>
+                                <tr>
+                                    <td>Smartphone</td>
+                                    <td>300</td>
+                                    <td>350</td>
+                                    <td>400</td>
+                                    <td>450</td>
+                                    <td>1,500</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Cellules Fusionnées</h4>
+                    <div class="code-example">
+                        <code>td[rowspan="2"] {<br>  background: #e74c3c;<br>  color: white;<br>}</code>
+                    </div>
+                    <table class="table-merged">
+                        <thead>
+                            <tr>
+                                <th>Département</th>
+                                <th>Employé</th>
+                                <th>Rôle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">IT</td>
+                                <td>Alice</td>
+                                <td>Développeuse</td>
+                            </tr>
+                            <tr>
+                                <td>Bob</td>
+                                <td>Admin Sys</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Marketing</td>
+                                <td>Charlie</td>
+                                <td>Content Manager</td>
+                            </tr>
+                            <tr>
+                                <td>Diana</td>
+                                <td>SEO Specialist</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="advanced-card">
+                    <h4>Tableau avec Barres de Progression</h4>
+                    <div class="code-example">
+                        <code>.progress-bar {<br>  background: #3498db;<br>  height: 20px;<br>  border-radius: 10px;<br>}</code>
+                    </div>
+                    <table class="table-progress">
+                        <thead>
+                            <tr>
+                                <th>Tâche</th>
+                                <th>Progression</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Design</td>
+                                <td>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" style="width: 80%"></div>
+                                    </div>
+                                </td>
+                                <td>80%</td>
+                            </tr>
+                            <tr>
+                                <td>Développement</td>
+                                <td>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" style="width: 45%"></div>
+                                    </div>
+                                </td>
+                                <td>45%</td>
+                            </tr>
+                            <tr>
+                                <td>Tests</td>
+                                <td>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" style="width: 20%"></div>
+                                    </div>
+                                </td>
+                                <td>20%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/HTML/Element/table">MDN - Élément Table</a></li>
+                <li><a href="https://css-tricks.com/complete-guide-table-element/">CSS Tricks - Guide Complet des Tableaux</a></li>
+                <li><a href="https://moderncss.dev/css-only-responsive-tables/">Modern CSS - Tableaux Responsive</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2024 Cours Stylisation Tableaux CSS</p>
+    </footer>
+</body>
+</html>

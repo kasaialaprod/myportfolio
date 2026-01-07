@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="gestion.css">
+    <script src="gestion.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesion</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>COURS PHP - CHAPITRE 5</h1>
+            <p class="glowing-text">Gestion des formulaires et interactions utilisateur</p>
+        </header>
+        
+        <div class="nav-bar">
+            <a href="#introduction">Intro</a>
+            <a href="#methodes">GET/POST</a>
+            <a href="#elements-formulaire">Formulaire</a>
+            <a href="#securite">Sécurité</a>
+            <a href="#demo-interactive">Simulaition</a>
+        </div>
+        
+        <div class="content">
+            <section id="introduction">
+                <h2>Introduction aux formulaires web</h2>
+                <p>Les formulaires permettent aux utilisateurs d'envoyer des données au serveur, créant ainsi des interactions dynamiques.</p>
+                
+                <div class="flow-diagram">
+                    <h3>Cycle de vie d'un formulaire</h3>
+                    <div class="flow-steps">
+                        <span class="flow-step">Formulaire HTML</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">Soumission</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">Traitement PHP</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">Réponse</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="formulaires-base">
+                <h2>Structure de base d'un formulaire</h2>
+                
+                <div class="code-block">
+                    &lt;form method="post" action="traitement.php"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;label for="nom"&gt;Nom:&lt;/label&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" id="nom" name="nom"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;label for="email"&gt;Email:&lt;/label&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="email" id="email" name="email"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="submit" value="Envoyer"&gt;<br>
+                    &lt;/form&gt;
+                </div>
+                
+                <h3>Attributs importants</h3>
+                <div class="method-comparison">
+                    <div class="method-box">
+                        <h4>method</h4>
+                        <p>Définit comment les données sont envoyées :</p>
+                        <ul>
+                            <li><strong>GET</strong> : Dans l'URL</li><br>
+                            <li><strong>POST</strong> : Dans le corps de la requête <br> <b>(plus sécurisé)</b></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h4>action</h4>
+                        <p>Spécifie la page qui traitera le formulaire :</p>
+                        <ul>
+                            <li>Fichier PHP</li>
+                            <li>Même page (vide)</li>
+                            <li>URL absolue</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="methodes">
+                <h2>GET vs POST</h2>
+                
+                <div class="method-comparison">
+                    <div class="method-box">
+                        <h4>Méthode GET</h4>
+                        <p><strong>Utilisation :</strong> Requêtes sans effet secondaire</p>
+                        <p><strong>Données :</strong> Visibles dans l'URL</p>
+                        <p><strong>Limite :</strong> ~2000 caractères</p>
+                        <p><strong>Exemple :</strong> Recherches, filtres</p>
+                        
+                        <div class="code-block" style="font-size: 0.8em; margin: 10px 0;">
+                            exemple.com?recherche=php&amp;categorie=cours
+                        </div>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h4>Méthode POST</h4>
+                        <p><strong>Utilisation :</strong> Envoi de données sensibles</p>
+                        <p><strong>Données :</strong> Invisibles dans l'URL</p>
+                        <p><strong>Limite :</strong> Beaucoup plus élevée</p>
+                        <p><strong>Exemple :</strong> Connexion, inscription</p>
+                        
+                        <div class="code-block" style="font-size: 0.8em; margin: 10px 0;">
+                            Données envoyées dans le corps de la requête
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="elements-formulaire">
+                <h2>Éléments de formulaire courants</h2>
+                
+                <div class="form-demo">
+                    <h3>Exemple de formulaire complet</h3>
+                    <form id="demo-form" onsubmit="return traiterFormulaire(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="demo-nom">Nom complet *</label>
+                            <input class="form-input" type="text" id="demo-nom" name="nom" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="demo-email">Email *</label>
+                            <input class="form-input" type="email" id="demo-email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="demo-sujet">Sujet</label>
+                            <select class="form-select" id="demo-sujet" name="sujet">
+                                <option value="">-- Choisissez --</option>
+                                <option value="question">Question</option>
+                                <option value="probleme">Cours personnalisé</option>
+                                <option value="suggestion">Suggestion</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" name="newsletter" value="1">
+                                S'abonner à la newsletter
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Langages préférés</label>
+                            <div>
+                                <label><input type="checkbox" name="langages[]" value="php"> PHP</label>
+                                <label><input type="checkbox" name="langages[]" value="javascript"> JavaScript</label>
+                                <label><input type="checkbox" name="langages[]" value="python"> Python</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="demo-message">Message *</label>
+                            <textarea class="form-textarea" id="demo-message" name="message" required></textarea>
+                        </div>
+                        
+                        <input class="form-submit" type="submit" value="Envoyer le formulaire">
+                        <input class="form-submit" type="reset" value="Réinitialiser le formulaire">
+                    </form>
+                    
+                    <div class="interactive-result" id="form-result">
+                        <!-- Les résultats apparaîtront ici -->
+                    </div>
+                </div>
+            </section>
+            
+            <section id="traitement-php">
+                <h2>Traitement des données en PHP</h2>
+                
+                <h3>Récupération des données</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    // Pour la méthode POST<br>
+                    $nom = $_POST['nom'];<br>
+                    $email = $_POST['email'];<br>
+                    <br>
+                    // Pour la méthode GET<br>
+                    $recherche = $_GET['recherche'];<br>
+                    <br>
+                    // Vérification si le formulaire a été soumis<br>
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// Traitement du formulaire<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Validation des données</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    function validerFormulaire($donnees) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$erreurs = [];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// Validation du nom<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (empty($donnees['nom'])) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$erreurs[] = "Le nom est obligatoire";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// Validation de l'email<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (!filter_var($donnees['email'], FILTER_VALIDATE_EMAIL)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$erreurs[] = "L'email n'est pas valide";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return $erreurs;<br>
+                    }<br>
+                    <br>
+                    // Utilisation<br>
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$erreurs = validerFormulaire($_POST);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (empty($erreurs)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Traitement des données<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Affichage des erreurs<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="securite">
+                <h2>Sécurité des formulaires</h2>
+                
+                <div class="warning">
+                    <p><strong>⚠️ ATTENTION :</strong> Ne faites jamais confiance aux données utilisateur !</p>
+                </div>
+                
+                <h3>Protections essentielles</h3>
+                <table class="security-table">
+                    <tr>
+                        <th>Risque</th>
+                        <th>Description</th>
+                        <th>Protection</th>
+                    </tr>
+                    <tr>
+                        <td>Injection XSS</td>
+                        <td>Exécution de code malveillant</td>
+                        <td>htmlspecialchars()</td>
+                    </tr>
+                    <tr>
+                        <td>Injection SQL</td>
+                        <td>Attaque sur la base de données</td>
+                        <td>Requêtes préparées</td>
+                    </tr>
+                    <tr>
+                        <td>CSRF</td>
+                        <td>Requêtes forgées</td>
+                        <td>Tokens de sécurité</td>
+                    </tr>
+                    <tr>
+                        <td>Survalidation</td>
+                        <td>Données corrompues</td>
+                        <td>Validation côté serveur</td>
+                    </tr>
+                </table>
+                
+                <h3>Exemple de sécurisation</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    <i>// Nettoyage des données</i><br>
+                    $nom = htmlspecialchars($_POST['nom']);<br>
+                    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);<br>
+                    <br>
+                    <i>// Validation</i><br>
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;die("Email invalide");<br>
+                    }<br>
+                    <br>
+                    <i>// Utilisation sécurisée dans une requête SQL</i><br>
+                    $sql = $pdo-&gt;prepare("INSERT INTO users (nom, email) VALUES (?, ?)");<br>
+                    $sql-&gt;execute([$nom, $email]);<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="fichiers">
+                <h2>Upload de fichiers</h2>
+                
+                <div class="code-block">
+                    &lt;form method="post" action="upload.php" enctype="multipart/form-data"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="file" name="fichier"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="submit" value="Uploader"&gt;<br>
+                    &lt;/form&gt;
+                </div>
+                
+                <h3>Traitement de l'upload</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    if ($_FILES['fichier']['error'] === UPLOAD_ERR_OK) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$nom_temporaire = $_FILES['fichier']['tmp_name'];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$nom_fichier = $_FILES['fichier']['name'];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$taille = $_FILES['fichier']['size'];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$type = $_FILES['fichier']['type'];<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// Validation du type de fichier<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$types_autorises = ['image/jpeg', 'image/png', 'application/pdf'];<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (in_array($type, $types_autorises)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Déplacement du fichier<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move_uploaded_file($nom_temporaire, "uploads/" . $nom_fichier);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "Fichier uploadé avec succès";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "Type de fichier non autorisé";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="demo-interactive">
+                <h2>Simulation de traitement</h2>
+                
+                <div class="interactive-demo">
+                    <h3>Testez le traitement d'un formulaire</h3>
+                    <p>Soumettez le formulaire ci-dessus pour voir comment PHP traiterait les données :</p>
+                    
+                    <div class="demo-controls">
+                        <button class="form-submit" onclick="simulerSoumission()">Simuler la soumission PHP</button>
+                        <button class="form-submit" onclick="afficherCodeTraitement()">Voir le code de traitement</button>
+                    </div>
+                    
+                    <div class="interactive-result" id="simulation-result">
+                        <!-- Les résultats de simulation apparaîtront ici -->
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+
+            <p>Cours PHP <a href="#"> Gestion des formulaires et interactions utilisateur partie 1</a></p>
+            <p>Chapitre précédent: <a href="../tableaux/tab.html">Tableaux et structures de données</a></p>
+            <p>Prochain chapitre: <a href="gestion2.html">Gestion des formulaires et interactions utilisateur partie 2</a> </p>
+        </footer>
+    </div>
+</body>
+</html>

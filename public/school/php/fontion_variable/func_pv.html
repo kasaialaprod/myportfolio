@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="func_pv.css">
+    <script src="func_pv.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctions et portée des variables</title>
+</head>
+<body>
+    <!-- Fond étoilé pour l'effet spatial -->
+    <div class="space-bg" id="space-bg"></div>
+    
+    <div class="container">
+        <header>
+            <h1>COURS PHP - CHAPITRE 3</h1>
+            <p class="glowing-text">Fonctions et portée des variables</p>
+        </header>
+        
+        <div class="nav-bar">
+            <a href="#fonctions">Fonctions</a>
+            <a href="#portee">Portée</a>
+        </div>
+        
+        <div class="content">
+            <section id="introduction">
+                <h2>Introduction aux fonctions</h2>
+                <p>Les fonctions permettent d'organiser le code en blocs réutilisables, évitant la répétition et facilitant la maintenance.</p>
+                
+                <div class="function-visual">
+                    <h3>Structure d'une fonction</h3>
+                    <div style="text-align: center; color: #4cc9f0;">
+                        [ENTRÉES] → [TRAITEMENT] → [SORTIE]
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <span class="function-call">nomFonction(param1, param2)</span> → <span class="variable-scope">résultat</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="fonctions">
+                <h2>Création et utilisation des fonctions</h2>
+                
+                <h3>Déclaration d'une fonction</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    function direBonjour() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Bonjour !";<br>
+                    }<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Appel d'une fonction</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    direBonjour(); // Affiche: Bonjour !<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Fonction avec paramètres</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    function saluerPersonne($nom) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Bonjour " . $nom . " !";<br>
+                    }<br>
+                    <br>
+                    saluerPersonne("Marie"); // Affiche: Bonjour Marie !<br>
+                    saluerPersonne("Pierre"); // Affiche: Bonjour Pierre !<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Fonction avec valeur de retour</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    function additionner($a, $b) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$resultat = $a + $b;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return $resultat;<br>
+                    }<br>
+                    <br>
+                    $somme = additionner(5, 3);<br>
+                    echo "5 + 3 = " . $somme; // Affiche: 5 + 3 = 8<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Paramètres avec valeurs par défaut</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    function saluer($nom = "invité") {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Bonjour " . $nom . " !";<br>
+                    }<br>
+                    <br>
+                    saluer("Jean"); // Affiche: Bonjour Jean !<br>
+                    saluer(); // Affiche: Bonjour invité !<br>
+                    ?&gt;
+                </div>
+                
+                <div class="note">
+                    <p><strong>Conseil:</strong> Donnez des noms explicites à vos fonctions pour rendre votre code plus lisible.</p>
+                </div>
+            </section>
+            
+            <section id="portee">
+                <h2>Portée des variables</h2>
+                <p>La portée définit où une variable est accessible dans le code.</p>
+                
+                <div class="scope-diagram">
+                    <div class="scope-box">
+                        <h4>Portée Globale</h4>
+                        <p>Accessible partout</p>
+                        <div class="code-block" style="font-size: 0.8em; margin: 10px 0;">
+                            $variableGlobale = 10;
+                        </div>
+                    </div>
+                    
+                    <div class="scope-box">
+                        <h4>Portée Locale</h4>
+                        <p>Accessible dans la fonction</p>
+                        <div class="code-block" style="font-size: 0.8em; margin: 10px 0;">
+                            function test() {<br>
+                            &nbsp;&nbsp;$locale = 5;<br>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="scope-box">
+                        <h4>Portée Static</h4>
+                        <p>Conserve sa valeur</p>
+                        <div class="code-block" style="font-size: 0.8em; margin: 10px 0;">
+                            static $compteur = 0;
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Exemple de portée locale</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    $variableGlobale = "Je suis globale";<br>
+                    <br>
+                    function testPortee() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$variableLocale = "Je suis locale";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo $variableLocale; // Fonctionne<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// echo $variableGlobale; // ERREUR! Non accessible<br>
+                    }<br>
+                    <br>
+                    testPortee(); // Affiche: Je suis locale<br>
+                    echo $variableGlobale; // Affiche: Je suis globale<br>
+                    // echo $variableLocale; // ERREUR! Non accessible<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Accéder aux variables globales</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    $compteur = 0;<br>
+                    <br>
+                    function incrementer() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;global $compteur; // Référence à la variable globale<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$compteur++;<br>
+                    }<br>
+                    <br>
+                    incrementer();<br>
+                    incrementer();<br>
+                    echo $compteur; // Affiche: 2<br>
+                    ?&gt;
+                </div>
+                
+                <h3>Variables static</h3>
+                <div class="code-block">
+                    &lt;?php<br>
+                    function compter() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;static $compteur = 0;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$compteur++;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo "Appel numéro: " . $compteur . "&lt;br&gt;";<br>
+                    }<br>
+                    <br>
+                    compter(); // Affiche: Appel numéro: 1<br>
+                    compter(); // Affiche: Appel numéro: 2<br>
+                    compter(); // Affiche: Appel numéro: 3<br>
+                    ?&gt;
+                </div>
+            </section>
+            
+            <section id="fonctions-utiles">
+                <h2>Fonctions PHP intégrées utiles</h2>
+                
+                <table class="function-table">
+                    <tr>
+                        <th>Fonction</th>
+                        <th>Description</th>
+                        <th>Exemple</th>
+                    </tr>
+                    <tr>
+                        <td>strlen()</td>
+                        <td>Longueur d'une chaîne</td>
+                        <td>strlen("Hello") → 5</td>
+                    </tr>
+                    <tr>
+                        <td>strtoupper()</td>
+                        <td>Convertit en majuscules</td>
+                        <td>strtoupper("hello") → "HELLO"</td>
+                    </tr>
+                    <tr>
+                        <td>strtolower()</td>
+                        <td>Convertit en minuscules</td>
+                        <td>strtolower("HELLO") → "hello"</td>
+                    </tr>
+                    <tr>
+                        <td>substr()</td>
+                        <td>Extrait une sous-chaîne</td>
+                        <td>substr("Hello", 1, 3) → "ell"</td>
+                    </tr>
+                    <tr>
+                        <td>count()</td>
+                        <td>Compte les éléments d'un tableau</td>
+                        <td>count([1,2,3]) → 3</td>
+                    </tr>
+                    <tr>
+                        <td>is_numeric()</td>
+                        <td>Vérifie si c'est un nombre</td>
+                        <td>is_numeric("123") → true</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section id="demo">
+                <h2>Console interactive</h2>
+                
+                <div class="interactive-console">
+                    <h3>Testez vos fonctions PHP</h3>
+                    <p>Écrivez une fonction PHP et voyez le résultat :</p>
+                    
+                    <div class="code-input" contenteditable="true" id="code-editor">
+&lt;?php
+function calculerCarre($nombre) {
+    return $nombre * $nombre;
+}
+
+$resultat = calculerCarre(5);
+echo "Le carré de 5 est: " . $resultat;
+?&gt;
+                    </div>
+                    
+                    <button class="execute-btn" onclick="executerCode()">Exécuter le code</button>
+                    
+                    <div class="console-output" id="console-output">
+                        <!-- Le résultat apparaîtra ici -->
+                    </div>
+                </div>
+            </section>
+            
+            <section id="bonnes-pratiques">
+                <h2>Bonnes pratiques avec les fonctions</h2>
+                
+                <div class="example">
+                    <h3>✅ FONCTION BIEN CONÇUE</h3>
+                    <div class="code-block">
+                        &lt;?php<br>
+                        function calculerTVA($prixHT, $taux = 0.2) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// Calcule le prix TTC à partir du prix HT<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// $prixHT: Prix hors taxes (float)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// $taux: Taux de TVA (float, default 0.2)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// Retourne: Prix TTC (float)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;return $prixHT * (1 + $taux);<br>
+                        }<br>
+                        ?&gt;
+                    </div>
+                    
+                    <h3>❌ FONCTION MAL CONÇUE</h3>
+                    <div class="code-block">
+                        &lt;?php<br>
+                        function f($a, $b) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;echo $a * $b;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// Que fait cette fonction?<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// Quels sont les types attendus?<br>
+                        }<br>
+                        ?&gt;
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Cours PHP <a href="#"> Fonctions et portée des variables</a></p>
+            <p>Chapitre précédent: <a href="../structure/struct.html">Structures de contrôle et boucles</a></p>
+            <p>Prochain chapitre: <a href="../tableaux/tab.html">Tableaux et structures de données</a></p>
+        </footer>
+    </div>
+</body>
+</html>

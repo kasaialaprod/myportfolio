@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="transfo.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformations CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Transformations CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                <li><a href="#translation">Translation</a></li>
+                <li><a href="#rotation">Rotation</a></li>
+                <li><a href="#echelle">Mise à l'échelle</a></li>
+                <li><a href="#inclinaison">Inclinaison</a></li>
+                <li><a href="#combinaisons">Combinaisons</a></li>
+                <li><a href="#animations">Animations</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="translation">
+            <header>
+                <h2>Translation - Déplacement</h2>
+                <p id="h2mini">Déplacer les éléments dans l'espace 2D</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>translateX()</h4>
+                    <div class="code-example">
+                        <code>transform: translateX(50px);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element translated-x">translateX(50px)</div>
+                    </div>
+                    <p>Déplacement horizontal uniquement</p>
+                </div>
+                <div class="card">
+                    <h4>translateY()</h4>
+                    <div class="code-example">
+                        <code>transform: translateY(30px);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element translated-y">translateY(30px)</div>
+                    </div>
+                    <p>Déplacement vertical uniquement</p>
+                </div>
+                <div class="card">
+                    <h4>translate()</h4>
+                    <div class="code-example">
+                        <code>transform: translate(40px, 20px);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element translated-xy">translate(40px, 20px)</div>
+                    </div>
+                    <p>Déplacement horizontal et vertical</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="rotation">
+            <h2>Rotation</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>rotate() - Degrés positifs</h4>
+                    <div class="code-example">
+                        <code>transform: rotate(45deg);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element rotated-45">rotate(45deg)</div>
+                    </div>
+                    <p>Rotation dans le sens horaire</p>
+                </div>
+                <div class="card">
+                    <h4>rotate() - Degrés négatifs</h4>
+                    <div class="code-example">
+                        <code>transform: rotate(-30deg);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element rotated-neg">rotate(-30deg)</div>
+                    </div>
+                    <p>Rotation dans le sens anti-horaire</p>
+                </div>
+                <div class="card">
+                    <h4>transform-origin</h4>
+                    <div class="code-example">
+                        <code>transform-origin: top left;<br>transform: rotate(45deg);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element rotated-origin">Origin: top left</div>
+                    </div>
+                    <p>Changer le point d'origine de la rotation</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="echelle">
+            <h2>Mise à l'échelle</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>scaleX()</h4>
+                    <div class="code-example">
+                        <code>transform: scaleX(1.5);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element scaled-x">scaleX(1.5)</div>
+                    </div>
+                    <p>Agrandissement horizontal</p>
+                </div>
+                <div class="card">
+                    <h4>scaleY()</h4>
+                    <div class="code-example">
+                        <code>transform: scaleY(0.7);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element scaled-y">scaleY(0.7)</div>
+                    </div>
+                    <p>Rétrécissement vertical</p>
+                </div>
+                <div class="card">
+                    <h4>scale()</h4>
+                    <div class="code-example">
+                        <code>transform: scale(1.2, 0.8);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element scaled-xy">scale(1.2, 0.8)</div>
+                    </div>
+                    <p>Échelle horizontale et verticale</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="inclinaison">
+            <h2>Inclinaison (Skew)</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>skewX()</h4>
+                    <div class="code-example">
+                        <code>transform: skewX(20deg);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element skewed-x">skewX(20deg)</div>
+                    </div>
+                    <p>Inclinaison horizontale</p>
+                </div>
+                <div class="card">
+                    <h4>skewY()</h4>
+                    <div class="code-example">
+                        <code>transform: skewY(15deg);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element skewed-y">skewY(15deg)</div>
+                    </div>
+                    <p>Inclinaison verticale</p>
+                </div>
+                <div class="card">
+                    <h4>skew()</h4>
+                    <div class="code-example">
+                        <code>transform: skew(20deg, 10deg);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element skewed-xy">skew(20deg, 10deg)</div>
+                    </div>
+                    <p>Inclinaison double axe</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="combinaisons">
+            <h2>Combinaisons de transformations</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Translation + Rotation</h4>
+                    <div class="code-example">
+                        <code>transform: translate(30px, 20px) rotate(45deg);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element combo-translate-rotate">Translate + Rotate</div>
+                    </div>
+                    <p>L'ordre des transformations est important</p>
+                </div>
+                <div class="card">
+                    <h4>Scale + Skew</h4>
+                    <div class="code-example">
+                        <code>transform: scale(1.2) skewX(10deg);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element combo-scale-skew">Scale + Skew</div>
+                    </div>
+                    <p>Combinaison d'échelle et d'inclinaison</p>
+                </div>
+                <div class="card">
+                    <h4>Transformations multiples</h4>
+                    <div class="code-example">
+                        <code>transform: translateX(20px) rotate(30deg) scale(1.1);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element original">Original</div>
+                        <div class="element combo-multiple">Multiple</div>
+                    </div>
+                    <p>Plusieurs transformations enchaînées</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="animations">
+            <h2>Animations avec transform</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Transition simple</h4>
+                    <div class="code-example">
+                        <code>transition: transform 0.3s ease;<br>transform: scale(1.2);</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element animated-scale">Survole-moi</div>
+                    </div>
+                    <p>Animation fluide au survol</p>
+                </div>
+                <div class="card">
+                    <h4>Animation keyframes</h4>
+                    <div class="code-example">
+                        <code>@keyframes bounce {<br>  0%, 100% { transform: translateY(0); }<br>  50% { transform: translateY(-20px); }<br>}</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element animated-bounce">Animation</div>
+                    </div>
+                    <p>Animation de rebondissement</p>
+                </div>
+                <div class="card">
+                    <h4>Rotation continue</h4>
+                    <div class="code-example">
+                        <code>animation: spin 2s linear infinite;<br>@keyframes spin {<br>  to { transform: rotate(360deg); }<br>}</code>
+                    </div>
+                    <div class="demo-container">
+                        <div class="element animated-spin">🌀</div>
+                    </div>
+                    <p>Rotation infinie</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/transform">MDN - Transform</a></li>
+                <li><a href="https://css-tricks.com/almanac/properties/t/transform/">CSS Tricks - Transform</a></li>
+                <li><a href="https://animate.style/">Bibliothèque d'animations</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2025 Cours Transformations CSS</p>
+    </footer>
+</body>
+</html>

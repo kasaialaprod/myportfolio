@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="form.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaires</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="haut2page">
+                <h1>Les Formulaires HTML</h1>
+                <nav class="navigation">
+                    <a href="index.html">Intro</a>
+                    <a href="liste.html">Listes</a>
+                    <a href="tableau.html">Tableaux</a>
+                    <a href="image.html">Images</a>
+                    <a href="form.html" class="active">Formulaires</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section>
+            <h2>Interagir avec les Utilisateurs</h2>
+            <p>Les formulaires HTML sont des éléments essentiels qui permettent aux visiteurs de votre site d'interagir avec vous. Apprenez à créer des formulaires efficaces, accessibles et esthétiques.</p>
+            
+            <div class="feature-box">
+                <div class="feature">
+                    <h5>Collecte de données</h5>
+                    <p>Les formulaires permettent de recueillir des informations utilisateur comme des noms, emails, préférences et bien plus.</p>
+                </div>
+                <div class="feature">
+                    <h5>Interaction utilisateur</h5>
+                    <p>Ils facilitent l'interaction avec le site via des recherches, connexions, inscriptions et autres actions.</p>
+                </div>
+                <div class="feature">
+                    <h5>Validation</h5>
+                    <p>HTML5 offre des mécanismes de validation intégrés pour garantir la qualité des données soumises.</p>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h4>Qu'est-ce qu'un formulaire HTML ?</h4>
+                <p>Un formulaire HTML est une section d'une page web qui permet aux utilisateurs de saisir et de soumettre des données. Les formulaires sont utilisés pour diverses interactions, telles que l'inscription, la connexion, la recherche, et bien plus encore.</p>
+            </div>
+            
+            <h4>Éléments de formulaire courants</h4>
+            <p>Les formulaires HTML utilisent plusieurs éléments pour recueillir des informations auprès des utilisateurs. Voici quelques-uns des éléments les plus courants :</p>
+            
+            <div class="form-examples">
+                <div class="form-example">
+                    <h5><code>&lt;input&gt;</code></h5>
+                    <p>Utilisé pour différents types de champs de saisie, tels que le texte, les mots de passe, les cases à cocher, les boutons radio, etc.</p>
+                    <div class="form-group">
+                        <input type="text" placeholder="Exemple de champ texte">
+                    </div>
+                </div>
+                
+                <div class="form-example">
+                    <h5><code>&lt;textarea&gt;</code></h5>
+                    <p>Utilisé pour les zones de texte multilignes.</p>
+                    <div class="form-group">
+                        <textarea placeholder="Exemple de zone de texte"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-example">
+                    <h5><code>&lt;select&gt;</code></h5>
+                    <p>Utilisé pour créer des menus déroulants.</p>
+                    <div class="form-group">
+                        <select>
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-example">
+                    <h5><code>&lt;button&gt;</code></h5>
+                    <p>Utilisé pour créer des boutons cliquables.</p>
+                    <div class="form-group">
+                        <button type="button">Exemple de bouton</button>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Exemple de formulaire simple</h4>
+            <form action="/submit" method="post">
+                <div class="form-group">
+                    <label for="name">Nom :</label>
+                    <input type="text" id="name" name="name" placeholder="Votre nom complet">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" placeholder="votre@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message :</label>
+                    <textarea id="message" name="message" placeholder="Votre message..."></textarea>
+                </div>
+                
+                <input type="submit" value="Envoyer">
+            </form>
+            
+            <div class="code-block">
+&lt;form action="/submit" method="post"&gt;
+    &lt;label for="name"&gt;Nom :&lt;/label&gt;
+    &lt;input type="text" id="name" name="name"&gt;
+    
+    &lt;label for="email"&gt;Email :&lt;/label&gt;
+    &lt;input type="email" id="email" name="email"&gt;
+    
+    &lt;label for="message"&gt;Message :&lt;/label&gt;
+    &lt;textarea id="message" name="message"&gt;&lt;/textarea&gt;
+    
+    &lt;input type="submit" value="Envoyer"&gt;
+&lt;/form&gt;
+            </div>
+        </section>
+        
+        <section>
+            <h2>Types d'Input Avancés</h2>
+            
+            <h4>Cases à cocher et Boutons radio</h4>
+            <form>
+                <div class="form-group">
+                    <label>Vos centres d'intérêt :</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sport" name="interests" value="sport">
+                            <label for="sport">Sport</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="lecture" name="interests" value="lecture">
+                            <label for="lecture">Lecture</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="voyage" name="interests" value="voyage">
+                            <label for="voyage">Voyage</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Méthode de contact préférée :</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="email-contact" name="contact" value="email" checked>
+                            <label for="email-contact">Email</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="phone-contact" name="contact" value="phone">
+                            <label for="phone-contact">Téléphone</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="sms-contact" name="contact" value="sms">
+                            <label for="sms-contact">SMS</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <h4>Champs de validation HTML5</h4>
+            <form>
+                <div class="form-group">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" name="password" required minlength="8" placeholder="Minimum 8 caractères">
+                </div>
+                
+                <div class="form-group">
+                    <label for="birthdate">Date de naissance :</label>
+                    <input type="date" id="birthdate" name="birthdate">
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Âge :</label>
+                    <input type="number" id="age" name="age">
+                </div>
+            </form>
+        </section>
+        
+        <section>
+            <h2>Bonnes pratiques pour les formulaires</h2>
+            
+            <h4>Accessibilité</h4>
+            <p>Utilisez toujours l'attribut <code>for</code> dans les labels qui correspond à l'<code>id</code> de l'input. Cela améliore l'accessibilité pour les technologies d'assistance.</p>
+            
+            <h4>Validation côté client</h4>
+            <p>HTML5 offre des attributs de validation comme <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code> et <code>type</code> spécifiques (email, url, etc.).</p>
+            
+            <h4>Expérience utilisateur</h4>
+            <p>Placez les labels au-dessus des champs pour une meilleure lisibilité, utilisez des placeholders pertinents et groupez les champs liés logiquement.</p>
+            
+            <h4>Sécurité</h4>
+            <p>N'oubliez pas que la validation côté client ne remplace pas la validation côté serveur. Toujours valider et nettoyer les données côté serveur.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Cours de HTML - Les Formulaires. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="#">Accueil</a>
+                    <a href="#">À propos</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="p_e.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relations Parent-Enfant CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Système Parent-Enfant CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            <ul>
+                
+               <li><a href="#hierarchie">Hiérarchie DOM</a></li>
+               <li><a href="#heritage">Héritage</a></li>
+               <li><a href="#combinateurs">Combinateurs</a></li>
+               <li><a href="#positionnement">Positionnement</a></li>
+               <li><a href="#flexbox">Flexbox</a></li>
+               <li> <a href="#grid">CSS Grid</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <article id="hierarchie">
+            <header>
+                <h2>Hiérarchie DOM</h2>
+                <p id="h2mini">Comprendre la structure arborescente du HTML</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>Élément Racine</h4>
+                    <div class="code-example">
+                        <code>&lt;html&gt;<br>  &lt;body&gt;<br>    &lt;div&gt;<br>      &lt;p&gt;Enfant&lt;/p&gt;<br>    &lt;/div&gt;<br>  &lt;/body&gt;<br>&lt;/html&gt;</code>
+                    </div>
+                    <p>html est l'ancêtre de tous les éléments</p>
+                </div>
+                <div class="card">
+                    <h4>Relation Directe</h4>
+                    <div class="dom-demo">
+                        <div class="parent-element">
+                            Parent
+                            <div class="child-element">Enfant direct</div>
+                            <div class="child-element">
+                                Enfant direct
+                                <div class="grandchild-element">Petit-enfant</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Visualisation des relations familiales</p>
+                </div>
+                <div class="card">
+                    <h4>Terminologie</h4>
+                    <ul class="terminology-list">
+                        <li><strong>Parent</strong> : Élément direct au-dessus</li>
+                        <li><strong>Enfant</strong> : Élément direct en-dessous</li>
+                        <li><strong>Ancêtre</strong> : Tous les éléments au-dessus</li>
+                        <li><strong>Descendant</strong> : Tous les éléments en-dessous</li>
+                        <li><strong>Frère</strong> : Élément au même niveau</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="dom-tree">
+                <h3>Arbre DOM Exemple</h3>
+                <div class="tree-structure">
+                    <div class="tree-node root">html
+                        <div class="tree-branch">
+                            <div class="tree-node">head
+                                <div class="tree-branch">
+                                    <div class="tree-node leaf">title</div>
+                                    <div class="tree-node leaf">meta</div>
+                                </div>
+                            </div>
+                            <div class="tree-node">body
+                                <div class="tree-branch">
+                                    <div class="tree-node">header
+                                        <div class="tree-branch">
+                                            <div class="tree-node leaf">h1</div>
+                                            <div class="tree-node leaf">nav</div>
+                                        </div>
+                                    </div>
+                                    <div class="tree-node">main
+                                        <div class="tree-branch">
+                                            <div class="tree-node leaf">article</div>
+                                            <div class="tree-node leaf">section</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="heritage">
+            <h2>Héritage CSS</h2>
+            
+            <div class="inheritance-grid">
+                <div class="inheritance-card">
+                    <h4>Propriétés Héritées</h4>
+                    <div class="code-example">
+                        <code>.parent {<br>  font-family: Arial;<br>  color: blue;<br>  line-height: 1.5;<br>}</code>
+                    </div>
+                    <div class="inheritance-demo inherited">
+                        <div class="parent-inherit">
+                            Parent avec styles
+                            <div class="child-inherit">
+                                Enfant hérite des propriétés
+                                <div class="grandchild-inherit">
+                                    Petit-enfant hérite aussi
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>font-family, color, line-height sont hérités</p>
+                </div>
+
+                <div class="inheritance-card">
+                    <h4>Propriétés Non Héritées</h4>
+                    <div class="code-example">
+                        <code>.parent {<br>  background: lightblue;<br>  border: 2px solid red;<br>  margin: 20px;<br>}</code>
+                    </div>
+                    <div class="inheritance-demo not-inherited">
+                        <div class="parent-no-inherit">
+                            Parent avec styles
+                            <div class="child-no-inherit">
+                                Enfant n'hérite pas
+                                <div class="grandchild-no-inherit">
+                                    Petit-enfant non plus
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>background, border, margin ne sont pas hérités</p>
+                </div>
+
+                <div class="inheritance-card">
+                    <h4>Forcer l'Héritage</h4>
+                    <div class="code-example">
+                        <code>.enfant {<br>  background: inherit;<br>  border: inherit;<br>  margin: inherit;<br>}</code>
+                    </div>
+                    <div class="inheritance-demo forced-inherit">
+                        <div class="parent-force">
+                            Parent avec styles
+                            <div class="child-force">
+                                Enfant force l'héritage
+                                <div class="grandchild-force">
+                                    Petit-enfant aussi
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Utilisez <code>inherit</code> pour forcer l'héritage</p>
+                </div>
+            </div>
+
+            <section class="inheritance-list">
+                <h3>Propriétés Courantes Héritées</h3>
+                <div class="properties-grid">
+                    <div class="property-group">
+                        <h4>Héritées</h4>
+                        <ul>
+                            <li>font-family</li>
+                            <li>color</li>
+                            <li>line-height</li>
+                            <li>text-align</li>
+                            <li>visibility</li>
+                            <li>cursor</li>
+                        </ul>
+                    </div>
+                    <div class="property-group">
+                        <h4>Non Héritées</h4>
+                        <ul>
+                            <li>background</li>
+                            <li>border</li>
+                            <li>margin</li>
+                            <li>padding</li>
+                            <li>width/height</li>
+                            <li>position</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="combinateurs">
+            <h2>Combinateurs Parent-Enfant</h2>
+            
+            <div class="combinators-demo">
+                <div class="combinator-type">
+                    <h4>Enfant Direct (&gt;)</h4>
+                    <div class="code-example">
+                        <code>.parent > .enfant {<br>  background: lightgreen;<br>}</code>
+                    </div>
+                    <div class="combinator-visual direct-child">
+                        <div class="combo-parent">
+                            Parent
+                            <div class="combo-child">Enfant direct ✓</div>
+                            <div class="combo-nested">
+                                Div intermédiaire
+                                <div class="combo-child">Pas enfant direct ✗</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="combinator-type">
+                    <h4>Descendant (espace)</h4>
+                    <div class="code-example">
+                        <code>.parent .descendant {<br>  background: lightcoral;<br>}</code>
+                    </div>
+                    <div class="combinator-visual descendant">
+                        <div class="combo-parent">
+                            Parent
+                            <div class="combo-desc">Enfant direct ✓</div>
+                            <div class="combo-nested">
+                                Div intermédiaire
+                                <div class="combo-desc">Descendant ✓</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="combinator-type">
+                    <h4>Frère Adjacent (+)</h4>
+                    <div class="code-example">
+                        <code>h1 + p {<br>  margin-top: 0;<br>}</code>
+                    </div>
+                    <div class="combinator-visual adjacent">
+                        <div class="sibling-demo">
+                            <h4 class="sibling-title">Titre</h4>
+                            <p class="sibling-adjacent">Frère adjacent ✓</p>
+                            <p class="sibling-other">Autre frère ✗</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="combinator-type">
+                    <h4>Frères Suivants (~)</h4>
+                    <div class="code-example">
+                        <code>h1 ~ p {<br>  color: blue;<br>}</code>
+                    </div>
+                    <div class="combinator-visual general-sibling">
+                        <div class="sibling-demo">
+                            <h4 class="sibling-gen-title">Titre</h4>
+                            <p class="sibling-gen">Frère suivant ✓</p>
+                            <div>Div entre deux</div>
+                            <p class="sibling-gen">Autre frère suivant ✓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="positionnement">
+            <h2>Positionnement Relatif</h2>
+            
+            <section class="positioning-section">
+                <h3>Conteneur Parent</h3>
+                <div class="positioning-demo">
+                    <div class="position-parent">
+                        Parent (position: relative)
+                        <div class="position-child-absolute">
+                            Enfant absolute<br>positionné par rapport au parent
+                        </div>
+                        <div class="position-child-relative">
+                            Enfant relative<br>décalé depuis sa position normale
+                        </div>
+                    </div>
+                </div>
+                <div class="code-example">
+                    <code>.parent {<br>  position: relative;<br>}<br><br>.enfant {<br>  position: absolute;<br>  top: 20px;<br>  left: 20px;<br>}</code>
+                </div>
+            </section>
+
+            <section class="containment-section">
+                <h3>Containment</h3>
+                <div class="containment-comparison">
+                    <div class="containment-demo">
+                        <h4>Sans Conteneur</h4>
+                        <div class="no-contain">
+                            <div class="float-escape">
+                                Élément flottant qui échappe
+                            </div>
+                            Texte autour qui se comporte mal
+                        </div>
+                    </div>
+                    <div class="containment-demo">
+                        <h4>Avec Conteneur</h4>
+                        <div class="with-contain">
+                            <div class="float-contained">
+                                Élément flottant contenu
+                            </div>
+                            Texte autour bien comporté
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="flexbox">
+            <h2>Flexbox Parent-Enfant</h2>
+            
+            <div class="flexbox-system">
+                <div class="flex-parent-section">
+                    <h3>Propriétés du Parent (Conteneur Flex)</h3>
+                    <div class="flex-properties">
+                        <div class="flex-property-card">
+                            <h4>display: flex</h4>
+                            <p>Active le contexte flex</p>
+                            <div class="flex-demo-container">
+                                <div class="flex-demo-parent">
+                                    <div class="flex-demo-child">1</div>
+                                    <div class="flex-demo-child">2</div>
+                                    <div class="flex-demo-child">3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-property-card">
+                            <h4>flex-direction</h4>
+                            <p>Direction des enfants</p>
+                            <div class="flex-demo-container">
+                                <div class="flex-demo-parent column">
+                                    <div class="flex-demo-child">1</div>
+                                    <div class="flex-demo-child">2</div>
+                                    <div class="flex-demo-child">3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-property-card">
+                            <h4>justify-content</h4>
+                            <p>Alignement horizontal</p>
+                            <div class="flex-demo-container">
+                                <div class="flex-demo-parent centered">
+                                    <div class="flex-demo-child">1</div>
+                                    <div class="flex-demo-child">2</div>
+                                    <div class="flex-demo-child">3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-property-card">
+                            <h4>align-items</h4>
+                            <p>Alignement vertical</p>
+                            <div class="flex-demo-container tall">
+                                <div class="flex-demo-parent aligned">
+                                    <div class="flex-demo-child">1</div>
+                                    <div class="flex-demo-child">2</div>
+                                    <div class="flex-demo-child">3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-child-section">
+                    <h3>Propriétés des Enfants (Éléments Flex)</h3>
+                    <div class="flex-child-properties">
+                        <div class="flex-child-card">
+                            <h4>flex-grow</h4>
+                            <p>Capacité à grandir</p>
+                            <div class="flex-demo-container">
+                                <div class="flex-demo-parent grow-demo">
+                                    <div class="flex-child-grow-1">grow: 1</div>
+                                    <div class="flex-child-grow-2">grow: 2</div>
+                                    <div class="flex-child-grow-1">grow: 1</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-child-card">
+                            <h4>flex-shrink</h4>
+                            <p>Capacité à rétrécir</p>
+                            <div class="flex-demo-container small">
+                                <div class="flex-demo-parent shrink-demo">
+                                    <div class="flex-child-shrink-1">shrink: 1</div>
+                                    <div class="flex-child-shrink-0">shrink: 0</div>
+                                    <div class="flex-child-shrink-1">shrink: 1</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-child-card">
+                            <h4>align-self</h4>
+                            <p>Alignement individuel</p>
+                            <div class="flex-demo-container tall">
+                                <div class="flex-demo-parent self-demo">
+                                    <div class="flex-child-self-start">start</div>
+                                    <div class="flex-child-self-center">center</div>
+                                    <div class="flex-child-self-end">end</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="grid">
+            <h2>CSS Grid Parent-Enfant</h2>
+            
+            <div class="grid-system">
+                <div class="grid-parent-section">
+                    <h3>Propriétés du Parent (Conteneur Grid)</h3>
+                    <div class="grid-demo-container">
+                        <div class="grid-demo-parent">
+                            <div class="grid-demo-child header">Header</div>
+                            <div class="grid-demo-child sidebar">Sidebar</div>
+                            <div class="grid-demo-child main">Main Content</div>
+                            <div class="grid-demo-child footer">Footer</div>
+                        </div>
+                    </div>
+                    <div class="code-example">
+                        <code>.parent {<br>  display: grid;<br>  grid-template-columns: 1fr 3fr;<br>  grid-template-rows: auto 1fr auto;<br>  grid-template-areas:<br>    "header header"<br>    "sidebar main"<br>    "footer footer";<br>}</code>
+                    </div>
+                </div>
+
+                <div class="grid-child-section">
+                    <h3>Propriétés des Enfants (Éléments Grid)</h3>
+                    <div class="grid-placement-demo">
+                        <div class="grid-placement-parent">
+                            <div class="grid-placed-child area-a">Zone A</div>
+                            <div class="grid-placed-child area-b">Zone B</div>
+                            <div class="grid-placed-child area-c">Zone C</div>
+                            <div class="grid-placed-child area-d">Zone D</div>
+                        </div>
+                    </div>
+                    <div class="code-example">
+                        <code>.enfant {<br>  grid-area: header;<br>}<br><br>.autre-enfant {<br>  grid-column: 1 / 3;<br>  grid-row: 2;<br>}</code>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/inheritance">MDN - Héritage CSS</a></li>
+                <li><a href="https://css-tricks.com/almanac/properties/i/inherit/">CSS Tricks - inherit</a></li>
+                <li><a href="https://flexboxfroggy.com/">Flexbox Froggy (jeu)</a></li>
+                <li><a href="https://cssgridgarden.com/">Grid Garden (jeu)</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2024 Cours Parent-Enfant CSS</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="color.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Couleurs & Tailles CSS</title>
+</head>
+<body>
+    <div class="haut2page">
+        <h1 class="titre2page">Couleurs & Tailles CSS</h1>
+    </div>
+    
+    <div class="menu2page">    
+        <nav>
+            
+                <a href="#couleurs">Systèmes de Couleurs</a>
+                <a href="#unites">Unités de Mesure</a>
+                <a href="#proprietes">Propriétés Dimensions</a>
+                <a href="#responsive">Design Responsive</a>
+                <a href="#bonnes-pratiques">Bonnes Pratiques</a>
+            
+        </nav>
+    </div>
+
+    <main>
+        <article id="couleurs">
+            <header>
+                <h2>Systèmes de Couleurs CSS</h2>
+                <p>Explorer les différentes méthodes pour définir les couleurs</p>
+            </header>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h4>HEX</h4>
+                    <div class="color-preview hex-color"></div>
+                    <p><code>#FF6B6B</code><br>Le format le plus courant</p>
+                </div>
+                <div class="card">
+                    <h4>RGB</h4>
+                    <div class="color-preview rgb-color"></div>
+                    <p><code>rgb(255, 107, 107)</code><br>Rouge, Vert, Bleu</p>
+                </div>
+                <div class="card">
+                    <h4>RGBA</h4>
+                    <div class="color-preview rgba-color"></div>
+                    <p><code>rgba(255, 107, 107, 0.5)</code><br>Avec transparence</p>
+                </div>
+                <div class="card">
+                    <h4>HSL</h4>
+                    <div class="color-preview hsl-color"></div>
+                    <p><code>hsl(0, 100%, 65%)</code><br>Teinte, Saturation, Lumière</p>
+                </div>
+                <div class="card">
+                    <h4>HSLA</h4>
+                    <div class="color-preview hsla-color"></div>
+                    <p><code>hsla(0, 100%, 65%, 0.5)</code><br>HSL avec transparence</p>
+                </div>
+                <div class="card">
+                    <h4>Noms</h4>
+                    <div class="color-preview named-color"></div>
+                    <p><code>coral</code><br>Noms prédéfinis</p>
+                </div>
+            </div>
+
+            <section class="color-systems">
+                <h3>Palettes de Couleurs</h3>
+                <div class="palette-grid">
+                    <div class="palette-primary">
+                        <h4>Couleurs Primaires</h4>
+                        <div class="color-strip">
+                            <div class="color-item primary-1">#FF6B6B</div>
+                            <div class="color-item primary-2">#4ECDC4</div>
+                            <div class="color-item primary-3">#45B7D1</div>
+                            <div class="color-item primary-4">#96CEB4</div>
+                        </div>
+                    </div>
+                    <div class="palette-secondary">
+                        <h4>Couleurs Secondaires</h4>
+                        <div class="color-strip">
+                            <div class="color-item secondary-1">#FF8E53</div>
+                            <div class="color-item secondary-2">#FFD166</div>
+                            <div class="color-item secondary-3">#06D6A0</div>
+                            <div class="color-item secondary-4">#118AB2</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="unites">
+            <h2>Unités de Mesure CSS</h2>
+            
+            <div class="units-grid">
+                <div class="unit-category">
+                    <h3>Unités Absolues</h3>
+                    <div class="unit-example px-unit">PX - Pixels (10px)</div>
+                    <div class="unit-example cm-unit">CM - Centimètres (1cm)</div>
+                    <div class="unit-example mm-unit">MM - Millimètres (10mm)</div>
+                    <div class="unit-example in-unit">IN - Inches (0.5in)</div>
+                </div>
+
+                <div class="unit-category">
+                    <h3>Unités Relatives</h3>
+                    <div class="unit-example rem-unit">REM - Root EM (1.5rem)</div>
+                    <div class="unit-example em-unit">EM - Element EM (1.2em)</div>
+                    <div class="unit-example percent-unit">% - Pourcentage (50%)</div>
+                    <div class="unit-example vw-unit">VW - Viewport Width (50vw)</div>
+                    <div class="unit-example vh-unit">VH - Viewport Height (50vh)</div>
+                </div>
+            </div>
+
+            <section class="unit-comparison">
+                <h3>Comparaison REM vs EM</h3>
+                <div class="comparison-container">
+                    <div class="rem-demo">
+                        <h4>REM (Relative au root)</h4>
+                        <div class="rem-level-1">Niveau 1 - 1.5rem
+                            <div class="rem-level-2">Niveau 2 - 1.5rem
+                                <div class="rem-level-3">Niveau 3 - 1.5rem</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="em-demo">
+                        <h4>EM (Relative au parent)</h4>
+                        <div class="em-level-1">Niveau 1 - 1.5em
+                            <div class="em-level-2">Niveau 2 - 1.5em
+                                <div class="em-level-3">Niveau 3 - 1.5em</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <article id="proprietes">
+            <h2>Propriétés de Dimensions</h2>
+            
+            <div class="properties-container">
+                <div class="dimension-group">
+                    <h3>Largeurs et Hauteurs</h3>
+                    <div class="dimension-example width-example">width: 300px</div>
+                    <div class="dimension-example height-example">height: 150px</div>
+                    <div class="dimension-example minmax-example">min-width: 200px<br>max-width: 500px</div>
+                </div>
+
+                <div class="dimension-group">
+                    <h3>Marges et Paddings</h3>
+                    <div class="spacing-demo">
+                        <div class="margin-box">
+                            Margin
+                            <div class="padding-box">
+                                Padding
+                                <div class="content-box">Content</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dimension-group">
+                    <h3>Box-Sizing</h3>
+                    <div class="box-sizing-comparison">
+                        <div class="content-box-example">
+                            <h4>content-box</h4>
+                            <div class="box-demo content-box">Width: 200px + Padding</div>
+                        </div>
+                        <div class="border-box-example">
+                            <h4>border-box</h4>
+                            <div class="box-demo border-box">Width: 200px incl. Padding</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="responsive">
+            <h2>Design Responsive</h2>
+            
+            <section class="breakpoints">
+                <h3>Points de Rupture Standards</h3>
+                <div class="breakpoint-grid">
+                    <div class="breakpoint mobile">
+                        <h4>Mobile</h4>
+                        <p>&lt; 768px</p>
+                        <div class="screen-preview mobile-screen"></div>
+                    </div>
+                    <div class="breakpoint tablet">
+                        <h4>Tablette</h4>
+                        <p>768px - 1024px</p>
+                        <div class="screen-preview tablet-screen"></div>
+                    </div>
+                    <div class="breakpoint desktop">
+                        <h4>Desktop</h4>
+                        <p>&gt; 1024px</p>
+                        <div class="screen-preview desktop-screen"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="media-queries">
+                <h3>Media Queries</h3>
+                <div class="code-example large">
+                    <pre><code>/* Mobile First */
+.container {
+    padding: 1rem;
+}
+
+/* Tablette */
+@media (min-width: 768px) {
+    .container {
+        padding: 2rem;
+        max-width: 720px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .container {
+        padding: 3rem;
+        max-width: 1200px;
+    }
+}</code></pre>
+                </div>
+            </section>
+        </article>
+
+        <article id="bonnes-pratiques">
+            <h2>Bonnes Pratiques</h2>
+            
+            <div class="best-practices-grid">
+                <div class="practice-card">
+                    <h4>Variables CSS</h4>
+                    <div class="code-example">
+                        <code>:root {
+    --primary-color: #FF6B6B;
+    --spacing-unit: 1rem;
+}</code>
+                    </div>
+                    <p>Utilisez les variables pour la cohérence</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Mobile First</h4>
+                    <p>Commencez par le mobile et ajoutez les breakpoints</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Unités Relatives</h4>
+                    <p>Préférez rem, em, % pour le responsive</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Contraste</h4>
+                    <p>Vérifiez le ratio de contraste pour l'accessibilité</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <section aria-labelledby="ressources-titre">
+            <h3 id="ressources-titre">Ressources Complémentaires</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/fr/docs/Web/CSS/color_value">MDN - Valeurs de couleur</a></li>
+                <li><a href="https://css-tricks.com/fun-viewport-units/">CSS Tricks - Unités Viewport</a></li>
+                <li><a href="https://webaim.org/resources/contrastchecker/">Vérificateur de Contraste</a></li>
+            </ul>
+        </section>
+        <p>&copy; 2025 Cours Couleurs & Tailles CSS</p>
+    </footer>
+</body>
+</html>

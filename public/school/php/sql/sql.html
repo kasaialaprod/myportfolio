@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="sql.css">
+    <script src="sql.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours SQL - Bases de données et requêtes avancées</title>
+</head>
+<body>
+    <!-- Fond étoilé pour l'effet spatial -->
+    <div class="space-bg" id="space-bg"></div>
+    
+    <div class="container">
+        <header>
+            <h1>COURS SQL AVANCÉ</h1>
+            <p class="glowing-text">Bases de données et requêtes complexes</p>
+        </header>
+        
+        <div class="nav-bar">
+            <a href="#base">Bases SQL</a>
+            <a href="#filtrage">Filtrage</a>
+            <a href="#aggregation">Agrégation</a>
+            <a href="#fonctions">Fonctions</a>
+            <a href="#jointures">Jointures</a>
+            <a href="#exercices">Exercices</a>
+        </div>
+        
+        <div class="content">
+            <section id="introduction">
+                <h2>Introduction au SQL avancé</h2>
+                <p>SQL (Structured Query Language) est le langage standard pour interagir avec les bases de données relationnelles.</p>
+                
+                <div class="table-schema">
+                    <div class="table-box">
+                        <h4>Table: clients</h4>
+                        <div class="table-column">
+                            <span class="column-name">id</span><br>
+                            <span class="column-type">INT PRIMARY KEY AUTO_INCREMENT</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">nom</span><br>
+                            <span class="column-type">VARCHAR(100)</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">email</span><br>
+                            <span class="column-type">VARCHAR(255) UNIQUE</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">ville</span><br>
+                            <span class="column-type">VARCHAR(50)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="table-box">
+                        <h4>Table: commandes</h4>
+                        <div class="table-column">
+                            <span class="column-name">id</span><br>
+                            <span class="column-type">INT PRIMARY KEY</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">client_id</span><br>
+                            <span class="column-type">INT FOREIGN KEY</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">montant</span><br>
+                            <span class="column-type">DECIMAL(10,2)</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">date_commande</span><br>
+                            <span class="column-type">DATE</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="base">
+                <h2>Création de tables et contraintes</h2>
+                
+                <h3>CREATE TABLE avec contraintes</h3>
+                <div class="code-block">
+                    <span class="sql-keyword">CREATE TABLE</span> <span class="sql-table">clients</span> (<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">id</span> <span class="sql-keyword">INT PRIMARY KEY AUTO_INCREMENT</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">nom</span> <span class="sql-keyword">VARCHAR(100) NOT NULL</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">email</span> <span class="sql-keyword">VARCHAR(255) UNIQUE</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">ville</span> <span class="sql-keyword">VARCHAR(50) DEFAULT 'Paris'</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">date_inscription</span> <span class="sql-keyword">DATE</span><br>
+                    );<br>
+                    <br>
+                    <span class="sql-keyword">CREATE TABLE</span> <span class="sql-table">commandes</span> (<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">id</span> <span class="sql-keyword">INT PRIMARY KEY</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">client_id</span> <span class="sql-keyword">INT</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">montant</span> <span class="sql-keyword">DECIMAL(10,2) CHECK (montant > 0)</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-table">date_commande</span> <span class="sql-keyword">DATE</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">FOREIGN KEY</span> (<span class="sql-table">client_id</span>) <span class="sql-keyword">REFERENCES</span> <span class="sql-table">clients</span>(<span class="sql-table">id</span>)<br>
+                    );
+                </div>
+                
+                <div class="note">
+                    <p><strong>Types de contraintes :</strong> PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CHECK, DEFAULT</p>
+                </div>
+            </section>
+            
+            <section id="filtrage">
+                <h2>Filtrage et conditions avancées</h2>
+                
+                <h3>Opérateurs de comparaison</h3>
+                <div class="operator-grid">
+                    <div class="operator-box">
+                        <h4>=</h4>
+                        <p>Égal à</p>
+                    </div>
+                    <div class="operator-box">
+                        <h4>&lt;&gt; ou !=</h4>
+                        <p>Différent de</p>
+                    </div>
+                    <div class="operator-box">
+                        <h4>&gt;, &gt;=</h4>
+                        <p>Supérieur à</p>
+                    </div>
+                    <div class="operator-box">
+                        <h4>&lt;, &lt;=</h4>
+                        <p>Inférieur à</p>
+                    </div>
+                    <div class="operator-box">
+                        <h4>BETWEEN</h4>
+                        <p>Entre deux valeurs</p>
+                    </div>
+                    <div class="operator-box">
+                        <h4>LIKE</h4>
+                        <p>Recherche de motif</p>
+                    </div>
+                    <div class="operator-box">
+                        <h4>IN</h4>
+                        <p>Dans une liste</p>
+                    </div>
+                    <div class="operator-box">
+                        <h4>IS NULL</h4>
+                        <p>Valeur nulle</p>
+                    </div>
+                </div>
+                
+                <h3>Exemples de filtrage</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- Sélection basique avec WHERE</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span><br>
+                    <span class="sql-keyword">WHERE</span> <span class="sql-table">ville</span> = <span class="sql-string">'Paris'</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Multiple conditions avec AND/OR</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span><br>
+                    <span class="sql-keyword">WHERE</span> <span class="sql-table">ville</span> = <span class="sql-string">'Paris'</span> <span class="sql-keyword">AND</span> <span class="sql-table">date_inscription</span> &gt; <span class="sql-string">'2023-01-01'</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- BETWEEN pour les plages de valeurs</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span><br>
+                    <span class="sql-keyword">WHERE</span> <span class="sql-table">montant</span> <span class="sql-keyword">BETWEEN</span> 100 <span class="sql-keyword">AND</span> 500;<br>
+                    <br>
+                    <span class="sql-comment">-- IN pour les listes</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span><br>
+                    <span class="sql-keyword">WHERE</span> <span class="sql-table">ville</span> <span class="sql-keyword">IN</span> (<span class="sql-string">'Paris'</span>, <span class="sql-string">'Lyon'</span>, <span class="sql-string">'Marseille'</span>);<br>
+                    <br>
+                    <span class="sql-comment">-- LIKE pour la recherche textuelle</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span><br>
+                    <span class="sql-keyword">WHERE</span> <span class="sql-table">nom</span> <span class="sql-keyword">LIKE</span> <span class="sql-string">'Dup%'</span>; <span class="sql-comment">-- Commence par 'Dup'</span>
+                </div>
+            </section>
+            
+            <section id="ordre-limitation">
+                <h2>Tri et limitation des résultats</h2>
+                
+                <h3>ORDER BY - Tri des résultats</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- Tri ascendant (par défaut)</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span><br>
+                    <span class="sql-keyword">ORDER BY</span> <span class="sql-table">nom</span> <span class="sql-keyword">ASC</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Tri descendant</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span><br>
+                    <span class="sql-keyword">ORDER BY</span> <span class="sql-table">montant</span> <span class="sql-keyword">DESC</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Tri multiple</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span><br>
+                    <span class="sql-keyword">ORDER BY</span> <span class="sql-table">ville</span> <span class="sql-keyword">ASC</span>, <span class="sql-table">nom</span> <span class="sql-keyword">ASC</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- LIMIT pour limiter les résultats</span><br>
+                    <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span><br>
+                    <span class="sql-keyword">ORDER BY</span> <span class="sql-table">montant</span> <span class="sql-keyword">DESC</span><br>
+                    <span class="sql-keyword">LIMIT</span> 10; <span class="sql-comment">-- Les 10 commandes les plus élevées</span>
+                </div>
+            </section>
+            
+            <section id="aggregation">
+                <h2>Agrégation et regroupement</h2>
+                
+                <h3>Fonctions d'agrégation</h3>
+                <table class="function-table">
+                    <tr>
+                        <th>Fonction</th>
+                        <th>Description</th>
+                        <th>Exemple</th>
+                    </tr>
+                    <tr>
+                        <td><span class="sql-function">COUNT()</span></td>
+                        <td>Compte le nombre de lignes</td>
+                        <td>COUNT(*) → nombre total</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sql-function">SUM()</span></td>
+                        <td>Somme des valeurs</td>
+                        <td>SUM(montant) → total</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sql-function">AVG()</span></td>
+                        <td>Moyenne des valeurs</td>
+                        <td>AVG(montant) → moyenne</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sql-function">MIN()</span></td>
+                        <td>Valeur minimale</td>
+                        <td>MIN(montant) → plus petit</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sql-function">MAX()</span></td>
+                        <td>Valeur maximale</td>
+                        <td>MAX(montant) → plus grand</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sql-function">GROUP_CONCAT()</span></td>
+                        <td>Concatène les valeurs</td>
+                        <td>GROUP_CONCAT(nom)</td>
+                    </tr>
+                </table>
+                
+                <h3>GROUP BY - Regroupement de données</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- Nombre de clients par ville</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">ville</span>, <span class="sql-function">COUNT</span>(*) <span class="sql-keyword">AS</span> nb_clients<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span><br>
+                    <span class="sql-keyword">GROUP BY</span> <span class="sql-table">ville</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Chiffre d'affaires par client</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">client_id</span>, <span class="sql-function">SUM</span>(<span class="sql-table">montant</span>) <span class="sql-keyword">AS</span> ca_total<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span><br>
+                    <span class="sql-keyword">GROUP BY</span> <span class="sql-table">client_id</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- HAVING pour filtrer les groupes</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">ville</span>, <span class="sql-function">COUNT</span>(*) <span class="sql-keyword">AS</span> nb_clients<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span><br>
+                    <span class="sql-keyword">GROUP BY</span> <span class="sql-table">ville</span><br>
+                    <span class="sql-keyword">HAVING</span> <span class="sql-function">COUNT</span>(*) &gt; 10; <span class="sql-comment">-- Villes avec plus de 10 clients</span>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Différence WHERE vs HAVING :</strong> WHERE filtre les lignes avant regroupement, HAVING filtre les groupes après regroupement.</p>
+                </div>
+            </section>
+            
+            <section id="fonctions">
+                <h2>Fonctions SQL avancées</h2>
+                
+                <h3>Fonctions de chaînes de caractères</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- Concaténation</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">CONCAT</span>(<span class="sql-table">nom</span>, <span class="sql-string">' - '</span>, <span class="sql-table">ville</span>) <span class="sql-keyword">AS</span> info_client<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Majuscules/minuscules</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">UPPER</span>(<span class="sql-table">nom</span>), <span class="sql-function">LOWER</span>(<span class="sql-table">ville</span>)<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Longueur et extraction</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">LENGTH</span>(<span class="sql-table">nom</span>), <span class="sql-function">SUBSTRING</span>(<span class="sql-table">email</span>, 1, 5)<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Remplacement</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">REPLACE</span>(<span class="sql-table">ville</span>, <span class="sql-string">'Paris'</span>, <span class="sql-string">'PARIS'</span>)<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span>;
+                </div>
+                
+                <h3>Fonctions mathématiques</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- Opérations basiques</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">montant</span>, <span class="sql-table">montant</span> * 1.2 <span class="sql-keyword">AS</span> montant_ttc<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Arrondis</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">ROUND</span>(<span class="sql-table">montant</span>, 2), <span class="sql-function">CEIL</span>(<span class="sql-table">montant</span>), <span class="sql-function">FLOOR</span>(<span class="sql-table">montant</span>)<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Puissance et racine</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">POWER</span>(<span class="sql-table">montant</span>, 2), <span class="sql-function">SQRT</span>(<span class="sql-table">montant</span>)<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Valeur absolue et modulo</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">ABS</span>(<span class="sql-table">montant</span>), <span class="sql-table">montant</span> % 100<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;
+                </div>
+                
+                <h3>Fonctions de dates</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- Date actuelle</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">CURDATE</span>(), <span class="sql-function">NOW</span>();<br>
+                    <br>
+                    <span class="sql-comment">-- Extraction de parties de date</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">YEAR</span>(<span class="sql-table">date_commande</span>), <span class="sql-function">MONTH</span>(<span class="sql-table">date_commande</span>)<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Calcul de différence de dates</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">DATEDIFF</span>(<span class="sql-function">CURDATE</span>(), <span class="sql-table">date_commande</span>)<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Ajout/soustraction de dates</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-function">DATE_ADD</span>(<span class="sql-table">date_commande</span>, <span class="sql-keyword">INTERVAL</span> 7 <span class="sql-keyword">DAY</span>)<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;
+                </div>
+                
+                <h3>Expressions conditionnelles</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- CASE WHEN (recommandé)</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">nom</span>, <span class="sql-table">montant</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">CASE</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">WHEN</span> <span class="sql-table">montant</span> &gt; 1000 <span class="sql-keyword">THEN</span> <span class="sql-string">'Élevé'</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">WHEN</span> <span class="sql-table">montant</span> &gt; 500 <span class="sql-keyword">THEN</span> <span class="sql-string">'Moyen'</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">ELSE</span> <span class="sql-string">'Faible'</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">END</span> <span class="sql-keyword">AS</span> categorie<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- IF (MySQL)</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">nom</span>, <span class="sql-function">IF</span>(<span class="sql-table">montant</span> &gt; 1000, <span class="sql-string">'VIP'</span>, <span class="sql-string">'Standard'</span>) <span class="sql-keyword">AS</span> type_client<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- COALESCE pour les valeurs NULL</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">nom</span>, <span class="sql-function">COALESCE</span>(<span class="sql-table">ville</span>, <span class="sql-string">'Non renseignée'</span>) <span class="sql-keyword">AS</span> ville<br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span>;
+                </div>
+            </section>
+            
+            <section id="jointures">
+                <h2>Jointures entre tables</h2>
+                
+                <div class="join-diagram">
+                    <h3>Types de jointures SQL</h3>
+                    <div>
+                        <div class="join-box">
+                            <strong>Table A</strong><br>
+                            id, nom
+                        </div>
+                        <div class="join-arrow">JOIN</div>
+                        <div class="join-box">
+                            <strong>Table B</strong><br>
+                            id, a_id, valeur
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>INNER JOIN - Jointure interne</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- Clients avec leurs commandes</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">c</span>.<span class="sql-table">nom</span>, <span class="sql-table">cmd</span>.<span class="sql-table">montant</span>, <span class="sql-table">cmd</span>.<span class="sql-table">date_commande</span><br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span> <span class="sql-keyword">AS</span> <span class="sql-table">c</span><br>
+                    <span class="sql-keyword">INNER JOIN</span> <span class="sql-table">commandes</span> <span class="sql-keyword">AS</span> <span class="sql-table">cmd</span> <span class="sql-keyword">ON</span> <span class="sql-table">c</span>.<span class="sql-table">id</span> = <span class="sql-table">cmd</span>.<span class="sql-table">client_id</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Jointure multiple</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">c</span>.<span class="sql-table">nom</span>, <span class="sql-table">p</span>.<span class="sql-table">nom_produit</span>, <span class="sql-table">cmd</span>.<span class="sql-table">quantite</span><br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span> <span class="sql-keyword">AS</span> <span class="sql-table">c</span><br>
+                    <span class="sql-keyword">INNER JOIN</span> <span class="sql-table">commandes</span> <span class="sql-keyword">AS</span> <span class="sql-table">cmd</span> <span class="sql-keyword">ON</span> <span class="sql-table">c</span>.<span class="sql-table">id</span> = <span class="sql-table">cmd</span>.<span class="sql-table">client_id</span><br>
+                    <span class="sql-keyword">INNER JOIN</span> <span class="sql-table">produits</span> <span class="sql-keyword">AS</span> <span class="sql-table">p</span> <span class="sql-keyword">ON</span> <span class="sql-table">cmd</span>.<span class="sql-table">produit_id</span> = <span class="sql-table">p</span>.<span class="sql-table">id</span>;
+                </div>
+                
+                <h3>LEFT JOIN - Jointure gauche</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- Tous les clients, même sans commande</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">c</span>.<span class="sql-table">nom</span>, <span class="sql-table">cmd</span>.<span class="sql-table">montant</span><br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span> <span class="sql-keyword">AS</span> <span class="sql-table">c</span><br>
+                    <span class="sql-keyword">LEFT JOIN</span> <span class="sql-table">commandes</span> <span class="sql-keyword">AS</span> <span class="sql-table">cmd</span> <span class="sql-keyword">ON</span> <span class="sql-table">c</span>.<span class="sql-table">id</span> = <span class="sql-table">cmd</span>.<span class="sql-table">client_id</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- Clients sans commande</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">c</span>.<span class="sql-table">nom</span><br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span> <span class="sql-keyword">AS</span> <span class="sql-table">c</span><br>
+                    <span class="sql-keyword">LEFT JOIN</span> <span class="sql-table">commandes</span> <span class="sql-keyword">AS</span> <span class="sql-table">cmd</span> <span class="sql-keyword">ON</span> <span class="sql-table">c</span>.<span class="sql-table">id</span> = <span class="sql-table">cmd</span>.<span class="sql-table">client_id</span><br>
+                    <span class="sql-keyword">WHERE</span> <span class="sql-table">cmd</span>.<span class="sql-table">id</span> <span class="sql-keyword">IS NULL</span>;
+                </div>
+                
+                <h3>Autres types de jointures</h3>
+                <div class="code-block">
+                    <span class="sql-comment">-- RIGHT JOIN (jointure droite)</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">c</span>.<span class="sql-table">nom</span>, <span class="sql-table">cmd</span>.<span class="sql-table">montant</span><br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">commandes</span> <span class="sql-keyword">AS</span> <span class="sql-table">cmd</span><br>
+                    <span class="sql-keyword">RIGHT JOIN</span> <span class="sql-table">clients</span> <span class="sql-keyword">AS</span> <span class="sql-table">c</span> <span class="sql-keyword">ON</span> <span class="sql-table">c</span>.<span class="sql-table">id</span> = <span class="sql-table">cmd</span>.<span class="sql-table">client_id</span>;<br>
+                    <br>
+                    <span class="sql-comment">-- FULL OUTER JOIN (MySQL ne supporte pas directement)</span><br>
+                    <span class="sql-comment">-- Simulé avec UNION de LEFT et RIGHT JOIN</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">c</span>.<span class="sql-table">nom</span>, <span class="sql-table">cmd</span>.<span class="sql-table">montant</span><br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span> <span class="sql-keyword">AS</span> <span class="sql-table">c</span><br>
+                    <span class="sql-keyword">LEFT JOIN</span> <span class="sql-table">commandes</span> <span class="sql-keyword">AS</span> <span class="sql-table">cmd</span> <span class="sql-keyword">ON</span> <span class="sql-table">c</span>.<span class="sql-table">id</span> = <span class="sql-table">cmd</span>.<span class="sql-table">client_id</span><br>
+                    <span class="sql-keyword">UNION</span><br>
+                    <span class="sql-keyword">SELECT</span> <span class="sql-table">c</span>.<span class="sql-table">nom</span>, <span class="sql-table">cmd</span>.<span class="sql-table">montant</span><br>
+                    <span class="sql-keyword">FROM</span> <span class="sql-table">clients</span> <span class="sql-keyword">AS</span> <span class="sql-table">c</span><br>
+                    <span class="sql-keyword">RIGHT JOIN</span> <span class="sql-table">commandes</span> <span class="sql-keyword">AS</span> <span class="sql-table">cmd</span> <span class="sql-keyword">ON</span> <span class="sql-table">c</span>.<span class="sql-table">id</span> = <span class="sql-table">cmd</span>.<span class="sql-table">client_id</span>;
+                </div>
+            </section>
+            
+            <section id="demo-interactive">
+                <h2>Console SQL interactive</h2>
+                
+                <div class="interactive-console">
+                    <h3>Testez vos requêtes SQL</h3>
+                    <p>Structure des tables de démonstration :</p>
+                    
+                    <div class="table-schema">
+                        <div class="table-box">
+                            <h4>employes</h4>
+                            <div class="table-column">
+                                <span class="column-name">id</span><br>
+                                <span class="column-type">INT PRIMARY KEY</span>
+                            </div>
+                            <div class="table-column">
+                                <span class="column-name">nom</span><br>
+                                <span class="column-type">VARCHAR(50)</span>
+                            </div>
+                            <div class="table-column">
+                                <span class="column-name">salaire</span><br>
+                                <span class="column-type">DECIMAL(10,2)</span>
+                            </div>
+                            <div class="table-column">
+                                <span class="column-name">departement</span><br>
+                                <span class="column-type">VARCHAR(30)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="table-box">
+                            <h4>ventes</h4>
+                            <div class="table-column">
+                                <span class="column-name">id</span><br>
+                                <span class="column-type">INT PRIMARY KEY</span>
+                            </div>
+                            <div class="table-column">
+                                <span class="column-name">employe_id</span><br>
+                                <span class="column-type">INT FOREIGN KEY</span>
+                            </div>
+                            <div class="table-column">
+                                <span class="column-name">montant</span><br>
+                                <span class="column-type">DECIMAL(10,2)</span>
+                            </div>
+                            <div class="table-column">
+                                <span class="column-name">date_vente</span><br>
+                                <span class="column-type">DATE</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <textarea class="query-input" id="sql-query" placeholder="Entrez votre requête SQL ici...">
+SELECT e.nom, e.departement, SUM(v.montant) as total_ventes
+FROM employes e
+INNER JOIN ventes v ON e.id = v.employe_id
+GROUP BY e.id, e.nom, e.departement
+ORDER BY total_ventes DESC;</textarea>
+                    
+                    <div>
+                        <button class="execute-btn" onclick="executerRequete()">Exécuter la requête</button>
+                        <button class="execute-btn" onclick="exempleAgregation()">Exemple Agrégation</button>
+                        <button class="execute-btn" onclick="exempleJointure()">Exemple Jointure</button>
+                        <button class="execute-btn" onclick="exempleFonctions()">Exemple Fonctions</button>
+                    </div>
+                    
+                    <div class="console-output" id="sql-result">
+                        <span style="color: #8d99ae;">// Les résultats de votre requête apparaîtront ici</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Cours SQL Avancé | Bases de données et requêtes complexes</p>
+        </footer>
+    </div>
+</body>
+</html>

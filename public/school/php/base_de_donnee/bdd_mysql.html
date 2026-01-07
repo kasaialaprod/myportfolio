@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bdd_mysql.css">
+    <script src="bdd_mysql.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bases de données et MySQL</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>COURS PHP - CHAPITRE 6</h1>
+            <p class="glowing-text">Bases de données et MySQL</p>
+        </header>
+        
+        <div class="nav-bar">
+            <a href="#introduction">Introduction</a>
+            <a href="#concepts">Concepts fondamentaux</a>
+            <a href="#mysql">MySQL</a>
+            <a href="#crud">CRUD</a>
+            <a href="#securite">Sécurité</a>
+            <a href="#demo-interactive">Console interactive</a>
+        </div>
+        
+        <div class="content">
+            <section id="introduction">
+                <h2>Introduction aux bases de données</h2>
+                <p>Une base de données est un système organisé pour stocker, gérer et récupérer des données de manière efficace.</p>
+                
+                <div class="database-visual">
+                    <h3>Architecture client-serveur</h3>
+                    <div class="flow-steps">
+                        <span class="flow-step">Application PHP</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">MySQL Server</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">Base de données</span>
+                    </div>
+                </div>
+                
+                <h3>Pourquoi utiliser une base de données ?</h3>
+                <ul>
+                    <li><strong>Persistance</strong> : Les données survivent au redémarrage du serveur</li>
+                    <li><strong>Intégrité</strong> : Validation et cohérence des données</li>
+                    <li><strong>Sécurité</strong> : Contrôle d'accès et sauvegarde</li>
+                    <li><strong>Performance</strong> : Accès rapide aux données</li>
+                    <li><strong>Concurrence</strong> : Gestion des accès multiples</li>
+                </ul>
+            </section>
+            
+            <section id="concepts">
+                <h2>Concepts fondamentaux</h2>
+                
+                <div class="table-schema">
+                    <div class="table-box">
+                        <h4>Table: utilisateurs</h4>
+                        <div class="table-column">
+                            <span class="column-name">id</span><br>
+                            <span class="column-type">INT PRIMARY KEY</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">nom</span><br>
+                            <span class="column-type">VARCHAR(100)</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">email</span><br>
+                            <span class="column-type">VARCHAR(255)</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">date_inscription</span><br>
+                            <span class="column-type">DATETIME</span>
+                        </div>
+                    </div>
+                    
+                    <div class="table-box">
+                        <h4>Table: articles</h4>
+                        <div class="table-column">
+                            <span class="column-name">id</span><br>
+                            <span class="column-type">INT PRIMARY KEY</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">titre</span><br>
+                            <span class="column-type">VARCHAR(200)</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">contenu</span><br>
+                            <span class="column-type">TEXT</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">auteur_id</span><br>
+                            <span class="column-type">INT FOREIGN KEY</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Vocabulaire important</h3>
+                <table class="sql-table">
+                    <tr>
+                        <th>Terme</th>
+                        <th>Définition</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Table</strong></td>
+                        <td>Structure qui contient des données organisées en lignes et colonnes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Colonne/Champ</strong></td>
+                        <td>Attribut d'une table (ex: nom, email, age)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ligne/Enregistrement</strong></td>
+                        <td>Instance de données dans une table</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clé primaire</strong></td>
+                        <td>Identifiant unique pour chaque enregistrement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clé étrangère</strong></td>
+                        <td>Lien vers une clé primaire d'une autre table</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SQL</strong></td>
+                        <td>Structured Query Language - Langage pour manipuler les bases</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section id="mysql">
+                <h2>MySQL et PHP</h2>
+                
+                <h3>Connexion à la base de données</h3>
+                <div class="code-block">
+                    <span class="sql-comment">// Connexion avec MySQLi (procédural)</span><br>
+                    <span class="sql-keyword">&lt;?php</span><br>
+                    $serveur = <span class="sql-string">"localhost"</span>;<br>
+                    $utilisateur = <span class="sql-string">"root"</span>;<br>
+                    $motdepasse = <span class="sql-string">""</span>;<br>
+                    $basededonnees = <span class="sql-string">"ma_base"</span>;<br>
+                    <br>
+                    $connexion = mysqli_connect($serveur, $utilisateur, $motdepasse, $basededonnees);<br>
+                    <br>
+                    <span class="sql-comment">// Vérification de la connexion</span><br>
+                    <span class="sql-keyword">if</span> (!$connexion) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;die(<span class="sql-string">"Erreur de connexion: "</span> . mysqli_connect_error());<br>
+                    }<br>
+                    <br>
+                    echo <span class="sql-string">"Connexion réussie !"</span>;<br>
+                    <span class="sql-keyword">?&gt;</span>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Conseil:</strong> Utilisez PDO (PHP Data Objects) pour une approche plus moderne et sécurisée.</p>
+                </div>
+                
+                <h3>Connexion avec PDO</h3>
+                <div class="code-block">
+                    <span class="sql-keyword">&lt;?php</span><br>
+                    <span class="sql-keyword">try</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$pdo = <span class="sql-keyword">new</span> PDO(<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-string">"mysql:host=localhost;dbname=ma_base;charset=utf8"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-string">"root"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-string">""</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Connexion PDO réussie !"</span>;<br>
+                    } <span class="sql-keyword">catch</span> (PDOException $e) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;die(<span class="sql-string">"Erreur de connexion: "</span> . $e->getMessage());<br>
+                    }<br>
+                    <span class="sql-keyword">?&gt;</span>
+                </div>
+            </section>
+            
+            <section id="crud">
+                <h2>Opérations CRUD</h2>
+                <p>CRUD représente les 4 opérations de base : Create, Read, Update, Delete</p>
+                
+                <div class="crud-diagram">
+                    <div class="crud-box">
+                        <h4>CREATE</h4>
+                        <p>INSERT</p>
+                        <p>Créer des données</p>
+                    </div>
+                    <div class="crud-box">
+                        <h4>READ</h4>
+                        <p>SELECT</p>
+                        <p>Lire des données</p>
+                    </div>
+                    <div class="crud-box">
+                        <h4>UPDATE</h4>
+                        <p>UPDATE</p>
+                        <p>Modifier des données</p>
+                    </div>
+                    <div class="crud-box">
+                        <h4>DELETE</h4>
+                        <p>DELETE</p>
+                        <p>Supprimer des données</p>
+                    </div>
+                </div>
+                
+                <h3>CREATE - Insertion de données</h3>
+                <div class="code-block">
+                    <span class="sql-comment">// Avec MySQLi</span><br>
+                    $sql = <span class="sql-string">"INSERT INTO utilisateurs (nom, email) VALUES ('Jean Dupont', 'jean@example.com')"</span>;<br>
+                    <span class="sql-keyword">if</span> (mysqli_query($connexion, $sql)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Nouvel utilisateur créé avec succès"</span>;<br>
+                    } <span class="sql-keyword">else</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Erreur: "</span> . mysqli_error($connexion);<br>
+                    }<br>
+                    <br>
+                    <span class="sql-comment">// Avec PDO (plus sécurisé)</span><br>
+                    $sql = <span class="sql-string">"INSERT INTO utilisateurs (nom, email) VALUES (?, ?)"</span>;<br>
+                    $stmt = $pdo->prepare($sql);<br>
+                    $stmt->execute([<span class="sql-string">'Jean Dupont'</span>, <span class="sql-string">'jean@example.com'</span>]);<br>
+                    echo <span class="sql-string">"Nouvel utilisateur créé avec succès"</span>;
+                </div>
+                
+                <h3>READ - Sélection de données</h3>
+                <div class="code-block">
+                    <span class="sql-comment">// Sélection simple</span><br>
+                    $sql = <span class="sql-string">"SELECT * FROM utilisateurs"</span>;<br>
+                    $resultat = mysqli_query($connexion, $sql);<br>
+                    <br>
+                    <span class="sql-keyword">if</span> (mysqli_num_rows($resultat) > 0) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">while</span>($ligne = mysqli_fetch_assoc($resultat)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Nom: "</span> . $ligne[<span class="sql-string">"nom"</span>] . <span class="sql-string">" - Email: "</span> . $ligne[<span class="sql-string">"email"</span>] . <span class="sql-string">"&lt;br&gt;"</span>;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    } <span class="sql-keyword">else</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Aucun résultat trouvé"</span>;<br>
+                    }
+                </div>
+                
+                <h3>UPDATE - Modification de données</h3>
+                <div class="code-block">
+                    $sql = <span class="sql-string">"UPDATE utilisateurs SET email='nouveau@example.com' WHERE id=1"</span>;<br>
+                    <span class="sql-keyword">if</span> (mysqli_query($connexion, $sql)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Enregistrement modifié avec succès"</span>;<br>
+                    } <span class="sql-keyword">else</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Erreur: "</span> . mysqli_error($connexion);<br>
+                    }
+                </div>
+                
+                <h3>DELETE - Suppression de données</h3>
+                <div class="code-block">
+                    $sql = <span class="sql-string">"DELETE FROM utilisateurs WHERE id=1"</span>;<br>
+                    <span class="sql-keyword">if</span> (mysqli_query($connexion, $sql)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Enregistrement supprimé avec succès"</span>;<br>
+                    } <span class="sql-keyword">else</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;echo <span class="sql-string">"Erreur: "</span> . mysqli_error($connexion);<br>
+                    }
+                </div>
+            </section>
+            
+            <section id="securite">
+                <h2>Sécurité : Injection SQL</h2>
+                
+                <h3>Bonne pratique (sécurisée)</h3>
+                <div class="code-block">
+                    <span class="sql-comment">// Avec PDO et requêtes préparées</span><br>
+                    $nom = $_POST['nom'];<br>
+                    $sql = <span class="sql-string">"SELECT * FROM utilisateurs WHERE nom = ?"</span>;<br>
+                    $stmt = $pdo->prepare($sql);<br>
+                    $stmt->execute([$nom]);<br>
+                    $resultat = $stmt->fetchAll();<br>
+                    <br>
+                    <span class="sql-comment">// Avec MySQLi et requêtes préparées</span><br>
+                    $sql = <span class="sql-string">"SELECT * FROM utilisateurs WHERE nom = ?"</span>;<br>
+                    $stmt = mysqli_prepare($connexion, $sql);<br>
+                    mysqli_stmt_bind_param($stmt, <span class="sql-string">"s"</span>, $nom);<br>
+                    mysqli_stmt_execute($stmt);<br>
+                    $resultat = mysqli_stmt_get_result($stmt);
+                </div>
+            </section>
+            
+            <section id="demo-interactive">
+                <h2>Console SQL interactive</h2>
+                
+                <div class="interactive-console">
+                    <h3>Testez vos requêtes SQL</h3>
+                    <p>Structure de la table <strong>utilisateurs</strong> :</p>
+                    
+                    <div class="table-box" style="max-width: 400px; margin: 10px 0;">
+                        <h4>utilisateurs</h4>
+                        <div class="table-column">
+                            <span class="column-name">id</span><br>
+                            <span class="column-type">INT PRIMARY KEY</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">nom</span><br>
+                            <span class="column-type">VARCHAR(100)</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">email</span><br>
+                            <span class="column-type">VARCHAR(255)</span>
+                        </div>
+                        <div class="table-column">
+                            <span class="column-name">age</span><br>
+                            <span class="column-type">INT</span>
+                        </div>
+                    </div>
+                    
+                    <textarea class="sqlInput" id="sqlInput" placeholder="Entrez votre requête SQL ici...">SELECT * FROM utilisateurs WHERE age > 25;</textarea>
+                    
+                    <div>
+                        <button class="execute-btn" onclick="executerRequete()">Exécuter la requête</button>
+                        <button class="execute-btn" onclick="exempleSelect()">Exemple SELECT</button>
+                        <button class="execute-btn" onclick="exempleInsert()">Exemple INSERT</button>
+                        <button class="execute-btn" onclick="exempleUpdate()">Exemple UPDATE</button>
+                    </div>
+                    
+                    <div class="consoleOutput" id="sqlResult">
+                        <span style="color: #8d99ae;">// Les résultats de votre requête apparaîtront ici</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="bonnes-pratiques">
+                <h2>Bonnes pratiques</h2>
+                
+                <div class="example">
+                    <h3>✅ À FAIRE</h3>
+                    <ul>
+                        <li>Utiliser PDO ou MySQLi avec requêtes préparées</li>
+                        <li>Valider et filtrer toutes les entrées utilisateur</li>
+                        <li>Utiliser des mots de passe forts pour les comptes DB</li>
+                        <li>Sauvegarder régulièrement la base de données</li>
+                        <li>Utiliser les transactions pour les opérations complexes</li>
+                    </ul>
+                    
+                    <h3>❅ À ÉVITER</h3>
+                    <ul>
+                        <li>Concaténer directement les variables dans les requêtes SQL</li>
+                        <li>Utiliser le compte root en production</li>
+                        <li>Stocker les mots de passe en clair</li>
+                        <li>Oublier de fermer les connexions</li>
+                        <li>Exposer les erreurs SQL aux utilisateurs</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Cours PHP - Chapitre 6 | Bases de données et MySQL</p>
+            <p>Chapitre précédent: <a href="../gestion_de_donnee/gestion2.html">Gestion des formulaires et interactions utilisateur partie 2</a></p>
+            <p>Prochain chapitre: <a href="../sql/sql.html">Plus loin avec SQL</a></p>
+        </footer>
+    </div>
+</body>
+</html>
