@@ -10,7 +10,7 @@
     }
     body {
       margin: 0;
-      font-family: 'Roboto', Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       background: #22C1C3;
       background: linear-gradient(180deg, rgba(34, 193, 195, 1) 0%, rgba(73, 235, 210, 1) 53%, rgba(232, 188, 93, 1) 100%);
       min-height: 100vh;
@@ -19,7 +19,7 @@
     header {
       background: #2d4696ed;
       color: #debc66;
-      font-family: cursive;
+      font-family: Arial, Helvetica, sans-serif;
       letter-spacing: 2px;
       text-align: center;
       padding: 10px 20px;
@@ -145,7 +145,32 @@
       border: 1px solid #4fa166
     }
 
-    @media (max-width: 720px) {
-      section, .pnj-bulle { max-width: 97vw; padding: 1rem; }
-      .pnj-pic { display: none;}
-    }
+    @media (max-width: 768px) {
+  main {
+    margin: 1.5rem auto;
+    width: 94vw;
+  }
+
+  .intro {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .link-pic {
+    margin: 0 auto;
+  }
+
+  .dialog {
+    margin: 1.5rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .dialog::before {
+    left: -23px; /* évite qu'elle sorte trop sur mini écrans */
+  }
+}

@@ -5,6 +5,7 @@ body {
       margin: 0;
       padding: 0;
     }
+
     .wrapper {
       max-width: 900px;
       margin: 40px auto;
@@ -42,18 +43,25 @@ body {
       color: #98fc55;
     }
     .comment {
+      display: none;
       color: #4a90e2;
     }
     a {
       color: #98fc55;
       text-decoration: none;
     }
-    a:hover {
-      color: #c9ff8a;
+    a:hover + .comment {
+      display: block;
+      color: #4a90e2;
       text-shadow: 0 0 8px #c9ff8a60;
     }
     .line {
       margin: 4px 0;
-      white-space: nowrap;
+      white-space: wrap;
       overflow-x: auto;
+      font-size: clamp(10px, 2vw, 17px);
+    }
+
+    body:hover{
+      cursor: default;
     }

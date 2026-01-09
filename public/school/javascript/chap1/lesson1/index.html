@@ -10,80 +10,82 @@
 <body>
     <header>
     <h1>Introduction au JAVASCRIPT</h1>
-    <p>Accepte la mission, jeune développeur, et découvre la magie du code côté navigateur !</p>
-    <img src="https://i.imgur.com/XSFVNY8.png" alt="épée pixel Zelda" width="48" />
+    <p>Accepte la mission, jeune développeur, et découvre la magie du code côté navigateur !</p>
   </header>
-  
-  <div class="dialog" style="position:relative;">
-    <img src="../asset/image/link1.gif" alt="Link style pixel" class="link-pic">
-    Bienvenue, aventurier ! <br>
-    Dans ce royaume du web, JavaScript est la baguette magique qui donne vie à tes pages. Prêt à décocher ton premier “script” ?
-  </div>
-
-  <section>
-    <h2>Qu’est-ce que JavaScript ?</h2>
-    <ul>
-      <li>Un langage de programmation indispensable pour ajouter de l’interactivité à une page web.</li>
-      <li>Il permet de réagir aux actions du joueur (clics, déplacements, appuis clavier...)</li>
-      <li>Sans JS, une page reste statique : avec JS, c’est une aventure !</li>
-    </ul>
-    <p><b>Anecdote Hylienne :</b> Même les coffres des temples s’ouvriraient grâce à une fonction JavaScript cachée...</p>
-  </section>
-  
-  <section>
-    <h2>La déclaration de variables — “Découvre tes <span style="color:#c28e0e;">objets mystiques</span>”</h2>
-    <p>En JavaScript, tu utilises 3 mots magiques : <code>let</code>, <code>const</code> et <code>var</code> pour créer tes objets (variables) :</p>
-    <div class="code">
-      // Épée que tu peux changer plus tard<br>
-      let epee = "Lame d'Hylia";<br><br><br>
-      // Bouclier sacré que tu ne changeras pas<br>
-      const bouclier = "Bouclier Hylien";<br><br><br>
-      // Méthode ancienne (évite-la), valable mais poussiéreuse<br>
-      var potion = "Remède ancien";<br>
+  <main>
+    <div class="intro">
+      <img src="../asset/image/link1.gif" alt="Link style pixel" class="link-pic">
+      <div class="dialog">
+        Bienvenue, aventurier ! <br>
+        Dans ce royaume du web, JavaScript est la baguette magique qui donne vie à tes pages. Prêt à décocher ton premier “script” ?
+      </div>
     </div>
-    <ul>
-      <li><code>let</code> : pour une variable qui peut évoluer</li>
-      <li><code>const</code> : pour une variable qui ne change jamais</li>
-      <li><code>var</code> : ancêtre, à éviter pour éviter les bugs mystérieux</li>
-    </ul>
-    <p>Chaque variable est comme une place dans ton inventaire !</p>
-  </section>
 
-  <section>
-    <h2>Sémantique de base — “Parle comme un Sage”</h2>
-    <p>
-      Les noms de variables parlent au Héros : choisis des noms clairs et logiques, évite les malédictions du “x” ou “y” sans explication.
-    </p>
-    <div class="code">
-        // Mauvais exemple<br>
-        let x = 7;<br><br>
-        // Bon exemple<br>
-        let nombreDeRubis = 7;
-    </div>
-    <p>
-      JS ne tolère pas les accents ni les espaces dans les noms, mais accepte les lettres, chiffres et "_".  
-      <b>Convention :</b> commence par une minuscule et utilise le <i>camelCase</i> (ex. : <code>nombreDeCœurs</code>). Ainsi, tu laisses une trace claire pour les autres aventuriers qui liront ton code !
-    </p>
-  </section>
+    <section>
+      <h2>Qu’est-ce que JavaScript ?</h2>
+      <ul>
+        <li>Un langage de programmation indispensable pour ajouter de l’interactivité à une page web.</li>
+        <li>Il permet de réagir aux actions du joueur (clics, déplacements, appuis clavier...)</li>
+        <li>Sans JS, une page reste statique : avec JS, c’est une aventure !</li>
+      </ul>
+      <p><b>Anecdote Hylienne :</b> Même les coffres des temples s’ouvriraient grâce à une fonction JavaScript cachée...</p>
+    </section>
+    
+    <section>
+      <h2>La déclaration de variables — “Découvre tes <span style="color:#c28e0e;">objets mystiques</span>”</h2>
+      <p>En JavaScript, tu utilises 3 mots magiques: <code>let</code>, <code>const</code> et <code>var</code> pour créer tes objets (variables) :</p>
+      <div class="code">
+        // Épée que tu peux changer plus tard<br>
+        let epee = "Lame d'Hylia";<br><br><br>
+        // Bouclier sacré que tu ne changeras pas<br>
+        const bouclier = "Bouclier Hylien";<br><br><br>
+        // Méthode ancienne (évite-la), valable mais poussiéreuse<br>
+        var potion = "Remède ancien";<br>
+      </div>
+      <ul>
+        <li><code>let</code> : pour une variable qui peut évoluer</li>
+        <li><code>const</code> : pour une variable qui ne change jamais</li>
+        <li><code>var</code> : ancêtre, à éviter pour éviter les bugs mystérieux</li>
+      </ul>
+      <p>Chaque variable est comme une place dans ton inventaire !</p>
+    </section>
 
-  <section>
-    <img src="https://cdn-icons-png.flaticon.com/512/526/526484.png" alt="cristal" class="chest">
-    <h2>Mini Quête : Manipuler le DOM (“le monde à façonner”)</h2>
-    <p>
-      Le DOM (= Document Object Model) est la carte magique de ta page : JS te permet d’en modifier chaque brique !
-    </p>
-    <div class="code">
-        // Afficher un message dans une boîte secrète<br><br>
-        let text = document.getElementById("secretBox");
-        text.textContent = 'TU NE ME VOIS PLUS !!!';
-    </div>
-    <ul>
-        <li><code>let text</code> : crée une variable pour stocker un élément HTML</li>
-        <li><code>document.getElementById()</code> : pour trouver un coffre (élément HTML) précis</li>
-        <li><code>text.textContent</code> : pour modifier le contenu du coffre</li>
-    </ul>
-    <div id="secretBox">(TU ME VOIS ?)</div>
-    <button onclick='congrateText()'>Lancer le sort !</button>
-  </section>
+    <section>
+      <h2>Sémantique de base — “Parle comme un Sage”</h2>
+      <p>
+        Les noms de variables parlent au Héros : choisis des noms clairs et logiques, évite les malédictions du “x” ou “y” sans explication.
+      </p>
+      <div class="code">
+          // Mauvais exemple<br>
+          let x = 7;<br><br>
+          // Bon exemple<br>
+          let nombreDeRubis = 7;
+      </div>
+      <p>
+        JS ne tolère pas les accents ni les espaces dans les noms, mais accepte les lettres, chiffres et "_".  
+        <b>Convention :</b> commence par une minuscule et utilise le <i>camelCase</i> (ex. : <code>nombreDeCœurs</code>). Ainsi, tu laisses une trace claire pour les autres aventuriers qui liront ton code !
+      </p>
+    </section>
+
+    <section>
+      <img src="https://cdn-icons-png.flaticon.com/512/526/526484.png" alt="cristal" class="chest">
+      <h2>Mini Quête : Manipuler le DOM (“le monde à façonner”)</h2>
+      <p>
+        Le DOM (= Document Object Model) est la carte magique de ta page : JS te permet d’en modifier chaque brique !
+      </p>
+      <div class="code">
+          // Afficher un message dans une boîte secrète<br><br>
+          let text = document.getElementById("secretBox");<br>
+          text.textContent = 'TU NE ME VOIS PLUS !!!';
+      </div>
+      <ul>
+          <li><code>let text</code> : crée une variable pour stocker un élément HTML</li>
+          <li><code>document.getElementById()</code>: pour trouver un coffre (élément HTML) précis</li>
+          <li><code>text.textContent</code>: pour modifier le contenu du coffre</li>
+      </ul>
+      <div id="secretBox">TU ME VOIS ?</div>
+      <button onclick='congrateText()'>Lancer le sort !</button>
+    </section>
+  </main>
 </body>
 </html>

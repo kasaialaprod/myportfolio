@@ -1,6 +1,6 @@
 body {
       background: linear-gradient(135deg, #71c7ec 40%, #7ed957 100%);
-      font-family: 'Press Start 2P', 'Arial', monospace;
+      font-family: Arial, Helvetica, sans-serif;
       margin: 0; padding: 0;
 }
 
@@ -9,9 +9,20 @@ header {
       color: #ffe877;
       padding: 2rem 1rem;
       text-align: center;
-      font-family: cursive;
+      font-family: Arial, Helvetica, sans-serif;
       border-bottom: 5px solid #0e3c4a;
       box-shadow: 0 2px 8px #20204080;
+}
+
+main{
+      margin: 50px;
+}
+
+.intro {
+    margin: 10px auto;
+    width: 80%;
+    display: flex;
+
 }
     
 .dialog {
@@ -38,15 +49,15 @@ header {
 .link-pic {
       width: 150px; 
       height: 150px;
-      position: absolute;
-      left: -125px; top: -14px;
+      position: relative;
+      left: 0rem; top: 0rem;
       transform: scaleX(-1);
       border-radius: 10px;
 }
 section {
     margin: 10px auto;
     width: 80%;
-    background: rgba(255,255,255,0.82);
+    background: #ffffffd1;
     border-radius: 18px;
     box-shadow: 0 3px 14px #334e4380;
     padding: 20px;
@@ -64,8 +75,7 @@ h2, h3 {
       border-left: 6px solid #8dd8d0;
       border-radius: 6px;
       margin-top: 1rem; padding: 1rem;
-      font-size: 1rem;
-      overflow-x: auto;
+      font-size: clamp(0.5rem, 2.5vw, 1.3rem);
 }
 .chest {
       display: block;
@@ -99,6 +109,32 @@ button:hover {
       background: #9aa85a;
 }
 
-@media (max-width: 600px) {
-      section, .pnj-bulle { width: 95%; }
+@media (max-width: 768px) {
+  main {
+    margin: 1.5rem auto;
+    width: 94vw;
+  }
+
+  .intro {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .link-pic {
+    margin: 0 auto;
+  }
+
+  .dialog {
+    margin: 1.5rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .dialog::before {
+    left: -23px; /* évite qu'elle sorte trop sur mini écrans */
+  }
 }

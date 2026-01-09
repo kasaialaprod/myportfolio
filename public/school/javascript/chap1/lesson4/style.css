@@ -9,7 +9,7 @@ background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(42, 194, 182, 1
 header {
     background: #37a4c4;
     color: #ffe38f;
-    font-family: cursive;
+    font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 2px;
     text-align: center;
     padding: 35px 10px 20px 10px;
