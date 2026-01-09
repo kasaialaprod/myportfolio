@@ -188,3 +188,8 @@ footer {
     font-size: 0.9em;
     letter-spacing: 0.5px;
 }
+
+footer a {
+    color: #00bcd4;
+    text-decoration: none;
+}
