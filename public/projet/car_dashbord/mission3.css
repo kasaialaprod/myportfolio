@@ -1,0 +1,247 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.dashboard-container {
+    width: 95%;
+    max-width: 1200px;
+    height: 90vh;
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(0, 100, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    gap: 10px;
+    padding: 20px;
+}
+
+/* Éléments de style Mercedes */
+.mercedes-logo {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #fff 0%, #aaa 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #000;
+    font-size: 12px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Section centrale - Compteur de vitesse */
+.speed-section {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.speed-display {
+    font-size: 100px;
+    font-weight: 300;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 150, 255, 0.7);
+    margin-bottom: 10px;
+}
+
+.speed-unit {
+    font-size: 24px;
+    color: #aaa;
+    margin-left: 10px;
+}
+
+.speed-label {
+    font-size: 18px;
+    color: #aaa;
+    letter-spacing: 2px;
+    margin-top: -10px;
+}
+
+/* Compteur de tours */
+.rpm-section {
+    grid-column: 2;
+    grid-row: 3;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+.rpm-bar {
+    width: 80%;
+    height: 20px;
+    background: rgba(50, 50, 50, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.rpm-fill {
+    height: 100%;
+    width: 45%;
+    background: linear-gradient(90deg, #00aaff 0%, #0066ff 100%);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.rpm-markers {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #777;
+}
+
+/* Section gauche - Informations diverses */
+.left-section {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.info-card {
+    background: rgba(40, 40, 40, 0.7);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.info-title {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 24px;
+    color: #fff;
+}
+
+/* Section droite - Navigation et média */
+.right-section {
+    grid-column: 3;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.nav-card {
+    background: rgba(40, 40, 40, 0.7);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.nav-title {
+    font-size: 16px;
+    color: #00aaff;
+    margin-bottom: 10px;
+}
+
+.nav-destination {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.nav-info {
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Section en bas - Informations véhicule */
+.bottom-section {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.vehicle-info {
+    display: flex;
+    align-items: center;
+}
+
+.temp-display {
+    font-size: 18px;
+    color: #fff;
+    margin-right: 30px;
+}
+
+.fuel-display {
+    font-size: 18px;
+    color: #fff;
+}
+
+.gear-display {
+    font-size: 24px;
+    color: #00aaff;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+/* Éléments décoratifs */
+.accent-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, #00aaff 50%, transparent 100%);
+}
+
+.glow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(circle at center, rgba(0, 150, 255, 0.1) 0%, transparent 70%);
+}
+
+/* Animation pour le compteur de vitesse */
+@keyframes pulse {
+    0% { text-shadow: 0 0 10px rgba(0, 150, 255, 0.7); }
+    50% { text-shadow: 0 0 20px rgba(0, 150, 255, 0.9); }
+    100% { text-shadow: 0 0 10px rgba(0, 150, 255, 0.7); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}

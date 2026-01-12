@@ -93,6 +93,15 @@ footer {
   opacity: .88;
 }
 
+footer a {
+  color: #426439;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: aqua;
+}
+
 /* RESPONSIVE : petits écrans */
 
 @media (max-width: 768px) {
